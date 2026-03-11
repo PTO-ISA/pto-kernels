@@ -3,6 +3,7 @@
 ## Common Checklist
 
 - [ ] Baseline adapter exists
+- [ ] ops-transformer seed package built or install blocker recorded
 - [ ] PTO-DSL source exists
 - [ ] `kernel.pto` archived
 - [ ] `kernel.cpp` archived

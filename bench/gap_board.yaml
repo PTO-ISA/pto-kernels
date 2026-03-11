@@ -88,3 +88,14 @@ gaps:
       - ffn
       - moe_token_permute
       - flash_attention_score
+  - id: ops-transformer-build-metadata-layout
+    component: ops-transformer
+    status: open
+    summary: The local CANN package path does not expose the share/info/*/version.info metadata expected by ops-transformer package builds, so seed package bring-up fails before compilation starts.
+    blocking_kernels:
+      - apply_rotary_pos_emb
+      - grouped_matmul
+      - ffn
+      - moe_token_permute
+      - flash_attention_score
+      - matmul_reduce_scatter

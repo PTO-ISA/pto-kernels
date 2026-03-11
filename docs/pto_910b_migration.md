@@ -65,6 +65,37 @@ Current known bring-up blockers:
   installed into the local CANN runtime, so `torch_npu` entrypoints can fail
   until the matching packages are built and installed.
 
+## Baseline Bring-Up
+
+Use the repo-local bring-up scripts for the seed package instead of ad hoc
+commands:
+
+```bash
+source scripts/source_env.sh
+python3 scripts/check_ops_transformer_runtime.py
+bash scripts/bringup_ops_transformer_seeds.sh --install
+python3 scripts/check_ops_transformer_runtime.py
+```
+
+Defaults:
+
+- target SoC: `ascend910b`
+- seed package ops: `apply_rotary_pos_emb,grouped_matmul,ffn,moe_token_permute,flash_attention_score,matmul_reduce_scatter`
+- install root: inferred from `ASCEND_TOOLKIT_HOME`
+
+Expected outcome for this phase:
+
+- `build_out/cann-*-ops-transformer_*.run` exists in the local workspace
+- the package installs into the current toolkit root
+- runtime probe reports installed package metadata before per-kernel smoke runs begin
+
+Current local blocker:
+
+- `scripts/bringup_ops_transformer_seeds.sh` currently fails in preflight because
+  the local toolkit path does not expose the `share/info/*/version.info`
+  metadata that `ops-transformer` expects for package builds. This is tracked as
+  `ops-transformer-build-metadata-layout`.
+
 ## Waves
 
 - Wave 1: `posembedding`, `gmm`, `ffn`

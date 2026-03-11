@@ -4,12 +4,13 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "python"))
 
-from pto_kernels.utils import detect_env
+from pto_kernels.utils import detect_env, inspect_ops_transformer_runtime
 
 
 def main() -> int:
@@ -23,9 +24,14 @@ def main() -> int:
     args = parser.parse_args()
 
     env = detect_env()
+    ops_runtime = inspect_ops_transformer_runtime(toolkit_home=env.toolkit_home)
 
     if args.json:
-        print(env.to_json())
+        payload = {
+            "environment": json.loads(env.to_json()),
+            "ops_transformer_runtime": json.loads(ops_runtime.to_json()),
+        }
+        print(json.dumps(payload, indent=2, sort_keys=True))
     else:
         print(f"toolkit_home      : {env.toolkit_home}")
         print(f"toolkit_version   : {env.toolkit_version}")
@@ -37,6 +43,9 @@ def main() -> int:
         print(f"soc_target        : {env.soc_target}")
         print(f"pto_arch          : {env.pto_arch}")
         print(f"npu_arch          : {env.npu_arch}")
+        print(f"ops_pkg_metadata  : {ops_runtime.build_dependency_metadata_present}")
+        print(f"ops_pkg_installed : {ops_runtime.package_installed}")
+        print(f"ops_pkg_runfiles  : {len(ops_runtime.package_runfiles)}")
         if env.warnings:
             print("warnings:")
             for warning in env.warnings:
