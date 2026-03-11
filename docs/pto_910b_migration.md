@@ -41,6 +41,30 @@ For each seed kernel, the bring-up path is:
 6. Preserve `kernel.pto`, `kernel.cpp`, caller source, and `.so` artifacts with `scripts/trace_flow.py`.
 7. Record correctness and latency results under `bench/results/`.
 
+## First Executable Slice
+
+The first runnable PTO slice is currently the `grouped_matmul` seed in a
+deliberately constrained dense variant:
+
+- single batch
+- one dense weight
+- BF16 inputs
+- F32 accumulation/output
+- no bias, activation, quantization, or routing
+
+This variant exists to validate the PTO-DSL -> PTOAS -> bisheng -> `.so`
+pipeline on the current `910B1` host before the full grouped semantics land.
+
+Current known bring-up blockers:
+
+- `ptodsl` still needs a reusable BF16 epilogue conversion path, so the PTO
+  seed keeps the output in `float32`.
+- `ptodsl` still needs reusable routing/group-list primitives for the full
+  grouped GEMM semantics.
+- The runtime baseline for several `ops-transformer` kernels is not yet
+  installed into the local CANN runtime, so `torch_npu` entrypoints can fail
+  until the matching packages are built and installed.
+
 ## Waves
 
 - Wave 1: `posembedding`, `gmm`, `ffn`

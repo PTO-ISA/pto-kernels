@@ -8,7 +8,19 @@ META = planned_meta(
     archetype="gmm",
     ops_transformer_path="gmm/grouped_matmul",
     blockers=[
-        "ptoas-memory-plan-sync-pipeline",
-        "ptoisa-a2a3-template-gaps",
+        "ptodsl-bf16-epilogue-conversion",
+        "ptodsl-group-routing-primitives",
+        "ops-transformer-runtime-package-bringup",
     ],
 )
+
+META["seed_variant"] = {
+    "name": "dense_single_weight_bf16_to_f32",
+    "shape": [128, 128, 128],
+    "limits": [
+        "single batch only",
+        "single dense weight only",
+        "no bias/quantization/activation",
+        "output kept in float32 until bf16 epilogue lands in ptodsl",
+    ],
+}

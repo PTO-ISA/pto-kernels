@@ -39,6 +39,12 @@ for repo_name in pto-dsl PTOAS pto-isa ops-transformer; do
   fi
 done
 
+if [[ -n "${PTO_PTO_ISA_ROOT:-}" ]]; then
+  export PTO_ISA_ROOT="${PTO_PTO_ISA_ROOT}"
+  export PTO_ISA_INCLUDE_DIR="${PTO_PTO_ISA_ROOT}/include"
+  export CPATH="${PTO_ISA_INCLUDE_DIR}:${CPATH:-}"
+fi
+
 if [[ -n "${PTO_PTO_DSL_ROOT:-}" ]]; then
   export PYTHONPATH="${PTO_PTO_DSL_ROOT}:${REPO_ROOT}/python:${PYTHONPATH:-}"
 else
@@ -56,4 +62,5 @@ fi
 echo "[env] PTO_KERNELS_SOC=${PTO_KERNELS_SOC}"
 echo "[env] PTO_KERNELS_PTO_ARCH=${PTO_KERNELS_PTO_ARCH}"
 echo "[env] PTO_KERNELS_NPU_ARCH=${PTO_KERNELS_NPU_ARCH}"
+echo "[env] PTO_ISA_INCLUDE_DIR=${PTO_ISA_INCLUDE_DIR:-}"
 echo "[env] PYTHONPATH=${PYTHONPATH}"

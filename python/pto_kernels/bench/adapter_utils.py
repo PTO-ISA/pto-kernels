@@ -49,7 +49,20 @@ def compile_pto_kernel(repo_root: Path, kernel_path: str, output_dir: Path) -> d
     if not callable(builder):
         return blocked("kernel module does not expose build_jit_wrapper(output_dir)")
     try:
-        builder(output_dir=output_dir)
+        wrapper = builder(output_dir=output_dir)
     except NotImplementedError as exc:
         return blocked(str(exc))
-    return {"status": "ready", "kernel_path": str(kernel_file), "output_dir": str(output_dir)}
+    build = getattr(wrapper, "_build", None)
+    try:
+        if callable(build):
+            build()
+    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+        return blocked(f"PTO compile failed: {exc}")
+    artifact_paths = getattr(wrapper, "_artifact_paths", lambda: ())()
+    return {
+        "status": "ready",
+        "kernel_path": str(kernel_file),
+        "output_dir": str(output_dir),
+        "artifact_paths": [str(path) for path in artifact_paths],
+        "library_path": getattr(wrapper, "library_path", None),
+    }
