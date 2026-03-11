@@ -1,0 +1,64 @@
+updated_for_target: ascend910b
+seed_kernel_scope:
+  - apply_rotary_pos_emb
+  - grouped_matmul
+  - ffn
+  - moe_token_permute
+  - flash_attention_score
+  - matmul_reduce_scatter
+gaps:
+  - id: ptodsl-rope-layout-primitives
+    component: ptodsl
+    status: open
+    summary: Missing reusable rotary/rope tile view and layout helpers for posembedding kernels.
+    blocking_kernels:
+      - apply_rotary_pos_emb
+      - rotary_position_embedding
+      - rope_with_sin_cos_cache
+  - id: ptodsl-sparse-attention-primitives
+    component: ptodsl
+    status: open
+    summary: Missing sparse attention, cache gather/scatter, and advanced masking primitives needed by attention wave 4.
+    blocking_kernels:
+      - flash_attention_score
+      - gather_pa_kv_cache
+      - kv_quant_sparse_flash_attention
+      - sparse_flash_attention
+      - nsa_selected_attention
+  - id: ptodsl-multicore-collective-primitives
+    component: ptodsl
+    status: open
+    summary: Missing reusable collective and multicore coordination surface for MC2 kernels.
+    blocking_kernels:
+      - matmul_reduce_scatter
+      - all_gather_matmul
+      - grouped_mat_mul_all_reduce
+      - moe_distribute_dispatch
+  - id: ptoas-a3-legality-diagnostics
+    component: PTOAS
+    status: open
+    summary: Need better verifier coverage and diagnostics for the A2/A3 backend profile used on 910B.
+    blocking_kernels:
+      - apply_rotary_pos_emb
+      - grouped_matmul
+      - ffn
+      - flash_attention_score
+      - matmul_reduce_scatter
+  - id: ptoas-memory-plan-sync-pipeline
+    component: PTOAS
+    status: open
+    summary: Need stable memory planning and sync lowering for deep pipelined kernels with manual and auto-sync modes.
+    blocking_kernels:
+      - grouped_matmul
+      - ffn
+      - flash_attention_score
+      - moe_token_permute
+      - matmul_reduce_scatter
+  - id: ptoisa-a2a3-template-gaps
+    component: pto-isa
+    status: discovery
+    summary: Audit A2/A3 template coverage and performance for rope, grouped matmul, and MC2 consumer kernels before DSL porting closes.
+    blocking_kernels:
+      - apply_rotary_pos_emb
+      - grouped_matmul
+      - matmul_reduce_scatter
