@@ -1,19 +1,15 @@
 """Constrained PTO-DSL seed for apply_rotary_pos_emb on 910B.
 
-The PTO kernel operates over a flattened contiguous `[rows, D]` view, which
-lets the current seed cover both:
+The current seed keeps the flattened `[rows, D]` contract for the validated
+`TND` and `BSND` half-mode cases, but the execution shape is now closer to the
+upstream ops-transformer kernel:
 
-- `TND` with `rows = tokens * heads`
-- `BSND` with `rows = batch * seq * heads`
+- each core owns one contiguous chunk of rows
+- query, key, cos, and sin are loaded once per chunk
+- the rotation is applied over full `[chunk_rows, half_d]` vector tiles
 
-Current limits remain:
-
-- dtype = float16
-- query/key heads fixed to 1
-- head_dim fixed to 128
-
-Additional rotary modes and broader head/layout semantics remain follow-up
-work.
+The remaining gap is the upstream double-buffer queue pipeline. PTO source stays
+sync-free and relies on PTOAS autosync insertion.
 """
 
 from ptodsl import jit, pto, tile
@@ -25,9 +21,20 @@ const = s.const
 
 D = 128
 HALF_D = D // 2
+TOTAL_ROWS = 64
 
 
-def _meta_data():
+def _block_dim() -> int:
+    return tuned_int("PTO_APPLY_ROTARY_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8))
+
+
+def _chunk_rows(block_dim: int) -> int:
+    if TOTAL_ROWS % block_dim != 0:
+        raise ValueError(f"apply_rotary_pos_emb seed requires TOTAL_ROWS={TOTAL_ROWS} to be divisible by block_dim={block_dim}")
+    return TOTAL_ROWS // block_dim
+
+
+def _meta_data(block_dim: int):
     dtype = pto.float16
     ptr = pto.PtrType(dtype)
     i32 = pto.int32
@@ -49,10 +56,13 @@ def _meta_data():
 
 
 def build_jit_wrapper(*, output_dir):
+    block_dim = _block_dim()
+    chunk_rows = _chunk_rows(block_dim)
+
     @jit(
-        meta_data=_meta_data,
+        meta_data=lambda: _meta_data(block_dim),
         output_dir=output_dir,
-        block_dim=tuned_int("PTO_APPLY_ROTARY_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)),
+        block_dim=block_dim,
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -67,49 +77,41 @@ def build_jit_wrapper(*, output_dir):
         c1 = const(1)
         cD = const(D)
         cHalfD = const(HALF_D)
+        cRows = const(TOTAL_ROWS)
+        cChunkRows = const(chunk_rows)
 
         rows = s.index_cast(rows_i32)
 
         with pto.vector_section():
-            cid = pto.get_block_idx()
-            sub_bid = pto.get_subblock_idx()
-            sub_bnum = pto.get_subblock_num()
-            num_blocks = pto.get_block_num()
-
-            vid = s.index_cast(cid * sub_bnum + sub_bid)
-            num_cores = s.index_cast(num_blocks * sub_bnum)
-
-            rows_per_core = s.ceil_div(rows, num_cores)
-            row_start = vid * rows_per_core
-            row_end = s.min_u(row_start + rows_per_core, rows)
-            num_rows = row_end - row_start
+            bid = s.index_cast(pto.get_block_idx())
+            row_start = bid * cChunkRows
 
             tv_query = pto.as_tensor(
                 tensor,
                 ptr=query_ptr,
-                shape=[rows, cD],
+                shape=[cRows, cD],
                 strides=[cD, c1],
             )
             tv_key = pto.as_tensor(
                 tensor,
                 ptr=key_ptr,
-                shape=[rows, cD],
+                shape=[cRows, cD],
                 strides=[cD, c1],
             )
             tv_cos = pto.as_tensor(
                 tensor,
                 ptr=cos_ptr,
-                shape=[rows, cD],
+                shape=[cRows, cD],
                 strides=[cD, c1],
             )
             tv_sin = pto.as_tensor(
                 tensor,
                 ptr=sin_ptr,
-                shape=[rows, cD],
+                shape=[cRows, cD],
                 strides=[cD, c1],
             )
 
-            with pto.if_context(num_rows > c0):
+            with pto.if_context(s.eq(rows, cRows)):
                 tb_query = pto.alloc_tile(tile_full)
                 tb_key = pto.alloc_tile(tile_full)
                 tb_cos = pto.alloc_tile(tile_full)
@@ -120,7 +122,7 @@ def build_jit_wrapper(*, output_dir):
                 tb_tmp1 = pto.alloc_tile(tile_half)
                 tb_zero = pto.alloc_tile(tile_half)
 
-                for row_i in pto.range(c0, num_rows, c1):
+                for row_i in pto.range(c0, cChunkRows, c1):
                     row_idx = row_start + row_i
 
                     sv_query = pto.slice_view(

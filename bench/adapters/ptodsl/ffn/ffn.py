@@ -35,8 +35,15 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_FFN_HIDDEN": str(variant.hidden_size),
         "PTO_FFN_INTERMEDIATE": str(variant.intermediate_size),
         "PTO_FFN_OUTPUT": str(variant.output_size),
+        "PTO_FFN_BASE_M1": os.environ.get("PTO_FFN_BASE_M1", "16"),
+        "PTO_FFN_BASE_N1": os.environ.get("PTO_FFN_BASE_N1", "64"),
         "PTO_FFN_BASE_K1": os.environ.get("PTO_FFN_BASE_K1", "32"),
+        "PTO_FFN_BLOCK_DIM1": os.environ.get("PTO_FFN_BLOCK_DIM1", "8"),
+        "PTO_FFN_BASE_M2": os.environ.get("PTO_FFN_BASE_M2", "16"),
+        "PTO_FFN_BASE_N2": os.environ.get("PTO_FFN_BASE_N2", "64"),
         "PTO_FFN_BASE_K2": os.environ.get("PTO_FFN_BASE_K2", "64"),
+        "PTO_FFN_BLOCK_DIM2": os.environ.get("PTO_FFN_BLOCK_DIM2", "8"),
+        "PTO_FFN_RELU_BLOCK_DIM": os.environ.get("PTO_FFN_RELU_BLOCK_DIM", "8"),
     }
 
 

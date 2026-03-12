@@ -20,8 +20,15 @@ def _config() -> DenseReluFfnConfig:
         hidden=tuned_int("PTO_FFN_HIDDEN", 128, valid_values=(128,)),
         intermediate=tuned_int("PTO_FFN_INTERMEDIATE", 256, valid_values=(256, 512)),
         output=tuned_int("PTO_FFN_OUTPUT", 128, valid_values=(128,)),
+        base_m1=tuned_int("PTO_FFN_BASE_M1", 16, valid_values=(16, 32, 64)),
+        base_n1=tuned_int("PTO_FFN_BASE_N1", 64, valid_values=(64, 128, 256)),
         base_k1=tuned_int("PTO_FFN_BASE_K1", 32, valid_values=(32, 64)),
+        block_dim1=tuned_int("PTO_FFN_BLOCK_DIM1", 8, valid_values=(1, 2, 4, 8, 16, 20)),
+        base_m2=tuned_int("PTO_FFN_BASE_M2", 16, valid_values=(16, 32, 64)),
+        base_n2=tuned_int("PTO_FFN_BASE_N2", 64, valid_values=(64, 128)),
         base_k2=tuned_int("PTO_FFN_BASE_K2", 64, valid_values=(32, 64)),
+        block_dim2=tuned_int("PTO_FFN_BLOCK_DIM2", 8, valid_values=(1, 2, 4, 8, 16, 20)),
+        relu_block_dim=tuned_int("PTO_FFN_RELU_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16, 20)),
     )
 
 

@@ -25,5 +25,6 @@ META["seed_variant"] = {
         "float16 only",
         "x1 and x2 fixed to 2D dense ND tensors",
         "PTO seed only covers the local matmul; the benchmark harness performs HCCL all_reduce plus row chunking outside PTODSL",
+        "phase-2 rewrite now follows the upstream rank-chunk traversal more closely across the validated 128x256x128 and 64x256x128 shapes",
     ],
 }

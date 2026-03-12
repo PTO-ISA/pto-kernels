@@ -33,7 +33,15 @@ def _variant_env(variant) -> dict[str, str]:
     return {
         "PTO_ATTENTION_SEQ_LEN": str(variant.seq_len),
         "PTO_ATTENTION_HEAD_DIM": str(variant.head_dim),
+        "PTO_ATTENTION_QK_BASE_M": os.environ.get("PTO_ATTENTION_QK_BASE_M", "16"),
+        "PTO_ATTENTION_QK_BASE_N": os.environ.get("PTO_ATTENTION_QK_BASE_N", "16"),
         "PTO_ATTENTION_QK_BASE_K": os.environ.get("PTO_ATTENTION_QK_BASE_K", "64"),
+        "PTO_ATTENTION_QK_BLOCK_DIM": os.environ.get("PTO_ATTENTION_QK_BLOCK_DIM", "8"),
+        "PTO_ATTENTION_PV_BASE_M": os.environ.get("PTO_ATTENTION_PV_BASE_M", "16"),
+        "PTO_ATTENTION_PV_BASE_N": os.environ.get("PTO_ATTENTION_PV_BASE_N", "32"),
+        "PTO_ATTENTION_PV_BASE_K": os.environ.get("PTO_ATTENTION_PV_BASE_K", "32"),
+        "PTO_ATTENTION_PV_BLOCK_DIM": os.environ.get("PTO_ATTENTION_PV_BLOCK_DIM", "8"),
+        "PTO_ATTENTION_SOFTMAX_BLOCK_DIM": os.environ.get("PTO_ATTENTION_SOFTMAX_BLOCK_DIM", "8"),
     }
 
 

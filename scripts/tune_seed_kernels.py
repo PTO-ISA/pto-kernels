@@ -25,7 +25,12 @@ SEED_CASES = (
     {
         "name": "grouped_matmul",
         "spec": "bench/specs/gmm/grouped_matmul.yaml",
-        "env_grid": {"PTO_GROUPED_MATMUL_BASE_K": (32, 64)},
+        "env_grid": {
+            "PTO_GROUPED_MATMUL_BASE_M": (16, 32),
+            "PTO_GROUPED_MATMUL_BASE_N": (64, 128),
+            "PTO_GROUPED_MATMUL_BASE_K": (32, 64),
+            "PTO_GROUPED_MATMUL_BLOCK_DIM": (4, 8, 16),
+        },
     },
     {
         "name": "apply_rotary_pos_emb",
@@ -36,19 +41,36 @@ SEED_CASES = (
         "name": "ffn",
         "spec": "bench/specs/ffn/ffn.yaml",
         "env_grid": {
+            "PTO_FFN_BASE_M1": (16, 32),
+            "PTO_FFN_BASE_N1": (64, 128),
             "PTO_FFN_BASE_K1": (32, 64),
+            "PTO_FFN_BLOCK_DIM1": (4, 8, 16),
+            "PTO_FFN_BASE_M2": (16, 32),
+            "PTO_FFN_BASE_N2": (64, 128),
             "PTO_FFN_BASE_K2": (32, 64),
+            "PTO_FFN_BLOCK_DIM2": (4, 8, 16),
+            "PTO_FFN_RELU_BLOCK_DIM": (4, 8, 16),
         },
     },
     {
         "name": "moe_token_permute",
         "spec": "bench/specs/moe/moe_token_permute.yaml",
-        "env_grid": {},
+        "env_grid": {"PTO_MOE_BLOCK_DIM": (1, 2, 4, 8, 16)},
     },
     {
         "name": "flash_attention_score",
         "spec": "bench/specs/attention/flash_attention_score.yaml",
-        "env_grid": {"PTO_ATTENTION_QK_BASE_K": (32, 64)},
+        "env_grid": {
+            "PTO_ATTENTION_QK_BASE_M": (16, 32),
+            "PTO_ATTENTION_QK_BASE_N": (16, 32),
+            "PTO_ATTENTION_QK_BASE_K": (32, 64),
+            "PTO_ATTENTION_QK_BLOCK_DIM": (4, 8, 16),
+            "PTO_ATTENTION_PV_BASE_M": (16, 32),
+            "PTO_ATTENTION_PV_BASE_N": (32, 64),
+            "PTO_ATTENTION_PV_BASE_K": (16, 32, 64),
+            "PTO_ATTENTION_PV_BLOCK_DIM": (4, 8, 16),
+            "PTO_ATTENTION_SOFTMAX_BLOCK_DIM": (4, 8, 16),
+        },
     },
     {
         "name": "matmul_reduce_scatter",

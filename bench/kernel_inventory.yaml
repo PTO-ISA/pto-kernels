@@ -85,15 +85,15 @@ included:
   - {name: nsa_selected_attention_infer, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/nsa_selected_attention_infer}
   - {name: quant_lightning_indexer, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/quant_lightning_indexer}
   - {name: sparse_flash_attention, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/sparse_flash_attention}
-  - {name: all_gather_matmul, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/all_gather_matmul}
-  - {name: grouped_mat_mul_all_reduce, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/grouped_mat_mul_all_reduce}
-  - {name: inplace_matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/inplace_matmul_all_reduce_add_rms_norm}
-  - {name: matmul_all_reduce, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/matmul_all_reduce}
-  - {name: matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/matmul_all_reduce_add_rms_norm}
+  - {name: all_gather_matmul, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/all_gather_matmul}
+  - {name: grouped_mat_mul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/grouped_mat_mul_all_reduce}
+  - {name: inplace_matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/inplace_matmul_all_reduce_add_rms_norm}
+  - {name: matmul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/matmul_all_reduce}
+  - {name: matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/matmul_all_reduce_add_rms_norm}
   - {name: matmul_reduce_scatter, family: mc2, wave: wave5, phase: phase1, status: planned, ops_transformer_path: mc2/matmul_reduce_scatter}
-  - {name: moe_distribute_combine, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_combine}
+  - {name: moe_distribute_combine, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/moe_distribute_combine}
   - {name: moe_distribute_combine_v2, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_combine_v2}
-  - {name: moe_distribute_dispatch, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_dispatch}
+  - {name: moe_distribute_dispatch, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/moe_distribute_dispatch}
   - {name: moe_distribute_dispatch_v2, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_dispatch_v2}
   - {name: moe_distribute_dispatch_v3, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_dispatch_v3}
 excluded:

@@ -35,7 +35,10 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_GROUPED_MATMUL_M": str(variant.m),
         "PTO_GROUPED_MATMUL_K": str(variant.k),
         "PTO_GROUPED_MATMUL_N": str(variant.n),
+        "PTO_GROUPED_MATMUL_BASE_M": os.environ.get("PTO_GROUPED_MATMUL_BASE_M", "16"),
+        "PTO_GROUPED_MATMUL_BASE_N": os.environ.get("PTO_GROUPED_MATMUL_BASE_N", "64"),
         "PTO_GROUPED_MATMUL_BASE_K": os.environ.get("PTO_GROUPED_MATMUL_BASE_K", "64"),
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": os.environ.get("PTO_GROUPED_MATMUL_BLOCK_DIM", "16"),
     }
 
 
@@ -60,6 +63,13 @@ def benchmark(repo_root, spec, artifacts_dir):
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
+                set_block_dim = getattr(wrapper, "set_block_dim", None)
+                if callable(set_block_dim):
+                    base_m = int(os.environ.get("PTO_GROUPED_MATMUL_BASE_M", "16"))
+                    base_n = int(os.environ.get("PTO_GROUPED_MATMUL_BASE_N", "64"))
+                    total_tiles = (variant.m // base_m) * (variant.n // base_n)
+                    requested_block_dim = int(os.environ.get("PTO_GROUPED_MATMUL_BLOCK_DIM", "16"))
+                    set_block_dim(min(requested_block_dim, total_tiles))
 
                 inputs = make_dense_single_weight_inputs(variant, device_index=int(spec.device.get("id", 0)))
                 reference = inputs["baseline_reference"]

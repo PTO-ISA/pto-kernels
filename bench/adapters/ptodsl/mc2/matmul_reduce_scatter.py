@@ -29,6 +29,7 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_MC2_M": str(variant.m),
         "PTO_MC2_K": str(variant.k),
         "PTO_MC2_N": str(variant.n),
+        "PTO_MC2_BASE_M": os.environ.get("PTO_MC2_BASE_M", "32"),
         "PTO_MC2_BASE_K": os.environ.get("PTO_MC2_BASE_K", "32"),
         "PTO_MC2_WORLD_SIZE": str(variant.expected_world_size),
     }

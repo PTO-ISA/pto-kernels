@@ -240,6 +240,8 @@ def _pto_worker(
     variant_dict: dict[str, object],
 ):
     variant = MatmulReduceScatterVariant(**variant_dict)
+    os.environ["PTO_MC2_WORLD_SIZE"] = str(world_size)
+    os.environ["PTO_MC2_RANK"] = str(rank)
     module = _load_kernel_module()
     wrapper = module.build_jit_wrapper(output_dir=output_dir / f"rank_{rank}_kernel")
     build = getattr(wrapper, "_build", None)

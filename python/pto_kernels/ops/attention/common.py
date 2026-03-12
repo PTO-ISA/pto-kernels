@@ -15,8 +15,15 @@ class DenseAttentionConfig:
     seq_len: int
     head_dim: int
     scores_dim: int
+    qk_base_m: int
+    qk_base_n: int
     qk_base_k: int
+    qk_block_dim: int
+    pv_base_m: int
+    pv_base_n: int
     pv_base_k: int
+    pv_block_dim: int
+    softmax_block_dim: int
 
     @property
     def qk_iters(self) -> int:
@@ -26,25 +33,58 @@ class DenseAttentionConfig:
     def pv_iters(self) -> int:
         return self.scores_dim // self.pv_base_k
 
+    def validate(self) -> None:
+        dims = (
+            ("seq_len", self.seq_len, self.qk_base_m),
+            ("scores_dim", self.scores_dim, self.qk_base_n),
+            ("head_dim", self.head_dim, self.qk_base_k),
+            ("seq_len", self.seq_len, self.pv_base_m),
+            ("head_dim", self.head_dim, self.pv_base_n),
+            ("scores_dim", self.scores_dim, self.pv_base_k),
+        )
+        for axis_name, axis, base in dims:
+            if axis % base != 0:
+                raise ValueError(
+                    f"dense attention seed requires {axis_name}={axis} to be divisible by base={base}"
+                )
 
-def _qk_meta_data(config: DenseAttentionConfig):
+
+def _launch_block_dim(total_tiles: int, requested: int) -> int:
+    return max(1, min(total_tiles, requested))
+
+
+def _tile_schedule(total_m_tiles: int, total_n_tiles: int):
+    return tuple(
+        (m_idx, n_idx) for m_idx in range(total_m_tiles) for n_idx in range(total_n_tiles)
+    )
+
+
+def _schedule_lookup(logical_block, schedule):
+    m_idx = const(schedule[0][0])
+    n_idx = const(schedule[0][1])
+    for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
+        is_current = s.eq(logical_block, const(block_id))
+        m_idx = s.select(is_current, const(tile_m), m_idx)
+        n_idx = s.select(is_current, const(tile_n), n_idx)
+    return m_idx, n_idx
+
+
+def _qk_meta_data(*, base_m: int, base_k: int, base_n: int):
     dtype = pto.float16
     acc_dtype = pto.float32
 
     ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
 
-    view_q = pto.SubTensorType(shape=[config.seq_len, config.qk_base_k], dtype=dtype)
-    view_kt = pto.SubTensorType(shape=[config.qk_base_k, config.scores_dim], dtype=dtype)
-    view_scores = pto.SubTensorType(shape=[config.seq_len, config.scores_dim], dtype=dtype)
+    view_q = pto.SubTensorType(shape=[base_m, base_k], dtype=dtype)
+    view_kt = pto.SubTensorType(shape=[base_k, base_n], dtype=dtype)
+    view_scores = pto.SubTensorType(shape=[base_m, base_n], dtype=dtype)
 
-    q_mat = pto.TileBufType(shape=[config.seq_len, config.qk_base_k], dtype=dtype, memory_space="MAT")
-    kt_mat = pto.TileBufType(shape=[config.qk_base_k, config.scores_dim], dtype=dtype, memory_space="MAT")
-    q_tile = pto.TileBufType(shape=[config.seq_len, config.qk_base_k], dtype=dtype, memory_space="LEFT")
-    kt_tile = pto.TileBufType(shape=[config.qk_base_k, config.scores_dim], dtype=dtype, memory_space="RIGHT")
-    scores_acc = pto.TileBufType(
-        shape=[config.seq_len, config.scores_dim], dtype=acc_dtype, memory_space="ACC"
-    )
+    q_mat = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="MAT")
+    kt_mat = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
+    q_tile = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
+    kt_tile = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
+    scores_acc = pto.TileBufType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
         "ptr": ptr,
@@ -84,22 +124,22 @@ def _softmax_meta_data(config: DenseAttentionConfig):
     }
 
 
-def _pv_meta_data(config: DenseAttentionConfig):
+def _pv_meta_data(*, base_m: int, base_k: int, base_n: int):
     dtype = pto.float16
     acc_dtype = pto.float32
 
     ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
 
-    view_p = pto.SubTensorType(shape=[config.seq_len, config.pv_base_k], dtype=dtype)
-    view_v = pto.SubTensorType(shape=[config.pv_base_k, config.head_dim], dtype=dtype)
-    view_out = pto.SubTensorType(shape=[config.seq_len, config.head_dim], dtype=dtype)
+    view_p = pto.SubTensorType(shape=[base_m, base_k], dtype=dtype)
+    view_v = pto.SubTensorType(shape=[base_k, base_n], dtype=dtype)
+    view_out = pto.SubTensorType(shape=[base_m, base_n], dtype=dtype)
 
-    p_mat = pto.TileBufType(shape=[config.seq_len, config.pv_base_k], dtype=dtype, memory_space="MAT")
-    v_mat = pto.TileBufType(shape=[config.pv_base_k, config.head_dim], dtype=dtype, memory_space="MAT")
-    p_tile = pto.TileBufType(shape=[config.seq_len, config.pv_base_k], dtype=dtype, memory_space="LEFT")
-    v_tile = pto.TileBufType(shape=[config.pv_base_k, config.head_dim], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.seq_len, config.head_dim], dtype=acc_dtype, memory_space="ACC")
+    p_mat = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="MAT")
+    v_mat = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
+    p_tile = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
+    v_tile = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
+    out_acc = pto.TileBufType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
         "ptr": ptr,
@@ -116,10 +156,16 @@ def _pv_meta_data(config: DenseAttentionConfig):
 
 
 def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
+    schedule = _tile_schedule(config.seq_len // config.qk_base_m, config.scores_dim // config.qk_base_n)
+
     @jit(
-        meta_data=lambda: _qk_meta_data(config),
+        meta_data=lambda: _qk_meta_data(
+            base_m=config.qk_base_m,
+            base_k=config.qk_base_k,
+            base_n=config.qk_base_n,
+        ),
         output_dir=output_dir,
-        block_dim=1,
+        block_dim=_launch_block_dim(len(schedule), config.qk_block_dim),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -129,40 +175,54 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
         cSeq = const(config.seq_len)
         cHead = const(config.head_dim)
         cScores = const(config.scores_dim)
+        cBaseM = const(config.qk_base_m)
+        cBaseN = const(config.qk_base_n)
         cBaseK = const(config.qk_base_k)
         cIter = const(config.qk_iters)
+        cTotalTiles = const(len(schedule))
 
         tv_query = pto.as_tensor(tensor, ptr=query_ptr, shape=[cSeq, cHead], strides=[cHead, c1])
         tv_key_t = pto.as_tensor(tensor, ptr=key_t_ptr, shape=[cHead, cScores], strides=[cScores, c1])
         tv_scores = pto.as_tensor(tensor, ptr=scores_ptr, shape=[cSeq, cScores], strides=[cScores, c1])
 
         with pto.cube_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
             q_mat_tile = pto.alloc_tile(q_mat)
             kt_mat_tile = pto.alloc_tile(kt_mat)
             q_tile_buf = pto.alloc_tile(q_tile)
             kt_tile_buf = pto.alloc_tile(kt_tile)
             scores_acc_tile = pto.alloc_tile(scores_acc)
 
-            for i in pto.range(c0, cIter, c1):
-                k_off = i * cBaseK
-                sv_q = pto.slice_view(view_q, source=tv_query, offsets=[c0, k_off], sizes=[cSeq, cBaseK])
-                sv_kt = pto.slice_view(view_kt, source=tv_key_t, offsets=[k_off, c0], sizes=[cBaseK, cScores])
+            for logical_block in pto.range(bid, cTotalTiles, num_blocks):
+                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_off = m_idx * cBaseM
+                n_off = n_idx * cBaseN
 
-                pto.load(sv_q, q_mat_tile)
-                pto.load(sv_kt, kt_mat_tile)
-                tile.mov(q_mat_tile, q_tile_buf)
-                tile.mov(kt_mat_tile, kt_tile_buf)
+                for i in pto.range(c0, cIter, c1):
+                    k_off = i * cBaseK
+                    sv_q = pto.slice_view(
+                        view_q, source=tv_query, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
+                    )
+                    sv_kt = pto.slice_view(
+                        view_kt, source=tv_key_t, offsets=[k_off, n_off], sizes=[cBaseK, cBaseN]
+                    )
 
-                pto.cond(
-                    s.eq(i, c0),
-                    lambda: tile.matmul(q_tile_buf, kt_tile_buf, scores_acc_tile),
-                    lambda: tile.matmul_acc(scores_acc_tile, q_tile_buf, kt_tile_buf, scores_acc_tile),
+                    pto.load(sv_q, q_mat_tile)
+                    pto.load(sv_kt, kt_mat_tile)
+                    tile.mov(q_mat_tile, q_tile_buf)
+                    tile.mov(kt_mat_tile, kt_tile_buf)
+
+                    pto.cond(
+                        s.eq(i, c0),
+                        lambda: tile.matmul(q_tile_buf, kt_tile_buf, scores_acc_tile),
+                        lambda: tile.matmul_acc(scores_acc_tile, q_tile_buf, kt_tile_buf, scores_acc_tile),
+                    )
+
+                sv_scores = pto.slice_view(
+                    view_scores, source=tv_scores, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
                 )
-
-            sv_scores = pto.slice_view(
-                view_scores, source=tv_scores, offsets=[c0, c0], sizes=[cSeq, cScores]
-            )
-            pto.store(scores_acc_tile, sv_scores)
+                pto.store(scores_acc_tile, sv_scores)
 
     return dense_attention_qk_stage
 
@@ -171,7 +231,7 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
     @jit(
         meta_data=lambda: _softmax_meta_data(config),
         output_dir=output_dir,
-        block_dim=1,
+        block_dim=max(1, min(config.seq_len, config.softmax_block_dim)),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -184,13 +244,19 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
         tv_scores = pto.as_tensor(tensor, ptr=scores_ptr, shape=[cSeq, cScores], strides=[cScores, c1])
 
         with pto.vector_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
+            rows_per_core = s.ceil_div(cSeq, num_blocks)
+            row_start = bid * rows_per_core
+            row_end = s.min_u(row_start + rows_per_core, cSeq)
+
             row_in = pto.alloc_tile(row_tile, valid_col=cScores)
             row_tmp = pto.alloc_tile(row_tile, valid_col=cScores)
             row_tmp2 = pto.alloc_tile(row_tile, valid_col=cScores)
             scalar = pto.alloc_tile(row_tile, valid_col=c1)
             scalar_expanded = pto.alloc_tile(row_tile, valid_col=cScores)
 
-            for row_idx in pto.range(c0, cSeq, c1):
+            for row_idx in pto.range(row_start, row_end, c1):
                 sv_row = pto.slice_view(row_view, source=tv_scores, offsets=[row_idx, c0], sizes=[c1, cScores])
                 pto.load(sv_row, row_in)
 
@@ -208,10 +274,16 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
 
 
 def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
+    schedule = _tile_schedule(config.seq_len // config.pv_base_m, config.head_dim // config.pv_base_n)
+
     @jit(
-        meta_data=lambda: _pv_meta_data(config),
+        meta_data=lambda: _pv_meta_data(
+            base_m=config.pv_base_m,
+            base_k=config.pv_base_k,
+            base_n=config.pv_base_n,
+        ),
         output_dir=output_dir,
-        block_dim=1,
+        block_dim=_launch_block_dim(len(schedule), config.pv_block_dim),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -220,48 +292,62 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
         c1 = const(1)
         cSeq = const(config.seq_len)
         cHead = const(config.head_dim)
+        cScores = const(config.scores_dim)
+        cBaseM = const(config.pv_base_m)
+        cBaseN = const(config.pv_base_n)
         cBaseK = const(config.pv_base_k)
         cIter = const(config.pv_iters)
+        cTotalTiles = const(len(schedule))
 
-        tv_scores = pto.as_tensor(
-            tensor, ptr=scores_ptr, shape=[cSeq, const(config.scores_dim)], strides=[const(config.scores_dim), c1]
-        )
-        tv_value = pto.as_tensor(
-            tensor, ptr=value_ptr, shape=[const(config.scores_dim), cHead], strides=[cHead, c1]
-        )
+        tv_scores = pto.as_tensor(tensor, ptr=scores_ptr, shape=[cSeq, cScores], strides=[cScores, c1])
+        tv_value = pto.as_tensor(tensor, ptr=value_ptr, shape=[cScores, cHead], strides=[cHead, c1])
         tv_out = pto.as_tensor(tensor, ptr=out_ptr, shape=[cSeq, cHead], strides=[cHead, c1])
 
         with pto.cube_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
             p_mat_tile = pto.alloc_tile(p_mat)
             v_mat_tile = pto.alloc_tile(v_mat)
             p_tile_buf = pto.alloc_tile(p_tile)
             v_tile_buf = pto.alloc_tile(v_tile)
             out_acc_tile = pto.alloc_tile(out_acc)
 
-            for i in pto.range(c0, cIter, c1):
-                k_off = i * cBaseK
-                sv_p = pto.slice_view(view_p, source=tv_scores, offsets=[c0, k_off], sizes=[cSeq, cBaseK])
-                sv_v = pto.slice_view(view_v, source=tv_value, offsets=[k_off, c0], sizes=[cBaseK, cHead])
+            for logical_block in pto.range(bid, cTotalTiles, num_blocks):
+                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_off = m_idx * cBaseM
+                n_off = n_idx * cBaseN
 
-                pto.load(sv_p, p_mat_tile)
-                pto.load(sv_v, v_mat_tile)
-                tile.mov(p_mat_tile, p_tile_buf)
-                tile.mov(v_mat_tile, v_tile_buf)
+                for i in pto.range(c0, cIter, c1):
+                    k_off = i * cBaseK
+                    sv_p = pto.slice_view(
+                        view_p, source=tv_scores, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
+                    )
+                    sv_v = pto.slice_view(
+                        view_v, source=tv_value, offsets=[k_off, n_off], sizes=[cBaseK, cBaseN]
+                    )
 
-                pto.cond(
-                    s.eq(i, c0),
-                    lambda: tile.matmul(p_tile_buf, v_tile_buf, out_acc_tile),
-                    lambda: tile.matmul_acc(out_acc_tile, p_tile_buf, v_tile_buf, out_acc_tile),
+                    pto.load(sv_p, p_mat_tile)
+                    pto.load(sv_v, v_mat_tile)
+                    tile.mov(p_mat_tile, p_tile_buf)
+                    tile.mov(v_mat_tile, v_tile_buf)
+
+                    pto.cond(
+                        s.eq(i, c0),
+                        lambda: tile.matmul(p_tile_buf, v_tile_buf, out_acc_tile),
+                        lambda: tile.matmul_acc(out_acc_tile, p_tile_buf, v_tile_buf, out_acc_tile),
+                    )
+
+                sv_out = pto.slice_view(
+                    view_out, source=tv_out, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
                 )
-
-            sv_out = pto.slice_view(view_out, source=tv_out, offsets=[c0, c0], sizes=[cSeq, cHead])
-            pto.store(out_acc_tile, sv_out)
+                pto.store(out_acc_tile, sv_out)
 
     return dense_attention_pv_stage
 
 
 class DenseAttentionPipelineWrapper:
     def __init__(self, *, config: DenseAttentionConfig, output_dir):
+        config.validate()
         self._config = config
         self._output_dir = Path(output_dir)
         self._qk = build_qk_stage(config=config, output_dir=self._output_dir / "stage1_qk")
