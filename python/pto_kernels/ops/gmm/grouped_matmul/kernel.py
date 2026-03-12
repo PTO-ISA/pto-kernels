@@ -6,11 +6,12 @@ up the end-to-end PTO flow on the current machine:
 - x shape = [128, 128]
 - weight shape = [128, 128]
 - input dtype = bf16
-- accumulator/output dtype = f32
+- accumulator dtype = f32
+- output dtype = bf16
 
 It is not the full ops-transformer grouped_matmul semantics yet. The missing
-multi-group routing, quantization, and bf16 epilogue are tracked in the gap
-board and kept out of this seed variant on purpose.
+multi-group routing and quantization are tracked in the gap board and kept out
+of this seed variant on purpose.
 """
 
 from mlir.ir import BF16Type, F32Type, IntegerType
@@ -30,16 +31,16 @@ K_ITERS = K // BASE_K
 def _meta_data():
     bf16 = BF16Type.get()
     f32 = F32Type.get()
-    ptr_out = pto.PtrType(f32)
+    ptr_out = pto.PtrType(bf16)
     ptr_in = pto.PtrType(bf16)
     i32 = IntegerType.get_signless(32)
 
     tensor_in = pto.TensorType(rank=2, dtype=bf16)
-    tensor_out = pto.TensorType(rank=2, dtype=f32)
+    tensor_out = pto.TensorType(rank=2, dtype=bf16)
 
     view_a = pto.SubTensorType(shape=[M, BASE_K], dtype=bf16)
     view_b = pto.SubTensorType(shape=[BASE_K, N], dtype=bf16)
-    view_out = pto.SubTensorType(shape=[M, N], dtype=f32)
+    view_out = pto.SubTensorType(shape=[M, N], dtype=bf16)
 
     tile_a_mat = pto.TileBufType(shape=[M, BASE_K], dtype=bf16, memory_space="MAT")
     tile_b_mat = pto.TileBufType(shape=[BASE_K, N], dtype=bf16, memory_space="MAT")
@@ -72,7 +73,7 @@ def build_jit_wrapper(*, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def grouped_matmul_dense_bf16_f32(
+    def grouped_matmul_dense_bf16_bf16(
         out_ptr: "ptr_out",
         a_ptr: "ptr_in",
         b_ptr: "ptr_in",
@@ -138,4 +139,4 @@ def build_jit_wrapper(*, output_dir):
             pto.store(c_tile, sv_out)
             pto.record_wait_pair("STORE_ACC", "MATMUL", event_id=0)
 
-    return grouped_matmul_dense_bf16_f32
+    return grouped_matmul_dense_bf16_bf16

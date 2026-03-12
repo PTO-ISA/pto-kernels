@@ -32,14 +32,23 @@ if [ -n "$ASCEND_INSTALL_PATH" ]; then
 elif [ -n "$ASCEND_HOME_PATH" ]; then
     _ASCEND_INSTALL_PATH="$ASCEND_HOME_PATH"
 else
-    if [ -d "$HOME/Ascend/ascend-toolkit/latest" ]; then
+    if [ -d "$HOME/Ascend/cann" ]; then
+        _ASCEND_INSTALL_PATH="$HOME"/Ascend/cann
+    elif [ -d "$HOME/Ascend/ascend-toolkit/latest" ]; then
         _ASCEND_INSTALL_PATH="$HOME"/Ascend/ascend-toolkit/latest
+    elif [ -d /usr/local/Ascend/cann ]; then
+        _ASCEND_INSTALL_PATH=/usr/local/Ascend/cann
     else
         _ASCEND_INSTALL_PATH=/usr/local/Ascend/ascend-toolkit/latest
     fi
 fi
-# shellcheck source=/dev/null
-source "$_ASCEND_INSTALL_PATH"/bin/setenv.bash
+if [ -f "$_ASCEND_INSTALL_PATH"/set_env.sh ]; then
+    # shellcheck source=/dev/null
+    source "$_ASCEND_INSTALL_PATH"/set_env.sh
+else
+    # shellcheck source=/dev/null
+    source "$_ASCEND_INSTALL_PATH"/bin/setenv.bash
+fi
 echo "Current compile soc version is ${SOC_VERSION}"
 
 # See https://docs.pytorch.org/cppdocs/installing.html

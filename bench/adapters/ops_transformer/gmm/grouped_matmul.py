@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import statistics
+import time
 from pathlib import Path
 
+import torch
 import torch_npu
 
 from pto_kernels.bench.adapter_utils import describe_baseline
@@ -42,26 +45,55 @@ def compile_kernel(repo_root, spec, artifacts_dir):
 
 def benchmark(repo_root, spec, artifacts_dir):
     inputs = make_dense_single_weight_inputs(device_index=int(spec.device.get("id", 0)))
+    reference = inputs["baseline_reference"]
     try:
-        output = run_torch_npu_grouped_matmul(inputs)
+        for _ in range(spec.bench.warmup):
+            run_torch_npu_grouped_matmul(inputs)
+        torch.npu.synchronize()
+
+        timings_ms = []
+        output = None
+        for _ in range(spec.bench.repeat):
+            torch.npu.synchronize()
+            start = time.perf_counter()
+            output = run_torch_npu_grouped_matmul(inputs)
+            torch.npu.synchronize()
+            timings_ms.append((time.perf_counter() - start) * 1000.0)
     except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
         report = {
             "status": "blocked",
             "variant": VARIANT.as_dict(),
             "entrypoint": "torch_npu.npu_grouped_matmul",
             "reason": str(exc),
-            "blocking_gap": "ops-transformer-runtime-package-bringup",
+            "blocking_gap": "ops-transformer-grouped-matmul-v5-shape-contract",
         }
         report_path = Path(artifacts_dir) / "ops_transformer_grouped_matmul_benchmark.json"
         report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
         report["report_path"] = str(report_path)
         return report
 
+    if output is None:
+        return {"status": "blocked", "reason": "Baseline benchmark did not produce an output tensor."}
+
+    baseline_tensor = output[0] if isinstance(output, (list, tuple)) else output
+    max_abs_diff = (baseline_tensor.float().cpu() - reference).abs().max().item()
     report = {
         "status": "ok",
         "variant": VARIANT.as_dict(),
         "entrypoint": "torch_npu.npu_grouped_matmul",
         "output_type": str(type(output)),
+        "timings_ms": {
+            "median": statistics.median(timings_ms),
+            "min": min(timings_ms),
+            "max": max(timings_ms),
+        },
+        "correctness": {
+            "max_abs_diff": max_abs_diff,
+            "atol": spec.correctness.atol,
+            "rtol": spec.correctness.rtol,
+            "passes": bool(max_abs_diff <= spec.correctness.atol),
+        },
+        "reference_contract": "bf16_rounded_matmul",
     }
     report_path = Path(artifacts_dir) / "ops_transformer_grouped_matmul_benchmark.json"
     report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")

@@ -6,6 +6,8 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
 if [[ -n "${ASCEND_TOOLKIT_HOME:-}" && -f "${ASCEND_TOOLKIT_HOME}/set_env.sh" ]]; then
   TOOLKIT_HOME="${ASCEND_TOOLKIT_HOME}"
+elif [[ -f "${HOME}/Ascend/cann/set_env.sh" ]]; then
+  TOOLKIT_HOME="${HOME}/Ascend/cann"
 elif [[ -f "${HOME}/Ascend/ascend-toolkit/set_env.sh" ]]; then
   TOOLKIT_HOME="${HOME}/Ascend/ascend-toolkit"
 elif [[ -f "${HOME}/Ascend/ascend-toolkit/latest/set_env.sh" ]]; then
@@ -23,6 +25,13 @@ if [[ -f "${TOOLKIT_HOME}/set_env.sh" ]]; then
 elif [[ -f "${TOOLKIT_HOME}/bin/setenv.bash" ]]; then
   # shellcheck source=/dev/null
   source "${TOOLKIT_HOME}/bin/setenv.bash"
+fi
+
+CUSTOM_OP_ENV="${TOOLKIT_HOME}/vendors/custom_transformer/bin/set_env.bash"
+if [[ -f "${CUSTOM_OP_ENV}" ]]; then
+  export ASCEND_CUSTOM_OPP_PATH="${ASCEND_CUSTOM_OPP_PATH:-}"
+  # shellcheck source=/dev/null
+  source "${CUSTOM_OP_ENV}"
 fi
 
 export PTO_KERNELS_ROOT="${REPO_ROOT}"

@@ -44,6 +44,8 @@ def main() -> int:
         print(f"pto_arch          : {env.pto_arch}")
         print(f"npu_arch          : {env.npu_arch}")
         print(f"ops_pkg_metadata  : {ops_runtime.build_dependency_metadata_present}")
+        print(f"ops_pkg_effective : {ops_runtime.effective_package_path}")
+        print(f"ops_pkg_compat    : {ops_runtime.compat_build_dependency_metadata_present}")
         print(f"ops_pkg_installed : {ops_runtime.package_installed}")
         print(f"ops_pkg_runfiles  : {len(ops_runtime.package_runfiles)}")
         if env.warnings:

@@ -28,7 +28,10 @@ def main() -> int:
     print(f"install_root         : {status.install_root}")
     print(f"build_out            : {status.build_out}")
     print(f"package_path         : {status.package_path}")
+    print(f"effective_package    : {status.effective_package_path}")
+    print(f"compat_package_path  : {status.compat_package_path}")
     print(f"build_dep_metadata   : {status.build_dependency_metadata_present}")
+    print(f"compat_dep_metadata  : {status.compat_build_dependency_metadata_present}")
     print(f"package_installed    : {status.package_installed}")
     print(f"vendor_packages      : {status.vendor_packages_present}")
     print(f"seed_ops             : {','.join(status.seed_ops)}")
@@ -47,6 +50,10 @@ def main() -> int:
     if status.missing_version_infos:
         print("missing_version_infos:")
         for path in status.missing_version_infos:
+            print(f"  - {path}")
+    if status.compat_missing_version_infos:
+        print("compat_missing_version_infos:")
+        for path in status.compat_missing_version_infos:
             print(f"  - {path}")
     return 0
 

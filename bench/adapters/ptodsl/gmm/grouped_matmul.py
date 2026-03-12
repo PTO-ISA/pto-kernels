@@ -53,7 +53,7 @@ def benchmark(repo_root, spec, artifacts_dir):
         return report
 
     inputs = make_dense_single_weight_inputs(device_index=int(spec.device.get("id", 0)))
-    reference = inputs["reference"]
+    reference = inputs["baseline_reference"]
 
     try:
         for _ in range(spec.bench.warmup):

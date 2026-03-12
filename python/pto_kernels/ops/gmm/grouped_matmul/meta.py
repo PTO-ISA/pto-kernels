@@ -8,19 +8,18 @@ META = planned_meta(
     archetype="gmm",
     ops_transformer_path="gmm/grouped_matmul",
     blockers=[
-        "ptodsl-bf16-epilogue-conversion",
         "ptodsl-group-routing-primitives",
-        "ops-transformer-runtime-package-bringup",
     ],
 )
 
 META["seed_variant"] = {
-    "name": "dense_single_weight_bf16_to_f32",
+    "name": "dense_single_weight_bf16_to_bf16",
     "shape": [128, 128, 128],
     "limits": [
         "single batch only",
         "single dense weight only",
+        "baseline path uses a single 3D weight tensor to satisfy aclnnGroupedMatmulV5",
         "no bias/quantization/activation",
-        "output kept in float32 until bf16 epilogue lands in ptodsl",
+        "pto path stores ACC output directly to bf16 GM for parity with the baseline contract",
     ],
 }

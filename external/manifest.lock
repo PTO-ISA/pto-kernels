@@ -4,7 +4,7 @@ workspace:
   pto_arch: a3
   npu_arch: dav-2201
   npu_model_prefix: 910B
-  cann_version: 8.5.0.alpha002
+  cann_version: 9.0.0-beta.1
 repos:
   pto-dsl:
     url: https://github.com/huawei-csl/pto-dsl.git

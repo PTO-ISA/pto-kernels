@@ -60,9 +60,10 @@ def _find_toolkit_home() -> str | None:
     candidates = [
         os.environ.get("ASCEND_TOOLKIT_HOME"),
         os.environ.get("ASCEND_HOME_PATH"),
+        str(Path.home() / "Ascend" / "cann"),
+        "/usr/local/Ascend/cann",
         str(Path.home() / "Ascend" / "ascend-toolkit" / "latest"),
         "/usr/local/Ascend/ascend-toolkit/latest",
-        "/usr/local/Ascend/cann",
     ]
     for candidate in candidates:
         if candidate and Path(candidate).exists():
@@ -74,15 +75,26 @@ def _read_version(toolkit_home: str | None) -> str | None:
     if not toolkit_home:
         return None
     version_cfg = Path(toolkit_home) / "version.cfg"
-    if not version_cfg.exists():
-        return None
-    content = version_cfg.read_text(encoding="utf-8", errors="ignore")
-    match = re.search(r"toolkit_running_version=\[[^:]+:([^\]]+)\]", content)
-    if match:
-        return match.group(1)
-    match = re.search(r"toolkit_installed_version=\[[^:]+:([^\]]+)\]", content)
-    if match:
-        return match.group(1)
+    if version_cfg.exists():
+        content = version_cfg.read_text(encoding="utf-8", errors="ignore")
+        match = re.search(r"toolkit_running_version=\[[^:]+:([^\]]+)\]", content)
+        if match:
+            return match.group(1)
+        match = re.search(r"toolkit_installed_version=\[[^:]+:([^\]]+)\]", content)
+        if match:
+            return match.group(1)
+    install_info = Path(toolkit_home) / "aarch64-linux" / "ascend_toolkit_install.info"
+    if install_info.exists():
+        content = install_info.read_text(encoding="utf-8", errors="ignore")
+        match = re.search(r"^version=(.+)$", content, re.MULTILINE)
+        if match:
+            return match.group(1).strip()
+    runtime_version = Path(toolkit_home) / "share" / "info" / "runtime" / "version.info"
+    if runtime_version.exists():
+        content = runtime_version.read_text(encoding="utf-8", errors="ignore")
+        match = re.search(r"^Version=(.+)$", content, re.MULTILINE)
+        if match:
+            return match.group(1).strip()
     return None
 
 
@@ -126,7 +138,7 @@ def detect_env() -> DetectedEnv:
         warnings.append("Unable to locate Ascend toolkit installation.")
     toolkit_version = _read_version(toolkit_home)
     if toolkit_version is None:
-        warnings.append("Unable to read toolkit version from version.cfg.")
+        warnings.append("Unable to read toolkit version from version metadata.")
 
     ptoas_path = _tool_on_path("ptoas")
     bisheng_path = _tool_on_path("bisheng")
