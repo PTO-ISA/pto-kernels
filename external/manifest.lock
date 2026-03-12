@@ -1,0 +1,24 @@
+workspace:
+  name: pto-910b-bringup
+  target_soc: ascend910b
+  pto_arch: a3
+  npu_arch: dav-2201
+  npu_model_prefix: 910B
+  cann_version: 9.0.0-beta.1
+repos:
+  pto-dsl:
+    url: https://github.com/huawei-csl/pto-dsl.git
+    commit: 7f8176a
+    workspace_path: /home/zhouruoyu/github/pto-dsl
+  PTOAS:
+    url: https://github.com/zhangstevenunity/PTOAS.git
+    commit: 8eb9e23
+    workspace_path: /home/zhouruoyu/github/PTOAS
+  pto-isa:
+    url: https://github.com/PTO-ISA/pto-isa.git
+    commit: 5de2d24
+    workspace_path: /home/zhouruoyu/github/pto-isa
+  ops-transformer:
+    url: https://gitcode.com/cann/ops-transformer.git
+    commit: 9a6ffcf50
+    workspace_path: /home/zhouruoyu/github/ops-transformer

@@ -1,0 +1,107 @@
+{
+  "phase1_complete": true,
+  "seeds": [
+    {
+      "baseline": {
+        "max_abs_diff": 0.0,
+        "median_ms": 0.10660558473318815,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": null,
+        "max_abs_diff": 0.0,
+        "median_ms": 0.21089694928377867,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T170209Z/report.json",
+      "seed": "posembedding/apply_rotary_pos_emb"
+    },
+    {
+      "baseline": {
+        "max_abs_diff": 0.00048828125,
+        "median_ms": 0.10849593672901392,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": null,
+        "max_abs_diff": 0.00048828125,
+        "median_ms": 0.24343642871826887,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260311T172448Z/report.json",
+      "seed": "gmm/grouped_matmul"
+    },
+    {
+      "baseline": {
+        "max_abs_diff": 0.000244140625,
+        "median_ms": 0.08357048500329256,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": null,
+        "max_abs_diff": 0.0,
+        "median_ms": 0.4334275145083666,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/report.json",
+      "seed": "ffn/ffn"
+    },
+    {
+      "baseline": {
+        "max_abs_diff": 0.0,
+        "median_ms": 0.10738486889749765,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": null,
+        "max_abs_diff": 0.0,
+        "median_ms": 0.3416169201955199,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260311T173755Z/report.json",
+      "seed": "moe/moe_token_permute"
+    },
+    {
+      "baseline": {
+        "max_abs_diff": 6.103515625e-05,
+        "median_ms": 0.1495559699833393,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": null,
+        "max_abs_diff": 6.103515625e-05,
+        "median_ms": 0.42952795047312975,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174541Z/report.json",
+      "seed": "attention/flash_attention_score"
+    },
+    {
+      "baseline": {
+        "max_abs_diff": 0.0008401870727539062,
+        "median_ms": 0.5391485756263137,
+        "passes": true,
+        "status": "ok"
+      },
+      "pto": {
+        "entrypoint": "pto_seed_local_mm_plus_hccl_all_reduce_chunk",
+        "max_abs_diff": 0.0008401870727539062,
+        "median_ms": 0.7029690314084291,
+        "passes": true,
+        "status": "ok"
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260311T175427Z/report.json",
+      "seed": "mc2/matmul_reduce_scatter"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
 # https://github.com/huawei-csl/pto-kernels/
 # for the full License text.
 # --------------------------------------------------------------------------------
-.PHONY: clean setup_once build_wheel install test
+.PHONY: clean setup_once build_wheel install test bootstrap check-env sync-skills bench-dry-run
 
 clean:
 	rm -rf build/ dist/ extra-info/ *.egg-info/ kernel_meta/
@@ -25,3 +25,15 @@ install: build_wheel
 
 test:
 	pytest -v tests/
+
+bootstrap:
+	bash scripts/bootstrap_workspace.sh
+
+check-env:
+	bash -lc 'source scripts/source_env.sh && python3 scripts/check_env.py --strict'
+
+sync-skills:
+	bash scripts/install_codex_skills.sh
+
+bench-dry-run:
+	PYTHONPATH=python python3 -m pto_kernels.bench.runner bench/specs/posembedding/apply_rotary_pos_emb.yaml --dry-run

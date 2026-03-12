@@ -1,0 +1,122 @@
+updated_for_target: ascend910b
+seed_kernel_scope:
+  - apply_rotary_pos_emb
+  - grouped_matmul
+  - ffn
+  - moe_token_permute
+  - flash_attention_score
+  - matmul_reduce_scatter
+gaps:
+  - id: ptodsl-rope-generalization
+    component: ptodsl
+    status: open
+    summary: The apply_rotary_pos_emb seed now runs for both TND and BSND half-mode layouts on 910B, but PTODSL still lacks broader rotary-mode coverage and reusable posembedding helpers for the rest of the rope family.
+    blocking_kernels:
+      - rotary_position_embedding
+      - rope_with_sin_cos_cache
+  - id: ptodsl-sparse-attention-primitives
+    component: ptodsl
+    status: open
+    summary: Missing sparse attention, cache gather/scatter, and advanced masking primitives needed by attention wave 4.
+    blocking_kernels:
+      - gather_pa_kv_cache
+      - kv_quant_sparse_flash_attention
+      - sparse_flash_attention
+      - nsa_selected_attention
+  - id: ptodsl-attention-softmax-primitives
+    component: ptodsl
+    status: mitigated
+    summary: The dense staged attention path now lives in python/pto_kernels/ops/attention/common.py and provides reusable QK matmul, row-softmax, and PV matmul builders for the first flash_attention_score seed on 910B. Remaining work is online/masked softmax, generalized attention accumulation, and later advanced attention semantics.
+    blocking_kernels:
+      - flash_attention_score_grad
+      - prompt_flash_attention
+  - id: ptodsl-multicore-collective-primitives
+    component: ptodsl
+    status: open
+    summary: The first matmul_reduce_scatter seed now runs with a PTO local matmul plus host-orchestrated HCCL all_reduce-and-chunk flow, but PTODSL still lacks reusable collective and multicore coordination surface for real MC2 kernel ports.
+    blocking_kernels:
+      - all_gather_matmul
+      - grouped_mat_mul_all_reduce
+      - moe_distribute_dispatch
+  - id: ptodsl-mc2-distributed-launch-contract
+    component: ptodsl
+    status: resolved
+    summary: The PTO workspace now has a reusable local multi-rank HCCL launch utility in python/pto_kernels/utils/distributed.py, and the phase-1 MC2 seed is wired onto it successfully.
+    blocking_kernels: []
+  - id: ptoas-a3-legality-diagnostics
+    component: PTOAS
+    status: mitigated
+    summary: The phase-1 seed audit now confirms all six seed kernels compile and run through the current A2/A3 PTOAS path on 910B. Better verifier coverage and diagnostics remain desirable for later feature bring-up, but they are no longer blocking the current seed program.
+    blocking_kernels: []
+  - id: ptoas-memory-plan-sync-pipeline
+    component: PTOAS
+    status: mitigated
+    summary: The current staged seed kernels now run successfully on 910B after removing DSL-level event record/wait pairs from the active PTO sources and relying on PTOAS insert-sync lowering instead. Remaining risk is concentrated in future fused or overlap-heavy ports rather than in the phase-1 seeds.
+    blocking_kernels:
+      - swin_attention_ffn
+      - prompt_flash_attention
+      - all_gather_matmul
+  - id: ptoisa-a2a3-template-gaps
+    component: pto-isa
+    status: mitigated
+    summary: The phase-1 seed audit confirms the current A2/A3 template set is sufficient for the runnable seed kernels on 910B. Remaining work is future semantic/performance coverage rather than a present compile blocker.
+    blocking_kernels: []
+  - id: ptodsl-bf16-epilogue-conversion
+    component: ptodsl
+    status: resolved
+    summary: The phase-1 seeds that needed bf16/f16 output closure now have working parity paths on 910B, so this is no longer an active blocker in the current migration program.
+    blocking_kernels: []
+  - id: ptodsl-ffn-interstage-cast-path
+    component: ptodsl
+    status: mitigated
+    summary: The dense staged FFN path now lives in python/pto_kernels/ops/ffn/common.py and provides reusable matmul and relu pipeline builders for the first fp16 relu seed on 910B. Remaining work is fused cube-vector-cube lowering so later FFN-family kernels do not rely on explicit GM round-trips between stages.
+    blocking_kernels:
+      - swin_attention_ffn
+      - swin_transformer_ln_qkv
+      - swin_transformer_ln_qkv_quant
+  - id: ptodsl-group-routing-primitives
+    component: ptodsl
+    status: open
+    summary: Add reusable routing, segmented scheduling, and group-list helpers for grouped GEMM and MoE kernels instead of encoding group semantics ad hoc in each port.
+    blocking_kernels:
+      - grouped_matmul
+      - grouped_matmul_finalize_routing
+  - id: ptodsl-routing-sort-primitives
+    component: ptodsl
+    status: open
+    summary: The moe_token_permute seed now runs with a host-precomputed gather map on 910B, but MoE routing kernels still need reusable on-device sort, inverse-permutation, and reorder/scatter primitives so later ports do not depend on host-side preprocessing.
+    blocking_kernels:
+      - moe_token_unpermute
+      - moe_init_routing
+  - id: ops-transformer-runtime-package-bringup
+    component: ops-transformer
+    status: mitigated
+    summary: The seed package now builds successfully against the local CANN 9.0.0-beta.1 stack and installs into vendors/custom_transformer under the active toolkit root, so package-level baseline bring-up is no longer the active environment blocker.
+    blocking_kernels: []
+  - id: ops-transformer-grouped-matmul-v5-shape-contract
+    component: ops-transformer
+    status: resolved
+    summary: The grouped_matmul seed baseline now uses a single 3D weight tensor so it satisfies aclnnGroupedMatmulV5 on this host and can run side-by-side with the PTO seed in the benchmark harness.
+    blocking_kernels: []
+  - id: ops-transformer-build-metadata-layout
+    component: ops-transformer
+    status: mitigated
+    summary: The local CANN package path does not expose the share/info/*/version.info metadata expected by ops-transformer package builds, but the PTO workspace now synthesizes a compatible package root under build/ops_transformer_cann_compat so seed builds can reach CMake and compilation.
+    blocking_kernels: []
+  - id: ops-transformer-cann-open-api-gap
+    component: ops-transformer
+    status: resolved
+    summary: Upgrading the local toolkit to CANN 9.0.0-beta.1 resolved the missing GERT stride/view APIs and PlatformAscendC NPU-arch helpers that previously blocked ops-transformer host compilation on this machine.
+    blocking_kernels: []
+  - id: ops-transformer-mc2-hccl-multirank-bringup
+    component: ops-transformer
+    status: mitigated
+    summary: The PTO workspace now provides a local multi-rank HCCL launch path for MC2 baseline benchmarks, and matmul_reduce_scatter runs correctly on a 2-rank local harness. Remaining MC2 baseline work is adapter coverage rather than raw environment bring-up.
+    blocking_kernels:
+      - all_gather_matmul
+      - grouped_mat_mul_all_reduce
+      - moe_distribute_combine
+      - moe_distribute_combine_v2
+      - moe_distribute_dispatch
+      - moe_distribute_dispatch_v2
+      - moe_distribute_dispatch_v3
