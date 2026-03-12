@@ -16,8 +16,15 @@ class DenseReluFfnConfig:
     hidden: int
     intermediate: int
     output: int
+    base_m1: int
+    base_n1: int
     base_k1: int
+    block_dim1: int
+    base_m2: int
+    base_n2: int
     base_k2: int
+    block_dim2: int
+    relu_block_dim: int
 
     @property
     def k1_iters(self) -> int:
@@ -27,23 +34,40 @@ class DenseReluFfnConfig:
     def k2_iters(self) -> int:
         return self.intermediate // self.base_k2
 
+    def validate(self) -> None:
+        dims = (
+            ("tokens", self.tokens, self.base_m1),
+            ("intermediate", self.intermediate, self.base_n1),
+            ("hidden", self.hidden, self.base_k1),
+            ("tokens", self.tokens, self.base_m2),
+            ("output", self.output, self.base_n2),
+            ("intermediate", self.intermediate, self.base_k2),
+        )
+        for axis_name, axis, base in dims:
+            if axis % base != 0:
+                raise ValueError(f"FFN seed requires {axis_name}={axis} to be divisible by base={base}")
 
-def _matmul_meta_data(*, m: int, k: int, n: int, base_k: int):
+
+def _launch_block_dim(total_tiles: int, requested: int) -> int:
+    return max(1, min(total_tiles, requested))
+
+
+def _matmul_meta_data(*, base_m: int, base_k: int, base_n: int):
     dtype = pto.float16
     acc_dtype = pto.float32
 
     ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
 
-    view_a = pto.SubTensorType(shape=[m, base_k], dtype=dtype)
-    view_b = pto.SubTensorType(shape=[base_k, n], dtype=dtype)
-    view_out = pto.SubTensorType(shape=[m, n], dtype=dtype)
+    view_a = pto.SubTensorType(shape=[base_m, base_k], dtype=dtype)
+    view_b = pto.SubTensorType(shape=[base_k, base_n], dtype=dtype)
+    view_out = pto.SubTensorType(shape=[base_m, base_n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[m, base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[base_k, n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[m, base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[base_k, n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[m, n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="MAT")
+    b_mat = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
+    a_tile = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
+    b_tile = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
+    out_acc = pto.TileBufType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
         "ptr": ptr,
@@ -59,11 +83,27 @@ def _matmul_meta_data(*, m: int, k: int, n: int, base_k: int):
     }
 
 
+def _matmul_tile_schedule(total_m_tiles: int, total_n_tiles: int):
+    return tuple(
+        (m_idx, n_idx) for m_idx in range(total_m_tiles) for n_idx in range(total_n_tiles)
+    )
+
+
+def _schedule_lookup(logical_block, schedule):
+    m_idx = const(schedule[0][0])
+    n_idx = const(schedule[0][1])
+    for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
+        is_current = s.eq(logical_block, const(block_id))
+        m_idx = s.select(is_current, const(tile_m), m_idx)
+        n_idx = s.select(is_current, const(tile_n), n_idx)
+    return m_idx, n_idx
+
+
 def _relu_meta_data(config: DenseReluFfnConfig):
     dtype = pto.float16
     ptr = pto.PtrType(dtype)
-    tensor = pto.TensorType(rank=1, dtype=dtype)
-    sub = pto.SubTensorType(shape=[config.intermediate], dtype=dtype)
+    tensor = pto.TensorType(rank=2, dtype=dtype)
+    sub = pto.SubTensorType(shape=[1, config.intermediate], dtype=dtype)
     vec = pto.TileBufType(shape=[1, config.intermediate], dtype=dtype, memory_space="VEC")
 
     return {
@@ -83,13 +123,17 @@ def build_matmul_stage(
     input_m: int,
     input_k: int,
     input_n: int,
+    base_m: int,
+    base_n: int,
     base_k: int,
-    input_event_id: int,
+    stage_block_dim: int,
 ):
+    schedule = _matmul_tile_schedule(input_m // base_m, input_n // base_n)
+
     @jit(
-        meta_data=lambda: _matmul_meta_data(m=input_m, k=input_k, n=input_n, base_k=base_k),
+        meta_data=lambda: _matmul_meta_data(base_m=base_m, base_k=base_k, base_n=base_n),
         output_dir=output_dir,
-        block_dim=1,
+        block_dim=_launch_block_dim(len(schedule), stage_block_dim),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -99,38 +143,54 @@ def build_matmul_stage(
         cM = const(input_m)
         cK = const(input_k)
         cN = const(input_n)
+        cBaseM = const(base_m)
+        cBaseN = const(base_n)
         cBaseK = const(base_k)
         cKIter = const(input_k // base_k)
+        cTotalTiles = const(len(schedule))
 
         tv_a = pto.as_tensor(tensor, ptr=a_ptr, shape=[cM, cK], strides=[cK, c1])
         tv_b = pto.as_tensor(tensor, ptr=b_ptr, shape=[cK, cN], strides=[cN, c1])
         tv_out = pto.as_tensor(tensor, ptr=out_ptr, shape=[cM, cN], strides=[cN, c1])
 
         with pto.cube_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
             a_mat_tile = pto.alloc_tile(a_mat)
             b_mat_tile = pto.alloc_tile(b_mat)
             a_tile_buf = pto.alloc_tile(a_tile)
             b_tile_buf = pto.alloc_tile(b_tile)
             out_acc_tile = pto.alloc_tile(out_acc)
 
-            for i in pto.range(c0, cKIter, c1):
-                k_off = i * cBaseK
-                sv_a = pto.slice_view(view_a, source=tv_a, offsets=[c0, k_off], sizes=[cM, cBaseK])
-                sv_b = pto.slice_view(view_b, source=tv_b, offsets=[k_off, c0], sizes=[cBaseK, cN])
+            for logical_block in pto.range(bid, cTotalTiles, num_blocks):
+                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_off = m_idx * cBaseM
+                n_off = n_idx * cBaseN
 
-                pto.load(sv_a, a_mat_tile)
-                pto.load(sv_b, b_mat_tile)
-                tile.mov(a_mat_tile, a_tile_buf)
-                tile.mov(b_mat_tile, b_tile_buf)
+                for i in pto.range(c0, cKIter, c1):
+                    k_off = i * cBaseK
+                    sv_a = pto.slice_view(
+                        view_a, source=tv_a, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
+                    )
+                    sv_b = pto.slice_view(
+                        view_b, source=tv_b, offsets=[k_off, n_off], sizes=[cBaseK, cBaseN]
+                    )
 
-                pto.cond(
-                    s.eq(i, c0),
-                    lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-                    lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
+                    pto.load(sv_a, a_mat_tile)
+                    pto.load(sv_b, b_mat_tile)
+                    tile.mov(a_mat_tile, a_tile_buf)
+                    tile.mov(b_mat_tile, b_tile_buf)
+
+                    pto.cond(
+                        s.eq(i, c0),
+                        lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
+                        lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
+                    )
+
+                sv_out = pto.slice_view(
+                    view_out, source=tv_out, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
                 )
-
-            sv_out = pto.slice_view(view_out, source=tv_out, offsets=[c0, c0], sizes=[cM, cN])
-            pto.store(out_acc_tile, sv_out)
+                pto.store(out_acc_tile, sv_out)
 
     _stage.__name__ = stage_name
     return _stage
@@ -148,18 +208,23 @@ def build_relu_stage(*, config: DenseReluFfnConfig, output_dir):
         c0 = const(0)
         c1 = const(1)
         cIntermediate = const(config.intermediate)
-        cTotal = const(config.tokens * config.intermediate)
         cTokens = const(config.tokens)
 
-        tv_hidden = pto.as_tensor(tensor, ptr=hidden_ptr, shape=[cTotal], strides=[c1])
+        tv_hidden = pto.as_tensor(
+            tensor, ptr=hidden_ptr, shape=[cTokens, cIntermediate], strides=[cIntermediate, c1]
+        )
 
         with pto.vector_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
+            rows_per_core = s.ceil_div(cTokens, num_blocks)
+            row_start = bid * rows_per_core
+            row_end = s.min_u(row_start + rows_per_core, cTokens)
             hidden_in = pto.alloc_tile(vec_in)
             hidden_out = pto.alloc_tile(vec_out)
 
-            for row_idx in pto.range(c0, cTokens, c1):
-                row_off = row_idx * cIntermediate
-                sv_row = pto.slice_view(sub, source=tv_hidden, offsets=[row_off], sizes=[cIntermediate])
+            for row_idx in pto.range(row_start, row_end, c1):
+                sv_row = pto.slice_view(sub, source=tv_hidden, offsets=[row_idx, c0], sizes=[c1, cIntermediate])
                 pto.load(sv_row, hidden_in)
                 tile.relu(hidden_in, hidden_out)
                 pto.store(hidden_out, sv_row)
@@ -169,6 +234,7 @@ def build_relu_stage(*, config: DenseReluFfnConfig, output_dir):
 
 class DenseReluFfnPipelineWrapper:
     def __init__(self, *, config: DenseReluFfnConfig, output_dir):
+        config.validate()
         self._config = config
         self._output_dir = Path(output_dir)
         self._stage1 = build_matmul_stage(
@@ -178,10 +244,13 @@ class DenseReluFfnPipelineWrapper:
             input_m=config.tokens,
             input_k=config.hidden,
             input_n=config.intermediate,
+            base_m=config.base_m1,
+            base_n=config.base_n1,
             base_k=config.base_k1,
-            input_event_id=0,
+            stage_block_dim=config.block_dim1,
         )
         self._relu = build_relu_stage(config=config, output_dir=self._output_dir / "stage2_relu")
+        self._relu.set_block_dim(max(1, min(config.tokens, config.relu_block_dim)))
         self._stage3 = build_matmul_stage(
             config=config,
             output_dir=self._output_dir / "stage3",
@@ -189,8 +258,10 @@ class DenseReluFfnPipelineWrapper:
             input_m=config.tokens,
             input_k=config.intermediate,
             input_n=config.output,
+            base_m=config.base_m2,
+            base_n=config.base_n2,
             base_k=config.base_k2,
-            input_event_id=1,
+            stage_block_dim=config.block_dim2,
         )
 
     def _build(self):

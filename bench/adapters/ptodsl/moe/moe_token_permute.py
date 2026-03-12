@@ -33,6 +33,7 @@ def _variant_env(variant) -> dict[str, str]:
     return {
         "PTO_MOE_TOKENS": str(variant.tokens),
         "PTO_MOE_HIDDEN": str(variant.hidden_size),
+        "PTO_MOE_BLOCK_DIM": os.environ.get("PTO_MOE_BLOCK_DIM", "8"),
     }
 
 
