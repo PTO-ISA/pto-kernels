@@ -4,16 +4,12 @@ import json
 import os
 from pathlib import Path
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
-from pto_kernels.ops.mc2.matmul_reduce_scatter.runtime import (
-    VARIANT,
-    VARIANTS,
-    run_distributed_pto_benchmark,
-)
+from pto_kernels.bench.adapter_utils import describe_pto, load_module, temporary_env
+from pto_kernels.ops.mc2.matmul_all_reduce.runtime import VARIANTS, run_distributed_pto_benchmark
 
 
-KERNEL = "python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py"
-META = "python/pto_kernels/ops/mc2/matmul_reduce_scatter/meta.py"
+KERNEL = "python/pto_kernels/ops/mc2/matmul_all_reduce/kernel.py"
+META = "python/pto_kernels/ops/mc2/matmul_all_reduce/meta.py"
 
 
 def describe(repo_root, spec):
@@ -21,17 +17,43 @@ def describe(repo_root, spec):
 
 
 def compile_kernel(repo_root, spec, artifacts_dir):
-    return compile_pto_kernel(repo_root, KERNEL, artifacts_dir)
+    del spec
+    try:
+        variant = VARIANTS[0]
+        with temporary_env(_variant_env(variant)):
+            module = load_module(repo_root / KERNEL)
+            builder = getattr(module, "build_jit_wrapper", None)
+            if not callable(builder):
+                return {
+                    "status": "blocked",
+                    "reason": "kernel module does not expose build_jit_wrapper(output_dir)",
+                }
+            wrapper = builder(output_dir=Path(artifacts_dir))
+            build = getattr(wrapper, "_build", None)
+            if callable(build):
+                build()
+            artifact_paths = [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
+        return {"status": "blocked", "reason": f"PTO compile failed: {exc}"}
+    return {
+        "status": "ready",
+        "kernel_path": str(repo_root / KERNEL),
+        "output_dir": str(artifacts_dir),
+        "artifact_paths": artifact_paths,
+        "library_path": getattr(wrapper, "library_path", None),
+    }
 
 
 def _variant_env(variant) -> dict[str, str]:
     return {
-        "PTO_MC2_M": str(variant.m),
-        "PTO_MC2_K": str(variant.k),
-        "PTO_MC2_N": str(variant.n),
-        "PTO_MC2_BASE_M": os.environ.get("PTO_MC2_BASE_M", "32"),
-        "PTO_MC2_BASE_K": os.environ.get("PTO_MC2_BASE_K", "32"),
-        "PTO_MC2_WORLD_SIZE": str(variant.expected_world_size),
+        "PTO_MC2_MM_AR_WORLD_SIZE": str(variant.expected_world_size),
+        "PTO_MC2_MM_AR_M": str(variant.m),
+        "PTO_MC2_MM_AR_K": str(variant.k),
+        "PTO_MC2_MM_AR_N": str(variant.n),
+        "PTO_MC2_MM_AR_BASE_M": os.environ.get("PTO_MC2_MM_AR_BASE_M", "32"),
+        "PTO_MC2_MM_AR_BASE_N": os.environ.get("PTO_MC2_MM_AR_BASE_N", "32"),
+        "PTO_MC2_MM_AR_BASE_K": os.environ.get("PTO_MC2_MM_AR_BASE_K", "64"),
+        "PTO_MC2_MM_AR_BLOCK_DIM": os.environ.get("PTO_MC2_MM_AR_BLOCK_DIM", "4"),
     }
 
 
@@ -54,9 +76,7 @@ def benchmark(repo_root, spec, artifacts_dir):
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
-                artifact_paths.extend(
-                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
-                )
+                artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
 
                 variant_report = run_distributed_pto_benchmark(
                     variant=variant,
@@ -74,22 +94,23 @@ def benchmark(repo_root, spec, artifacts_dir):
                         }
                     )
                 variant_reports.append(variant_report)
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
-        report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
+        report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_benchmark.json"
         report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
         report["report_path"] = str(report_path)
         return report
+
     if any(item.get("status") != "ok" for item in variant_reports):
         first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
-            "reason": first_blocked.get("reason", "Distributed PTO MC2 launch failed."),
+            "reason": first_blocked.get("reason", "Distributed PTO matmul_all_reduce launch failed."),
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
         }
@@ -112,10 +133,10 @@ def benchmark(repo_root, spec, artifacts_dir):
             },
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
-            "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+            "reference_contract": "pto_local_matmul_then_all_reduce",
         }
 
-    report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
+    report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_benchmark.json"
     report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     report["report_path"] = str(report_path)
     return report

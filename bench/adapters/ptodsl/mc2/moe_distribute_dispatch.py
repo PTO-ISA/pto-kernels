@@ -5,15 +5,14 @@ import os
 from pathlib import Path
 
 from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
-from pto_kernels.ops.mc2.matmul_reduce_scatter.runtime import (
-    VARIANT,
+from pto_kernels.ops.mc2.moe_distribute_dispatch.runtime import (
     VARIANTS,
     run_distributed_pto_benchmark,
 )
 
 
-KERNEL = "python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py"
-META = "python/pto_kernels/ops/mc2/matmul_reduce_scatter/meta.py"
+KERNEL = "python/pto_kernels/ops/mc2/moe_distribute_dispatch/kernel.py"
+META = "python/pto_kernels/ops/mc2/moe_distribute_dispatch/meta.py"
 
 
 def describe(repo_root, spec):
@@ -26,12 +25,10 @@ def compile_kernel(repo_root, spec, artifacts_dir):
 
 def _variant_env(variant) -> dict[str, str]:
     return {
-        "PTO_MC2_M": str(variant.m),
-        "PTO_MC2_K": str(variant.k),
-        "PTO_MC2_N": str(variant.n),
-        "PTO_MC2_BASE_M": os.environ.get("PTO_MC2_BASE_M", "32"),
-        "PTO_MC2_BASE_K": os.environ.get("PTO_MC2_BASE_K", "32"),
-        "PTO_MC2_WORLD_SIZE": str(variant.expected_world_size),
+        "PTO_MC2_MOE_DISPATCH_TOKENS": str(variant.tokens),
+        "PTO_MC2_MOE_DISPATCH_HIDDEN": str(variant.hidden_size),
+        "PTO_MC2_MOE_DISPATCH_WORLD_SIZE": str(variant.expected_world_size),
+        "PTO_MC2_MOE_DISPATCH_BLOCK_DIM": os.environ.get("PTO_MC2_MOE_DISPATCH_BLOCK_DIM", "8"),
     }
 
 
@@ -54,9 +51,7 @@ def benchmark(repo_root, spec, artifacts_dir):
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
-                artifact_paths.extend(
-                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
-                )
+                artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
 
                 variant_report = run_distributed_pto_benchmark(
                     variant=variant,
@@ -80,16 +75,17 @@ def benchmark(repo_root, spec, artifacts_dir):
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
-        report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
+        report_path = Path(artifacts_dir) / "ptodsl_moe_distribute_dispatch_benchmark.json"
         report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
         report["report_path"] = str(report_path)
         return report
+
     if any(item.get("status") != "ok" for item in variant_reports):
         first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
-            "reason": first_blocked.get("reason", "Distributed PTO MC2 launch failed."),
+            "reason": first_blocked.get("reason", "Distributed PTO moe_distribute_dispatch launch failed."),
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
         }
@@ -112,10 +108,10 @@ def benchmark(repo_root, spec, artifacts_dir):
             },
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
-            "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+            "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
         }
 
-    report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
+    report_path = Path(artifacts_dir) / "ptodsl_moe_distribute_dispatch_benchmark.json"
     report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     report["report_path"] = str(report_path)
     return report
