@@ -52,7 +52,7 @@ class MoeDistributeCombineVariant:
         }
 
 
-VARIANT = MoeDistributeCombineVariant()
+VARIANT = MoeDistributeCombineVariant(expected_world_size=8)
 VARIANTS = (VARIANT,)
 
 
@@ -362,6 +362,7 @@ def run_distributed_baseline_benchmark(
         world_size=world_size,
         output_dir=output_dir,
         worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        timeout_seconds=300,
     )
     if launch["status"] != "ok":
         return {
@@ -489,6 +490,7 @@ def run_distributed_pto_benchmark(
         world_size=world_size,
         output_dir=output_dir,
         worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        timeout_seconds=300,
     )
     if launch["status"] != "ok":
         return {

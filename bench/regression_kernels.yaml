@@ -1,0 +1,13 @@
+- bench/specs/gmm/grouped_matmul.yaml
+- bench/specs/posembedding/apply_rotary_pos_emb.yaml
+- bench/specs/ffn/ffn.yaml
+- bench/specs/moe/moe_token_permute.yaml
+- bench/specs/attention/flash_attention_score.yaml
+- bench/specs/mc2/matmul_reduce_scatter.yaml
+- bench/specs/mc2/all_gather_matmul.yaml
+- bench/specs/mc2/grouped_mat_mul_all_reduce.yaml
+- bench/specs/mc2/matmul_all_reduce.yaml
+- bench/specs/mc2/matmul_all_reduce_add_rms_norm.yaml
+- bench/specs/mc2/inplace_matmul_all_reduce_add_rms_norm.yaml
+- bench/specs/mc2/moe_distribute_dispatch.yaml
+- bench/specs/mc2/moe_distribute_combine.yaml

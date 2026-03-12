@@ -98,6 +98,11 @@ gaps:
       - swin_attention_ffn
       - prompt_flash_attention
       - all_gather_matmul
+  - id: ptoas-python-binding-runtime-abi
+    component: PTOAS
+    status: open
+    summary: PTOAS now exposes the canonical TileType.to_buffer bridge in source, the capability manifest, the C API, and the rebuilt build-19 Python module, and PTODSL's cross-stack gate now requires that method. The default local Python environment still imports mlir.dialects.pto from ~/.local site-packages, and swapping in the freshly rebuilt _pto module there triggers a duplicate builtin dialect registration, so the new bridge is not yet the active runtime path in the default import environment. PTODSL keeps a compatibility fallback to the old TileBufType constructor until the active MLIR/PTO Python package stack is rebuilt consistently.
+    blocking_kernels: []
   - id: ptoisa-a2a3-template-gaps
     component: pto-isa
     status: mitigated

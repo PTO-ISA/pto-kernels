@@ -9,13 +9,12 @@ AllToAllV return path as an explicit blocker.
 
 from dataclasses import dataclass
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 
 from pto_kernels.utils.tuning import tuned_int
 
 
-const = s.const
+const = pto.const
 
 
 @dataclass(frozen=True)
@@ -49,26 +48,26 @@ def _meta_data(config: MoeDistributeCombineConfig):
     row_view = pto.SubTensorType(shape=[1, config.hidden], dtype=dtype)
     row_idx_view = pto.SubTensorType(shape=[1, config.hidden], dtype=idx_dtype)
     chunk_view = pto.SubTensorType(shape=[1, config.rows_per_core * config.hidden], dtype=dtype)
-    row_tile = pto.TileBufType(
+    row_tile = pto.TileType(
         shape=[1, config.hidden],
         valid_shape=[1, config.hidden],
         dtype=dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
-    row_idx_tile = pto.TileBufType(
+    row_idx_tile = pto.TileType(
         shape=[1, config.hidden],
         valid_shape=[1, config.hidden],
         dtype=idx_dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
-    chunk_tile = pto.TileBufType(
+    chunk_tile = pto.TileType(
         shape=[1, config.rows_per_core * config.hidden],
         valid_shape=[1, config.rows_per_core * config.hidden],
         dtype=dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
     return {
         "ptr": ptr,
@@ -122,8 +121,8 @@ def build_jit_wrapper(*, output_dir):
             strides=[c1],
         )
 
-        with pto.vector_section():
-            bid = s.index_cast(pto.get_block_idx())
+        with pto.section.vector():
+            bid = pto.index_cast(pto.get_block_idx())
             row_start = bid * cRowsPerCore
             row_end = row_start + cRowsPerCore
             chunk_offset = row_start * cHidden
@@ -139,13 +138,13 @@ def build_jit_wrapper(*, output_dir):
             )
             pto.load(dst_chunk_view, dst_chunk_tile)
 
-            for row_idx in pto.range(row_start, row_end, c1):
+            for row_idx in range(row_start, row_end, c1):
                 row_offset = row_idx * cHidden
                 src_view = pto.slice_view(row_view, source=tv_src, offsets=[row_offset], sizes=[cHidden])
                 idx_view = pto.slice_view(row_idx_view, source=tv_idx, offsets=[row_offset], sizes=[cHidden])
                 pto.load(src_view, src_row_tile)
                 pto.load(idx_view, idx_row_tile)
-                tile.scatter(src_row_tile, idx_row_tile, dst_chunk_tile)
+                pto.scatter(src_row_tile, idx_row_tile, dst_chunk_tile)
             pto.store(dst_chunk_tile, dst_chunk_view)
 
     return moe_distribute_combine_seed

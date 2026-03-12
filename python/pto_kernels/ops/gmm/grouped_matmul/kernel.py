@@ -15,12 +15,11 @@ from dataclasses import dataclass
 from math import gcd
 
 from mlir.ir import BF16Type, F32Type, IntegerType
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 from pto_kernels.utils.tuning import tuned_int
 
 
-const = s.const
+const = pto.const
 
 
 @dataclass(frozen=True)
@@ -124,9 +123,9 @@ def _schedule_lookup(logical_block, schedule: tuple[tuple[int, int], ...]):
     m_idx = const(schedule[0][0])
     n_idx = const(schedule[0][1])
     for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
-        is_current = s.eq(logical_block, const(block_id))
-        m_idx = s.select(is_current, const(tile_m), m_idx)
-        n_idx = s.select(is_current, const(tile_n), n_idx)
+        is_current = logical_block == const(block_id)
+        m_idx = pto.select(is_current, const(tile_m), m_idx)
+        n_idx = pto.select(is_current, const(tile_n), n_idx)
     return m_idx, n_idx
 
 
@@ -158,11 +157,11 @@ def _meta_data(config: GroupedMatmulConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.base_n], dtype=bf16)
     view_out = pto.SubTensorType(shape=[config.base_m, config.base_n], dtype=bf16)
 
-    tile_a_mat = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="MAT")
-    tile_b_mat = pto.TileBufType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="MAT")
-    tile_a = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="LEFT")
-    tile_b = pto.TileBufType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="RIGHT")
-    tile_c = pto.TileBufType(shape=[config.base_m, config.base_n], dtype=f32, memory_space="ACC")
+    tile_a_mat = pto.TileType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="MAT")
+    tile_b_mat = pto.TileType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="MAT")
+    tile_a = pto.TileType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="LEFT")
+    tile_b = pto.TileType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="RIGHT")
+    tile_c = pto.TileType(shape=[config.base_m, config.base_n], dtype=f32, memory_space="ACC")
 
     return {
         "ptr_out": ptr_out,
@@ -198,8 +197,8 @@ def build_jit_wrapper(*, output_dir):
         b_ptr: "ptr_in",
         batch_i32: "i32",
     ) -> None:
-        del batch_i32  # The seed variant is fixed to a single batch.
-        with pto.cube_section():
+        _ = batch_i32  # The seed variant is fixed to a single batch.
+        with pto.section.cube():
             c0 = const(0)
             c1 = const(1)
             cM = const(config.m)
@@ -211,8 +210,8 @@ def build_jit_wrapper(*, output_dir):
             cIter = const(config.k_iters)
             cTotalTiles = const(config.total_tiles)
 
-            bid = s.index_cast(pto.get_block_idx())
-            num_blocks = s.index_cast(pto.get_block_num())
+            bid = pto.index_cast(pto.get_block_idx())
+            num_blocks = pto.index_cast(pto.get_block_num())
 
             tv_a = pto.as_tensor(
                 tensor_in,
@@ -234,12 +233,12 @@ def build_jit_wrapper(*, output_dir):
             b_tile = pto.alloc_tile(tile_b)
             c_tile = pto.alloc_tile(tile_c)
 
-            for logical_block in pto.range(bid, cTotalTiles, num_blocks):
+            for logical_block in range(bid, cTotalTiles, num_blocks):
                 m_idx, n_idx = _schedule_lookup(logical_block, schedule)
                 m_off = m_idx * cTileM
                 n_off = n_idx * cTileN
 
-                for i in pto.range(c0, cIter, c1):
+                for i in range(c0, cIter, c1):
                     k_off = i * cBaseK
                     sv_a = pto.slice_view(
                         view_a,
@@ -256,14 +255,13 @@ def build_jit_wrapper(*, output_dir):
 
                     pto.load(sv_a, a_mat)
                     pto.load(sv_b, b_mat)
-                    tile.mov(a_mat, a_tile)
-                    tile.mov(b_mat, b_tile)
+                    pto.mov(a_mat, a_tile)
+                    pto.mov(b_mat, b_tile)
 
-                    pto.cond(
-                        s.eq(i, c0),
-                        lambda: tile.matmul(a_tile, b_tile, c_tile),
-                        lambda: tile.matmul_acc(c_tile, a_tile, b_tile, c_tile),
-                    )
+                    if i == c0:
+                        pto.matmul(a_tile, b_tile, c_tile)
+                    else:
+                        pto.matmul_acc(c_tile, a_tile, b_tile, c_tile)
 
                 sv_out = pto.slice_view(
                     view_out,

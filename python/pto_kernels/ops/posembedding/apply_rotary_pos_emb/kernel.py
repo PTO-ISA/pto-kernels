@@ -12,12 +12,11 @@ The remaining gap is the upstream double-buffer queue pipeline. PTO source stays
 sync-free and relies on PTOAS autosync insertion.
 """
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 from pto_kernels.utils.tuning import tuned_int
 
 
-const = s.const
+const = pto.const
 
 D = 128
 HALF_D = D // 2
@@ -42,8 +41,8 @@ def _meta_data(block_dim: int):
     tensor = pto.TensorType(rank=2, dtype=dtype)
     row_view = pto.SubTensorType(shape=[1, D], dtype=dtype)
 
-    tile_full = pto.TileBufType(shape=[1, D], dtype=dtype, memory_space="VEC")
-    tile_half = pto.TileBufType(shape=[1, HALF_D], dtype=dtype, memory_space="VEC")
+    tile_full = pto.TileType(shape=[1, D], dtype=dtype, memory_space="VEC")
+    tile_half = pto.TileType(shape=[1, HALF_D], dtype=dtype, memory_space="VEC")
 
     return {
         "ptr": ptr,
@@ -80,10 +79,10 @@ def build_jit_wrapper(*, output_dir):
         cRows = const(TOTAL_ROWS)
         cChunkRows = const(chunk_rows)
 
-        rows = s.index_cast(rows_i32)
+        rows = pto.index_cast(rows_i32)
 
-        with pto.vector_section():
-            bid = s.index_cast(pto.get_block_idx())
+        with pto.section.vector():
+            bid = pto.index_cast(pto.get_block_idx())
             row_start = bid * cChunkRows
 
             tv_query = pto.as_tensor(
@@ -111,7 +110,7 @@ def build_jit_wrapper(*, output_dir):
                 strides=[cD, c1],
             )
 
-            with pto.if_context(s.eq(rows, cRows)):
+            if rows == cRows:
                 tb_query = pto.alloc_tile(tile_full)
                 tb_key = pto.alloc_tile(tile_full)
                 tb_cos = pto.alloc_tile(tile_full)
@@ -122,7 +121,7 @@ def build_jit_wrapper(*, output_dir):
                 tb_tmp1 = pto.alloc_tile(tile_half)
                 tb_zero = pto.alloc_tile(tile_half)
 
-                for row_i in pto.range(c0, cChunkRows, c1):
+                for row_i in range(c0, cChunkRows, c1):
                     row_idx = row_start + row_i
 
                     sv_query = pto.slice_view(
@@ -155,36 +154,36 @@ def build_jit_wrapper(*, output_dir):
                     pto.load(sv_cos, tb_cos)
                     pto.load(sv_sin, tb_sin)
 
-                    q1 = tile.subset(tb_query, [c0, c0], [1, HALF_D])
-                    q2 = tile.subset(tb_query, [c0, cHalfD], [1, HALF_D])
-                    k1 = tile.subset(tb_key, [c0, c0], [1, HALF_D])
-                    k2 = tile.subset(tb_key, [c0, cHalfD], [1, HALF_D])
-                    cos1 = tile.subset(tb_cos, [c0, c0], [1, HALF_D])
-                    cos2 = tile.subset(tb_cos, [c0, cHalfD], [1, HALF_D])
-                    sin1 = tile.subset(tb_sin, [c0, c0], [1, HALF_D])
-                    sin2 = tile.subset(tb_sin, [c0, cHalfD], [1, HALF_D])
-                    q_out1 = tile.subset(tb_query_out, [c0, c0], [1, HALF_D])
-                    q_out2 = tile.subset(tb_query_out, [c0, cHalfD], [1, HALF_D])
-                    k_out1 = tile.subset(tb_key_out, [c0, c0], [1, HALF_D])
-                    k_out2 = tile.subset(tb_key_out, [c0, cHalfD], [1, HALF_D])
+                    q1 = pto.subset(tb_query, [c0, c0], [1, HALF_D])
+                    q2 = pto.subset(tb_query, [c0, cHalfD], [1, HALF_D])
+                    k1 = pto.subset(tb_key, [c0, c0], [1, HALF_D])
+                    k2 = pto.subset(tb_key, [c0, cHalfD], [1, HALF_D])
+                    cos1 = pto.subset(tb_cos, [c0, c0], [1, HALF_D])
+                    cos2 = pto.subset(tb_cos, [c0, cHalfD], [1, HALF_D])
+                    sin1 = pto.subset(tb_sin, [c0, c0], [1, HALF_D])
+                    sin2 = pto.subset(tb_sin, [c0, cHalfD], [1, HALF_D])
+                    q_out1 = pto.subset(tb_query_out, [c0, c0], [1, HALF_D])
+                    q_out2 = pto.subset(tb_query_out, [c0, cHalfD], [1, HALF_D])
+                    k_out1 = pto.subset(tb_key_out, [c0, c0], [1, HALF_D])
+                    k_out2 = pto.subset(tb_key_out, [c0, cHalfD], [1, HALF_D])
 
-                    tile.sub(cos1, cos1, tb_zero)
+                    pto.sub(cos1, cos1, tb_zero)
 
-                    tile.mul(q1, cos1, tb_tmp0)
-                    tile.sub(tb_zero, q2, tb_tmp1)
-                    tile.mul(tb_tmp1, sin1, tb_tmp1)
-                    tile.add(tb_tmp0, tb_tmp1, q_out1)
-                    tile.mul(q2, cos2, tb_tmp0)
-                    tile.mul(q1, sin2, tb_tmp1)
-                    tile.add(tb_tmp0, tb_tmp1, q_out2)
+                    pto.mul(q1, cos1, tb_tmp0)
+                    pto.sub(tb_zero, q2, tb_tmp1)
+                    pto.mul(tb_tmp1, sin1, tb_tmp1)
+                    pto.add(tb_tmp0, tb_tmp1, q_out1)
+                    pto.mul(q2, cos2, tb_tmp0)
+                    pto.mul(q1, sin2, tb_tmp1)
+                    pto.add(tb_tmp0, tb_tmp1, q_out2)
 
-                    tile.mul(k1, cos1, tb_tmp0)
-                    tile.sub(tb_zero, k2, tb_tmp1)
-                    tile.mul(tb_tmp1, sin1, tb_tmp1)
-                    tile.add(tb_tmp0, tb_tmp1, k_out1)
-                    tile.mul(k2, cos2, tb_tmp0)
-                    tile.mul(k1, sin2, tb_tmp1)
-                    tile.add(tb_tmp0, tb_tmp1, k_out2)
+                    pto.mul(k1, cos1, tb_tmp0)
+                    pto.sub(tb_zero, k2, tb_tmp1)
+                    pto.mul(tb_tmp1, sin1, tb_tmp1)
+                    pto.add(tb_tmp0, tb_tmp1, k_out1)
+                    pto.mul(k2, cos2, tb_tmp0)
+                    pto.mul(k1, sin2, tb_tmp1)
+                    pto.add(tb_tmp0, tb_tmp1, k_out2)
 
                     pto.store(tb_query_out, sv_query)
                     pto.store(tb_key_out, sv_key)

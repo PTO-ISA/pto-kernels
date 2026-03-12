@@ -12,12 +12,11 @@ The PTO source remains explicit-sync-free and relies on PTOAS autosync.
 
 from dataclasses import dataclass
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 from pto_kernels.utils.tuning import tuned_int
 
 
-const = s.const
+const = pto.const
 MAX_TURN_NUM = 16
 
 
@@ -124,11 +123,11 @@ def _meta_data(config: MatmulAllReduceConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.single_n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[config.single_m, config.single_n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT")
+    b_mat = pto.TileType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT")
+    a_tile = pto.TileType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT")
+    b_tile = pto.TileType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT")
+    out_acc = pto.TileType(shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
         "ptr": ptr,
@@ -170,7 +169,7 @@ def build_jit_wrapper(*, output_dir):
         cSplitM = const(config.split_m)
         cActiveCores = const(config.active_cores)
 
-        bid = s.index_cast(pto.get_block_idx())
+        bid = pto.index_cast(pto.get_block_idx())
 
         tv_x1 = pto.as_tensor(
             tensor,
@@ -191,133 +190,54 @@ def build_jit_wrapper(*, output_dir):
             strides=[cN, c1],
         )
 
-        with pto.cube_section():
-            pto.cond(
-                s.lt(bid, cActiveCores),
-                lambda: _run_core(
-                    bid,
-                    c0,
-                    c1,
-                    cSingleM,
-                    cSingleN,
-                    cBaseK,
-                    cKIter,
-                    cTotalRun,
-                    cNumBlocksM,
-                    cNumBlocksN,
-                    cSplitM,
-                    tv_x1,
-                    tv_x2,
-                    tv_out,
-                ),
-                lambda: None,
-            )
+        with pto.section.cube():
+            if bid < cActiveCores:
+                core_m_lane = bid // cNumBlocksN
+                core_n_idx = bid % cNumBlocksN
+
+                a_mat_tile = pto.alloc_tile(a_mat)
+                b_mat_tile = pto.alloc_tile(b_mat)
+                a_tile_buf = pto.alloc_tile(a_tile)
+                b_tile_buf = pto.alloc_tile(b_tile)
+                out_acc_tile = pto.alloc_tile(out_acc)
+
+                for turn_idx in range(c0, cTotalRun, c1):
+                    m_idx = turn_idx * cSplitM + core_m_lane
+                    if m_idx < cNumBlocksM:
+                        row_off = m_idx * cSingleM
+                        col_off = core_n_idx * cSingleN
+
+                        for k_idx in range(c0, cKIter, c1):
+                            k_off = k_idx * cBaseK
+                            sv_a = pto.slice_view(
+                                view_a,
+                                source=tv_x1,
+                                offsets=[row_off, k_off],
+                                sizes=[cSingleM, cBaseK],
+                            )
+                            sv_b = pto.slice_view(
+                                view_b,
+                                source=tv_x2,
+                                offsets=[k_off, col_off],
+                                sizes=[cBaseK, cSingleN],
+                            )
+
+                            pto.load(sv_a, a_mat_tile)
+                            pto.load(sv_b, b_mat_tile)
+                            pto.mov(a_mat_tile, a_tile_buf)
+                            pto.mov(b_mat_tile, b_tile_buf)
+
+                            if k_idx == c0:
+                                pto.matmul(a_tile_buf, b_tile_buf, out_acc_tile)
+                            else:
+                                pto.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile)
+
+                        sv_out = pto.slice_view(
+                            view_out,
+                            source=tv_out,
+                            offsets=[row_off, col_off],
+                            sizes=[cSingleM, cSingleN],
+                        )
+                        pto.store(out_acc_tile, sv_out)
 
     return matmul_all_reduce_local
-
-
-def _run_core(
-    bid,
-    c0,
-    c1,
-    cSingleM,
-    cSingleN,
-    cBaseK,
-    cKIter,
-    cTotalRun,
-    cNumBlocksM,
-    cNumBlocksN,
-    cSplitM,
-    tv_x1,
-    tv_x2,
-    tv_out,
-):
-    core_m_lane = bid // cNumBlocksN
-    core_n_idx = bid % cNumBlocksN
-
-    a_mat_tile = pto.alloc_tile(a_mat)
-    b_mat_tile = pto.alloc_tile(b_mat)
-    a_tile_buf = pto.alloc_tile(a_tile)
-    b_tile_buf = pto.alloc_tile(b_tile)
-    out_acc_tile = pto.alloc_tile(out_acc)
-
-    for turn_idx in pto.range(c0, cTotalRun, c1):
-        m_idx = turn_idx * cSplitM + core_m_lane
-        pto.cond(
-            s.lt(m_idx, cNumBlocksM),
-            lambda: _run_tile(
-                m_idx,
-                core_n_idx,
-                c0,
-                c1,
-                cSingleM,
-                cSingleN,
-                cBaseK,
-                cKIter,
-                tv_x1,
-                tv_x2,
-                tv_out,
-                a_mat_tile,
-                b_mat_tile,
-                a_tile_buf,
-                b_tile_buf,
-                out_acc_tile,
-            ),
-            lambda: None,
-        )
-
-
-def _run_tile(
-    m_idx,
-    n_idx,
-    c0,
-    c1,
-    cSingleM,
-    cSingleN,
-    cBaseK,
-    cKIter,
-    tv_x1,
-    tv_x2,
-    tv_out,
-    a_mat_tile,
-    b_mat_tile,
-    a_tile_buf,
-    b_tile_buf,
-    out_acc_tile,
-):
-    row_off = m_idx * cSingleM
-    col_off = n_idx * cSingleN
-
-    for k_idx in pto.range(c0, cKIter, c1):
-        k_off = k_idx * cBaseK
-        sv_a = pto.slice_view(
-            view_a,
-            source=tv_x1,
-            offsets=[row_off, k_off],
-            sizes=[cSingleM, cBaseK],
-        )
-        sv_b = pto.slice_view(
-            view_b,
-            source=tv_x2,
-            offsets=[k_off, col_off],
-            sizes=[cBaseK, cSingleN],
-        )
-
-        pto.load(sv_a, a_mat_tile)
-        pto.load(sv_b, b_mat_tile)
-        tile.mov(a_mat_tile, a_tile_buf)
-        tile.mov(b_mat_tile, b_tile_buf)
-
-        pto.cond(
-            s.eq(k_idx, c0),
-            lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-            lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
-        )
-
-    sv_out = pto.slice_view(
-        view_out,
-        source=tv_out,
-        offsets=[row_off, col_off],
-        sizes=[cSingleM, cSingleN],
-    )
-    pto.store(out_acc_tile, sv_out)

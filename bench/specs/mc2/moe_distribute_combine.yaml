@@ -12,5 +12,9 @@ pto:
 correctness:
   atol: 0.001
   rtol: 0.0
+bench:
+  warmup: 0
+  repeat: 1
 notes:
   - Phase-2 MC2 seed for EP-only top-1 moe_distribute_combine on 910B.
+  - Regression path uses the real 8-rank local HCCL contract with zero warmup while the routing path is being stabilized.

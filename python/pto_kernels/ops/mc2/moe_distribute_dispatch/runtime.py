@@ -56,7 +56,7 @@ class MoeDistributeDispatchVariant:
         }
 
 
-VARIANT = MoeDistributeDispatchVariant()
+VARIANT = MoeDistributeDispatchVariant(expected_world_size=8)
 VARIANTS = (
     MoeDistributeDispatchVariant(tokens=8, hidden_size=7168, expected_world_size=8, seed=0),
 )
@@ -70,14 +70,10 @@ def _write_worker_trace(output_dir: Path, rank: int, stage: str, **extra: object
 
 
 def launcher_blocker(world_size: int) -> dict[str, object] | None:
-    enabled = os.environ.get("PTO_ENABLE_UNSTABLE_8RANK_MC2") == "1"
-    if world_size == 8 and not enabled:
+    if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
-            "reason": (
-                "The current local HCCL launcher path is not yet stable for the required 8-rank "
-                "A2 MC2 contract. Set PTO_ENABLE_UNSTABLE_8RANK_MC2=1 to attempt the benchmark anyway."
-            ),
+            "reason": f"Unsupported world size {world_size}; expected one of {SUPPORTED_WORLD_SIZES}.",
         }
     return None
 
@@ -425,6 +421,7 @@ def run_distributed_baseline_benchmark(
         world_size=world_size,
         output_dir=output_dir,
         worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        timeout_seconds=300,
     )
     if launch["status"] != "ok":
         return {
@@ -506,7 +503,8 @@ def _pto_worker(
     recv_counts = all_send_counts[:, rank].contiguous()
     send_splits = [int(item) for item in send_counts.cpu().tolist()]
     recv_splits = [int(item) for item in recv_counts.cpu().tolist()]
-    recv_buffer = torch.zeros((variant.global_bs, variant.hidden_size), dtype=torch.float16).to(device)
+    total_recv_rows = int(sum(recv_splits))
+    recv_buffer = torch.zeros((max(total_recv_rows, 1), variant.hidden_size), dtype=torch.float16).to(device)
 
     def _run_once():
         _write_worker_trace(output_dir, rank, "pto_before_pack")
@@ -527,8 +525,11 @@ def _pto_worker(
             input_split_sizes=send_splits,
         )
         _write_worker_trace(output_dir, rank, "pto_after_all_to_all")
+        expand_x = torch.zeros((variant.global_bs, variant.hidden_size), dtype=torch.float16).to(device)
+        if total_recv_rows > 0:
+            expand_x[:total_recv_rows].copy_(recv_buffer[:total_recv_rows])
         return {
-            "expand_x": recv_buffer,
+            "expand_x": expand_x,
             "expand_idx": reference["expand_idx"].to(device),
             "expert_token_nums": reference["expert_token_nums"].to(device),
             "ep_recv_counts_prefix": recv_counts.to(torch.int32),
@@ -599,6 +600,7 @@ def run_distributed_pto_benchmark(
         world_size=world_size,
         output_dir=output_dir,
         worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        timeout_seconds=300,
     )
     if launch["status"] != "ok":
         return {

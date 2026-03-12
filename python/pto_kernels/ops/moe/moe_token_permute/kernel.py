@@ -9,12 +9,11 @@ uses that map to reorder tokens plus copy the permutation metadata.
 from dataclasses import dataclass
 from pathlib import Path
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 from pto_kernels.utils.tuning import tuned_int
 
 
-const = s.const
+const = pto.const
 
 
 @dataclass(frozen=True)
@@ -50,22 +49,22 @@ def _permute_meta_data(config: MoeTokenPermuteConfig):
     sub_out = pto.SubTensorType(shape=[1, config.hidden], dtype=dtype)
     sub_gather = pto.SubTensorType(shape=[1, config.hidden], dtype=i32)
 
-    cfg = pto.TileBufConfig()
-    tile_tokens = pto.TileBufType(
+    cfg = pto.TileConfig()
+    tile_tokens = pto.TileType(
         shape=[1, config.total],
         valid_shape=[1, config.total],
         dtype=dtype,
         memory_space="VEC",
         config=cfg,
     )
-    tile_gather = pto.TileBufType(
+    tile_gather = pto.TileType(
         shape=[1, config.hidden],
         valid_shape=[1, config.hidden],
         dtype=i32,
         memory_space="VEC",
         config=cfg,
     )
-    tile_out = pto.TileBufType(
+    tile_out = pto.TileType(
         shape=[1, config.hidden],
         valid_shape=[1, config.hidden],
         dtype=dtype,
@@ -92,8 +91,8 @@ def _copy_indices_meta_data(config: MoeTokenPermuteConfig):
     ptr_i32 = pto.PtrType(i32)
     tensor_i32 = pto.TensorType(rank=1, dtype=i32)
     sub_i32 = pto.SubTensorType(shape=[1, config.tokens], dtype=i32)
-    cfg = pto.TileBufConfig()
-    tile_i32 = pto.TileBufType(
+    cfg = pto.TileConfig()
+    tile_i32 = pto.TileType(
         shape=[1, config.tokens],
         valid_shape=[1, config.tokens],
         dtype=i32,
@@ -142,12 +141,12 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
             strides=[c1],
         )
 
-        with pto.vector_section():
-            bid = s.index_cast(pto.get_block_idx())
-            num_blocks = s.index_cast(pto.get_block_num())
-            rows_per_core = s.ceil_div(cTokens, num_blocks)
+        with pto.section.vector():
+            bid = pto.index_cast(pto.get_block_idx())
+            num_blocks = pto.index_cast(pto.get_block_num())
+            rows_per_core = pto.ceil_div(cTokens, num_blocks)
             row_start = bid * rows_per_core
-            row_end = s.min_u(row_start + rows_per_core, cTokens)
+            row_end = pto.min_u(row_start + rows_per_core, cTokens)
             tb_tokens = pto.alloc_tile(tile_tokens)
             tb_gather = pto.alloc_tile(tile_gather)
             tb_out = pto.alloc_tile(tile_out)
@@ -155,13 +154,13 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
             sv_tokens = pto.slice_view(sub_tokens, source=tv_tokens, offsets=[c0], sizes=[cTotal])
             pto.load(sv_tokens, tb_tokens)
 
-            for row_idx in pto.range(row_start, row_end, c1):
+            for row_idx in range(row_start, row_end, c1):
                 row_off = row_idx * cHidden
                 sv_gather = pto.slice_view(sub_gather, source=tv_gather, offsets=[row_off], sizes=[cHidden])
                 sv_out = pto.slice_view(sub_out, source=tv_out, offsets=[row_off], sizes=[cHidden])
 
                 pto.load(sv_gather, tb_gather)
-                tile.gather(tb_tokens, tb_out, tb_gather)
+                pto.gather(tb_tokens, tb_out, tb_gather)
                 pto.store(tb_out, sv_out)
 
     return moe_token_permute_seed
@@ -193,7 +192,7 @@ def _build_copy_indices_kernel(*, config: MoeTokenPermuteConfig, output_dir):
             strides=[c1],
         )
 
-        with pto.vector_section():
+        with pto.section.vector():
             tb_in = pto.alloc_tile(tile_i32)
             sv_in = pto.slice_view(sub_i32, source=tv_in, offsets=[c0], sizes=[cTokens])
             sv_out = pto.slice_view(sub_i32, source=tv_out, offsets=[c0], sizes=[cTokens])

@@ -3,11 +3,10 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 
 
-const = s.const
+const = pto.const
 
 
 @dataclass(frozen=True)
@@ -63,11 +62,11 @@ def _matmul_meta_data(*, base_m: int, base_k: int, base_n: int):
     view_b = pto.SubTensorType(shape=[base_k, base_n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[base_m, base_n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileType(shape=[base_m, base_k], dtype=dtype, memory_space="MAT")
+    b_mat = pto.TileType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
+    a_tile = pto.TileType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
+    b_tile = pto.TileType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
+    out_acc = pto.TileType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
         "ptr": ptr,
@@ -93,9 +92,9 @@ def _schedule_lookup(logical_block, schedule):
     m_idx = const(schedule[0][0])
     n_idx = const(schedule[0][1])
     for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
-        is_current = s.eq(logical_block, const(block_id))
-        m_idx = s.select(is_current, const(tile_m), m_idx)
-        n_idx = s.select(is_current, const(tile_n), n_idx)
+        is_current = logical_block == const(block_id)
+        m_idx = pto.select(is_current, const(tile_m), m_idx)
+        n_idx = pto.select(is_current, const(tile_n), n_idx)
     return m_idx, n_idx
 
 
@@ -104,7 +103,7 @@ def _relu_meta_data(config: DenseReluFfnConfig):
     ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
     sub = pto.SubTensorType(shape=[1, config.intermediate], dtype=dtype)
-    vec = pto.TileBufType(shape=[1, config.intermediate], dtype=dtype, memory_space="VEC")
+    vec = pto.TileType(shape=[1, config.intermediate], dtype=dtype, memory_space="VEC")
 
     return {
         "ptr": ptr,
@@ -153,21 +152,21 @@ def build_matmul_stage(
         tv_b = pto.as_tensor(tensor, ptr=b_ptr, shape=[cK, cN], strides=[cN, c1])
         tv_out = pto.as_tensor(tensor, ptr=out_ptr, shape=[cM, cN], strides=[cN, c1])
 
-        with pto.cube_section():
-            bid = s.index_cast(pto.get_block_idx())
-            num_blocks = s.index_cast(pto.get_block_num())
+        with pto.section.cube():
+            bid = pto.index_cast(pto.get_block_idx())
+            num_blocks = pto.index_cast(pto.get_block_num())
             a_mat_tile = pto.alloc_tile(a_mat)
             b_mat_tile = pto.alloc_tile(b_mat)
             a_tile_buf = pto.alloc_tile(a_tile)
             b_tile_buf = pto.alloc_tile(b_tile)
             out_acc_tile = pto.alloc_tile(out_acc)
 
-            for logical_block in pto.range(bid, cTotalTiles, num_blocks):
+            for logical_block in range(bid, cTotalTiles, num_blocks):
                 m_idx, n_idx = _schedule_lookup(logical_block, schedule)
                 m_off = m_idx * cBaseM
                 n_off = n_idx * cBaseN
 
-                for i in pto.range(c0, cKIter, c1):
+                for i in range(c0, cKIter, c1):
                     k_off = i * cBaseK
                     sv_a = pto.slice_view(
                         view_a, source=tv_a, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
@@ -178,14 +177,13 @@ def build_matmul_stage(
 
                     pto.load(sv_a, a_mat_tile)
                     pto.load(sv_b, b_mat_tile)
-                    tile.mov(a_mat_tile, a_tile_buf)
-                    tile.mov(b_mat_tile, b_tile_buf)
+                    pto.mov(a_mat_tile, a_tile_buf)
+                    pto.mov(b_mat_tile, b_tile_buf)
 
-                    pto.cond(
-                        s.eq(i, c0),
-                        lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-                        lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
-                    )
+                    if i == c0:
+                        pto.matmul(a_tile_buf, b_tile_buf, out_acc_tile)
+                    else:
+                        pto.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile)
 
                 sv_out = pto.slice_view(
                     view_out, source=tv_out, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
@@ -214,19 +212,19 @@ def build_relu_stage(*, config: DenseReluFfnConfig, output_dir):
             tensor, ptr=hidden_ptr, shape=[cTokens, cIntermediate], strides=[cIntermediate, c1]
         )
 
-        with pto.vector_section():
-            bid = s.index_cast(pto.get_block_idx())
-            num_blocks = s.index_cast(pto.get_block_num())
-            rows_per_core = s.ceil_div(cTokens, num_blocks)
+        with pto.section.vector():
+            bid = pto.index_cast(pto.get_block_idx())
+            num_blocks = pto.index_cast(pto.get_block_num())
+            rows_per_core = pto.ceil_div(cTokens, num_blocks)
             row_start = bid * rows_per_core
-            row_end = s.min_u(row_start + rows_per_core, cTokens)
+            row_end = pto.min_u(row_start + rows_per_core, cTokens)
             hidden_in = pto.alloc_tile(vec_in)
             hidden_out = pto.alloc_tile(vec_out)
 
-            for row_idx in pto.range(row_start, row_end, c1):
+            for row_idx in range(row_start, row_end, c1):
                 sv_row = pto.slice_view(sub, source=tv_hidden, offsets=[row_idx, c0], sizes=[c1, cIntermediate])
                 pto.load(sv_row, hidden_in)
-                tile.relu(hidden_in, hidden_out)
+                pto.relu(hidden_in, hidden_out)
                 pto.store(hidden_out, sv_row)
 
     return dense_relu_stage

@@ -12,14 +12,13 @@ explicit-sync-free and relies on PTOAS autosync.
 
 from dataclasses import dataclass
 
-from ptodsl import jit, pto, tile
-from ptodsl import scalar as s
+from ptodsl import jit, pto
 from pto_kernels.utils.tuning import tuned_int
 
 from pto_kernels.ops.mc2.matmul_all_reduce.kernel import build_jit_wrapper as build_mm_jit_wrapper
 
 
-const = s.const
+const = pto.const
 
 
 @dataclass(frozen=True)
@@ -53,26 +52,26 @@ def _meta_data(config: AddRmsNormConfig):
     tensor = pto.TensorType(rank=2, dtype=io_dtype)
     row_view = pto.SubTensorType(shape=[1, config.n], dtype=io_dtype)
 
-    row_tile = pto.TileBufType(
+    row_tile = pto.TileType(
         shape=[1, config.n],
         valid_shape=[1, config.n],
         dtype=io_dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
-    row_tile_acc = pto.TileBufType(
+    row_tile_acc = pto.TileType(
         shape=[1, config.n],
         valid_shape=[1, config.n],
         dtype=acc_dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
-    scalar_tile = pto.TileBufType(
+    scalar_tile = pto.TileType(
         shape=[1, config.n],
         valid_shape=[1, 1],
         dtype=acc_dtype,
         memory_space="VEC",
-        config=pto.TileBufConfig(),
+        config=pto.TileConfig(),
     )
 
     return {
@@ -117,12 +116,12 @@ def build_add_rms_norm_jit_wrapper(*, output_dir):
         tv_inv_n = pto.as_tensor(tensor, ptr=inv_n_ptr, shape=[c1, cN], strides=[cN, c1])
         tv_eps = pto.as_tensor(tensor, ptr=eps_ptr, shape=[c1, cN], strides=[cN, c1])
 
-        with pto.vector_section():
-            bid = s.index_cast(pto.get_block_idx())
-            num_blocks = s.index_cast(pto.get_block_num())
-            rows_per_core = s.ceil_div(cM, num_blocks)
+        with pto.section.vector():
+            bid = pto.index_cast(pto.get_block_idx())
+            num_blocks = pto.index_cast(pto.get_block_num())
+            rows_per_core = pto.ceil_div(cM, num_blocks)
             row_start = bid * rows_per_core
-            row_end = s.min_u(row_start + rows_per_core, cM)
+            row_end = pto.min_u(row_start + rows_per_core, cM)
 
             mm_row_f16 = pto.alloc_tile(row_tile)
             residual_row_f16 = pto.alloc_tile(row_tile)
@@ -149,19 +148,19 @@ def build_add_rms_norm_jit_wrapper(*, output_dir):
                 pto.slice_view(row_view, source=tv_gamma, offsets=[c0, c0], sizes=[c1, cN]),
                 gamma_row_f16,
             )
-            tile.cvt(gamma_row_f16, gamma_row)
+            pto.cvt(gamma_row_f16, gamma_row)
             pto.load(
                 pto.slice_view(row_view, source=tv_inv_n, offsets=[c0, c0], sizes=[c1, cN]),
                 inv_n_row_f16,
             )
-            tile.cvt(inv_n_row_f16, inv_n_row)
+            pto.cvt(inv_n_row_f16, inv_n_row)
             pto.load(
                 pto.slice_view(row_view, source=tv_eps, offsets=[c0, c0], sizes=[c1, cN]),
                 eps_row_f16,
             )
-            tile.cvt(eps_row_f16, eps_row)
+            pto.cvt(eps_row_f16, eps_row)
 
-            for row_idx in pto.range(row_start, row_end, c1):
+            for row_idx in range(row_start, row_end, c1):
                 sv_mm = pto.slice_view(row_view, source=tv_mm, offsets=[row_idx, c0], sizes=[c1, cN])
                 sv_residual = pto.slice_view(row_view, source=tv_residual, offsets=[row_idx, c0], sizes=[c1, cN])
                 sv_y = pto.slice_view(row_view, source=tv_y, offsets=[row_idx, c0], sizes=[c1, cN])
@@ -169,29 +168,29 @@ def build_add_rms_norm_jit_wrapper(*, output_dir):
 
                 pto.load(sv_mm, mm_row_f16)
                 pto.load(sv_residual, residual_row_f16)
-                tile.cvt(mm_row_f16, mm_row)
-                tile.cvt(residual_row_f16, residual_row)
-                tile.add(mm_row, residual_row, y_row)
-                tile.cvt(y_row, y_row_f16)
+                pto.cvt(mm_row_f16, mm_row)
+                pto.cvt(residual_row_f16, residual_row)
+                pto.add(mm_row, residual_row, y_row)
+                pto.cvt(y_row, y_row_f16)
                 pto.store(y_row_f16, sv_y)
 
-                tile.mul(y_row, y_row, sq_row)
-                tile.row_sum(sq_row, tmp_row, scalar)
-                tile.row_expand(scalar, scale_row)
-                tile.mul(scale_row, inv_n_row, scale_row)
-                tile.add(scale_row, eps_row, scale_row)
-                tile.rsqrt(scale_row, tmp_row)
+                pto.mul(y_row, y_row, sq_row)
+                pto.row_sum(sq_row, tmp_row, scalar)
+                pto.row_expand(scalar, scale_row)
+                pto.mul(scale_row, inv_n_row, scale_row)
+                pto.add(scale_row, eps_row, scale_row)
+                pto.rsqrt(scale_row, tmp_row)
                 # One Newton refinement step reduces the rsqrt drift that
                 # shows up in the MC2 RMSNorm parity checks on 910B.
-                tile.mul(tmp_row, tmp_row, refine_row)
-                tile.mul(scale_row, refine_row, refine_row)
-                tile.muls(refine_row, const(0.5, dtype=pto.float32), refine_row)
-                tile.expands(const(1.5, dtype=pto.float32), const_row)
-                tile.sub(const_row, refine_row, refine_row)
-                tile.mul(tmp_row, refine_row, tmp_row)
-                tile.mul(y_row, tmp_row, sq_row)
-                tile.mul(sq_row, gamma_row, sq_row)
-                tile.cvt(sq_row, norm_row_f16)
+                pto.mul(tmp_row, tmp_row, refine_row)
+                pto.mul(scale_row, refine_row, refine_row)
+                pto.muls(refine_row, const(0.5, dtype=pto.float32), refine_row)
+                pto.expands(const(1.5, dtype=pto.float32), const_row)
+                pto.sub(const_row, refine_row, refine_row)
+                pto.mul(tmp_row, refine_row, tmp_row)
+                pto.mul(y_row, tmp_row, sq_row)
+                pto.mul(sq_row, gamma_row, sq_row)
+                pto.cvt(sq_row, norm_row_f16)
                 pto.store(norm_row_f16, sv_norm)
 
     return add_rms_norm_stage
