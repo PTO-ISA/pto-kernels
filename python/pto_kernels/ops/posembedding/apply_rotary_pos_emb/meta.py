@@ -9,6 +9,7 @@ META = planned_meta(
     ops_transformer_path="posembedding/apply_rotary_pos_emb",
     blockers=[
         "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface",
     ],
 )
 
@@ -24,5 +25,7 @@ META["seed_variant"] = {
         "float16 only",
         "query_heads and key_heads fixed to 1",
         "head_dim fixed to 128",
+        "current PTO rewrite matches upstream contiguous per-core row chunk ownership for the validated 64-row seed",
+        "current PTO rewrite does not yet model the upstream double-buffer queue pipeline for vector copy/compute overlap",
     ],
 }

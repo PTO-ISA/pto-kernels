@@ -22,5 +22,6 @@ META["seed_variant"] = {
         "bias disabled",
         "seed tensors scaled by 0.125 for stable fp16 reference comparison",
         "PTO seed currently runs as a staged matmul -> relu -> matmul pipeline",
+        "phase-2 rewrite now follows ops-transformer host tiling more closely with baseM/baseN output blocking and per-core tile ownership on both matmul stages",
     ],
 }

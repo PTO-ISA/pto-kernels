@@ -25,5 +25,6 @@ META["seed_variant"] = {
         "dense self-attention only",
         "PTO seed runs as a staged QK matmul, row-wise softmax, and PV matmul path",
         "PTO benchmark pre-scales the query input by 1 / sqrt(64) to match the attention contract",
+        "phase-2 rewrite now follows ops-transformer host tiling more closely with tiled S1xS2 QK ownership, per-row softmax core splits, and tiled S1xD PV ownership",
     ],
 }

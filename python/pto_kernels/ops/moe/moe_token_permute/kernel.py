@@ -21,6 +21,7 @@ const = s.const
 class MoeTokenPermuteConfig:
     tokens: int
     hidden: int
+    block_dim: int
 
     @property
     def total(self) -> int:
@@ -31,6 +32,7 @@ def _config() -> MoeTokenPermuteConfig:
     return MoeTokenPermuteConfig(
         tokens=tuned_int("PTO_MOE_TOKENS", 8, valid_values=(8, 16)),
         hidden=tuned_int("PTO_MOE_HIDDEN", 16, valid_values=(16, 32)),
+        block_dim=tuned_int("PTO_MOE_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16, 20)),
     )
 
 
@@ -45,7 +47,8 @@ def _permute_meta_data(config: MoeTokenPermuteConfig):
     tensor_i32 = pto.TensorType(rank=1, dtype=i32)
 
     sub_tokens = pto.SubTensorType(shape=[1, config.total], dtype=dtype)
-    sub_gather = pto.SubTensorType(shape=[1, config.total], dtype=i32)
+    sub_out = pto.SubTensorType(shape=[1, config.hidden], dtype=dtype)
+    sub_gather = pto.SubTensorType(shape=[1, config.hidden], dtype=i32)
 
     cfg = pto.TileBufConfig()
     tile_tokens = pto.TileBufType(
@@ -56,9 +59,16 @@ def _permute_meta_data(config: MoeTokenPermuteConfig):
         config=cfg,
     )
     tile_gather = pto.TileBufType(
-        shape=[1, config.total],
-        valid_shape=[1, config.total],
+        shape=[1, config.hidden],
+        valid_shape=[1, config.hidden],
         dtype=i32,
+        memory_space="VEC",
+        config=cfg,
+    )
+    tile_out = pto.TileBufType(
+        shape=[1, config.hidden],
+        valid_shape=[1, config.hidden],
+        dtype=dtype,
         memory_space="VEC",
         config=cfg,
     )
@@ -69,9 +79,11 @@ def _permute_meta_data(config: MoeTokenPermuteConfig):
         "tensor": tensor,
         "tensor_i32": tensor_i32,
         "sub_tokens": sub_tokens,
+        "sub_out": sub_out,
         "sub_gather": sub_gather,
         "tile_tokens": tile_tokens,
         "tile_gather": tile_gather,
+        "tile_out": tile_out,
     }
 
 
@@ -100,13 +112,15 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
     @jit(
         meta_data=lambda: _permute_meta_data(config),
         output_dir=output_dir,
-        block_dim=1,
+        block_dim=max(1, min(config.tokens, config.block_dim)),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
     def moe_token_permute_seed(out_ptr: "ptr", tokens_ptr: "ptr", gather_ptr: "ptr_i32") -> None:
         c0 = const(0)
         c1 = const(1)
+        cTokens = const(config.tokens)
+        cHidden = const(config.hidden)
         cTotal = const(config.total)
 
         tv_tokens = pto.as_tensor(
@@ -129,18 +143,26 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
         )
 
         with pto.vector_section():
+            bid = s.index_cast(pto.get_block_idx())
+            num_blocks = s.index_cast(pto.get_block_num())
+            rows_per_core = s.ceil_div(cTokens, num_blocks)
+            row_start = bid * rows_per_core
+            row_end = s.min_u(row_start + rows_per_core, cTokens)
             tb_tokens = pto.alloc_tile(tile_tokens)
             tb_gather = pto.alloc_tile(tile_gather)
-            tb_out = pto.alloc_tile(tile_tokens)
+            tb_out = pto.alloc_tile(tile_out)
 
             sv_tokens = pto.slice_view(sub_tokens, source=tv_tokens, offsets=[c0], sizes=[cTotal])
-            sv_gather = pto.slice_view(sub_gather, source=tv_gather, offsets=[c0], sizes=[cTotal])
-            sv_out = pto.slice_view(sub_tokens, source=tv_out, offsets=[c0], sizes=[cTotal])
-
             pto.load(sv_tokens, tb_tokens)
-            pto.load(sv_gather, tb_gather)
-            tile.gather(tb_tokens, tb_out, tb_gather)
-            pto.store(tb_out, sv_out)
+
+            for row_idx in pto.range(row_start, row_end, c1):
+                row_off = row_idx * cHidden
+                sv_gather = pto.slice_view(sub_gather, source=tv_gather, offsets=[row_off], sizes=[cHidden])
+                sv_out = pto.slice_view(sub_out, source=tv_out, offsets=[row_off], sizes=[cHidden])
+
+                pto.load(sv_gather, tb_gather)
+                tile.gather(tb_tokens, tb_out, tb_gather)
+                pto.store(tb_out, sv_out)
 
     return moe_token_permute_seed
 

@@ -23,5 +23,7 @@ META["seed_variant"] = {
         "padded_mode fixed to false",
         "num_out_tokens fixed to 0",
         "PTO seed currently consumes a host-precomputed gather map for token reorder",
+        "phase-2 rewrite now follows ops-transformer copy ownership more closely with contiguous per-core token-row ownership on the permute stage",
+        "validated shapes currently cover 8x16, 16x16, and 16x32",
     ],
 }
