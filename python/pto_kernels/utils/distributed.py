@@ -5,6 +5,8 @@ from __future__ import annotations
 import json
 import os
 import socket
+import time
+import importlib
 from pathlib import Path
 from typing import Any
 
@@ -90,6 +92,7 @@ def run_local_ranked_job(
     worker_kwargs: dict[str, Any] | None = None,
     backend: str = "hccl",
     device_type: str = "npu",
+    timeout_seconds: float | None = None,
 ) -> dict[str, Any]:
     if device_type == "npu":
         npu_count = torch.npu.device_count()
@@ -101,7 +104,11 @@ def run_local_ranked_job(
 
     output_dir.mkdir(parents=True, exist_ok=True)
     master_port = _pick_free_port()
-    mp.spawn(
+    spawn_module = importlib.import_module("torch.multiprocessing.spawn")
+    launch_timeout = timeout_seconds
+    if launch_timeout is None:
+        launch_timeout = float(os.environ.get("PTO_DISTRIBUTED_LAUNCH_TIMEOUT_SEC", "180"))
+    context = spawn_module.start_processes(
         _spawn_worker,
         args=(
             worker_fn,
@@ -113,8 +120,36 @@ def run_local_ranked_job(
             device_type,
         ),
         nprocs=world_size,
-        join=True,
+        join=False,
     )
+    deadline = time.monotonic() + max(1.0, launch_timeout)
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            for process in context.processes:
+                if process.is_alive():
+                    process.terminate()
+            for process in context.processes:
+                process.join(timeout=5)
+                if process.is_alive():
+                    process.kill()
+                    process.join(timeout=5)
+            partial_rank_reports = []
+            for rank in range(world_size):
+                report_path = output_dir / f"rank_{rank}.json"
+                if report_path.exists():
+                    partial_rank_reports.append(json.loads(report_path.read_text(encoding="utf-8")))
+            return {
+                "status": "blocked",
+                "reason": (
+                    f"Distributed ranked job timed out after {launch_timeout:.0f}s before all ranks "
+                    "produced reports."
+                ),
+                "world_size": world_size,
+                "rank_reports": partial_rank_reports,
+            }
+        if context.join(timeout=min(5.0, remaining), grace_period=5.0):
+            break
 
     rank_reports = []
     for rank in range(world_size):
