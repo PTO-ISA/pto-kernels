@@ -35,8 +35,26 @@ class MatmulReduceScatterVariant:
     def as_dict(self) -> dict[str, int | str | bool]:
         return asdict(self)
 
+    @property
+    def label(self) -> str:
+        return f"m{self.m}_k{self.k}_n{self.n}_w{self.expected_world_size}"
+
+    @property
+    def shape_summary(self) -> dict[str, object]:
+        return {
+            "x1": [self.m, self.k],
+            "x2": [self.k, self.n],
+            "local_mm": [self.m, self.n],
+            "reduce_scatter_output_per_rank": [self.m // self.expected_world_size, self.n],
+            "world_size": self.expected_world_size,
+        }
+
 
 VARIANT = MatmulReduceScatterVariant()
+VARIANTS = (
+    MatmulReduceScatterVariant(m=128, k=256, n=128, expected_world_size=2, seed=0),
+    MatmulReduceScatterVariant(m=64, k=256, n=128, expected_world_size=2, seed=1),
+)
 
 def resolve_world_size() -> int:
     value = os.environ.get("PTO_MC2_WORLD_SIZE")
@@ -45,23 +63,29 @@ def resolve_world_size() -> int:
     return int(value)
 
 
-def _make_rank_tensors(rank: int) -> tuple[torch.Tensor, torch.Tensor]:
+def _resolve_variant(variant: MatmulReduceScatterVariant | None = None) -> MatmulReduceScatterVariant:
+    return VARIANT if variant is None else variant
+
+
+def _make_rank_tensors(rank: int, variant: MatmulReduceScatterVariant | None = None) -> tuple[torch.Tensor, torch.Tensor]:
+    resolved = _resolve_variant(variant)
     generator = torch.Generator(device="cpu")
-    generator.manual_seed(VARIANT.seed + rank)
+    generator.manual_seed(resolved.seed + rank)
     x1 = (
-        torch.randn((VARIANT.m, VARIANT.k), generator=generator, dtype=torch.float32) * VARIANT.input_scale
+        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32) * resolved.input_scale
     ).to(torch.float16)
-    generator.manual_seed(VARIANT.seed + 100 + rank)
+    generator.manual_seed(resolved.seed + 100 + rank)
     x2 = (
-        torch.randn((VARIANT.k, VARIANT.n), generator=generator, dtype=torch.float32) * VARIANT.input_scale
+        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
     ).to(torch.float16)
     return x1, x2
 
 
-def _reference_chunk(rank: int, world_size: int) -> torch.Tensor:
+def _reference_chunk(rank: int, world_size: int, variant: MatmulReduceScatterVariant | None = None) -> torch.Tensor:
+    resolved = _resolve_variant(variant)
     full = None
     for peer_rank in range(world_size):
-        x1, x2 = _make_rank_tensors(peer_rank)
+        x1, x2 = _make_rank_tensors(peer_rank, resolved)
         mm = x1.float() @ x2.float()
         full = mm if full is None else full + mm
     if full is None:
@@ -80,18 +104,28 @@ def _get_hccl_comm_name(rank: int) -> str:
         return default_pg.get_hccl_comm_name(rank)
 
 
-def _baseline_worker(*, rank: int, world_size: int, output_dir: Path, device: str, warmup: int, repeat: int):
+def _baseline_worker(
+    *,
+    rank: int,
+    world_size: int,
+    output_dir: Path,
+    device: str,
+    warmup: int,
+    repeat: int,
+    variant_dict: dict[str, object],
+):
     del output_dir
-    x1_cpu, x2_cpu = _make_rank_tensors(rank)
+    variant = MatmulReduceScatterVariant(**variant_dict)
+    x1_cpu, x2_cpu = _make_rank_tensors(rank, variant)
     x1 = x1_cpu.npu()
     x2 = x2_cpu.npu()
-    reference = _reference_chunk(rank, world_size)
+    reference = _reference_chunk(rank, world_size, variant)
     hcom_name = _get_hccl_comm_name(rank)
 
     for _ in range(warmup):
         dist.barrier()
         torch_npu.npu_mm_reduce_scatter_base(
-            x1, x2, hcom_name, world_size, reduce_op=VARIANT.reduce_op
+            x1, x2, hcom_name, world_size, reduce_op=variant.reduce_op
         )
     torch.npu.synchronize()
     dist.barrier()
@@ -103,7 +137,7 @@ def _baseline_worker(*, rank: int, world_size: int, output_dir: Path, device: st
         torch.npu.synchronize()
         start = time.perf_counter()
         output = torch_npu.npu_mm_reduce_scatter_base(
-            x1, x2, hcom_name, world_size, reduce_op=VARIANT.reduce_op
+            x1, x2, hcom_name, world_size, reduce_op=variant.reduce_op
         )
         torch.npu.synchronize()
         dist.barrier()
@@ -128,15 +162,21 @@ def _baseline_worker(*, rank: int, world_size: int, output_dir: Path, device: st
     }
 
 
-def run_distributed_baseline_benchmark(*, artifacts_dir: Path, warmup: int, repeat: int) -> dict[str, object]:
-    world_size = resolve_world_size()
+def run_distributed_baseline_benchmark(
+    *,
+    variant: MatmulReduceScatterVariant = VARIANT,
+    artifacts_dir: Path,
+    warmup: int,
+    repeat: int,
+) -> dict[str, object]:
+    world_size = int(os.environ.get("PTO_MC2_WORLD_SIZE", variant.expected_world_size))
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
             "reason": (
                 f"PTO_MC2_WORLD_SIZE={world_size} is unsupported; expected one of {SUPPORTED_WORLD_SIZES}."
             ),
-            "variant": VARIANT.as_dict(),
+            "variant": variant.as_dict(),
         }
 
     output_dir = Path(artifacts_dir) / "distributed_baseline"
@@ -144,13 +184,13 @@ def run_distributed_baseline_benchmark(*, artifacts_dir: Path, warmup: int, repe
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat},
+        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
             "reason": launch.get("reason", "Distributed HCCL baseline bring-up failed."),
-            "variant": VARIANT.as_dict(),
+            "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
         }
@@ -160,9 +200,10 @@ def run_distributed_baseline_benchmark(*, artifacts_dir: Path, warmup: int, repe
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
-        "variant": VARIANT.as_dict(),
+        "variant": variant.as_dict(),
         "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
         "world_size": world_size,
+        "shape_summary": variant.shape_summary,
         "timings_ms": {
             "median": max(per_rank_medians),
             "min": min(report["timings_ms"]["min"] for report in rank_reports),
@@ -188,18 +229,28 @@ def _load_kernel_module():
     return module
 
 
-def _pto_worker(*, rank: int, world_size: int, output_dir: Path, device: str, warmup: int, repeat: int):
+def _pto_worker(
+    *,
+    rank: int,
+    world_size: int,
+    output_dir: Path,
+    device: str,
+    warmup: int,
+    repeat: int,
+    variant_dict: dict[str, object],
+):
+    variant = MatmulReduceScatterVariant(**variant_dict)
     module = _load_kernel_module()
     wrapper = module.build_jit_wrapper(output_dir=output_dir / f"rank_{rank}_kernel")
     build = getattr(wrapper, "_build", None)
     if callable(build):
         build()
 
-    x1_cpu, x2_cpu = _make_rank_tensors(rank)
+    x1_cpu, x2_cpu = _make_rank_tensors(rank, variant)
     x1 = x1_cpu.npu()
     x2 = x2_cpu.npu()
-    local_mm = torch.empty((VARIANT.m, VARIANT.n), dtype=torch.float16).npu()
-    reference = _reference_chunk(rank, world_size)
+    local_mm = torch.empty((variant.m, variant.n), dtype=torch.float16).npu()
+    reference = _reference_chunk(rank, world_size, variant)
 
     def _run_once() -> torch.Tensor:
         wrapper(local_mm, x1, x2)
@@ -242,15 +293,21 @@ def _pto_worker(*, rank: int, world_size: int, output_dir: Path, device: str, wa
     }
 
 
-def run_distributed_pto_benchmark(*, artifacts_dir: Path, warmup: int, repeat: int) -> dict[str, object]:
-    world_size = resolve_world_size()
+def run_distributed_pto_benchmark(
+    *,
+    variant: MatmulReduceScatterVariant = VARIANT,
+    artifacts_dir: Path,
+    warmup: int,
+    repeat: int,
+) -> dict[str, object]:
+    world_size = int(os.environ.get("PTO_MC2_WORLD_SIZE", variant.expected_world_size))
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
             "reason": (
                 f"PTO_MC2_WORLD_SIZE={world_size} is unsupported; expected one of {SUPPORTED_WORLD_SIZES}."
             ),
-            "variant": VARIANT.as_dict(),
+            "variant": variant.as_dict(),
         }
 
     output_dir = Path(artifacts_dir) / "distributed_pto"
@@ -258,13 +315,13 @@ def run_distributed_pto_benchmark(*, artifacts_dir: Path, warmup: int, repeat: i
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat},
+        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
             "reason": launch.get("reason", "Distributed PTO MC2 bring-up failed."),
-            "variant": VARIANT.as_dict(),
+            "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
         }
@@ -274,9 +331,10 @@ def run_distributed_pto_benchmark(*, artifacts_dir: Path, warmup: int, repeat: i
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
-        "variant": VARIANT.as_dict(),
+        "variant": variant.as_dict(),
         "entrypoint": "pto_seed_local_mm_plus_hccl_all_reduce_chunk",
         "world_size": world_size,
+        "shape_summary": variant.shape_summary,
         "timings_ms": {
             "median": max(per_rank_medians),
             "min": min(report["timings_ms"]["min"] for report in rank_reports),
@@ -311,6 +369,7 @@ def baseline_environment_summary(*, device_index: int = 0) -> dict[str, object]:
         "supported_world_sizes": list(SUPPORTED_WORLD_SIZES),
         "resolved_world_size": resolve_world_size(),
         "variant": VARIANT.as_dict(),
+        "shape_summary": VARIANT.shape_summary,
     }
 
 

@@ -4,6 +4,10 @@ This repository is the superproject for migrating `ops-transformer` AI Core
 kernels to the `PTO-DSL -> PTOAS -> pto-isa` flow on the local `910B1`
 environment.
 
+The current phase-1 PTO kernel sources are manual-sync-free. They no longer
+emit DSL-level event record/wait pairs and instead rely on `ptoas` sync
+insertion on the `ascend910b` / `a3` path.
+
 ## Current Target
 
 - NPU family: `910B1`
@@ -60,12 +64,14 @@ pipeline on the current `910B1` host before the full grouped semantics land.
 
 Current verified state on this host:
 
-- baseline median latency: about `0.108 ms`
-- PTO median latency: about `0.243 ms`
+- baseline median latency: about `0.115 ms`
+- PTO median latency: about `0.274 ms`
 - correctness: both paths pass at `atol=1e-3` with current max abs diff
   about `4.88e-4`
 - the PTO seed now stores the ACC tile directly to a BF16 GM tensor view, so
   the first seed no longer depends on a separate BF16 epilogue helper
+- the PTO kernel source no longer carries manual event/wait pairs; generated
+  sync now comes from `ptoas`
 
 Current known bring-up blockers:
 
@@ -90,9 +96,11 @@ half-mode rope variants:
 
 Current benchmark on this host:
 
-- baseline median latency: about `0.106 ms`
-- PTO median latency: about `0.210 ms`
+- baseline median latency: about `0.107 ms`
+- PTO median latency: about `0.218 ms`
 - correctness: exact match to the fp16 half-precision reference for both paths
+- the PTO rope kernel now also relies on `ptoas`-inserted sync instead of
+  manual event wiring
 
 The active remaining rope gap is now generalization rather than basic bring-up:
 PTODSL now covers the first TND and BSND half-mode seed shapes, but it still
@@ -113,8 +121,8 @@ constrained phase-1 slice:
 
 Current benchmark on this host:
 
-- baseline median latency: about `0.084 ms`
-- PTO median latency: about `0.433 ms`
+- baseline median latency: about `0.095 ms`
+- PTO median latency: about `0.438 ms`
 - correctness: both paths pass at `atol=1e-3`, and the current PTO seed lands
   an exact match to the fp16 reference contract after output rounding
 
@@ -129,7 +137,7 @@ That staged pipeline is now factored through reusable helpers in
 staged execution, but it does not close the full FFN-family migration yet. The
 active remaining gap is fused cube-vector-cube lowering in PTODSL/PTOAS so
 later FFN-family kernels do not depend on explicit GM round-trips between
-stages.
+stages. The active PTO FFN source no longer emits manual event/wait pairs.
 
 ### `moe_token_permute`
 

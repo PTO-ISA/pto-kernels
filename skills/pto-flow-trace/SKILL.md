@@ -12,12 +12,15 @@ Workflow:
 1. Source the environment with `bash scripts/source_env.sh`.
 2. Use `python3 scripts/trace_flow.py <kernel.py> --output-dir <dir>` to inspect the PTO flow.
 3. If the kernel exposes `build_jit_wrapper()`, rerun with `--build`.
-4. Attribute failures in this order:
+4. Verify the kernel is not manually emitting event or wait ops; the expected source contract is sync-free PTO with autosync inserted by `ptoas`.
+5. Attribute failures in this order:
    `ptodsl` surface and metadata, then `PTOAS` lowering and legality, then `pto-isa` backend coverage.
-5. Update `bench/gap_board.yaml` with the blocker and affected kernels.
+6. Update `bench/gap_board.yaml` with the blocker and affected kernels.
+7. When the kernel compiles, refresh the stable latest artifacts under `bench/generated/<family>/<op>/` so callers do not need timestamped paths.
 
 Important files:
 
 - `scripts/trace_flow.py`
+- `bench/generated/`
 - `bench/gap_board.yaml`
 - `bench/canonical_compile_flags.yaml`

@@ -51,7 +51,7 @@ gaps:
   - id: ptoas-memory-plan-sync-pipeline
     component: PTOAS
     status: mitigated
-    summary: The current staged seed kernels now run successfully with the existing sync and memory-lowering path on 910B. Remaining risk is concentrated in future fused or overlap-heavy ports rather than in the phase-1 seeds.
+    summary: The current staged seed kernels now run successfully on 910B after removing DSL-level event record/wait pairs from the active PTO sources and relying on PTOAS insert-sync lowering instead. Remaining risk is concentrated in future fused or overlap-heavy ports rather than in the phase-1 seeds.
     blocking_kernels:
       - swin_attention_ffn
       - prompt_flash_attention

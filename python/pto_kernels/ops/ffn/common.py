@@ -120,22 +120,17 @@ def build_matmul_stage(
 
                 pto.load(sv_a, a_mat_tile)
                 pto.load(sv_b, b_mat_tile)
-                pto.record_wait_pair("LOAD", "MOV_M2L", event_id=input_event_id)
                 tile.mov(a_mat_tile, a_tile_buf)
                 tile.mov(b_mat_tile, b_tile_buf)
-                pto.record_wait_pair("MOV_M2L", "MATMUL", event_id=input_event_id)
 
                 pto.cond(
                     s.eq(i, c0),
                     lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
                     lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
                 )
-                pto.record_wait_pair("MATMUL", "LOAD", event_id=input_event_id)
 
-            pto.record_wait_pair("MATMUL", "STORE_ACC", event_id=input_event_id)
             sv_out = pto.slice_view(view_out, source=tv_out, offsets=[c0, c0], sizes=[cM, cN])
             pto.store(out_acc_tile, sv_out)
-            pto.record_wait_pair("STORE_ACC", "MATMUL", event_id=input_event_id)
 
     _stage.__name__ = stage_name
     return _stage

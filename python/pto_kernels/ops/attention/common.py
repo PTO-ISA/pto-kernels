@@ -150,24 +150,19 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
 
                 pto.load(sv_q, q_mat_tile)
                 pto.load(sv_kt, kt_mat_tile)
-                pto.record_wait_pair("LOAD", "MOV_M2L", event_id=0)
                 tile.mov(q_mat_tile, q_tile_buf)
                 tile.mov(kt_mat_tile, kt_tile_buf)
-                pto.record_wait_pair("MOV_M2L", "MATMUL", event_id=0)
 
                 pto.cond(
                     s.eq(i, c0),
                     lambda: tile.matmul(q_tile_buf, kt_tile_buf, scores_acc_tile),
                     lambda: tile.matmul_acc(scores_acc_tile, q_tile_buf, kt_tile_buf, scores_acc_tile),
                 )
-                pto.record_wait_pair("MATMUL", "LOAD", event_id=0)
 
-            pto.record_wait_pair("MATMUL", "STORE_ACC", event_id=0)
             sv_scores = pto.slice_view(
                 view_scores, source=tv_scores, offsets=[c0, c0], sizes=[cSeq, cScores]
             )
             pto.store(scores_acc_tile, sv_scores)
-            pto.record_wait_pair("STORE_ACC", "MATMUL", event_id=0)
 
     return dense_attention_qk_stage
 
@@ -250,22 +245,17 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
 
                 pto.load(sv_p, p_mat_tile)
                 pto.load(sv_v, v_mat_tile)
-                pto.record_wait_pair("LOAD", "MOV_M2L", event_id=0)
                 tile.mov(p_mat_tile, p_tile_buf)
                 tile.mov(v_mat_tile, v_tile_buf)
-                pto.record_wait_pair("MOV_M2L", "MATMUL", event_id=0)
 
                 pto.cond(
                     s.eq(i, c0),
                     lambda: tile.matmul(p_tile_buf, v_tile_buf, out_acc_tile),
                     lambda: tile.matmul_acc(out_acc_tile, p_tile_buf, v_tile_buf, out_acc_tile),
                 )
-                pto.record_wait_pair("MATMUL", "LOAD", event_id=0)
 
-            pto.record_wait_pair("MATMUL", "STORE_ACC", event_id=0)
             sv_out = pto.slice_view(view_out, source=tv_out, offsets=[c0, c0], sizes=[cSeq, cHead])
             pto.store(out_acc_tile, sv_out)
-            pto.record_wait_pair("STORE_ACC", "MATMUL", event_id=0)
 
     return dense_attention_pv_stage
 

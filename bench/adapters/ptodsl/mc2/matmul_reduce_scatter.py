@@ -1,11 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module
+from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
 from pto_kernels.ops.mc2.matmul_reduce_scatter.runtime import (
     VARIANT,
+    VARIANTS,
     run_distributed_pto_benchmark,
 )
 
@@ -22,40 +24,95 @@ def compile_kernel(repo_root, spec, artifacts_dir):
     return compile_pto_kernel(repo_root, KERNEL, artifacts_dir)
 
 
-def benchmark(repo_root, spec, artifacts_dir):
-    kernel_file = repo_root / KERNEL
-    module = load_module(Path(kernel_file))
-    builder = getattr(module, "build_jit_wrapper", None)
-    if not callable(builder):
-        return {"status": "blocked", "reason": "kernel module does not expose build_jit_wrapper(output_dir)"}
+def _variant_env(variant) -> dict[str, str]:
+    return {
+        "PTO_MC2_M": str(variant.m),
+        "PTO_MC2_K": str(variant.k),
+        "PTO_MC2_N": str(variant.n),
+        "PTO_MC2_BASE_K": os.environ.get("PTO_MC2_BASE_K", "32"),
+        "PTO_MC2_WORLD_SIZE": str(variant.expected_world_size),
+    }
 
-    wrapper = builder(output_dir=artifacts_dir / "compile_probe")
-    build = getattr(wrapper, "_build", None)
+
+def benchmark(repo_root, spec, artifacts_dir):
     try:
-        if callable(build):
-            build()
+        variant_reports = []
+        artifact_paths: list[str] = []
+        kernel_file = repo_root / KERNEL
+        for variant in VARIANTS:
+            with temporary_env(_variant_env(variant)):
+                module = load_module(Path(kernel_file))
+                builder = getattr(module, "build_jit_wrapper", None)
+                if not callable(builder):
+                    return {
+                        "status": "blocked",
+                        "reason": "kernel module does not expose build_jit_wrapper(output_dir)",
+                    }
+
+                wrapper = builder(output_dir=Path(artifacts_dir) / variant.label / "compile_probe")
+                build = getattr(wrapper, "_build", None)
+                if callable(build):
+                    build()
+                artifact_paths.extend(
+                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+                )
+
+                variant_report = run_distributed_pto_benchmark(
+                    variant=variant,
+                    artifacts_dir=Path(artifacts_dir) / variant.label,
+                    warmup=spec.bench.warmup,
+                    repeat=spec.bench.repeat,
+                )
+                if variant_report.get("status") == "ok":
+                    max_abs_diff = float(variant_report["correctness"]["max_abs_diff"])
+                    variant_report["correctness"].update(
+                        {
+                            "atol": spec.correctness.atol,
+                            "rtol": spec.correctness.rtol,
+                            "passes": bool(max_abs_diff <= spec.correctness.atol),
+                        }
+                    )
+                variant_reports.append(variant_report)
     except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
-        report = {"status": "blocked", "variant": VARIANT.as_dict(), "reason": f"PTO compile failed: {exc}"}
+        report = {
+            "status": "blocked",
+            "variants": [variant.as_dict() for variant in VARIANTS],
+            "reason": f"PTO compile failed: {exc}",
+        }
         report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
         report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
         report["report_path"] = str(report_path)
         return report
-
-    report = run_distributed_pto_benchmark(
-        artifacts_dir=Path(artifacts_dir),
-        warmup=spec.bench.warmup,
-        repeat=spec.bench.repeat,
-    )
-    if report.get("status") == "ok":
-        max_abs_diff = float(report["correctness"]["max_abs_diff"])
-        report["correctness"].update(
-            {
+    if any(item.get("status") != "ok" for item in variant_reports):
+        first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
+        report = {
+            "status": "blocked",
+            "variants": [variant.as_dict() for variant in VARIANTS],
+            "reason": first_blocked.get("reason", "Distributed PTO MC2 launch failed."),
+            "variant_reports": variant_reports,
+            "artifact_paths": artifact_paths,
+        }
+    else:
+        max_abs_diff = max(float(item["correctness"]["max_abs_diff"]) for item in variant_reports)
+        report = {
+            "status": "ok",
+            "variants": [item["variant"] for item in variant_reports],
+            "shape_summaries": [item.get("shape_summary") for item in variant_reports],
+            "timings_ms": {
+                "median": max(item["timings_ms"]["median"] for item in variant_reports),
+                "min": min(item["timings_ms"]["min"] for item in variant_reports),
+                "max": max(item["timings_ms"]["max"] for item in variant_reports),
+            },
+            "correctness": {
+                "max_abs_diff": max_abs_diff,
                 "atol": spec.correctness.atol,
                 "rtol": spec.correctness.rtol,
                 "passes": bool(max_abs_diff <= spec.correctness.atol),
-            }
-        )
-        report["artifact_paths"] = [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+            },
+            "variant_reports": variant_reports,
+            "artifact_paths": artifact_paths,
+            "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+        }
 
     report_path = Path(artifacts_dir) / "ptodsl_matmul_reduce_scatter_benchmark.json"
     report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")

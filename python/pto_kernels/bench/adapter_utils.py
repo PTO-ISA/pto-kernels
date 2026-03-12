@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import importlib.util
+import os
+from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
@@ -66,3 +68,22 @@ def compile_pto_kernel(repo_root: Path, kernel_path: str, output_dir: Path) -> d
         "artifact_paths": [str(path) for path in artifact_paths],
         "library_path": getattr(wrapper, "library_path", None),
     }
+
+
+@contextmanager
+def temporary_env(updates: dict[str, int | str | None]):
+    previous: dict[str, str | None] = {}
+    try:
+        for key, value in updates.items():
+            previous[key] = os.environ.get(key)
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = str(value)
+        yield
+    finally:
+        for key, value in previous.items():
+            if value is None:
+                os.environ.pop(key, None)
+            else:
+                os.environ[key] = value

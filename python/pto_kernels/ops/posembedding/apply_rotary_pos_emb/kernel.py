@@ -18,6 +18,7 @@ work.
 
 from ptodsl import jit, pto, tile
 from ptodsl import scalar as s
+from pto_kernels.utils.tuning import tuned_int
 
 
 const = s.const
@@ -51,7 +52,7 @@ def build_jit_wrapper(*, output_dir):
     @jit(
         meta_data=_meta_data,
         output_dir=output_dir,
-        block_dim=8,
+        block_dim=tuned_int("PTO_APPLY_ROTARY_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )

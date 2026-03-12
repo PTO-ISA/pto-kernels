@@ -81,6 +81,7 @@ def benchmark(repo_root, spec, artifacts_dir):
             variant_reports.append(
                 {
                     "variant": variant.as_dict(),
+                    "shape_summary": inputs["shape_summary"],
                     "timings_ms": {
                         "median": statistics.median(timings_ms),
                         "min": min(timings_ms),
@@ -109,6 +110,7 @@ def benchmark(repo_root, spec, artifacts_dir):
     report = {
         "status": "ok",
         "variants": [item["variant"] for item in variant_reports],
+        "shape_summaries": [item["shape_summary"] for item in variant_reports],
         "timings_ms": {
             "median": max(item["timings_ms"]["median"] for item in variant_reports),
             "min": min(item["timings_ms"]["min"] for item in variant_reports),

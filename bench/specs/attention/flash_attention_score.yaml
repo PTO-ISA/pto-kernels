@@ -11,3 +11,5 @@ pto:
   meta: python/pto_kernels/ops/attention/flash_attention_score/meta.py
 notes:
   - Seed kernel for attention core wave.
+correctness:
+  atol: 0.002

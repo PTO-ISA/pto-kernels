@@ -11,17 +11,19 @@ lands in PTODSL/PTOAS.
 """
 
 from pto_kernels.ops.ffn.common import DenseReluFfnConfig, DenseReluFfnPipelineWrapper
+from pto_kernels.utils.tuning import tuned_int
 
 
-CONFIG = DenseReluFfnConfig(
-    tokens=32,
-    hidden=128,
-    intermediate=256,
-    output=128,
-    base_k1=32,
-    base_k2=32,
-)
+def _config() -> DenseReluFfnConfig:
+    return DenseReluFfnConfig(
+        tokens=tuned_int("PTO_FFN_TOKENS", 32, valid_values=(32, 64)),
+        hidden=tuned_int("PTO_FFN_HIDDEN", 128, valid_values=(128,)),
+        intermediate=tuned_int("PTO_FFN_INTERMEDIATE", 256, valid_values=(256, 512)),
+        output=tuned_int("PTO_FFN_OUTPUT", 128, valid_values=(128,)),
+        base_k1=tuned_int("PTO_FFN_BASE_K1", 32, valid_values=(32, 64)),
+        base_k2=tuned_int("PTO_FFN_BASE_K2", 64, valid_values=(32, 64)),
+    )
 
 
 def build_jit_wrapper(*, output_dir):
-    return DenseReluFfnPipelineWrapper(config=CONFIG, output_dir=output_dir)
+    return DenseReluFfnPipelineWrapper(config=_config(), output_dir=output_dir)

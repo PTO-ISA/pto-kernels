@@ -6,20 +6,35 @@ the flattened gather map for the current input permutation, and the PTO seed
 uses that map to reorder tokens plus copy the permutation metadata.
 """
 
+from dataclasses import dataclass
 from pathlib import Path
 
 from ptodsl import jit, pto, tile
 from ptodsl import scalar as s
+from pto_kernels.utils.tuning import tuned_int
 
 
 const = s.const
 
-TOKENS = 8
-HIDDEN = 16
-TOTAL = TOKENS * HIDDEN
+
+@dataclass(frozen=True)
+class MoeTokenPermuteConfig:
+    tokens: int
+    hidden: int
+
+    @property
+    def total(self) -> int:
+        return self.tokens * self.hidden
 
 
-def _permute_meta_data():
+def _config() -> MoeTokenPermuteConfig:
+    return MoeTokenPermuteConfig(
+        tokens=tuned_int("PTO_MOE_TOKENS", 8, valid_values=(8, 16)),
+        hidden=tuned_int("PTO_MOE_HIDDEN", 16, valid_values=(16, 32)),
+    )
+
+
+def _permute_meta_data(config: MoeTokenPermuteConfig):
     dtype = pto.float16
     i32 = pto.int32
 
@@ -29,20 +44,20 @@ def _permute_meta_data():
     tensor = pto.TensorType(rank=1, dtype=dtype)
     tensor_i32 = pto.TensorType(rank=1, dtype=i32)
 
-    sub_tokens = pto.SubTensorType(shape=[1, TOTAL], dtype=dtype)
-    sub_gather = pto.SubTensorType(shape=[1, TOTAL], dtype=i32)
+    sub_tokens = pto.SubTensorType(shape=[1, config.total], dtype=dtype)
+    sub_gather = pto.SubTensorType(shape=[1, config.total], dtype=i32)
 
     cfg = pto.TileBufConfig()
     tile_tokens = pto.TileBufType(
-        shape=[1, TOTAL],
-        valid_shape=[1, TOTAL],
+        shape=[1, config.total],
+        valid_shape=[1, config.total],
         dtype=dtype,
         memory_space="VEC",
         config=cfg,
     )
     tile_gather = pto.TileBufType(
-        shape=[1, TOTAL],
-        valid_shape=[1, TOTAL],
+        shape=[1, config.total],
+        valid_shape=[1, config.total],
         dtype=i32,
         memory_space="VEC",
         config=cfg,
@@ -60,15 +75,15 @@ def _permute_meta_data():
     }
 
 
-def _copy_indices_meta_data():
+def _copy_indices_meta_data(config: MoeTokenPermuteConfig):
     i32 = pto.int32
     ptr_i32 = pto.PtrType(i32)
     tensor_i32 = pto.TensorType(rank=1, dtype=i32)
-    sub_i32 = pto.SubTensorType(shape=[1, TOKENS], dtype=i32)
+    sub_i32 = pto.SubTensorType(shape=[1, config.tokens], dtype=i32)
     cfg = pto.TileBufConfig()
     tile_i32 = pto.TileBufType(
-        shape=[1, TOKENS],
-        valid_shape=[1, TOKENS],
+        shape=[1, config.tokens],
+        valid_shape=[1, config.tokens],
         dtype=i32,
         memory_space="VEC",
         config=cfg,
@@ -81,9 +96,9 @@ def _copy_indices_meta_data():
     }
 
 
-def _build_permute_kernel(*, output_dir):
+def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
     @jit(
-        meta_data=_permute_meta_data,
+        meta_data=lambda: _permute_meta_data(config),
         output_dir=output_dir,
         block_dim=1,
         enable_insert_sync=True,
@@ -92,7 +107,7 @@ def _build_permute_kernel(*, output_dir):
     def moe_token_permute_seed(out_ptr: "ptr", tokens_ptr: "ptr", gather_ptr: "ptr_i32") -> None:
         c0 = const(0)
         c1 = const(1)
-        cTotal = const(TOTAL)
+        cTotal = const(config.total)
 
         tv_tokens = pto.as_tensor(
             tensor,
@@ -130,9 +145,9 @@ def _build_permute_kernel(*, output_dir):
     return moe_token_permute_seed
 
 
-def _build_copy_indices_kernel(*, output_dir):
+def _build_copy_indices_kernel(*, config: MoeTokenPermuteConfig, output_dir):
     @jit(
-        meta_data=_copy_indices_meta_data,
+        meta_data=lambda: _copy_indices_meta_data(config),
         output_dir=output_dir,
         block_dim=1,
         enable_insert_sync=True,
@@ -141,7 +156,7 @@ def _build_copy_indices_kernel(*, output_dir):
     def moe_token_permute_copy_indices(out_ptr: "ptr_i32", indices_ptr: "ptr_i32") -> None:
         c0 = const(0)
         c1 = const(1)
-        cTokens = const(TOKENS)
+        cTokens = const(config.tokens)
 
         tv_in = pto.as_tensor(
             tensor_i32,
@@ -169,8 +184,15 @@ def _build_copy_indices_kernel(*, output_dir):
 class MoeTokenPermuteWrapper:
     def __init__(self, *, output_dir):
         self._output_dir = Path(output_dir)
-        self._permute = _build_permute_kernel(output_dir=self._output_dir / "stage1_permute")
-        self._copy = _build_copy_indices_kernel(output_dir=self._output_dir / "stage2_copy_indices")
+        self._config = _config()
+        self._permute = _build_permute_kernel(
+            config=self._config,
+            output_dir=self._output_dir / "stage1_permute",
+        )
+        self._copy = _build_copy_indices_kernel(
+            config=self._config,
+            output_dir=self._output_dir / "stage2_copy_indices",
+        )
 
     def _build(self):
         self._permute._build()

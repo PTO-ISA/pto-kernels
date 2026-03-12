@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import shutil
 from dataclasses import asdict
 from datetime import UTC, datetime
 from pathlib import Path
@@ -28,6 +29,7 @@ class BenchmarkRunner:
     def __init__(self, *, results_dir: Path | None = None):
         self.repo_root = repo_root()
         self.results_dir = results_dir or self.repo_root / "bench" / "results"
+        self.generated_dir = self.repo_root / "bench" / "generated"
 
     def _adapter_summary(self, adapter_path: str, spec: KernelBenchmarkSpec) -> dict[str, Any]:
         adapter_file = self.repo_root / adapter_path
@@ -64,6 +66,7 @@ class BenchmarkRunner:
         spec = load_spec(spec_path)
         timestamp = datetime.now(tz=UTC).strftime("%Y%m%dT%H%M%SZ")
         artifacts_dir = self.results_dir / spec.family / spec.name / timestamp
+        latest_dir = self.generated_dir / spec.family / spec.name
         artifacts_dir.mkdir(parents=True, exist_ok=True)
 
         report: dict[str, Any] = {
@@ -79,6 +82,7 @@ class BenchmarkRunner:
             "baseline": self._adapter_summary(spec.baseline.adapter, spec),
             "pto": self._adapter_summary(spec.pto.adapter, spec),
             "artifacts_dir": str(artifacts_dir),
+            "latest_artifacts_dir": str(latest_dir),
             "dry_run": dry_run,
         }
 
@@ -97,9 +101,17 @@ class BenchmarkRunner:
             )
 
         report_path = artifacts_dir / "report.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        latest_report_path = latest_dir / "report.json"
+        report["latest_report_path"] = str(latest_report_path)
         report["report_path"] = str(report_path)
+        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        self._refresh_latest_artifacts(artifacts_dir, latest_dir)
         return report
+
+    def _refresh_latest_artifacts(self, source_dir: Path, latest_dir: Path) -> None:
+        if latest_dir.exists():
+            shutil.rmtree(latest_dir)
+        shutil.copytree(source_dir, latest_dir)
 
 
 def main() -> int:

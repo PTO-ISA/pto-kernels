@@ -11,16 +11,19 @@ online, and sparse variants are brought up separately.
 """
 
 from pto_kernels.ops.attention.common import DenseAttentionConfig, DenseAttentionPipelineWrapper
+from pto_kernels.utils.tuning import tuned_int
 
 
-CONFIG = DenseAttentionConfig(
-    seq_len=32,
-    head_dim=64,
-    scores_dim=32,
-    qk_base_k=32,
-    pv_base_k=32,
-)
+def _config() -> DenseAttentionConfig:
+    seq_len = tuned_int("PTO_ATTENTION_SEQ_LEN", 32, valid_values=(32, 64))
+    return DenseAttentionConfig(
+        seq_len=seq_len,
+        head_dim=tuned_int("PTO_ATTENTION_HEAD_DIM", 64, valid_values=(64, 128)),
+        scores_dim=seq_len,
+        qk_base_k=tuned_int("PTO_ATTENTION_QK_BASE_K", 64, valid_values=(32, 64)),
+        pv_base_k=32,
+    )
 
 
 def build_jit_wrapper(*, output_dir):
-    return DenseAttentionPipelineWrapper(config=CONFIG, output_dir=output_dir)
+    return DenseAttentionPipelineWrapper(config=_config(), output_dir=output_dir)

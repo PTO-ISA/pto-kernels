@@ -24,6 +24,16 @@ class RopeVariant:
         return asdict(self)
 
     @property
+    def shape_summary(self) -> dict[str, object]:
+        query_shape, rope_shape = _shape_for(self)
+        return {
+            "query": list(query_shape),
+            "key": list(query_shape),
+            "cos": list(rope_shape),
+            "sin": list(rope_shape),
+        }
+
+    @property
     def total_rows(self) -> int:
         if self.layout == "TND":
             return self.tokens * self.heads
@@ -95,6 +105,7 @@ def make_inputs(variant: RopeVariant, *, device_index: int = 0) -> dict[str, obj
     return {
         "device": device,
         "variant": variant.as_dict(),
+        "shape_summary": variant.shape_summary,
         "query_src": query_src,
         "key_src": key_src,
         "query": query,

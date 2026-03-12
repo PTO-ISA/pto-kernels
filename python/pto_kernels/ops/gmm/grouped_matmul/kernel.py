@@ -14,21 +14,39 @@ multi-group routing and quantization are tracked in the gap board and kept out
 of this seed variant on purpose.
 """
 
+from dataclasses import dataclass
+
 from mlir.ir import BF16Type, F32Type, IntegerType
 from ptodsl import jit, pto, tile
 from ptodsl import scalar as s
+from pto_kernels.utils.tuning import tuned_int
 
 
 const = s.const
 
-M = 128
-K = 128
-N = 128
-BASE_K = 32
-K_ITERS = K // BASE_K
+
+@dataclass(frozen=True)
+class GroupedMatmulConfig:
+    m: int
+    k: int
+    n: int
+    base_k: int
+
+    @property
+    def k_iters(self) -> int:
+        return self.k // self.base_k
 
 
-def _meta_data():
+def _config() -> GroupedMatmulConfig:
+    return GroupedMatmulConfig(
+        m=tuned_int("PTO_GROUPED_MATMUL_M", 128, valid_values=(64, 128)),
+        k=tuned_int("PTO_GROUPED_MATMUL_K", 128, valid_values=(64, 128, 256)),
+        n=tuned_int("PTO_GROUPED_MATMUL_N", 128, valid_values=(128, 256)),
+        base_k=tuned_int("PTO_GROUPED_MATMUL_BASE_K", 64, valid_values=(32, 64)),
+    )
+
+
+def _meta_data(config: GroupedMatmulConfig):
     bf16 = BF16Type.get()
     f32 = F32Type.get()
     ptr_out = pto.PtrType(bf16)
@@ -38,15 +56,15 @@ def _meta_data():
     tensor_in = pto.TensorType(rank=2, dtype=bf16)
     tensor_out = pto.TensorType(rank=2, dtype=bf16)
 
-    view_a = pto.SubTensorType(shape=[M, BASE_K], dtype=bf16)
-    view_b = pto.SubTensorType(shape=[BASE_K, N], dtype=bf16)
-    view_out = pto.SubTensorType(shape=[M, N], dtype=bf16)
+    view_a = pto.SubTensorType(shape=[config.m, config.base_k], dtype=bf16)
+    view_b = pto.SubTensorType(shape=[config.base_k, config.n], dtype=bf16)
+    view_out = pto.SubTensorType(shape=[config.m, config.n], dtype=bf16)
 
-    tile_a_mat = pto.TileBufType(shape=[M, BASE_K], dtype=bf16, memory_space="MAT")
-    tile_b_mat = pto.TileBufType(shape=[BASE_K, N], dtype=bf16, memory_space="MAT")
-    tile_a = pto.TileBufType(shape=[M, BASE_K], dtype=bf16, memory_space="LEFT")
-    tile_b = pto.TileBufType(shape=[BASE_K, N], dtype=bf16, memory_space="RIGHT")
-    tile_c = pto.TileBufType(shape=[M, N], dtype=f32, memory_space="ACC")
+    tile_a_mat = pto.TileBufType(shape=[config.m, config.base_k], dtype=bf16, memory_space="MAT")
+    tile_b_mat = pto.TileBufType(shape=[config.base_k, config.n], dtype=bf16, memory_space="MAT")
+    tile_a = pto.TileBufType(shape=[config.m, config.base_k], dtype=bf16, memory_space="LEFT")
+    tile_b = pto.TileBufType(shape=[config.base_k, config.n], dtype=bf16, memory_space="RIGHT")
+    tile_c = pto.TileBufType(shape=[config.m, config.n], dtype=f32, memory_space="ACC")
 
     return {
         "ptr_out": ptr_out,
@@ -66,8 +84,10 @@ def _meta_data():
 
 
 def build_jit_wrapper(*, output_dir):
+    config = _config()
+
     @jit(
-        meta_data=_meta_data,
+        meta_data=lambda: _meta_data(config),
         output_dir=output_dir,
         block_dim=1,
         enable_insert_sync=True,
@@ -83,13 +103,23 @@ def build_jit_wrapper(*, output_dir):
         with pto.cube_section():
             c0 = const(0)
             c1 = const(1)
-            cM = const(M)
-            cN = const(N)
-            cBaseK = const(BASE_K)
-            cIter = const(K_ITERS)
+            cM = const(config.m)
+            cN = const(config.n)
+            cBaseK = const(config.base_k)
+            cIter = const(config.k_iters)
 
-            tv_a = pto.as_tensor(tensor_in, ptr=a_ptr, shape=[cM, const(K)], strides=[const(K), c1])
-            tv_b = pto.as_tensor(tensor_in, ptr=b_ptr, shape=[const(K), cN], strides=[cN, c1])
+            tv_a = pto.as_tensor(
+                tensor_in,
+                ptr=a_ptr,
+                shape=[cM, const(config.k)],
+                strides=[const(config.k), c1],
+            )
+            tv_b = pto.as_tensor(
+                tensor_in,
+                ptr=b_ptr,
+                shape=[const(config.k), cN],
+                strides=[cN, c1],
+            )
             tv_out = pto.as_tensor(
                 tensor_out, ptr=out_ptr, shape=[cM, cN], strides=[cN, c1]
             )
@@ -117,19 +147,15 @@ def build_jit_wrapper(*, output_dir):
 
                 pto.load(sv_a, a_mat)
                 pto.load(sv_b, b_mat)
-                pto.record_wait_pair("LOAD", "MOV_M2L", event_id=0)
                 tile.mov(a_mat, a_tile)
                 tile.mov(b_mat, b_tile)
-                pto.record_wait_pair("MOV_M2L", "MATMUL", event_id=0)
 
                 pto.cond(
                     s.eq(i, c0),
                     lambda: tile.matmul(a_tile, b_tile, c_tile),
                     lambda: tile.matmul_acc(c_tile, a_tile, b_tile, c_tile),
                 )
-                pto.record_wait_pair("MATMUL", "LOAD", event_id=0)
 
-            pto.record_wait_pair("MATMUL", "STORE_ACC", event_id=0)
             sv_out = pto.slice_view(
                 view_out,
                 source=tv_out,
@@ -137,6 +163,5 @@ def build_jit_wrapper(*, output_dir):
                 sizes=[cM, cN],
             )
             pto.store(c_tile, sv_out)
-            pto.record_wait_pair("STORE_ACC", "MATMUL", event_id=0)
 
     return grouped_matmul_dense_bf16_bf16
