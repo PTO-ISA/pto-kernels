@@ -1,0 +1,18 @@
+{
+  "reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

@@ -45,6 +45,7 @@ def _ratio_pct(baseline: float | None, pto: float | None) -> float | None:
 def _variant_rows(report: dict[str, Any]) -> list[dict[str, Any]]:
     baseline = report.get("baseline", {}).get("benchmark", {})
     pto = report.get("pto", {}).get("benchmark", {})
+    baseline_limitations = baseline.get("baseline_limitations") or []
     baseline_variants = baseline.get("variant_reports") or []
     pto_variants = pto.get("variant_reports") or []
     pto_by_variant = {
@@ -52,9 +53,12 @@ def _variant_rows(report: dict[str, Any]) -> list[dict[str, Any]]:
     }
 
     def _passes(variant_report: dict[str, Any], benchmark: dict[str, Any]) -> bool:
-        correctness = variant_report.get("correctness") or benchmark.get("correctness") or {}
-        if "passes" in correctness:
-            return bool(correctness["passes"])
+        variant_correctness = variant_report.get("correctness") or {}
+        benchmark_correctness = benchmark.get("correctness") or {}
+        if "passes" in variant_correctness:
+            return bool(variant_correctness["passes"])
+        if "passes" in benchmark_correctness:
+            return bool(benchmark_correctness["passes"])
         return variant_report.get("status", benchmark.get("status")) == "ok"
 
     rows: list[dict[str, Any]] = []
@@ -75,6 +79,7 @@ def _variant_rows(report: dict[str, Any]) -> list[dict[str, Any]]:
                 "baseline_over_pto_pct": _ratio_pct(baseline_ms, pto_ms),
                 "baseline_correct": _passes(baseline_variant, baseline),
                 "pto_correct": _passes(pto_variant, pto),
+                "baseline_limitations": baseline_limitations,
             }
         )
     if rows:
@@ -95,6 +100,7 @@ def _variant_rows(report: dict[str, Any]) -> list[dict[str, Any]]:
             "pto_correct": _passes({}, pto),
             "baseline_reason": baseline.get("reason"),
             "pto_reason": pto.get("reason"),
+            "baseline_limitations": baseline_limitations,
         }
     ]
 
@@ -146,6 +152,12 @@ def _write_markdown(path: Path, summary: dict[str, Any]) -> None:
                     "|  |  | baseline reason: {b_reason} | pto reason: {p_reason} |  |  |  |  |  |".format(
                         b_reason=variant.get("baseline_reason", "n/a"),
                         p_reason=variant.get("pto_reason", "n/a"),
+                    )
+                )
+            if variant.get("baseline_limitations"):
+                lines.append(
+                    "|  |  | baseline limitations: {limits} |  |  |  |  |  |  |".format(
+                        limits="; ".join(str(item) for item in variant["baseline_limitations"]),
                     )
                 )
     path.write_text("\n".join(lines), encoding="utf-8")

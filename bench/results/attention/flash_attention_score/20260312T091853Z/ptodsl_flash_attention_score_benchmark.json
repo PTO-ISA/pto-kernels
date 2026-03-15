@@ -1,0 +1,341 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d64/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s64_d64/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T091853Z/b1_n1_s32_d128/stage3_pv/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.002,
+    "max_abs_diff": 6.103515625e-05,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "dense_scaled_dot_product_attention",
+  "shape_summaries": [
+    {
+      "key": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "output": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "query": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "scores": [
+        32,
+        32
+      ],
+      "value": [
+        1,
+        1,
+        32,
+        64
+      ]
+    },
+    {
+      "key": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "output": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "query": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "scores": [
+        64,
+        64
+      ],
+      "value": [
+        1,
+        1,
+        64,
+        64
+      ]
+    },
+    {
+      "key": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "output": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "query": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "scores": [
+        32,
+        32
+      ],
+      "value": [
+        1,
+        1,
+        32,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.4820029716938734,
+    "median": 0.43836201075464487,
+    "min": 0.4263920709490776
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 6.103515625e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "output": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "query": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "scores": [
+          32,
+          32
+        ],
+        "value": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.4820029716938734,
+        "median": 0.43836201075464487,
+        "min": 0.4263920709490776
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 3.0517578125e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "output": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "query": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "scores": [
+          64,
+          64
+        ],
+        "value": [
+          1,
+          1,
+          64,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.47672190703451633,
+        "median": 0.4382824990898371,
+        "min": 0.4287618212401867
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 1,
+        "seq_len": 64,
+        "sparse_mode": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 6.103515625e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "output": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "query": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "scores": [
+          32,
+          32
+        ],
+        "value": [
+          1,
+          1,
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.46711298637092113,
+        "median": 0.4381525795906782,
+        "min": 0.42909313924610615
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 2,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 0,
+      "seq_len": 32,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 1,
+      "seq_len": 64,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 2,
+      "seq_len": 32,
+      "sparse_mode": 0
+    }
+  ]
+}

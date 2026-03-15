@@ -1,0 +1,35 @@
+{
+  "blocker_id": "ptodsl-recurrent-state-update-primitives",
+  "reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
+  "reference_contract": "nd_recurrent_no_gk",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch_size": 1,
+      "dim": 16,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 0,
+      "seq_len": 2
+    },
+    {
+      "batch_size": 1,
+      "dim": 64,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 1,
+      "seq_len": 4
+    },
+    {
+      "batch_size": 1,
+      "dim": 128,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 2,
+      "seq_len": 8
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "reason": "PTO compile failed: module 'ptodsl.api.pto' has no attribute 'gt'",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

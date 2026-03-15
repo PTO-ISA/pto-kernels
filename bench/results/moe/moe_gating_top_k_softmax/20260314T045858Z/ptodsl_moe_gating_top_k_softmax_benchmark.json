@@ -1,0 +1,30 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'scf.if' op must have an else block if defining values\n note: unknown: see current operation: \n  %19:2 = \"scf.if\"(%18) ({\n    \"scf.yield\"(%15, %17) : (index, f16) -> ()\n  }, {\n  }) : (i1) -> (index, f16)",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

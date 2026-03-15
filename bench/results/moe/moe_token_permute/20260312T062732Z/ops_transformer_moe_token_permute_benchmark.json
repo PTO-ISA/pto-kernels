@@ -1,0 +1,27 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001,
+    "sorted_index_max_abs_diff": 0,
+    "token_max_abs_diff": 0.0
+  },
+  "entrypoint": "torch_npu.npu_moe_token_permute",
+  "reference_contract": "top1_argsort_permute",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.11821114458143711,
+    "median": 0.1009105471894145,
+    "min": 0.09643984958529472
+  },
+  "variant": {
+    "dtype": "float16",
+    "hidden_size": 16,
+    "index_dtype": "int32",
+    "num_out_tokens": 0,
+    "padded_mode": false,
+    "seed": 0,
+    "tokens": 8
+  }
+}

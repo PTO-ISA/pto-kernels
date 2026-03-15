@@ -1,0 +1,295 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_compute_expert_tokens.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch.ops.npu.npu_moe_compute_expert_tokens",
+      "reference_contract": "upper_bound_positions_per_expert",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/ops_transformer_moe_compute_expert_tokens_benchmark.json",
+      "shape_summaries": [
+        {
+          "out": [
+            8
+          ],
+          "sorted_experts": [
+            64
+          ]
+        },
+        {
+          "out": [
+            64
+          ],
+          "sorted_experts": [
+            4096
+          ]
+        },
+        {
+          "out": [
+            128
+          ],
+          "sorted_experts": [
+            8192
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.14893081970512867,
+        "median": 0.10335503611713648,
+        "min": 0.09631109423935413
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0,
+            "out_max_abs_diff": 0,
+            "passes": true
+          },
+          "shape_summary": {
+            "out": [
+              8
+            ],
+            "sorted_experts": [
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.14893081970512867,
+            "median": 0.10238098911941051,
+            "min": 0.09631109423935413
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 8,
+            "rows": 64,
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0,
+            "out_max_abs_diff": 0,
+            "passes": true
+          },
+          "shape_summary": {
+            "out": [
+              64
+            ],
+            "sorted_experts": [
+              4096
+            ]
+          },
+          "timings_ms": {
+            "max": 0.14153122901916504,
+            "median": 0.1023005461320281,
+            "min": 0.09803101420402527
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 64,
+            "rows": 4096,
+            "seed": 1
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0,
+            "out_max_abs_diff": 0,
+            "passes": true
+          },
+          "shape_summary": {
+            "out": [
+              128
+            ],
+            "sorted_experts": [
+              8192
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12805103324353695,
+            "median": 0.10335503611713648,
+            "min": 0.09748106822371483
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 128,
+            "rows": 8192,
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "int32",
+          "num_experts": 8,
+          "rows": 64,
+          "seed": 0
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 64,
+          "rows": 4096,
+          "seed": 1
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 128,
+          "rows": 8192,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch.ops.npu.npu_moe_compute_expert_tokens",
+      "note": "Baseline execution uses the installed custom ops runtime package.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_compute_expert_tokens",
+    "ops_transformer_path": "moe/moe_compute_expert_tokens",
+    "runtime_entrypoint": "torch.ops.npu.npu_moe_compute_expert_tokens",
+    "seed_variant": {
+      "default": {
+        "dtype": "int32",
+        "num_experts": 8,
+        "rows": 64,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "dtype": "int32",
+          "num_experts": 8,
+          "rows": 64,
+          "seed": 0
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 64,
+          "rows": 4096,
+          "seed": 1
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 128,
+          "rows": 8192,
+          "seed": 2
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_compute_expert_tokens",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
+  "name": "moe_compute_expert_tokens",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_compute_expert_tokens.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/r64_e8/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/r64_e8/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/ptodsl_moe_compute_expert_tokens_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "int32",
+          "num_experts": 8,
+          "rows": 64,
+          "seed": 0
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 64,
+          "rows": 4096,
+          "seed": 1
+        },
+        {
+          "dtype": "int32",
+          "num_experts": 128,
+          "rows": 8192,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_compute_expert_tokens",
+      "ops_transformer_path": "moe/moe_compute_expert_tokens",
+      "seed_variant": {
+        "limits": [
+          "sortedExperts must already be sorted ascending",
+          "dtype fixed to int32",
+          "PTO seed computes direct upper-bound positions per expert in PTODSL",
+          "phase-2 rewrite follows contiguous per-core expert-range ownership",
+          "nominal shape uses all requested block ids"
+        ],
+        "name": "sorted_expert_upper_bound_int32",
+        "shape": {
+          "boundary": {
+            "num_experts": 128,
+            "rows": 8192
+          },
+          "nominal": {
+            "num_experts": 64,
+            "rows": 4096
+          },
+          "smoke": {
+            "num_experts": 8,
+            "rows": 64
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_compute_expert_tokens/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

@@ -1,0 +1,22 @@
+{
+  "reason": "PTO execution failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op result tile_buf must have rank-2 validShape\n note: unknown: see current operation: %27 = \"pto.alloc_tile\"() <{operandSegmentSizes = array<i32: 0, 0, 0>}> : () -> !pto.tile_buf<loc=vec, dtype=i32, rows=64, cols=0, v_row=64, v_col=0, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

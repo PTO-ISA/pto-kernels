@@ -13,6 +13,7 @@ META = planned_meta(
         "ptoas-memory-plan-sync-pipeline",
     ],
 )
+META["status"] = "prototype"
 
 META["seed_variant"] = {
     "name": "dense_bnsd_fp16",

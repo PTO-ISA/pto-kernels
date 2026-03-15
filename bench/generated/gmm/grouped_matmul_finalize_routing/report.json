@@ -1,0 +1,418 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_finalize_routing/20260313T145309Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul_finalize_routing.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_finalize_routing",
+      "environment": {
+        "measured_failures": [
+          "missing scale/pertokenScale/logit/rowIndex -> invalid parameter",
+          "plain ND int8 weight -> weightNd weight type should be INT_32 or supported low-precision format",
+          "W4A8-sized ND probe -> host runtime segmentation fault before stable benchmark",
+          "npu_format_cast NZ probe -> local TBE environment import failure"
+        ],
+        "missing_tbe_python_modules": [
+          "decorator",
+          "attrs",
+          "scipy"
+        ],
+        "quantized_route_required": true,
+        "symbol_available": true
+      },
+      "reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_finalize_routing/20260313T145309Z/ops_transformer_grouped_matmul_finalize_routing_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            1
+          ],
+          "logit": [
+            64
+          ],
+          "output": [
+            64,
+            128
+          ],
+          "pertoken_scale": [
+            64
+          ],
+          "row_index": [
+            64
+          ],
+          "scale": [
+            1,
+            1,
+            128
+          ],
+          "weight": [
+            1,
+            128,
+            128
+          ],
+          "x": [
+            64,
+            128
+          ]
+        },
+        {
+          "group_list": [
+            1
+          ],
+          "logit": [
+            64
+          ],
+          "output": [
+            64,
+            1024
+          ],
+          "pertoken_scale": [
+            64
+          ],
+          "row_index": [
+            64
+          ],
+          "scale": [
+            1,
+            1,
+            1024
+          ],
+          "weight": [
+            1,
+            192,
+            128
+          ],
+          "x": [
+            64,
+            192
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "input_dtype": "int8",
+          "k": 128,
+          "m": 64,
+          "n": 128,
+          "seed": 0,
+          "weight_dtype": "int8_nd",
+          "weight_n_storage": 128
+        },
+        {
+          "input_dtype": "int8",
+          "k": 192,
+          "m": 64,
+          "n": 1024,
+          "seed": 1,
+          "weight_dtype": "int32_w4a8_nd",
+          "weight_n_storage": 128
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_finalize_routing",
+      "environment": {
+        "measured_failures": [
+          "missing scale/pertokenScale/logit/rowIndex -> invalid parameter",
+          "plain ND int8 weight -> weightNd weight type should be INT_32 or supported low-precision format",
+          "W4A8-sized ND probe -> host runtime segmentation fault before stable benchmark",
+          "npu_format_cast NZ probe -> local TBE environment import failure"
+        ],
+        "missing_tbe_python_modules": [
+          "decorator",
+          "attrs",
+          "scipy"
+        ],
+        "quantized_route_required": true,
+        "symbol_available": true
+      },
+      "reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "shape_summaries": [
+        {
+          "group_list": [
+            1
+          ],
+          "logit": [
+            64
+          ],
+          "output": [
+            64,
+            128
+          ],
+          "pertoken_scale": [
+            64
+          ],
+          "row_index": [
+            64
+          ],
+          "scale": [
+            1,
+            1,
+            128
+          ],
+          "weight": [
+            1,
+            128,
+            128
+          ],
+          "x": [
+            64,
+            128
+          ]
+        },
+        {
+          "group_list": [
+            1
+          ],
+          "logit": [
+            64
+          ],
+          "output": [
+            64,
+            1024
+          ],
+          "pertoken_scale": [
+            64
+          ],
+          "row_index": [
+            64
+          ],
+          "scale": [
+            1,
+            1,
+            1024
+          ],
+          "weight": [
+            1,
+            192,
+            128
+          ],
+          "x": [
+            64,
+            192
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "input_dtype": "int8",
+          "k": 128,
+          "m": 64,
+          "n": 128,
+          "seed": 0,
+          "weight_dtype": "int8_nd",
+          "weight_n_storage": 128
+        },
+        {
+          "input_dtype": "int8",
+          "k": 192,
+          "m": 64,
+          "n": 1024,
+          "seed": 1,
+          "weight_dtype": "int32_w4a8_nd",
+          "weight_n_storage": 128
+        }
+      ]
+    },
+    "family": "gmm",
+    "name": "grouped_matmul_finalize_routing",
+    "ops_transformer_path": "gmm/grouped_matmul_finalize_routing",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul_finalize_routing",
+    "seed_variant": {
+      "default": {
+        "input_dtype": "int8",
+        "k": 128,
+        "m": 64,
+        "n": 128,
+        "seed": 0,
+        "weight_dtype": "int8_nd",
+        "weight_n_storage": 128
+      },
+      "variants": [
+        {
+          "input_dtype": "int8",
+          "k": 128,
+          "m": 64,
+          "n": 128,
+          "seed": 0,
+          "weight_dtype": "int8_nd",
+          "weight_n_storage": 128
+        },
+        {
+          "input_dtype": "int8",
+          "k": 192,
+          "m": 64,
+          "n": 1024,
+          "seed": 1,
+          "weight_dtype": "int32_w4a8_nd",
+          "weight_n_storage": 128
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/grouped_matmul_finalize_routing",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_finalize_routing",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_finalize_routing/report.json",
+  "name": "grouped_matmul_finalize_routing",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul_finalize_routing.py",
+    "benchmark": {
+      "reason": "PTO port is intentionally deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_finalize_routing/20260313T145309Z/ptodsl_grouped_matmul_finalize_routing_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "input_dtype": "int8",
+          "k": 128,
+          "m": 64,
+          "n": 128,
+          "seed": 0,
+          "weight_dtype": "int8_nd",
+          "weight_n_storage": 128
+        },
+        {
+          "input_dtype": "int8",
+          "k": 192,
+          "m": 64,
+          "n": 1024,
+          "seed": 1,
+          "weight_dtype": "int32_w4a8_nd",
+          "weight_n_storage": 128
+        }
+      ]
+    },
+    "compile": {
+      "reason": "grouped_matmul_finalize_routing PTO port is deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_finalize_routing/kernel.py",
+    "meta": {
+      "archetype": "grouped-matmul-finalize-routing",
+      "blockers": [
+        "ops-transformer-grouped-finalize-routing-format-contract",
+        "ptodsl-group-routing-primitives",
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "grouped_matmul_finalize_routing",
+      "ops_transformer_path": "gmm/grouped_matmul_finalize_routing",
+      "seed_variant": {
+        "limits": [
+          "baseline contract probe only",
+          "routed quantized path only",
+          "host runtime requires scale, pertoken_scale, logit, and row_index",
+          "plain dense ND int8 weights are invalid for the probed public runtime path",
+          "FRACTAL_NZ weight storage probing is currently blocked by local TBE Python dependency issues",
+          "PTO kernel implementation is intentionally deferred until a stable baseline contract is reproducible"
+        ],
+        "name": "w4a8_finalize_routing_contract_probe",
+        "shape": {
+          "variant_0": {
+            "group_list": [
+              1
+            ],
+            "logit": [
+              64
+            ],
+            "output": [
+              64,
+              128
+            ],
+            "pertoken_scale": [
+              64
+            ],
+            "row_index": [
+              64
+            ],
+            "scale": [
+              1,
+              1,
+              128
+            ],
+            "weight": [
+              1,
+              128,
+              128
+            ],
+            "x": [
+              64,
+              128
+            ]
+          },
+          "variant_1": {
+            "group_list": [
+              1
+            ],
+            "logit": [
+              64
+            ],
+            "output": [
+              64,
+              1024
+            ],
+            "pertoken_scale": [
+              64
+            ],
+            "row_index": [
+              64
+            ],
+            "scale": [
+              1,
+              1,
+              1024
+            ],
+            "weight": [
+              1,
+              192,
+              128
+            ],
+            "x": [
+              64,
+              192
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_finalize_routing/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_finalize_routing/20260313T145309Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

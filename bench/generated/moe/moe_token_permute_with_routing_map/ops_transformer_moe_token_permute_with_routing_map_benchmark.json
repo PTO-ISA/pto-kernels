@@ -1,0 +1,214 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_permute_with_routing_map",
+  "reference_contract": "top1_routing_map_permute",
+  "shape_summaries": [
+    {
+      "gather_indices": [
+        128
+      ],
+      "routing_map": [
+        8,
+        4
+      ],
+      "sorted_indices": [
+        8
+      ],
+      "tokens": [
+        8,
+        16
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "routing_map": [
+        256,
+        8
+      ],
+      "sorted_indices": [
+        256
+      ],
+      "tokens": [
+        256,
+        64
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "routing_map": [
+        128,
+        8
+      ],
+      "sorted_indices": [
+        128
+      ],
+      "tokens": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.14691101387143135,
+    "median": 0.11042109690606594,
+    "min": 0.09427103213965893
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          128
+        ],
+        "routing_map": [
+          8,
+          4
+        ],
+        "sorted_indices": [
+          8
+        ],
+        "tokens": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.14691101387143135,
+        "median": 0.10177993681281805,
+        "min": 0.09427103213965893
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "num_out_tokens": 8,
+        "routing_dtype": "int8",
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "routing_map": [
+          256,
+          8
+        ],
+        "sorted_indices": [
+          256
+        ],
+        "tokens": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12260093353688717,
+        "median": 0.11042109690606594,
+        "min": 0.10758102871477604
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 64,
+        "num_out_tokens": 256,
+        "routing_dtype": "int8",
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "routing_map": [
+          128,
+          8
+        ],
+        "sorted_indices": [
+          128
+        ],
+        "tokens": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1241608988493681,
+        "median": 0.10806589853018522,
+        "min": 0.10423082858324051
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 128,
+        "num_out_tokens": 128,
+        "routing_dtype": "int8",
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "num_out_tokens": 8,
+      "routing_dtype": "int8",
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 64,
+      "num_out_tokens": 256,
+      "routing_dtype": "int8",
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 128,
+      "num_out_tokens": 128,
+      "routing_dtype": "int8",
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

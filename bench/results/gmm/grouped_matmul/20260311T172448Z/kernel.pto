@@ -1,0 +1,52 @@
+module {
+  func.func @grouped_matmul_dense_bf16_bf16(%arg0: !pto.ptr<bf16>, %arg1: !pto.ptr<bf16>, %arg2: !pto.ptr<bf16>, %arg3: i32) {
+    pto.section.cube {
+      %c0 = arith.constant 0 : index
+      %c1 = arith.constant 1 : index
+      %c128 = arith.constant 128 : index
+      %c128_0 = arith.constant 128 : index
+      %c32 = arith.constant 32 : index
+      %c4 = arith.constant 4 : index
+      %c128_1 = arith.constant 128 : index
+      %c128_2 = arith.constant 128 : index
+      %0 = pto.make_tensor_view %arg1, shape = [%c128, %c128_1] strides = [%c128_2, %c1] : !pto.tensor_view<?x?xbf16>
+      %c128_3 = arith.constant 128 : index
+      %1 = pto.make_tensor_view %arg2, shape = [%c128_3, %c128_0] strides = [%c128_0, %c1] : !pto.tensor_view<?x?xbf16>
+      %2 = pto.make_tensor_view %arg0, shape = [%c128, %c128_0] strides = [%c128_0, %c1] : !pto.tensor_view<?x?xbf16>
+      %3 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %4 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %5 = pto.alloc_tile : !pto.tile_buf<loc=left, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>
+      %6 = pto.alloc_tile : !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=row_major, slayout=col_major, fractal=512, pad=0>
+      %7 = pto.alloc_tile : !pto.tile_buf<loc=acc, dtype=f32, rows=128, cols=128, v_row=128, v_col=128, blayout=col_major, slayout=row_major, fractal=1024, pad=0>
+      scf.for %arg4 = %c0 to %c4 step %c1 {
+        %9 = arith.muli %arg4, %c32 : index
+        %10 = pto.partition_view %0, offsets = [%c0, %9], sizes = [%c128, %c32] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<128x32xbf16>
+        %11 = pto.partition_view %1, offsets = [%9, %c0], sizes = [%c32, %c128_0] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<32x128xbf16>
+        pto.tload ins(%10 : !pto.partition_tensor_view<128x32xbf16>) outs(%3 : !pto.tile_buf<loc=mat, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+        pto.tload ins(%11 : !pto.partition_tensor_view<32x128xbf16>) outs(%4 : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+        pto.record_event[#pto.sync_op_type<TLOAD>, #pto.sync_op_type<TMOV_M2L>, <EVENT_ID0>]
+        pto.wait_event[#pto.sync_op_type<TLOAD>, #pto.sync_op_type<TMOV_M2L>, <EVENT_ID0>]
+        pto.tmov ins(%3 : !pto.tile_buf<loc=mat, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%5 : !pto.tile_buf<loc=left, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>)
+        pto.tmov ins(%4 : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%6 : !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=row_major, slayout=col_major, fractal=512, pad=0>)
+        pto.record_event[#pto.sync_op_type<TMOV_M2L>, #pto.sync_op_type<TMATMUL>, <EVENT_ID0>]
+        pto.wait_event[#pto.sync_op_type<TMOV_M2L>, #pto.sync_op_type<TMATMUL>, <EVENT_ID0>]
+        %12 = arith.cmpi eq, %arg4, %c0 : index
+        scf.if %12 {
+          pto.tmatmul ins(%5, %6 : !pto.tile_buf<loc=left, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%7 : !pto.tile_buf<loc=acc, dtype=f32, rows=128, cols=128, v_row=128, v_col=128, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+        } else {
+          pto.tmatmul.acc ins(%7, %5, %6 : !pto.tile_buf<loc=acc, dtype=f32, rows=128, cols=128, v_row=128, v_col=128, blayout=col_major, slayout=row_major, fractal=1024, pad=0>, !pto.tile_buf<loc=left, dtype=bf16, rows=128, cols=32, v_row=128, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=128, v_row=32, v_col=128, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%7 : !pto.tile_buf<loc=acc, dtype=f32, rows=128, cols=128, v_row=128, v_col=128, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+        }
+        pto.record_event[#pto.sync_op_type<TMATMUL>, #pto.sync_op_type<TLOAD>, <EVENT_ID0>]
+        pto.wait_event[#pto.sync_op_type<TMATMUL>, #pto.sync_op_type<TLOAD>, <EVENT_ID0>]
+      }
+      pto.record_event[#pto.sync_op_type<TMATMUL>, #pto.sync_op_type<TSTORE_ACC>, <EVENT_ID0>]
+      pto.wait_event[#pto.sync_op_type<TMATMUL>, #pto.sync_op_type<TSTORE_ACC>, <EVENT_ID0>]
+      %8 = pto.partition_view %2, offsets = [%c0, %c0], sizes = [%c128, %c128_0] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<128x128xbf16>
+      pto.tstore ins(%7 : !pto.tile_buf<loc=acc, dtype=f32, rows=128, cols=128, v_row=128, v_col=128, blayout=col_major, slayout=row_major, fractal=1024, pad=0>) outs(%8 : !pto.partition_tensor_view<128x128xbf16>)
+      pto.record_event[#pto.sync_op_type<TSTORE_ACC>, #pto.sync_op_type<TMATMUL>, <EVENT_ID0>]
+      pto.wait_event[#pto.sync_op_type<TSTORE_ACC>, #pto.sync_op_type<TMATMUL>, <EVENT_ID0>]
+    }
+    return
+  }
+}
+

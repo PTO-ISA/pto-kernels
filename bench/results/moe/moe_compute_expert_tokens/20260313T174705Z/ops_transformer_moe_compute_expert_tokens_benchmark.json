@@ -1,0 +1,142 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch.ops.npu.npu_moe_compute_expert_tokens",
+  "reference_contract": "upper_bound_positions_per_expert",
+  "shape_summaries": [
+    {
+      "out": [
+        8
+      ],
+      "sorted_experts": [
+        64
+      ]
+    },
+    {
+      "out": [
+        64
+      ],
+      "sorted_experts": [
+        4096
+      ]
+    },
+    {
+      "out": [
+        128
+      ],
+      "sorted_experts": [
+        8192
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.15301117673516273,
+    "median": 0.095415860414505,
+    "min": 0.09075016714632511
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0,
+        "out_max_abs_diff": 0,
+        "passes": true
+      },
+      "shape_summary": {
+        "out": [
+          8
+        ],
+        "sorted_experts": [
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.15301117673516273,
+        "median": 0.09492563549429178,
+        "min": 0.09075016714632511
+      },
+      "variant": {
+        "dtype": "int32",
+        "num_experts": 8,
+        "rows": 64,
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0,
+        "out_max_abs_diff": 0,
+        "passes": true
+      },
+      "shape_summary": {
+        "out": [
+          64
+        ],
+        "sorted_experts": [
+          4096
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12302002869546413,
+        "median": 0.09502039756625891,
+        "min": 0.09097019210457802
+      },
+      "variant": {
+        "dtype": "int32",
+        "num_experts": 64,
+        "rows": 4096,
+        "seed": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0,
+        "out_max_abs_diff": 0,
+        "passes": true
+      },
+      "shape_summary": {
+        "out": [
+          128
+        ],
+        "sorted_experts": [
+          8192
+        ]
+      },
+      "timings_ms": {
+        "max": 0.13062101788818836,
+        "median": 0.095415860414505,
+        "min": 0.09181094355881214
+      },
+      "variant": {
+        "dtype": "int32",
+        "num_experts": 128,
+        "rows": 8192,
+        "seed": 2
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "int32",
+      "num_experts": 8,
+      "rows": 64,
+      "seed": 0
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 64,
+      "rows": 4096,
+      "seed": 1
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 128,
+      "rows": 8192,
+      "seed": 2
+    }
+  ]
+}

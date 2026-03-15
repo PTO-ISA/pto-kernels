@@ -1,0 +1,16 @@
+{
+  "correctness": {
+    "max_abs_diff": 0.0,
+    "x_out_max_abs_diff": 0.0
+  },
+  "device": "npu:0",
+  "rank": 0,
+  "reference_contract": "host_precompacted_reverse_route_buffer",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.9946261998265982,
+    "median": 0.9902259334921837,
+    "min": 0.9710360318422318
+  },
+  "world_size": 2
+}

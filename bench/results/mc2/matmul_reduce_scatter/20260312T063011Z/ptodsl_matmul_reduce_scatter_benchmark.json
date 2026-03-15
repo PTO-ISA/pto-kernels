@@ -1,0 +1,76 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T063011Z/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T063011Z/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T063011Z/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T063011Z/compile_probe/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0008401870727539062,
+    "passes": true,
+    "per_rank_max_abs_diff": [
+      0.0007658004760742188,
+      0.0008401870727539062
+    ],
+    "rtol": 0.001
+  },
+  "entrypoint": "pto_seed_local_mm_plus_hccl_all_reduce_chunk",
+  "rank_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0007658004760742188
+      },
+      "device": "npu:0",
+      "rank": 0,
+      "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.7433651480823755,
+        "median": 0.6748689338564873,
+        "min": 0.6507639773190022
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0008401870727539062
+      },
+      "device": "npu:1",
+      "rank": 1,
+      "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.7182441186159849,
+        "median": 0.6834189407527447,
+        "min": 0.6543840281665325
+      },
+      "world_size": 2
+    }
+  ],
+  "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.7433651480823755,
+    "median": 0.6834189407527447,
+    "min": 0.6507639773190022,
+    "per_rank_median": [
+      0.6748689338564873,
+      0.6834189407527447
+    ]
+  },
+  "variant": {
+    "bias": false,
+    "comm_turn": 0,
+    "dtype": "float16",
+    "expected_world_size": 2,
+    "input_scale": 0.125,
+    "k": 256,
+    "m": 128,
+    "n": 128,
+    "reduce_op": "sum",
+    "seed": 0,
+    "stream_mode": 1
+  },
+  "world_size": 2
+}

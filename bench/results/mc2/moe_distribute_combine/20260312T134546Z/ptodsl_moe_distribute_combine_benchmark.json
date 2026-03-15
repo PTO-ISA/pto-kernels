@@ -1,0 +1,36 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T134546Z/t8_h7168_w8/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T134546Z/t8_h7168_w8/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T134546Z/t8_h7168_w8/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T134546Z/t8_h7168_w8/compile_probe/kernel.so"
+  ],
+  "reason": "The current local HCCL launcher path is not yet stable for the required 8-rank A2 moe_distribute_dispatch contract. Set PTO_ENABLE_UNSTABLE_8RANK_MC2=1 to attempt the benchmark anyway.",
+  "status": "blocked",
+  "variant_reports": [
+    {
+      "reason": "The current local HCCL launcher path is not yet stable for the required 8-rank A2 moe_distribute_dispatch contract. Set PTO_ENABLE_UNSTABLE_8RANK_MC2=1 to attempt the benchmark anyway.",
+      "status": "blocked",
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    }
+  ]
+}

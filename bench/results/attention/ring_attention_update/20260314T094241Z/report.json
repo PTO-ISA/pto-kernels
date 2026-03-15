@@ -1,0 +1,722 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/ring_attention_update.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch.ops.npu.npu_ring_attention_update",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/ops_transformer_ring_attention_update_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    },
+    "compile": {
+      "reason": "This host does not expose torch.ops.npu.npu_ring_attention_update.",
+      "status": "blocked"
+    },
+    "family": "attention",
+    "name": "ring_attention_update",
+    "ops_transformer_path": "attention/ring_attention_update",
+    "runtime_entrypoint": "torch.ops.npu.npu_ring_attention_update",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "head_dim": 16,
+        "heads": 1,
+        "layout": "TND",
+        "rows": 8,
+        "seed": 0,
+        "sp": 2
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.007,
+    "rtol": 0.007,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/ring_attention_update",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
+  "name": "ring_attention_update",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/ring_attention_update.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t8_d16/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t8_d16/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t8_d16/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t8_d16/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t256_d64/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t256_d64/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t256_d64/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t256_d64/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t128_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t128_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t128_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/t128_d128/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.007,
+        "max_abs_diff": 0.0001220703125,
+        "passes": true,
+        "rtol": 0.007
+      },
+      "reference_contract": "tnd_sp2_merge_lastdim8",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/ptodsl_ring_attention_update_benchmark.json",
+      "shape_summaries": [
+        {
+          "attn_out": [
+            8,
+            1,
+            16
+          ],
+          "cur_attn_out": [
+            8,
+            1,
+            16
+          ],
+          "cur_softmax_max": [
+            8,
+            1,
+            8
+          ],
+          "cur_softmax_sum": [
+            8,
+            1,
+            8
+          ],
+          "prev_attn_out": [
+            8,
+            1,
+            16
+          ],
+          "prev_softmax_max": [
+            8,
+            1,
+            8
+          ],
+          "prev_softmax_sum": [
+            8,
+            1,
+            8
+          ],
+          "softmax_max_out": [
+            8,
+            1,
+            8
+          ],
+          "softmax_sum_out": [
+            8,
+            1,
+            8
+          ]
+        },
+        {
+          "attn_out": [
+            256,
+            1,
+            64
+          ],
+          "cur_attn_out": [
+            256,
+            1,
+            64
+          ],
+          "cur_softmax_max": [
+            256,
+            1,
+            8
+          ],
+          "cur_softmax_sum": [
+            256,
+            1,
+            8
+          ],
+          "prev_attn_out": [
+            256,
+            1,
+            64
+          ],
+          "prev_softmax_max": [
+            256,
+            1,
+            8
+          ],
+          "prev_softmax_sum": [
+            256,
+            1,
+            8
+          ],
+          "softmax_max_out": [
+            256,
+            1,
+            8
+          ],
+          "softmax_sum_out": [
+            256,
+            1,
+            8
+          ]
+        },
+        {
+          "attn_out": [
+            128,
+            1,
+            128
+          ],
+          "cur_attn_out": [
+            128,
+            1,
+            128
+          ],
+          "cur_softmax_max": [
+            128,
+            1,
+            8
+          ],
+          "cur_softmax_sum": [
+            128,
+            1,
+            8
+          ],
+          "prev_attn_out": [
+            128,
+            1,
+            128
+          ],
+          "prev_softmax_max": [
+            128,
+            1,
+            8
+          ],
+          "prev_softmax_sum": [
+            128,
+            1,
+            8
+          ],
+          "softmax_max_out": [
+            128,
+            1,
+            8
+          ],
+          "softmax_sum_out": [
+            128,
+            1,
+            8
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.3330819308757782,
+        "median": 0.30259101185947657,
+        "min": 0.2892417833209038
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "attn_out_max_abs_diff": 0.0,
+            "max_abs_diff": 5.960464477539063e-08,
+            "passes": true,
+            "softmax_max_out_max_abs_diff": 0.0,
+            "softmax_sum_out_max_abs_diff": 5.960464477539063e-08
+          },
+          "shape_summary": {
+            "attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "prev_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              8,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              8,
+              1,
+              8
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3283920232206583,
+            "median": 0.29635196551680565,
+            "min": 0.290401978418231
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 16,
+            "heads": 1,
+            "layout": "TND",
+            "rows": 8,
+            "seed": 0,
+            "sp": 2
+          }
+        },
+        {
+          "correctness": {
+            "attn_out_max_abs_diff": 1.52587890625e-05,
+            "max_abs_diff": 1.52587890625e-05,
+            "passes": true,
+            "softmax_max_out_max_abs_diff": 0.0,
+            "softmax_sum_out_max_abs_diff": 2.384185791015625e-07
+          },
+          "shape_summary": {
+            "attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "prev_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              256,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              256,
+              1,
+              8
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3312220796942711,
+            "median": 0.30259101185947657,
+            "min": 0.2962208818644285
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "layout": "TND",
+            "rows": 256,
+            "seed": 1,
+            "sp": 2
+          }
+        },
+        {
+          "correctness": {
+            "attn_out_max_abs_diff": 0.0001220703125,
+            "max_abs_diff": 0.0001220703125,
+            "passes": true,
+            "softmax_max_out_max_abs_diff": 0.0,
+            "softmax_sum_out_max_abs_diff": 1.1920928955078125e-07
+          },
+          "shape_summary": {
+            "attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "prev_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              128,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              128,
+              1,
+              8
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3330819308757782,
+            "median": 0.29432657174766064,
+            "min": 0.2892417833209038
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "TND",
+            "rows": 128,
+            "seed": 2,
+            "sp": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/ring_attention_update/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/ring_attention_update/kernel.py",
+    "meta": {
+      "archetype": "attention-update",
+      "blockers": [
+        "host-ring-attention-update-python-entrypoint",
+        "ptodsl-ring-attention-update-list-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "ring_attention_update",
+      "ops_transformer_path": "attention/ring_attention_update",
+      "seed_variant": {
+        "limits": [
+          "constrained TND slice with N fixed to 1",
+          "softmax max/sum tensors use the validated last-dim-8 repeated contract",
+          "baseline Python entrypoint is not exposed on this host",
+          "PTO seed mirrors the row-wise merge formula only",
+          "nominal shape uses all requested block ids on the checked-in block_dim"
+        ],
+        "name": "tnd_sp2_fp16_fp32_merge",
+        "shape": {
+          "boundary": {
+            "attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "prev_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              128,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              128,
+              1,
+              8
+            ]
+          },
+          "nominal": {
+            "attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "prev_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              256,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              256,
+              1,
+              8
+            ]
+          },
+          "smoke": {
+            "attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "prev_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              8,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              8,
+              1,
+              8
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/ring_attention_update/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T094241Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

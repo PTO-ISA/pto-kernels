@@ -1,0 +1,436 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T092825Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/attention_update.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "entrypoint": "torch_npu.npu_attention_update",
+      "reference_contract": "sp2_update_type0",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T092825Z/ops_transformer_attention_update_benchmark.json",
+      "shape_summaries": [
+        {
+          "local_out0": [
+            8,
+            16
+          ],
+          "local_out1": [
+            8,
+            16
+          ],
+          "lse0": [
+            8
+          ],
+          "lse1": [
+            8
+          ],
+          "out": [
+            8,
+            16
+          ]
+        },
+        {
+          "local_out0": [
+            256,
+            64
+          ],
+          "local_out1": [
+            256,
+            64
+          ],
+          "lse0": [
+            256
+          ],
+          "lse1": [
+            256
+          ],
+          "out": [
+            256,
+            64
+          ]
+        },
+        {
+          "local_out0": [
+            128,
+            128
+          ],
+          "local_out1": [
+            128,
+            128
+          ],
+          "lse0": [
+            128
+          ],
+          "lse1": [
+            128
+          ],
+          "out": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.15405099838972092,
+        "median": 0.09436497930437326,
+        "min": 0.08775992318987846
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "out_max_abs_diff": 0.0,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.15405099838972092,
+            "median": 0.09436497930437326,
+            "min": 0.08802092634141445
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 16,
+            "rows": 8,
+            "seed": 0,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 1.9073486328125e-06,
+            "out_max_abs_diff": 1.9073486328125e-06,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1381710171699524,
+            "median": 0.09387044701725245,
+            "min": 0.08954992517828941
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 64,
+            "rows": 256,
+            "seed": 1,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05,
+            "out_max_abs_diff": 6.103515625e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1101209782063961,
+            "median": 0.092526082880795,
+            "min": 0.08775992318987846
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 128,
+            "rows": 128,
+            "seed": 2,
+            "sp": 2,
+            "update_type": 0
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_attention_update",
+      "note": "Baseline execution uses the installed runtime package on the constrained sp=2, updateType=0 slice.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "attention_update",
+    "ops_transformer_path": "attention/attention_update",
+    "runtime_entrypoint": "torch_npu.npu_attention_update",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "head_dim": 16,
+        "rows": 8,
+        "seed": 0,
+        "sp": 2,
+        "update_type": 0
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.002,
+    "rtol": 0.002,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/attention_update",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update/report.json",
+  "name": "attention_update",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/attention_update.py",
+    "benchmark": {
+      "reason": "PTO compile failed: '>' not supported between instances of 'mlir._mlir_libs._mlir.ir.OpResult' and 'mlir._mlir_libs._mlir.ir.OpResult'",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T092825Z/ptodsl_attention_update_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: '>' not supported between instances of 'mlir._mlir_libs._mlir.ir.OpResult' and 'mlir._mlir_libs._mlir.ir.OpResult'",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/attention_update/kernel.py",
+    "meta": {
+      "archetype": "attention-update",
+      "blockers": [],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "attention_update",
+      "ops_transformer_path": "attention/attention_update",
+      "seed_variant": {
+        "limits": [
+          "constrained sp=2 slice only",
+          "updateType fixed to 0 so lseOut is omitted",
+          "float32 lse inputs, float16 localOut/output",
+          "row-wise update contract only",
+          "nominal shape uses all requested block ids on the checked-in block_dim"
+        ],
+        "name": "sp2_fp16_update_type0",
+        "shape": {
+          "boundary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "nominal": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "smoke": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/attention_update/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T092825Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

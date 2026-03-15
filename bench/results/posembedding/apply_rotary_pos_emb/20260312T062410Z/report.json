@@ -1,0 +1,315 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/apply_rotary_pos_emb.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+      "reference_contract": "fp16_half_rope_tnd_and_bsnd",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/ops_transformer_apply_rotary_pos_emb_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.11857994832098484,
+        "median": 0.09953556582331657,
+        "min": 0.09584007784724236
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.0,
+            "max_abs_diff": 0.0,
+            "query_max_abs_diff": 0.0
+          },
+          "timings_ms": {
+            "max": 0.11857994832098484,
+            "median": 0.09953556582331657,
+            "min": 0.09584007784724236
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "TND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 64,
+            "tokens": 64
+          }
+        },
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.0,
+            "max_abs_diff": 0.0,
+            "query_max_abs_diff": 0.0
+          },
+          "timings_ms": {
+            "max": 0.11778110638260841,
+            "median": 0.09866990149021149,
+            "min": 0.09674089960753918
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 32,
+            "tokens": 64
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 64,
+          "tokens": 64
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 32,
+          "tokens": 64
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variants are constrained to half rotation mode, fp16, head_dim=128, and heads=1 across TND and BSND layouts.",
+      "status": "runtime_builtin"
+    },
+    "family": "posembedding",
+    "name": "apply_rotary_pos_emb",
+    "ops_transformer_path": "posembedding/apply_rotary_pos_emb",
+    "runtime_entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 64,
+          "tokens": 64
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 32,
+          "tokens": 64
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/apply_rotary_pos_emb",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb/report.json",
+  "name": "apply_rotary_pos_emb",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/apply_rotary_pos_emb.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "reference_contract": "fp16_half_rope_tnd_and_bsnd",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/ptodsl_apply_rotary_pos_emb_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.23545208387076855,
+        "median": 0.2072859788313508,
+        "min": 0.20293216221034527
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.0,
+            "max_abs_diff": 0.0,
+            "query_max_abs_diff": 0.0
+          },
+          "timings_ms": {
+            "max": 0.23545208387076855,
+            "median": 0.2072859788313508,
+            "min": 0.20293216221034527
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "TND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 64,
+            "tokens": 64
+          }
+        },
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.0,
+            "max_abs_diff": 0.0,
+            "query_max_abs_diff": 0.0
+          },
+          "timings_ms": {
+            "max": 0.22693094797432423,
+            "median": 0.2065720036625862,
+            "min": 0.20393100567162037
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 32,
+            "tokens": 64
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 64,
+          "tokens": 64
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "rotary_mode": "half",
+          "seed": 0,
+          "seq_len": 32,
+          "tokens": 64
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/apply_rotary_pos_emb/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/apply_rotary_pos_emb/kernel.py",
+    "meta": {
+      "archetype": "rope-pos",
+      "blockers": [
+        "ptodsl-rope-generalization"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "apply_rotary_pos_emb",
+      "ops_transformer_path": "posembedding/apply_rotary_pos_emb",
+      "seed_variant": {
+        "limits": [
+          "layouts covered: TND and BSND",
+          "rotary_mode fixed to half",
+          "float16 only",
+          "query_heads and key_heads fixed to 1",
+          "head_dim fixed to 128"
+        ],
+        "name": "tnd_bsnd_half_fp16",
+        "shape": {
+          "BSND": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "TND": [
+            64,
+            1,
+            128
+          ]
+        }
+      },
+      "status": "planned",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/apply_rotary_pos_emb/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T062410Z/report.json",
+  "status": "planned",
+  "wave": "wave1"
+}

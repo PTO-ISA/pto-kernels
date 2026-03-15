@@ -1,0 +1,214 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 1.1259765625,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_unpermute_grad",
+  "reference_contract": "top1_inverse_permute_grad_no_probs",
+  "shape_summaries": [
+    {
+      "permuted_tokens": [
+        8,
+        16
+      ],
+      "permuted_tokens_grad": [
+        8,
+        16
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        8
+      ],
+      "unpermuted_tokens_grad": [
+        8,
+        16
+      ]
+    },
+    {
+      "permuted_tokens": [
+        256,
+        64
+      ],
+      "permuted_tokens_grad": [
+        256,
+        64
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        256
+      ],
+      "unpermuted_tokens_grad": [
+        256,
+        64
+      ]
+    },
+    {
+      "permuted_tokens": [
+        128,
+        128
+      ],
+      "permuted_tokens_grad": [
+        128,
+        128
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        128
+      ],
+      "unpermuted_tokens_grad": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.22108200937509537,
+    "median": 0.18199149053543806,
+    "min": 0.10539102368056774
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "probs_max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          8,
+          16
+        ],
+        "permuted_tokens_grad": [
+          8,
+          16
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          8
+        ],
+        "unpermuted_tokens_grad": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.22108200937509537,
+        "median": 0.10878045577555895,
+        "min": 0.10539102368056774
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 1.1259765625,
+        "probs_max_abs_diff": 1.1259765625,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          256,
+          64
+        ],
+        "permuted_tokens_grad": [
+          256,
+          64
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          256
+        ],
+        "unpermuted_tokens_grad": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.20509096793830395,
+        "median": 0.18199149053543806,
+        "min": 0.17143087461590767
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 64,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 2.980232238769531e-07,
+        "probs_max_abs_diff": 2.980232238769531e-07,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          128,
+          128
+        ],
+        "permuted_tokens_grad": [
+          128,
+          128
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          128
+        ],
+        "unpermuted_tokens_grad": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2034509088844061,
+        "median": 0.17521099653095007,
+        "min": 0.16611116006970406
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 128,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 64,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 128,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

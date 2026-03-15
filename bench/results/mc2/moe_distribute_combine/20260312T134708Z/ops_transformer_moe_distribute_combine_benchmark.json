@@ -1,0 +1,31 @@
+{
+  "entrypoint": "torch_npu.npu_moe_distribute_combine",
+  "reason": "The current local HCCL launcher path is not yet stable for the required 8-rank A2 MC2 contract. Set PTO_ENABLE_UNSTABLE_8RANK_MC2=1 to attempt the benchmark anyway.",
+  "status": "blocked",
+  "variant_reports": [
+    {
+      "reason": "The current local HCCL launcher path is not yet stable for the required 8-rank A2 MC2 contract. Set PTO_ENABLE_UNSTABLE_8RANK_MC2=1 to attempt the benchmark anyway.",
+      "status": "blocked",
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    }
+  ]
+}

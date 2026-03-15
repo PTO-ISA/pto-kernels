@@ -1,0 +1,33 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1
+    }
+  ]
+}

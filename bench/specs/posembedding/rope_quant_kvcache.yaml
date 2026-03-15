@@ -1,0 +1,16 @@
+name: rope_quant_kvcache
+family: posembedding
+wave: wave1
+inventory_ref: posembedding/rope_quant_kvcache
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/posembedding/rope_quant_kvcache.py
+pto:
+  adapter: bench/adapters/ptodsl/posembedding/rope_quant_kvcache.py
+  kernel: python/pto_kernels/ops/posembedding/rope_quant_kvcache/kernel.py
+  meta: python/pto_kernels/ops/posembedding/rope_quant_kvcache/meta.py
+correctness:
+  atol: 0.01
+  rtol: 0.01
+notes:
+  - First 2D BSND fp16 rope_quant_kvcache migration slice with unit quant scales and contiguous cache mode.

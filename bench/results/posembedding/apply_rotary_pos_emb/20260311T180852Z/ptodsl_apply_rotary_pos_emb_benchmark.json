@@ -1,0 +1,161 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T180852Z/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T180852Z/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T180852Z/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T180852Z/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 9.906229019165039,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "reference_contract": "fp16_half_interleave_rope_tnd_and_bsnd",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.2551910001784563,
+    "median": 0.23082655388861895,
+    "min": 0.2254820428788662
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.2551910001784563,
+        "median": 0.2307965187355876,
+        "min": 0.22565200924873352
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "TND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 64,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.2478109672665596,
+        "median": 0.22945646196603775,
+        "min": 0.22597098723053932
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 32,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 9.906229019165039,
+        "max_abs_diff": 9.906229019165039,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.2482808195054531,
+        "median": 0.23082655388861895,
+        "min": 0.22629182785749435
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "TND",
+        "rotary_mode": "interleave",
+        "seed": 0,
+        "seq_len": 64,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 9.906229019165039,
+        "max_abs_diff": 9.906229019165039,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.25047105737030506,
+        "median": 0.2298115286976099,
+        "min": 0.2254820428788662
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "rotary_mode": "interleave",
+        "seed": 0,
+        "seq_len": 32,
+        "tokens": 64
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "TND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 64,
+      "tokens": 64
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 32,
+      "tokens": 64
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "TND",
+      "rotary_mode": "interleave",
+      "seed": 0,
+      "seq_len": 64,
+      "tokens": 64
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "rotary_mode": "interleave",
+      "seed": 0,
+      "seq_len": 32,
+      "tokens": 64
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_init_routing_v2.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+      "reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/ops_transformer_moe_init_routing_v2_benchmark.json",
+      "status": "blocked",
+      "stderr": "",
+      "stdout": "",
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+      "note": "Baseline execution uses the installed runtime builtin. The constrained slice fixes topK=1, dropless mode, and pre-groups expert_idx by expert.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_init_routing_v2",
+    "ops_transformer_path": "moe/moe_init_routing_v2",
+    "runtime_entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expert_tokens_num_flag": true,
+        "expert_tokens_num_type": 1,
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_init_routing_v2",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
+  "name": "moe_init_routing_v2",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_init_routing_v2.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/ptodsl_moe_init_routing_v2_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_init_routing_v2",
+      "ops_transformer_path": "moe/moe_init_routing_v2",
+      "seed_variant": {
+        "limits": [
+          "top-1 routing only",
+          "dropless mode only",
+          "expert_idx is pre-grouped by expert on input",
+          "PTO seed covers copy plus expert count/cumsum and does not sort on-device yet",
+          "nominal shape uses all requested block ids for the expanded_x copy path"
+        ],
+        "name": "top1_fp16_init_routing_v2_grouped_expert_idx",
+        "shape": {
+          "boundary": {
+            "experts": 8,
+            "hidden": 128,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 8,
+            "hidden": 64,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 4,
+            "hidden": 16,
+            "tokens": 16
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_init_routing_v2/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T015207Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

@@ -1,0 +1,30 @@
+name: incre_flash_attention
+family: attention
+wave: wave3
+inventory_ref: attention/incre_flash_attention
+status: prototype
+
+baseline:
+  adapter: bench/adapters/ops_transformer/attention/incre_flash_attention.py
+
+pto:
+  adapter: bench/adapters/ptodsl/attention/incre_flash_attention.py
+  kernel: python/pto_kernels/ops/attention/incre_flash_attention/kernel.py
+  meta: python/pto_kernels/ops/attention/incre_flash_attention/meta.py
+notes:
+  - First incre_flash_attention migration slice with q_seq fixed to 1 on the decode branch.
+  - Constrained to BNSD, batch=1, q_heads=16, kv_heads=1, no mask, no quant, no block_table.
+
+device:
+  id: 0
+
+correctness:
+  atol: 0.002
+  rtol: 0.002
+  shape_sets: [smoke, nominal, boundary]
+
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10

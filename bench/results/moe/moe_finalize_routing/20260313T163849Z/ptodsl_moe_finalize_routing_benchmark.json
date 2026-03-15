@@ -1,0 +1,302 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t16_h16/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t16_h16/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t16_h16/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t16_h16/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t256_h64/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t256_h64/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t256_h64/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t256_h64/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t128_h128/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t128_h128/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t128_h128/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T163849Z/t128_h128/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.008062362670898438,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "reference_contract": "top1_host_gather_map_finalize_routing",
+  "shape_summaries": [
+    {
+      "bias": [
+        4,
+        16
+      ],
+      "expanded_expert_idx": [
+        16,
+        1
+      ],
+      "expanded_row_idx": [
+        16
+      ],
+      "expanded_x": [
+        16,
+        16
+      ],
+      "out": [
+        16,
+        16
+      ],
+      "scales": [
+        16,
+        1
+      ],
+      "x1": [
+        16,
+        16
+      ]
+    },
+    {
+      "bias": [
+        4,
+        64
+      ],
+      "expanded_expert_idx": [
+        256,
+        1
+      ],
+      "expanded_row_idx": [
+        256
+      ],
+      "expanded_x": [
+        256,
+        64
+      ],
+      "out": [
+        256,
+        64
+      ],
+      "scales": [
+        256,
+        1
+      ],
+      "x1": [
+        256,
+        64
+      ]
+    },
+    {
+      "bias": [
+        4,
+        128
+      ],
+      "expanded_expert_idx": [
+        128,
+        1
+      ],
+      "expanded_row_idx": [
+        128
+      ],
+      "expanded_x": [
+        128,
+        128
+      ],
+      "out": [
+        128,
+        128
+      ],
+      "scales": [
+        128,
+        1
+      ],
+      "x1": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.3405821043998003,
+    "median": 0.2949214540421963,
+    "min": 0.2857409417629242
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0032181739807128906,
+        "token_max_abs_diff": 0.0032181739807128906
+      },
+      "shape_summary": {
+        "bias": [
+          4,
+          16
+        ],
+        "expanded_expert_idx": [
+          16,
+          1
+        ],
+        "expanded_row_idx": [
+          16
+        ],
+        "expanded_x": [
+          16,
+          16
+        ],
+        "out": [
+          16,
+          16
+        ],
+        "scales": [
+          16,
+          1
+        ],
+        "x1": [
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.32944208942353725,
+        "median": 0.2917019883170724,
+        "min": 0.2857409417629242
+      },
+      "variant": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1,
+        "use_skip2": false
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.008062362670898438,
+        "token_max_abs_diff": 0.008062362670898438
+      },
+      "shape_summary": {
+        "bias": [
+          4,
+          64
+        ],
+        "expanded_expert_idx": [
+          256,
+          1
+        ],
+        "expanded_row_idx": [
+          256
+        ],
+        "expanded_x": [
+          256,
+          64
+        ],
+        "out": [
+          256,
+          64
+        ],
+        "scales": [
+          256,
+          1
+        ],
+        "x1": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.3242220263928175,
+        "median": 0.2949214540421963,
+        "min": 0.29036193154752254
+      },
+      "variant": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 64,
+        "seed": 1,
+        "tokens": 256,
+        "top_k": 1,
+        "use_skip2": false
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.007709503173828125,
+        "token_max_abs_diff": 0.007709503173828125
+      },
+      "shape_summary": {
+        "bias": [
+          4,
+          128
+        ],
+        "expanded_expert_idx": [
+          128,
+          1
+        ],
+        "expanded_row_idx": [
+          128
+        ],
+        "expanded_x": [
+          128,
+          128
+        ],
+        "out": [
+          128,
+          128
+        ],
+        "scales": [
+          128,
+          1
+        ],
+        "x1": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.3405821043998003,
+        "median": 0.2936064265668392,
+        "min": 0.28635188937187195
+      },
+      "variant": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 128,
+        "seed": 2,
+        "tokens": 128,
+        "top_k": 1,
+        "use_skip2": false
+      }
+    }
+  ],
+  "variants": [
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1,
+      "use_skip2": false
+    }
+  ]
+}

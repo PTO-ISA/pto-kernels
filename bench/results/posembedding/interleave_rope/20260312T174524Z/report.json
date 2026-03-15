@@ -1,0 +1,324 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174524Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/interleave_rope.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.0078125,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "entrypoint": "torch_npu.npu_interleave_rope",
+      "reference_contract": "fp16_interleave_rope_bnsd_d64",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174524Z/ops_transformer_interleave_rope_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "sin": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "x": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "y": [
+            1,
+            1,
+            32,
+            64
+          ]
+        },
+        {
+          "cos": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "sin": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "x": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "y": [
+            2,
+            1,
+            32,
+            64
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.1517001073807478,
+        "median": 0.0978249590843916,
+        "min": 0.08922116830945015
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0078125
+          },
+          "shape_summary": {
+            "cos": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1517001073807478,
+            "median": 0.09490607772022486,
+            "min": 0.08922116830945015
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0078125
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              2,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1187699381262064,
+            "median": 0.0978249590843916,
+            "min": 0.0918298028409481
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_interleave_rope",
+      "note": "Baseline execution relies on the installed runtime builtin for fp16 BNSD D=64 interleave_rope.",
+      "status": "runtime_builtin"
+    },
+    "family": "posembedding",
+    "name": "interleave_rope",
+    "ops_transformer_path": "posembedding/interleave_rope",
+    "runtime_entrypoint": "torch_npu.npu_interleave_rope",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/interleave_rope",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope/report.json",
+  "name": "interleave_rope",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/interleave_rope.py",
+    "benchmark": {
+      "reason": "PTO execution failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op result tile_buf must have rank-2 validShape\n note: unknown: see current operation: %27 = \"pto.alloc_tile\"() <{operandSegmentSizes = array<i32: 0, 0, 0>}> : () -> !pto.tile_buf<loc=vec, dtype=i32, rows=64, cols=0, v_row=64, v_col=0, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174524Z/ptodsl_interleave_rope_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op result tile_buf must have rank-2 validShape\n note: unknown: see current operation: %27 = \"pto.alloc_tile\"() <{operandSegmentSizes = array<i32: 0, 0, 0>}> : () -> !pto.tile_buf<loc=vec, dtype=i32, rows=64, cols=0, v_row=64, v_col=0, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/kernel.py",
+    "meta": {
+      "archetype": "rope-pos",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "interleave_rope",
+      "ops_transformer_path": "posembedding/interleave_rope",
+      "seed_variant": {
+        "limits": [
+          "BNSD layout only",
+          "float16 only",
+          "head_dim fixed to 64",
+          "heads fixed to 1",
+          "cos and sin use the same sequence length as x",
+          "PTO path uses a fixed even-odd gather map before the rotary half transform",
+          "current PTO rewrite does not yet model the upstream vector queue and double-buffer pipeline"
+        ],
+        "name": "bnsd_fp16_d64",
+        "shape": {
+          "variant_0": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "variant_1": [
+            2,
+            1,
+            32,
+            64
+          ]
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174524Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

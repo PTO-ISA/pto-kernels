@@ -1,0 +1,30 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'arith.index_cast' op operand type 'index' and result type 'index' are cast incompatible\n note: unknown: see current operation: %17 = \"arith.index_cast\"(%14#0) : (index) -> index",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

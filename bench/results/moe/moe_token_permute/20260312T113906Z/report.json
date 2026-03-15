@@ -1,0 +1,363 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_token_permute.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_moe_token_permute",
+      "reference_contract": "top1_argsort_permute",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/ops_transformer_moe_token_permute_benchmark.json",
+      "shape_summaries": [
+        {
+          "gather_indices": [
+            128
+          ],
+          "indices": [
+            8
+          ],
+          "tokens": [
+            8,
+            16
+          ]
+        },
+        {
+          "gather_indices": [
+            256
+          ],
+          "indices": [
+            16
+          ],
+          "tokens": [
+            16,
+            16
+          ]
+        },
+        {
+          "gather_indices": [
+            512
+          ],
+          "indices": [
+            16
+          ],
+          "tokens": [
+            16,
+            32
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.1650908961892128,
+        "median": 0.11031050235033035,
+        "min": 0.1055810134857893
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "sorted_index_max_abs_diff": 0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "gather_indices": [
+              128
+            ],
+            "indices": [
+              8
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1650908961892128,
+            "median": 0.11031050235033035,
+            "min": 0.10671094059944153
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "sorted_index_max_abs_diff": 0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "gather_indices": [
+              256
+            ],
+            "indices": [
+              16
+            ],
+            "tokens": [
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1348408404737711,
+            "median": 0.10918546468019485,
+            "min": 0.1055810134857893
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 1,
+            "tokens": 16
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "sorted_index_max_abs_diff": 0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "gather_indices": [
+              512
+            ],
+            "indices": [
+              16
+            ],
+            "tokens": [
+              16,
+              32
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1321900635957718,
+            "median": 0.1094259787350893,
+            "min": 0.10592094622552395
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 32,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 2,
+            "tokens": 16
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 0,
+          "tokens": 8
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 1,
+          "tokens": 16
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 32,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 2,
+          "tokens": 16
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_token_permute",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to top-1 permutation with 1D int32 indices and padded_mode=false.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_token_permute",
+    "ops_transformer_path": "moe/moe_token_permute",
+    "runtime_entrypoint": "torch_npu.npu_moe_token_permute",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 0,
+        "tokens": 8
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 0,
+          "tokens": 8
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 1,
+          "tokens": 16
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 32,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 2,
+          "tokens": 16
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_token_permute",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute/report.json",
+  "name": "moe_token_permute",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_token_permute.py",
+    "benchmark": {
+      "reason": "PTO compile failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507015\n[ERROR] 2026-03-12-19:39:19 (PID:2831745, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution is abnormal. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 2831745] 2026-03-12-19:39:19.598.594 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1948, there is an exception of fftsplus aivector error, core id is 40, error code = 0x4000000000000000, dump info: pc start: 0x1240000010b0, current: 0x124000001258, vec error info: 0x400000085, mte error info: 0x7000000ee, ifu error info: 0x1dffffcaaf000, ccu error info: 0x41f000081380002a, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100000080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x4000000000000000, 0, 0) errorStr: VEC instruction error: the ub address out of bounds. fixp_error0 info: 0xee, fixp_error1 info: 0x7, fsmId:0, tslot:1, thread:0, ctxid:0, blk:3, sublk:1, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x26, [aicore exception].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore exception[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507015.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/ptodsl_moe_token_permute_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 0,
+          "tokens": 8
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 16,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 1,
+          "tokens": 16
+        },
+        {
+          "dtype": "float16",
+          "hidden_size": 32,
+          "index_dtype": "int32",
+          "num_out_tokens": 0,
+          "padded_mode": false,
+          "seed": 2,
+          "tokens": 16
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage1_permute/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage1_permute/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage1_permute/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage1_permute/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage2_copy_indices/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage2_copy_indices/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage2_copy_indices/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/stage2_copy_indices/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_token_permute",
+      "ops_transformer_path": "moe/moe_token_permute",
+      "seed_variant": {
+        "limits": [
+          "top-1 routing only",
+          "1D int32 indices only",
+          "indices fixed to a permutation of [0, tokens)",
+          "padded_mode fixed to false",
+          "num_out_tokens fixed to 0",
+          "PTO seed currently consumes a host-precomputed gather map for token reorder",
+          "phase-2 rewrite now follows ops-transformer copy ownership more closely with contiguous per-core token-row ownership on the permute stage"
+        ],
+        "name": "top1_fp16_argsort",
+        "shape": [
+          8,
+          16
+        ]
+      },
+      "status": "planned",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T113906Z/report.json",
+  "status": "planned",
+  "wave": "wave2"
+}

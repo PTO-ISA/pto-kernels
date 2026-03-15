@@ -1,0 +1,209 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage1_permute/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage1_permute/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage1_permute/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage1_permute/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage2_copy_indices/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage2_copy_indices/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage2_copy_indices/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t8_h16/stage2_copy_indices/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage1_permute/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage1_permute/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage1_permute/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage1_permute/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage2_copy_indices/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage2_copy_indices/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage2_copy_indices/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h16/stage2_copy_indices/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage1_permute/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage1_permute/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage1_permute/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage1_permute/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage2_copy_indices/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage2_copy_indices/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage2_copy_indices/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T091816Z/t16_h32/stage2_copy_indices/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "top1_host_gather_map_permute",
+  "shape_summaries": [
+    {
+      "gather_indices": [
+        128
+      ],
+      "indices": [
+        8
+      ],
+      "tokens": [
+        8,
+        16
+      ]
+    },
+    {
+      "gather_indices": [
+        256
+      ],
+      "indices": [
+        16
+      ],
+      "tokens": [
+        16,
+        16
+      ]
+    },
+    {
+      "gather_indices": [
+        512
+      ],
+      "indices": [
+        16
+      ],
+      "tokens": [
+        16,
+        32
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.3813421353697777,
+    "median": 0.34781196154654026,
+    "min": 0.3325918223708868
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          128
+        ],
+        "indices": [
+          8
+        ],
+        "tokens": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.37927296943962574,
+        "median": 0.33792201429605484,
+        "min": 0.3325918223708868
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          256
+        ],
+        "indices": [
+          16
+        ],
+        "tokens": [
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.3806520253419876,
+        "median": 0.34781196154654026,
+        "min": 0.34144194796681404
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 1,
+        "tokens": 16
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          512
+        ],
+        "indices": [
+          16
+        ],
+        "tokens": [
+          16,
+          32
+        ]
+      },
+      "timings_ms": {
+        "max": 0.3813421353697777,
+        "median": 0.34637690987437963,
+        "min": 0.3381918650120497
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 32,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 2,
+        "tokens": 16
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 1,
+      "tokens": 16
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 32,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 2,
+      "tokens": 16
+    }
+  ]
+}

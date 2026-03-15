@@ -1,0 +1,658 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163027Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/recurrent_gated_delta_rule.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "baseline_limitations": [
+        "baseline timing and correctness use the functional entrypoint to observe both output and final_state"
+      ],
+      "correctness": {
+        "atol": 0.05,
+        "max_abs_diff": 0.791015625,
+        "passes": false,
+        "rtol": 0.05
+      },
+      "entrypoint": "torch_npu.npu_recurrent_gated_delta_rule_functional",
+      "reference_contract": "nd_recurrent_no_gk",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163027Z/ops_transformer_recurrent_gated_delta_rule_benchmark.json",
+      "shape_summaries": [
+        {
+          "attention_out": [
+            2,
+            16,
+            16
+          ],
+          "beta": [
+            2,
+            16
+          ],
+          "final_state": [
+            2,
+            16,
+            16,
+            16
+          ],
+          "g": [
+            2,
+            16
+          ],
+          "key": [
+            2,
+            16,
+            16
+          ],
+          "query": [
+            2,
+            16,
+            16
+          ],
+          "state": [
+            2,
+            16,
+            16,
+            16
+          ],
+          "value": [
+            2,
+            16,
+            16
+          ]
+        },
+        {
+          "attention_out": [
+            4,
+            16,
+            64
+          ],
+          "beta": [
+            4,
+            16
+          ],
+          "final_state": [
+            4,
+            16,
+            64,
+            64
+          ],
+          "g": [
+            4,
+            16
+          ],
+          "key": [
+            4,
+            16,
+            64
+          ],
+          "query": [
+            4,
+            16,
+            64
+          ],
+          "state": [
+            4,
+            16,
+            64,
+            64
+          ],
+          "value": [
+            4,
+            16,
+            64
+          ]
+        },
+        {
+          "attention_out": [
+            8,
+            16,
+            128
+          ],
+          "beta": [
+            8,
+            16
+          ],
+          "final_state": [
+            8,
+            16,
+            128,
+            128
+          ],
+          "g": [
+            8,
+            16
+          ],
+          "key": [
+            8,
+            16,
+            128
+          ],
+          "query": [
+            8,
+            16,
+            128
+          ],
+          "state": [
+            8,
+            16,
+            128,
+            128
+          ],
+          "value": [
+            8,
+            16,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.3523018676787615,
+        "median": 0.15115540008991957,
+        "min": 0.1281809527426958
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.6064453125,
+            "out_max_abs_diff": 0.133544921875,
+            "passes": false,
+            "state_max_abs_diff": 0.6064453125
+          },
+          "shape_summary": {
+            "attention_out": [
+              2,
+              16,
+              16
+            ],
+            "beta": [
+              2,
+              16
+            ],
+            "final_state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "g": [
+              2,
+              16
+            ],
+            "key": [
+              2,
+              16,
+              16
+            ],
+            "query": [
+              2,
+              16,
+              16
+            ],
+            "state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "value": [
+              2,
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.18314109183847904,
+            "median": 0.15115540008991957,
+            "min": 0.142010860145092
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 16,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 0,
+            "seq_len": 2
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.763671875,
+            "out_max_abs_diff": 0.07470703125,
+            "passes": false,
+            "state_max_abs_diff": 0.763671875
+          },
+          "shape_summary": {
+            "attention_out": [
+              4,
+              16,
+              64
+            ],
+            "beta": [
+              4,
+              16
+            ],
+            "final_state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "g": [
+              4,
+              16
+            ],
+            "key": [
+              4,
+              16,
+              64
+            ],
+            "query": [
+              4,
+              16,
+              64
+            ],
+            "state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "value": [
+              4,
+              16,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3523018676787615,
+            "median": 0.13829546514898539,
+            "min": 0.1281809527426958
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 64,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 1,
+            "seq_len": 4
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.791015625,
+            "out_max_abs_diff": 0.05322265625,
+            "passes": false,
+            "state_max_abs_diff": 0.791015625
+          },
+          "shape_summary": {
+            "attention_out": [
+              8,
+              16,
+              128
+            ],
+            "beta": [
+              8,
+              16
+            ],
+            "final_state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "g": [
+              8,
+              16
+            ],
+            "key": [
+              8,
+              16,
+              128
+            ],
+            "query": [
+              8,
+              16,
+              128
+            ],
+            "state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "value": [
+              8,
+              16,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.17504091374576092,
+            "median": 0.13922539073973894,
+            "min": 0.13405084609985352
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 128,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 2,
+            "seq_len": 8
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch_size": 1,
+          "dim": 16,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 0,
+          "seq_len": 2
+        },
+        {
+          "batch_size": 1,
+          "dim": 64,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 1,
+          "seq_len": 4
+        },
+        {
+          "batch_size": 1,
+          "dim": 128,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 2,
+          "seq_len": 8
+        }
+      ]
+    },
+    "compile": {
+      "reason": "compile_kernel() is not implemented",
+      "status": "blocked"
+    },
+    "family": "attention",
+    "name": "recurrent_gated_delta_rule",
+    "ops_transformer_path": "attention/recurrent_gated_delta_rule",
+    "runtime_entrypoint": "torch_npu.npu_recurrent_gated_delta_rule",
+    "seed_variant": {
+      "default": {
+        "batch_size": 1,
+        "dim": 16,
+        "input_scale": 0.125,
+        "num_heads": 16,
+        "num_value_heads": 16,
+        "seed": 0,
+        "seq_len": 2
+      },
+      "variants": [
+        {
+          "batch_size": 1,
+          "dim": 16,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 0,
+          "seq_len": 2
+        },
+        {
+          "batch_size": 1,
+          "dim": 64,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 1,
+          "seq_len": 4
+        },
+        {
+          "batch_size": 1,
+          "dim": 128,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 2,
+          "seq_len": 8
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.05,
+    "rtol": 0.05,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/recurrent_gated_delta_rule",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/recurrent_gated_delta_rule",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/recurrent_gated_delta_rule/report.json",
+  "name": "recurrent_gated_delta_rule",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/recurrent_gated_delta_rule.py",
+    "benchmark": {
+      "blocker_id": "ptodsl-recurrent-state-update-primitives",
+      "reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
+      "reference_contract": "nd_recurrent_no_gk",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163027Z/ptodsl_recurrent_gated_delta_rule_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch_size": 1,
+          "dim": 16,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 0,
+          "seq_len": 2
+        },
+        {
+          "batch_size": 1,
+          "dim": 64,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 1,
+          "seq_len": 4
+        },
+        {
+          "batch_size": 1,
+          "dim": 128,
+          "input_scale": 0.125,
+          "num_heads": 16,
+          "num_value_heads": 16,
+          "seed": 2,
+          "seq_len": 8
+        }
+      ]
+    },
+    "compile": {
+      "blocker_id": "ptodsl-recurrent-state-update-primitives",
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/kernel.py",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163027Z",
+      "reason": "Tile-first PTODSL/PTOAS recurrent state update surface is not available for recurrent_gated_delta_rule.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/kernel.py",
+    "meta": {
+      "archetype": "attention-recurrent",
+      "blockers": [
+        "ptodsl-recurrent-state-update-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "recurrent_gated_delta_rule",
+      "ops_transformer_path": "attention/recurrent_gated_delta_rule",
+      "seed_variant": {
+        "limits": [
+          "constrained ND recurrent slice with batch=1 and nv=nk=16",
+          "q/k/v/state/beta use bfloat16; g uses float32; gk fixed to None",
+          "actual_seq_lengths fixed to the full sequence length, ssm_state_indices fixed to arange(T)",
+          "num_accepted_tokens fixed to ones"
+        ],
+        "name": "nd_recurrent_no_gk",
+        "shape": {
+          "boundary": {
+            "attention_out": [
+              8,
+              16,
+              128
+            ],
+            "beta": [
+              8,
+              16
+            ],
+            "final_state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "g": [
+              8,
+              16
+            ],
+            "key": [
+              8,
+              16,
+              128
+            ],
+            "query": [
+              8,
+              16,
+              128
+            ],
+            "state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "value": [
+              8,
+              16,
+              128
+            ]
+          },
+          "nominal": {
+            "attention_out": [
+              4,
+              16,
+              64
+            ],
+            "beta": [
+              4,
+              16
+            ],
+            "final_state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "g": [
+              4,
+              16
+            ],
+            "key": [
+              4,
+              16,
+              64
+            ],
+            "query": [
+              4,
+              16,
+              64
+            ],
+            "state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "value": [
+              4,
+              16,
+              64
+            ]
+          },
+          "smoke": {
+            "attention_out": [
+              2,
+              16,
+              16
+            ],
+            "beta": [
+              2,
+              16
+            ],
+            "final_state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "g": [
+              2,
+              16
+            ],
+            "key": [
+              2,
+              16,
+              16
+            ],
+            "query": [
+              2,
+              16,
+              16
+            ],
+            "state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "value": [
+              2,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163027Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

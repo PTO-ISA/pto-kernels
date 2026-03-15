@@ -1,0 +1,13 @@
+{
+  "reason": "PTO port is deferred until a reproducible baseline host contract exists.",
+  "status": "blocked",
+  "variants": [
+    {
+      "groups": 4,
+      "k": 128,
+      "m": 96,
+      "n": 128,
+      "seed": 0
+    }
+  ]
+}

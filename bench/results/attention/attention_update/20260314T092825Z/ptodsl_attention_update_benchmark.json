@@ -1,0 +1,30 @@
+{
+  "reason": "PTO compile failed: '>' not supported between instances of 'mlir._mlir_libs._mlir.ir.OpResult' and 'mlir._mlir_libs._mlir.ir.OpResult'",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "head_dim": 16,
+      "rows": 8,
+      "seed": 0,
+      "sp": 2,
+      "update_type": 0
+    },
+    {
+      "dtype": "float16",
+      "head_dim": 64,
+      "rows": 256,
+      "seed": 1,
+      "sp": 2,
+      "update_type": 0
+    },
+    {
+      "dtype": "float16",
+      "head_dim": 128,
+      "rows": 128,
+      "seed": 2,
+      "sp": 2,
+      "update_type": 0
+    }
+  ]
+}

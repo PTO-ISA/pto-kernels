@@ -1,0 +1,1216 @@
+{
+  "generated_at": "20260314T150551Z",
+  "kernels": [
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ptodsl",
+        "pto-isa",
+        "ops-transformer",
+        "PTOAS"
+      ],
+      "gap_ids": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-interleave-surface",
+        "ptodsl-cache-update-primitives",
+        "ptoisa-a2a3-vec-quant-store",
+        "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap",
+        "ptoas-section-local-scf-parent-terminator"
+      ],
+      "inventory_status": "blocked",
+      "name": "qkv_rms_norm_rope_cache",
+      "phase": "phase3",
+      "primary_class": "blocked by PTOAS lowering",
+      "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl",
+        "PTOAS"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives",
+        "ptoas-scalar-f16-routing-reduction-store"
+      ],
+      "inventory_status": "blocked",
+      "name": "moe_finalize_routing_v2_grad",
+      "phase": "phase3",
+      "primary_class": "blocked by PTOAS lowering",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py:load_scalarx6",
+        "python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py:store_scalarx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "PTOAS",
+        "ops-transformer",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptoas-scf-routing-emit",
+        "ops-transformer-moe-init-routing-v2-host-crash",
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_init_routing_v2",
+      "phase": "phase3",
+      "primary_class": "blocked by PTOAS lowering",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:store_scalarx3",
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:scalar_selectx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl",
+        "PTOAS"
+      ],
+      "gap_ids": [
+        "ptodsl-group-routing-primitives",
+        "ptoas-scf-routing-emit"
+      ],
+      "inventory_status": "blocked",
+      "name": "moe_re_routing",
+      "phase": "phase3",
+      "primary_class": "blocked by PTOAS lowering",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:load_scalarx5",
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:store_scalarx3",
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:scalar_selectx5"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "This host does not expose a Python baseline entrypoint for SwinTransformerLnQkvQuant, and the public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "ffn",
+      "gap_components": [
+        "ptodsl",
+        "ops-transformer",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-ffn-interstage-cast-path",
+        "ops-transformer-swin-ln-qkv-quant-python-entrypoint-gap",
+        "ptodsl-swin-ln-qkv-quant-surface"
+      ],
+      "inventory_status": "blocked",
+      "name": "swin_transformer_ln_qkv_quant",
+      "phase": "phase3",
+      "primary_class": "blocked by PTODSL surface",
+      "pto_reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv_quant/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-group-routing-primitives",
+        "ops-transformer-grouped-finalize-routing-format-contract"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul_finalize_routing",
+      "phase": "phase3",
+      "primary_class": "blocked by PTODSL surface",
+      "pto_reason": "PTO port is intentionally deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_finalize_routing/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": {
+        "nominal_base_m": 128,
+        "nominal_tiles": 24,
+        "nominal_tokens": 3072,
+        "requested_block_dim": 24,
+        "uses_all_blocks": true
+      },
+      "family": "ffn",
+      "gap_components": [
+        "PTOAS",
+        "ptodsl",
+        "ops-transformer",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptoas-memory-plan-sync-pipeline",
+        "ptodsl-ffn-interstage-cast-path",
+        "ops-transformer-swin-ffn-python-entrypoint-gap",
+        "ptodsl-swin-layout-shift-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "swin_attention_ffn",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_attention_ffn/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/ffn/common.py:scalar_selectx2"
+      ],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": {
+        "nominal_base_m": 128,
+        "nominal_tiles": 48,
+        "nominal_tokens": 2048,
+        "requested_block_dim": 24,
+        "uses_all_blocks": true
+      },
+      "family": "ffn",
+      "gap_components": [
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-ffn-interstage-cast-path",
+        "ops-transformer-swin-ln-qkv-python-entrypoint-gap"
+      ],
+      "inventory_status": "prototype",
+      "name": "swin_transformer_ln_qkv",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ops-transformer-grouped-swiglu-quant-format-contract"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul_swiglu_quant",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ops-transformer-grouped-swiglu-quant-format-contract"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul_swiglu_quant_v2",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant_v2/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ops-transformer-quant-grouped-matmul-inplace-add-entrypoint-gap"
+      ],
+      "inventory_status": "prototype",
+      "name": "quant_grouped_matmul_inplace_add",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": "PTO port is deferred until a reproducible baseline host contract exists.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/quant_grouped_matmul_inplace_add/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": {
+        "nominal_tokens": 256,
+        "requested_block_dim": 8,
+        "uses_all_blocks": true
+      },
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_finalize_routing_v2",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_finalize_routing_v2/kernel.py:load_scalarx3"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": {
+        "nominal_rows": 256,
+        "requested_block_dim": 8,
+        "uses_all_blocks": true
+      },
+      "family": "moe",
+      "gap_components": [
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ops-transformer-moe-gating-top-k-softmax-v2-python-entrypoint-gap"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_gating_top_k_softmax_v2",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax_v2/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:load_scalarx3",
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:store_scalarx3",
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [
+        "runtime",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "host-ring-attention-update-python-entrypoint",
+        "ptodsl-ring-attention-update-list-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "ring_attention_update",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/attention/ring_attention_update/kernel.py:load_scalarx4",
+        "python/pto_kernels/ops/attention/ring_attention_update/kernel.py:scalar_selectx1"
+      ],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-routing-sort-primitives",
+        "ops-transformer-mc2-hccl-multirank-bringup"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_distribute_combine",
+      "phase": "phase2",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ops-transformer-mc2-hccl-multirank-bringup"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_distribute_dispatch",
+      "phase": "phase2",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "19.5%..20.6%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "ffn",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "planned",
+      "name": "ffn",
+      "phase": "phase1",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/ffn/common.py:scalar_selectx2"
+      ],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "44.9%..48.7%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-cube-preload-pipeline-surface",
+        "ptodsl-group-routing-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul",
+      "phase": "phase1",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/gmm/grouped_matmul/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "13.1%..44.0%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "moe_compute_expert_tokens",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:store_scalarx1",
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:scalar_selectx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "34.2%..35.8%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_finalize_routing",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_finalize_routing/kernel.py:load_scalarx3"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "54.1%..55.7%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "moe_gating_top_k",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py:load_scalarx2",
+        "python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py:store_scalarx2",
+        "python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "28.6%..30.1%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "moe_gating_top_k_softmax",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax/kernel.py:load_scalarx3",
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax/kernel.py:store_scalarx3",
+        "python/pto_kernels/ops/moe/moe_gating_top_k_softmax/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "42.8%..44.2%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_permute_grad",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_token_permute_grad/kernel.py:load_scalarx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "31.9%..36.6%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_permute_with_routing_map_grad",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_token_permute_with_routing_map_grad/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_token_permute_with_routing_map_grad/kernel.py:store_scalarx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "40.2%..66.8%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "moe_token_unpermute_grad",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_token_unpermute_grad/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_token_unpermute_grad/kernel.py:store_scalarx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "41.8%..42.3%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_unpermute_with_routing_map_grad",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_token_unpermute_with_routing_map_grad/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_token_unpermute_with_routing_map_grad/kernel.py:store_scalarx1"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "36.8%..38.2%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-attention-update-list-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "attention_update",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/attention/attention_update/kernel.py:load_scalarx2",
+        "python/pto_kernels/ops/attention/attention_update/kernel.py:scalar_selectx1"
+      ],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "37.6%..38.4%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "flash_attention_score",
+      "phase": "phase1",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/attention/common.py:scalar_selectx2"
+      ],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "38.5%..40.9%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-fused-infer-scaled-parity"
+      ],
+      "inventory_status": "prototype",
+      "name": "fused_infer_attention_score",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/attention/common.py:scalar_selectx2"
+      ],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "57.0%..57.4%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "PTOAS",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-cube-preload-pipeline-surface",
+        "ptoas-memory-plan-sync-pipeline",
+        "ops-transformer-mc2-hccl-multirank-bringup"
+      ],
+      "inventory_status": "prototype",
+      "name": "all_gather_matmul",
+      "phase": "phase2",
+      "primary_class": "green but scalar-heavy",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/all_gather_matmul/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/mc2/all_gather_matmul/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "68.7%..70.4%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul_add",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_add/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "47.7%..48.3%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "inventory_status": "planned",
+      "name": "apply_rotary_pos_emb",
+      "phase": "phase1",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "18.0%..18.8%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "pto-isa"
+      ],
+      "gap_ids": [
+        "ptodsl-cache-update-primitives",
+        "ptoisa-a2a3-vec-quant-store"
+      ],
+      "inventory_status": "prototype",
+      "name": "dequant_rope_quant_kvcache",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/dequant_rope_quant_kvcache/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "29.9%..30.7%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-vector-queue-pipeline-surface",
+        "ptodsl-vector-interleave-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "interleave_rope",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "16.7%..17.0%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "pto-isa"
+      ],
+      "gap_ids": [
+        "ptodsl-cache-update-primitives",
+        "ptoisa-a2a3-vec-quant-store"
+      ],
+      "inventory_status": "prototype",
+      "name": "rope_quant_kvcache",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_quant_kvcache/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "56.0%..56.1%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "rotary_position_embedding",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "39.3%..40.7%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "rotary_position_embedding_grad",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding_grad/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "17.3%..17.9%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_init_routing",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "30.5%..30.8%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "planned",
+      "name": "moe_token_permute",
+      "phase": "phase1",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "30.2%..32.6%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_permute_with_routing_map",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "45.9%..47.3%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_unpermute",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "45.5%..46.6%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_token_unpermute_with_routing_map",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "75.7%..98.5%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ops-transformer-mc2-hccl-multirank-bringup"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_mat_mul_all_reduce",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "52.6%..59.3%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ptodsl",
+        "pto-isa",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-cube-preload-pipeline-surface",
+        "ptodsl-vector-rms-norm-generalization",
+        "ptoisa-a2a3-vector-cast-io",
+        "ptodsl-inplace-buffer-alias-contract"
+      ],
+      "inventory_status": "prototype",
+      "name": "inplace_matmul_all_reduce_add_rms_norm",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "75.9%..86.0%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-cube-preload-pipeline-surface",
+        "ops-transformer-mc2-hccl-multirank-bringup"
+      ],
+      "inventory_status": "prototype",
+      "name": "matmul_all_reduce",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "58.2%..71.6%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ptodsl",
+        "pto-isa"
+      ],
+      "gap_ids": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-cube-preload-pipeline-surface",
+        "ptodsl-vector-rms-norm-generalization",
+        "ptoisa-a2a3-vector-cast-io"
+      ],
+      "inventory_status": "prototype",
+      "name": "matmul_all_reduce_add_rms_norm",
+      "phase": "phase2",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    },
+    {
+      "baseline_over_pto_range": "69.4%..80.1%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "mc2",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "planned",
+      "name": "matmul_reduce_scatter",
+      "phase": "phase1",
+      "primary_class": "green + tile-first",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave5"
+    }
+  ]
+}

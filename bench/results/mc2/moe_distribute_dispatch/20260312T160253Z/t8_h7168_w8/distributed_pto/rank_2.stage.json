@@ -1,0 +1,6 @@
+{
+  "rank": 2,
+  "reason": "Split sizes dosen't match total dim 0 size\n[ERROR] 2026-03-13-00:04:16 (PID:3196429, Device:2, RankID:2) ERR02002 DIST invalid type",
+  "stage": "exception",
+  "timestamp": 1773331456.3393638
+}

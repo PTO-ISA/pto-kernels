@@ -1,0 +1,238 @@
+{
+  "correctness": {
+    "atol": 0.01,
+    "max_abs_diff": 0.003516674041748047,
+    "passes": true,
+    "rtol": 0.01
+  },
+  "entrypoint": "torch_npu.npu_rope_quant_kvcache",
+  "reference_contract": "fp16_half_rope_quant_kvcache_unit_scale_bsnd_2d",
+  "shape_summaries": [
+    {
+      "cos": [
+        2,
+        64
+      ],
+      "k": [
+        2,
+        1,
+        64
+      ],
+      "k_cache": [
+        2,
+        8,
+        1,
+        64
+      ],
+      "q": [
+        2,
+        1,
+        64
+      ],
+      "sin": [
+        2,
+        64
+      ],
+      "v": [
+        2,
+        1,
+        64
+      ],
+      "v_cache": [
+        2,
+        8,
+        1,
+        64
+      ],
+      "x": [
+        2,
+        192
+      ]
+    },
+    {
+      "cos": [
+        4,
+        64
+      ],
+      "k": [
+        4,
+        1,
+        64
+      ],
+      "k_cache": [
+        4,
+        8,
+        1,
+        64
+      ],
+      "q": [
+        4,
+        1,
+        64
+      ],
+      "sin": [
+        4,
+        64
+      ],
+      "v": [
+        4,
+        1,
+        64
+      ],
+      "v_cache": [
+        4,
+        8,
+        1,
+        64
+      ],
+      "x": [
+        4,
+        192
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.22738194093108177,
+    "median": 0.14051608741283417,
+    "min": 0.13332092203199863
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.002789020538330078,
+        "q_max_abs_diff": 0.0024328231811523438,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          64
+        ],
+        "k": [
+          2,
+          1,
+          64
+        ],
+        "k_cache": [
+          2,
+          8,
+          1,
+          64
+        ],
+        "q": [
+          2,
+          1,
+          64
+        ],
+        "sin": [
+          2,
+          64
+        ],
+        "v": [
+          2,
+          1,
+          64
+        ],
+        "v_cache": [
+          2,
+          8,
+          1,
+          64
+        ],
+        "x": [
+          2,
+          192
+        ]
+      },
+      "timings_ms": {
+        "max": 0.22738194093108177,
+        "median": 0.13709103222936392,
+        "min": 0.13332092203199863
+      },
+      "variant": {
+        "batch": 2,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.0030221939086914062,
+        "q_max_abs_diff": 0.003516674041748047,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          4,
+          64
+        ],
+        "k": [
+          4,
+          1,
+          64
+        ],
+        "k_cache": [
+          4,
+          8,
+          1,
+          64
+        ],
+        "q": [
+          4,
+          1,
+          64
+        ],
+        "sin": [
+          4,
+          64
+        ],
+        "v": [
+          4,
+          1,
+          64
+        ],
+        "v_cache": [
+          4,
+          8,
+          1,
+          64
+        ],
+        "x": [
+          4,
+          192
+        ]
+      },
+      "timings_ms": {
+        "max": 0.16065104864537716,
+        "median": 0.14051608741283417,
+        "min": 0.13442104682326317
+      },
+      "variant": {
+        "batch": 4,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

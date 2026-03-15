@@ -1,0 +1,27 @@
+name: moe_gating_top_k_softmax_v2
+family: moe
+wave: wave2
+inventory_ref: moe/moe_gating_top_k_softmax_v2
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_gating_top_k_softmax_v2.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_gating_top_k_softmax_v2.py
+  kernel: python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/meta.py
+notes:
+  - Seed kernel for top-1 2D gating softmax v2 with renorm=0 and no optional softmax output.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 1.0e-3
+  rtol: 1.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

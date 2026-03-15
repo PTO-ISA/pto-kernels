@@ -1,0 +1,17 @@
+{
+  "correctness": {
+    "max_abs_diff": 4.55224609375,
+    "norm_max_abs_diff": 4.55224609375,
+    "y_max_abs_diff": 1.4208984375
+  },
+  "device": "npu:1",
+  "hcom_name": "group_name_0",
+  "rank": 1,
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.6885752081871033,
+    "median": 0.5857740761712193,
+    "min": 0.5380830261856318
+  },
+  "world_size": 2
+}

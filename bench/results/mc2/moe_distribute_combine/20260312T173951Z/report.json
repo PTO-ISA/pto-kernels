@@ -1,0 +1,231 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/moe_distribute_combine.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_distribute_combine",
+      "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/ops_transformer_moe_distribute_combine_benchmark.json",
+      "status": "blocked",
+      "variant_reports": [
+        {
+          "rank_reports": [],
+          "rank_stages": [
+            {
+              "rank": 0,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.451919
+            },
+            {
+              "rank": 1,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.0030434
+            },
+            {
+              "rank": 2,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.1073298
+            },
+            {
+              "rank": 3,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.4468606
+            },
+            {
+              "rank": 4,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.259938
+            },
+            {
+              "rank": 5,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.2377276
+            },
+            {
+              "rank": 6,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.201293
+            },
+            {
+              "rank": 7,
+              "stage": "worker_fn",
+              "timestamp": 1773337203.2611206
+            }
+          ],
+          "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+          "status": "blocked",
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 8,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          },
+          "world_size": 8
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_distribute_combine",
+      "environment": {
+        "detected_npus": 8,
+        "device_index": 0,
+        "npu_available": true,
+        "symbol_available": true
+      },
+      "note": "Baseline execution needs a real 8-rank HCCL launch; the current local harness still fast-fails by default.",
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "moe_distribute_combine",
+    "ops_transformer_path": "mc2/moe_distribute_combine",
+    "runtime_entrypoint": "torch_npu.npu_moe_distribute_combine",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 1,
+    "statistic": "median",
+    "warmup": 0
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.0,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/moe_distribute_combine",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine/report.json",
+  "name": "moe_distribute_combine",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/moe_distribute_combine.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/t8_h7168_w8/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/t8_h7168_w8/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/t8_h7168_w8/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/t8_h7168_w8/compile_probe/kernel.so"
+      ],
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/ptodsl_moe_distribute_combine_benchmark.json",
+      "status": "ok",
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_combine/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_combine/kernel.py",
+    "meta": {
+      "archetype": "mc2-routing",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "moe_distribute_combine",
+      "ops_transformer_path": "mc2/moe_distribute_combine",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 8 for the first seed contract because the A2 baseline requires epWorldSize % 8 == 0",
+          "EP-only path only; TP group remains empty",
+          "top-1 routing only",
+          "float16 only",
+          "hidden size fixed to 7168 for the A2/910B baseline contract",
+          "PTO seed currently consumes a host-precompacted reverse-route buffer plus host-generated chunk-local flattened scatter indices instead of implementing the distributed return path",
+          "validated shape currently targets 8x7168"
+        ],
+        "name": "ep_only_top1_fp16_combine",
+        "shape": [
+          8,
+          7168
+        ],
+        "tiling": {
+          "block_dim_env": "PTO_MC2_MOE_COMBINE_BLOCK_DIM",
+          "strategy": "contiguous per-core token-row ownership over a host-precompacted reverse-route buffer with chunk-local flattened scatter indices"
+        }
+      },
+      "status": "prototype",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_combine/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

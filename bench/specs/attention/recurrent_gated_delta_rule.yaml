@@ -1,0 +1,29 @@
+name: recurrent_gated_delta_rule
+family: attention
+wave: wave3
+inventory_ref: attention/recurrent_gated_delta_rule
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/attention/recurrent_gated_delta_rule.py
+pto:
+  adapter: bench/adapters/ptodsl/attention/recurrent_gated_delta_rule.py
+  kernel: python/pto_kernels/ops/attention/recurrent_gated_delta_rule/kernel.py
+  meta: python/pto_kernels/ops/attention/recurrent_gated_delta_rule/meta.py
+notes:
+  - First recurrent_gated_delta_rule migration slice with batch=1, nv=nk=16, gk=None, and full-length accepted tokens.
+  - Baseline uses the functional entrypoint so both output and final_state can be checked against the CPU reference.
+  - PTO remains blocked until tile-first recurrent state update primitives exist in PTODSL/PTOAS.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 1.5e-1
+  rtol: 1.5e-1
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

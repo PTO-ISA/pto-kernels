@@ -19,6 +19,8 @@ Rules:
 - Add tests in the repo you touch.
 - Link the blocker in `bench/gap_board.yaml`.
 - Keep the target backend fixed to A2/A3 for this machine.
+- Distinguish real compiler/backend gaps from host-runtime blockers. The current MC2 routing pair (`moe_distribute_dispatch`, `moe_distribute_combine`) is still primarily blocked by the local 8-rank baseline/runtime path, not by a missing PTODSL primitive alone.
+- Re-run `python3 scripts/check_no_legacy_scalar_api.py` and `python3 scripts/check_no_legacy_ptodsl_api.py` after frontend-surface changes so new stack extensions do not reintroduce removed APIs.
 
 Important files:
 

@@ -1,0 +1,27 @@
+name: fused_infer_attention_score
+family: attention
+wave: wave3
+inventory_ref: attention/fused_infer_attention_score
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/attention/fused_infer_attention_score.py
+pto:
+  adapter: bench/adapters/ptodsl/attention/fused_infer_attention_score.py
+  kernel: python/pto_kernels/ops/attention/fused_infer_attention_score/kernel.py
+  meta: python/pto_kernels/ops/attention/fused_infer_attention_score/meta.py
+notes:
+  - First fused_infer_attention_score migration slice with batch=1, heads=1, one block, no quant, no mask, and BNSD query.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 2.0e-3
+  rtol: 2.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

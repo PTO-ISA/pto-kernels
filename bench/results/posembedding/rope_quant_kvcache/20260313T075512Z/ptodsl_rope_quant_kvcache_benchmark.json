@@ -1,0 +1,18 @@
+{
+  "reason": "PTO execution failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075512Z/b2_cache8/stage_full/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075512Z/b2_cache8/stage_full/kernel.so']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

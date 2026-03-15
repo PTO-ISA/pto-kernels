@@ -1,0 +1,184 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/ffn/ffn.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.000244140625,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_ffn",
+      "reference_contract": "fp16_dense_relu_ffn_torch_ops",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/ops_transformer_ffn_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.14170119538903236,
+        "median": 0.08357048500329256,
+        "min": 0.07969001308083534
+      },
+      "variant": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 256,
+        "output_size": 128,
+        "seed": 0,
+        "tokens": 32
+      }
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_ffn",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to dense float16 FFN with relu activation and no bias.",
+      "status": "runtime_builtin"
+    },
+    "family": "ffn",
+    "name": "ffn",
+    "ops_transformer_path": "ffn/ffn",
+    "runtime_entrypoint": "torch_npu.npu_ffn",
+    "seed_variant": {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 0,
+      "tokens": 32
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "ffn",
+  "inventory_ref": "ffn/ffn",
+  "name": "ffn",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/ffn/ffn.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/ptodsl_ffn_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.480912858620286,
+        "median": 0.4334275145083666,
+        "min": 0.4241329152137041
+      },
+      "variant": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 256,
+        "output_size": 128,
+        "seed": 0,
+        "tokens": 32
+      }
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z/stage3/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260311T173434Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/kernel.py",
+    "meta": {
+      "archetype": "ffn",
+      "blockers": [
+        "ptodsl-ffn-interstage-cast-path",
+        "ptodsl-bf16-epilogue-conversion"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "ffn",
+      "name": "ffn",
+      "ops_transformer_path": "ffn/ffn",
+      "seed_variant": {
+        "limits": [
+          "dense FFN only, no expert tokens",
+          "activation fixed to relu",
+          "float16 only",
+          "bias disabled",
+          "seed tensors scaled by 0.125 for stable fp16 reference comparison"
+        ],
+        "name": "dense_relu_fp16",
+        "shape": [
+          32,
+          128,
+          256,
+          128
+        ]
+      },
+      "status": "planned",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/meta.py"
+  },
+  "status": "planned",
+  "wave": "wave1"
+}

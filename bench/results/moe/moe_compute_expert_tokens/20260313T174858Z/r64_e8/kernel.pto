@@ -1,0 +1,35 @@
+module {
+  func.func @moe_compute_expert_tokens_seed(%arg0: !pto.ptr<i32>, %arg1: !pto.ptr<i32>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c64 = arith.constant 64 : index
+    %c8 = arith.constant 8 : index
+    %0 = pto.make_tensor_view %arg1, shape = [%c64] strides = [%c1] : !pto.tensor_view<?xi32>
+    %1 = pto.make_tensor_view %arg0, shape = [%c8] strides = [%c1] : !pto.tensor_view<?xi32>
+    pto.section.vector {
+      %2 = pto.get_block_idx
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.get_block_num
+      %5 = arith.index_cast %4 : i64 to index
+      %6 = arith.ceildivsi %c8, %5 : index
+      %7 = arith.muli %3, %6 : index
+      %8 = arith.addi %7, %6 : index
+      %9 = arith.minui %8, %c8 : index
+      scf.for %arg2 = %7 to %9 step %c1 {
+        %10 = arith.addi %arg2, %c1 : index
+        %11 = arith.index_cast %10 : index to i32
+        %12 = scf.for %arg3 = %c0 to %c64 step %c1 iter_args(%arg4 = %c0) -> (index) {
+          %14 = pto.load_scalar %arg1[%arg3] : !pto.ptr<i32> -> i32
+          %15 = arith.cmpi sgt, %11, %14 : i32
+          %16 = arith.addi %arg3, %c1 : index
+          %17 = arith.select %15, %16, %arg4 : index
+          scf.yield %17 : index
+        }
+        %13 = arith.index_cast %12 : index to i32
+        pto.store_scalar %13, %arg0[%arg2] : !pto.ptr<i32>, i32
+      }
+    }
+    return
+  }
+}
+

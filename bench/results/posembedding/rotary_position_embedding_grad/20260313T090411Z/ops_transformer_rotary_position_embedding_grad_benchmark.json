@@ -1,0 +1,282 @@
+{
+  "baseline_limitations": [
+    "On this host torch_npu.npu_rotary_mul_backward returns zero-filled dcos/dsin outputs.",
+    "Baseline correctness and parity are therefore validated on dx only; PTO still validates dx/dcos/dsin against the PTO reference."
+  ],
+  "correctness": {
+    "atol": 0.02,
+    "max_abs_diff": 0.003520965576171875,
+    "passes": true,
+    "rtol": 0.02
+  },
+  "entrypoint": "torch_npu.npu_rotary_mul_backward",
+  "reference_contract": "fp16_half_rotary_grad_bsnd_bnsd_d128_dx_only_baseline",
+  "shape_summaries": [
+    {
+      "cos": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dcos": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dsin": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dx": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dy": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "sin": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "x": [
+        2,
+        32,
+        1,
+        128
+      ]
+    },
+    {
+      "cos": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dcos": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dsin": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dx": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dy": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "sin": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "x": [
+        2,
+        1,
+        32,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.17078081145882607,
+    "median": 0.11306593660265207,
+    "min": 0.1085200347006321
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "dcos_max_abs_diff": 12.3687744140625,
+        "dsin_max_abs_diff": 10.0904541015625,
+        "dx_max_abs_diff": 0.003520965576171875,
+        "passes": true,
+        "supported_outputs": [
+          "dx"
+        ],
+        "unsupported_outputs": [
+          "dcos",
+          "dsin"
+        ]
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dcos": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dsin": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dx": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dy": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "sin": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "x": [
+          2,
+          32,
+          1,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.17078081145882607,
+        "median": 0.11236045975238085,
+        "min": 0.1085200347006321
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "mode": "half",
+        "seed": 0,
+        "seq_len": 32
+      }
+    },
+    {
+      "correctness": {
+        "dcos_max_abs_diff": 7.809539794921875,
+        "dsin_max_abs_diff": 6.89697265625,
+        "dx_max_abs_diff": 0.00228118896484375,
+        "passes": true,
+        "supported_outputs": [
+          "dx"
+        ],
+        "unsupported_outputs": [
+          "dcos",
+          "dsin"
+        ]
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dcos": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dsin": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dx": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dy": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "sin": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "x": [
+          2,
+          1,
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1352510880678892,
+        "median": 0.11306593660265207,
+        "min": 0.10946090333163738
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BNSD",
+        "mode": "half",
+        "seed": 1,
+        "seq_len": 32
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "mode": "half",
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BNSD",
+      "mode": "half",
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

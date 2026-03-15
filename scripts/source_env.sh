@@ -60,13 +60,26 @@ else
   export PYTHONPATH="${REPO_ROOT}/python:${PYTHONPATH:-}"
 fi
 
-if command -v ptoas >/dev/null 2>&1; then
-  :
-elif [[ -x "${REPO_ROOT}/../PTOAS/build/tools/ptoas/ptoas" ]]; then
-  export PATH="${REPO_ROOT}/../PTOAS/build/tools/ptoas:${PATH}"
-elif [[ -x "${REPO_ROOT}/external/src/PTOAS/build/tools/ptoas/ptoas" ]]; then
-  export PATH="${REPO_ROOT}/external/src/PTOAS/build/tools/ptoas:${PATH}"
+ptoas_candidates=()
+if [[ -n "${PTO_PTOAS_ROOT:-}" ]]; then
+  ptoas_candidates+=(
+    "${PTO_PTOAS_ROOT}/build-19/tools/ptoas"
+    "${PTO_PTOAS_ROOT}/build/tools/ptoas"
+  )
 fi
+ptoas_candidates+=(
+  "${REPO_ROOT}/../PTOAS/build-19/tools/ptoas"
+  "${REPO_ROOT}/../PTOAS/build/tools/ptoas"
+  "${REPO_ROOT}/external/src/PTOAS/build-19/tools/ptoas"
+  "${REPO_ROOT}/external/src/PTOAS/build/tools/ptoas"
+)
+
+for ptoas_dir in "${ptoas_candidates[@]}"; do
+  if [[ -x "${ptoas_dir}/ptoas" ]]; then
+    export PATH="${ptoas_dir}:${PATH}"
+    break
+  fi
+done
 
 echo "[env] PTO_KERNELS_SOC=${PTO_KERNELS_SOC}"
 echo "[env] PTO_KERNELS_PTO_ARCH=${PTO_KERNELS_PTO_ARCH}"

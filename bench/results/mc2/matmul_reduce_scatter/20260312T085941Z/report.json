@@ -1,0 +1,726 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/matmul_reduce_scatter.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0008401870727539062,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+      "reference_contract": "reduce_scatter(sum_i(x1_i @ x2_i))",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/ops_transformer_matmul_reduce_scatter_benchmark.json",
+      "shape_summaries": [
+        {
+          "local_mm": [
+            128,
+            128
+          ],
+          "reduce_scatter_output_per_rank": [
+            64,
+            128
+          ],
+          "world_size": 2,
+          "x1": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        },
+        {
+          "local_mm": [
+            64,
+            128
+          ],
+          "reduce_scatter_output_per_rank": [
+            32,
+            128
+          ],
+          "world_size": 2,
+          "x1": [
+            64,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.6498340517282486,
+        "median": 0.5575079703703523,
+        "min": 0.5027430597692728
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0008401870727539062,
+            "per_rank_max_abs_diff": [
+              0.0007658004760742188,
+              0.0008401870727539062
+            ]
+          },
+          "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.0007658004760742188
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.6148738320916891,
+                "median": 0.5475430516526103,
+                "min": 0.5273229908198118
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.0008401870727539062
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.6498340517282486,
+                "median": 0.5575079703703523,
+                "min": 0.5211231764405966
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "reduce_scatter(sum_i(x1_i @ x2_i))",
+          "shape_summary": {
+            "local_mm": [
+              128,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              64,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.6498340517282486,
+            "median": 0.5575079703703523,
+            "min": 0.5211231764405966,
+            "per_rank_median": [
+              0.5475430516526103,
+              0.5575079703703523
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0,
+            "stream_mode": 1
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0006699562072753906,
+            "per_rank_max_abs_diff": [
+              0.0006699562072753906,
+              0.0005393028259277344
+            ]
+          },
+          "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.0006699562072753906
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.5621230229735374,
+                "median": 0.5334030138328671,
+                "min": 0.5027430597692728
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.0005393028259277344
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.5911530461162329,
+                "median": 0.5430135643109679,
+                "min": 0.5116628017276525
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "reduce_scatter(sum_i(x1_i @ x2_i))",
+          "shape_summary": {
+            "local_mm": [
+              64,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              32,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              64,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.5911530461162329,
+            "median": 0.5430135643109679,
+            "min": 0.5027430597692728,
+            "per_rank_median": [
+              0.5334030138328671,
+              0.5430135643109679
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 64,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1,
+            "stream_mode": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0,
+          "stream_mode": 1
+        },
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 64,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1,
+          "stream_mode": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+      "environment": {
+        "device_index": 0,
+        "dist_backend": null,
+        "distributed_available": true,
+        "distributed_initialized": false,
+        "parsed_world_size": null,
+        "resolved_world_size": 2,
+        "runtime_entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+        "shape_summary": {
+          "local_mm": [
+            128,
+            128
+          ],
+          "reduce_scatter_output_per_rank": [
+            64,
+            128
+          ],
+          "world_size": 2,
+          "x1": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        },
+        "supported_world_sizes": [
+          2,
+          4,
+          8
+        ],
+        "symbol_available": true,
+        "variant": {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0,
+          "stream_mode": 1
+        },
+        "world_size_env": null
+      },
+      "note": "Baseline execution uses a local multi-rank HCCL launch from the benchmark adapter. WORLD_SIZE is provided by the adapter unless PTO_MC2_WORLD_SIZE overrides it.",
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "matmul_reduce_scatter",
+    "ops_transformer_path": "mc2/matmul_reduce_scatter",
+    "runtime_entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+    "seed_variant": {
+      "default": {
+        "bias": false,
+        "comm_turn": 0,
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0,
+        "stream_mode": 1
+      },
+      "variants": [
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0,
+          "stream_mode": 1
+        },
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 64,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1,
+          "stream_mode": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/matmul_reduce_scatter",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter/report.json",
+  "name": "matmul_reduce_scatter",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/matmul_reduce_scatter.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m128_k256_n128_w2/compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m64_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m64_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m64_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/m64_k256_n128_w2/compile_probe/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0008401870727539062,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/ptodsl_matmul_reduce_scatter_benchmark.json",
+      "shape_summaries": [
+        {
+          "local_mm": [
+            128,
+            128
+          ],
+          "reduce_scatter_output_per_rank": [
+            64,
+            128
+          ],
+          "world_size": 2,
+          "x1": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        },
+        {
+          "local_mm": [
+            64,
+            128
+          ],
+          "reduce_scatter_output_per_rank": [
+            32,
+            128
+          ],
+          "world_size": 2,
+          "x1": [
+            64,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.9555958677083254,
+        "median": 0.7255595410242677,
+        "min": 0.6812240462750196
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "atol": 0.001,
+            "max_abs_diff": 0.0008401870727539062,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.0007658004760742188,
+              0.0008401870727539062
+            ],
+            "rtol": 0.001
+          },
+          "entrypoint": "pto_seed_local_mm_plus_hccl_all_reduce_chunk",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.0007658004760742188
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.7964849937707186,
+                "median": 0.7242589490488172,
+                "min": 0.7003641221672297
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.0008401870727539062
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.7560739759355783,
+                "median": 0.7255595410242677,
+                "min": 0.7098349742591381
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+          "shape_summary": {
+            "local_mm": [
+              128,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              64,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.7964849937707186,
+            "median": 0.7255595410242677,
+            "min": 0.7003641221672297,
+            "per_rank_median": [
+              0.7242589490488172,
+              0.7255595410242677
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0,
+            "stream_mode": 1
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "atol": 0.001,
+            "max_abs_diff": 0.0006699562072753906,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.0006699562072753906,
+              0.0005393028259277344
+            ],
+            "rtol": 0.001
+          },
+          "entrypoint": "pto_seed_local_mm_plus_hccl_all_reduce_chunk",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.0006699562072753906
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.9348748717457056,
+                "median": 0.7118039065971971,
+                "min": 0.6812240462750196
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.0005393028259277344
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.9555958677083254,
+                "median": 0.7115246262401342,
+                "min": 0.6876538973301649
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+          "shape_summary": {
+            "local_mm": [
+              64,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              32,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              64,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.9555958677083254,
+            "median": 0.7118039065971971,
+            "min": 0.6812240462750196,
+            "per_rank_median": [
+              0.7118039065971971,
+              0.7115246262401342
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 64,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1,
+            "stream_mode": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0,
+          "stream_mode": 1
+        },
+        {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 64,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1,
+          "stream_mode": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py",
+    "meta": {
+      "archetype": "mc2-comm",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-mc2-distributed-launch-contract",
+        "ptoas-memory-plan-sync-pipeline",
+        "ptoisa-a2a3-template-gaps"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "matmul_reduce_scatter",
+      "ops_transformer_path": "mc2/matmul_reduce_scatter",
+      "seed_variant": {
+        "limits": [
+          "world_size expected to be 2 for the first seed contract",
+          "only HCCL reduce_op=sum",
+          "bias disabled",
+          "float16 only",
+          "x1 and x2 fixed to 2D dense ND tensors",
+          "PTO seed only covers the local matmul; the benchmark harness performs HCCL all_reduce plus row chunking outside PTODSL"
+        ],
+        "name": "dense_fp16_reduce_scatter",
+        "shape": [
+          128,
+          256,
+          128
+        ]
+      },
+      "status": "planned",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_reduce_scatter/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T085941Z/report.json",
+  "status": "planned",
+  "wave": "wave5"
+}

@@ -1,0 +1,63 @@
+"""Metadata for the constrained SwinTransformerLnQKV PTO slice."""
+
+META = {
+    "name": "swin_transformer_ln_qkv",
+    "family": "ffn",
+    "wave": "wave1",
+    "phase": "phase3",
+    "status": "prototype",
+    "seed_variant": {
+        "formula": "(Q,K,V)=split(layernorm(x) @ weight + bias)",
+        "constraints": [
+            "910B fp16 slice only",
+            "hidden fixed to 128",
+            "logical outputs reshaped to [B, heads, S, head_dim]",
+            "PTO stage mirrors upstream hidden=128, baseM=128, baseK=64, FIRSTN-style row ownership",
+            "PTO matmul stage currently uses baseN=128 tiles instead of the upstream 256+128 N-tail macro split",
+            "nominal variant uses all requested block ids",
+        ],
+        "smoke_shape": {
+            "inputX": [1, 64, 128],
+            "gamma": [128],
+            "beta": [128],
+            "weight": [128, 384],
+            "bias": [384],
+            "query_output": [1, 4, 64, 32],
+            "key_output": [1, 4, 64, 32],
+            "value_output": [1, 4, 64, 32],
+        },
+        "nominal_shape": {
+            "inputX": [8, 256, 128],
+            "gamma": [128],
+            "beta": [128],
+            "weight": [128, 384],
+            "bias": [384],
+            "query_output": [8, 4, 256, 32],
+            "key_output": [8, 4, 256, 32],
+            "value_output": [8, 4, 256, 32],
+        },
+        "boundary_shape": {
+            "inputX": [4, 256, 128],
+            "gamma": [128],
+            "beta": [128],
+            "weight": [128, 384],
+            "bias": [384],
+            "query_output": [4, 4, 256, 32],
+            "key_output": [4, 4, 256, 32],
+            "value_output": [4, 4, 256, 32],
+        },
+    },
+    "tiling": {
+        "base_m": 128,
+        "base_n": 128,
+        "base_k": 64,
+        "matmul_block_dim": 24,
+        "layernorm_block_dim": 24,
+        "split_block_dim": 24,
+    },
+    "blockers": [
+        "ops-transformer-swin-ln-qkv-python-entrypoint-gap",
+        "ptodsl-ffn-interstage-cast-path",
+        "ptodsl-swin-layout-shift-surface",
+    ],
+}

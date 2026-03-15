@@ -1,0 +1,39 @@
+module {
+  func.func @moe_gating_top_k_select_stage(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<i32>, %arg2: !pto.ptr<i32>, %arg3: !pto.ptr<f16>, %arg4: !pto.ptr<f16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c16 = arith.constant 16 : index
+    pto.section.vector {
+      %0 = pto.get_block_idx
+      %1 = arith.index_cast %0 : i64 to index
+      %2 = pto.get_block_num
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = arith.ceildivsi %c8, %3 : index
+      %5 = arith.muli %1, %4 : index
+      %6 = arith.addi %5, %4 : index
+      %7 = arith.minui %6, %c8 : index
+      scf.for %arg5 = %5 to %7 step %c1 {
+        %8 = arith.muli %arg5, %c16 : index
+        %9 = pto.load_scalar %arg4[%8] : !pto.ptr<f16> -> f16
+        %10:2 = scf.for %arg6 = %c1 to %c16 step %c1 iter_args(%arg7 = %c0, %arg8 = %9) -> (index, f16) {
+          %15 = arith.addi %8, %arg6 : index
+          %16 = pto.load_scalar %arg4[%15] : !pto.ptr<f16> -> f16
+          %17 = arith.cmpf olt, %arg8, %16 : f16
+          %18 = arith.select %17, %16, %arg8 : f16
+          %19 = arith.select %17, %arg6, %arg7 : index
+          scf.yield %19, %18 : index, f16
+        }
+        %11 = arith.addi %8, %10#0 : index
+        %12 = pto.load_scalar %arg3[%11] : !pto.ptr<f16> -> f16
+        pto.store_scalar %12, %arg0[%arg5] : !pto.ptr<f16>, f16
+        %13 = arith.index_cast %10#0 : index to i32
+        pto.store_scalar %13, %arg1[%arg5] : !pto.ptr<i32>, i32
+        %14 = arith.index_cast %arg5 : index to i32
+        pto.store_scalar %14, %arg2[%arg5] : !pto.ptr<i32>, i32
+      }
+    }
+    return
+  }
+}
+

@@ -1,0 +1,235 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_unpermute_with_routing_map",
+  "reference_contract": "top1_routing_map_unpermute",
+  "shape_summaries": [
+    {
+      "gather_indices": [
+        128
+      ],
+      "permuted_tokens": [
+        8,
+        16
+      ],
+      "restore_shape": [
+        8,
+        16
+      ],
+      "routing_map": [
+        8,
+        4
+      ],
+      "sorted_indices": [
+        8
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "permuted_tokens": [
+        256,
+        64
+      ],
+      "restore_shape": [
+        256,
+        64
+      ],
+      "routing_map": [
+        256,
+        8
+      ],
+      "sorted_indices": [
+        256
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "permuted_tokens": [
+        128,
+        128
+      ],
+      "restore_shape": [
+        128,
+        128
+      ],
+      "routing_map": [
+        128,
+        8
+      ],
+      "sorted_indices": [
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.1588908489793539,
+    "median": 0.1044559758156538,
+    "min": 0.09686104021966457
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          128
+        ],
+        "permuted_tokens": [
+          8,
+          16
+        ],
+        "restore_shape": [
+          8,
+          16
+        ],
+        "routing_map": [
+          8,
+          4
+        ],
+        "sorted_indices": [
+          8
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1588908489793539,
+        "median": 0.10210054460912943,
+        "min": 0.09686104021966457
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "permuted_tokens": [
+          256,
+          64
+        ],
+        "restore_shape": [
+          256,
+          64
+        ],
+        "routing_map": [
+          256,
+          8
+        ],
+        "sorted_indices": [
+          256
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12434995733201504,
+        "median": 0.10308087803423405,
+        "min": 0.0975700095295906
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 64,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "permuted_tokens": [
+          128,
+          128
+        ],
+        "restore_shape": [
+          128,
+          128
+        ],
+        "routing_map": [
+          128,
+          8
+        ],
+        "sorted_indices": [
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12159999459981918,
+        "median": 0.1044559758156538,
+        "min": 0.09869993664324284
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 128,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 64,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 128,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

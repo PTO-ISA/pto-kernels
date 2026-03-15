@@ -1,0 +1,334 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T165919Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/ring_attention_update.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch.ops.npu.npu_ring_attention_update",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T165919Z/ops_transformer_ring_attention_update_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    },
+    "compile": {
+      "reason": "This host does not expose torch.ops.npu.npu_ring_attention_update.",
+      "status": "blocked"
+    },
+    "family": "attention",
+    "name": "ring_attention_update",
+    "ops_transformer_path": "attention/ring_attention_update",
+    "runtime_entrypoint": "torch.ops.npu.npu_ring_attention_update",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "head_dim": 16,
+        "heads": 1,
+        "layout": "TND",
+        "rows": 8,
+        "seed": 0,
+        "sp": 2
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.007,
+    "rtol": 0.007,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/ring_attention_update",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
+  "name": "ring_attention_update",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/ring_attention_update.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op valid_col operand must be absent because result type v_col is 8\n note: unknown: see current operation: %44 = \"pto.alloc_tile\"(%1) <{operandSegmentSizes = array<i32: 0, 0, 1>}> : (index) -> !pto.tile_buf<loc=vec, dtype=f32, rows=1, cols=8, v_row=1, v_col=8, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T165919Z/ptodsl_ring_attention_update_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 8,
+          "seed": 0,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 256,
+          "seed": 1,
+          "sp": 2
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "TND",
+          "rows": 128,
+          "seed": 2,
+          "sp": 2
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op valid_col operand must be absent because result type v_col is 8\n note: unknown: see current operation: %44 = \"pto.alloc_tile\"(%1) <{operandSegmentSizes = array<i32: 0, 0, 1>}> : (index) -> !pto.tile_buf<loc=vec, dtype=f32, rows=1, cols=8, v_row=1, v_col=8, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/ring_attention_update/kernel.py",
+    "meta": {
+      "archetype": "attention-update",
+      "blockers": [
+        "host-ring-attention-update-python-entrypoint",
+        "ptodsl-ring-attention-update-list-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "ring_attention_update",
+      "ops_transformer_path": "attention/ring_attention_update",
+      "seed_variant": {
+        "limits": [
+          "constrained TND slice with N fixed to 1",
+          "softmax max/sum tensors use the validated last-dim-8 repeated contract",
+          "baseline Python entrypoint is not exposed on this host",
+          "PTO seed mirrors the row-wise merge formula only",
+          "nominal shape uses all requested block ids on the checked-in block_dim"
+        ],
+        "name": "tnd_sp2_fp16_fp32_merge",
+        "shape": {
+          "boundary": {
+            "attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "cur_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              128,
+              1,
+              128
+            ],
+            "prev_softmax_max": [
+              128,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              128,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              128,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              128,
+              1,
+              8
+            ]
+          },
+          "nominal": {
+            "attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "cur_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              256,
+              1,
+              64
+            ],
+            "prev_softmax_max": [
+              256,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              256,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              256,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              256,
+              1,
+              8
+            ]
+          },
+          "smoke": {
+            "attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "cur_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "cur_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "prev_attn_out": [
+              8,
+              1,
+              16
+            ],
+            "prev_softmax_max": [
+              8,
+              1,
+              8
+            ],
+            "prev_softmax_sum": [
+              8,
+              1,
+              8
+            ],
+            "softmax_max_out": [
+              8,
+              1,
+              8
+            ],
+            "softmax_sum_out": [
+              8,
+              1,
+              8
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/ring_attention_update/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/ring_attention_update/20260314T165919Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

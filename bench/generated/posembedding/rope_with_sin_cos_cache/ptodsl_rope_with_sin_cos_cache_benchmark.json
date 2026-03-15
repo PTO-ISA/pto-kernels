@@ -1,0 +1,177 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.01,
+    "max_abs_diff": 0.0038433074951171875,
+    "passes": true,
+    "rtol": 0.01
+  },
+  "reference_contract": "fp16_half_rope_with_sin_cos_cache_nd_d64",
+  "shape_summaries": [
+    {
+      "cos_sin_cache": [
+        8,
+        128
+      ],
+      "key": [
+        2,
+        64
+      ],
+      "key_out": [
+        2,
+        64
+      ],
+      "positions": [
+        2
+      ],
+      "query": [
+        2,
+        64
+      ],
+      "query_out": [
+        2,
+        64
+      ]
+    },
+    {
+      "cos_sin_cache": [
+        8,
+        128
+      ],
+      "key": [
+        4,
+        64
+      ],
+      "key_out": [
+        4,
+        64
+      ],
+      "positions": [
+        4
+      ],
+      "query": [
+        4,
+        64
+      ],
+      "query_out": [
+        4,
+        64
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.21268194541335106,
+    "median": 0.17709133680909872,
+    "min": 0.17196102999150753
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.002559661865234375,
+        "query_max_abs_diff": 0.0038433074951171875
+      },
+      "shape_summary": {
+        "cos_sin_cache": [
+          8,
+          128
+        ],
+        "key": [
+          2,
+          64
+        ],
+        "key_out": [
+          2,
+          64
+        ],
+        "positions": [
+          2
+        ],
+        "query": [
+          2,
+          64
+        ],
+        "query_out": [
+          2,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.21268194541335106,
+        "median": 0.17700111493468285,
+        "min": 0.17196102999150753
+      },
+      "variant": {
+        "batch": 2,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0019330978393554688,
+        "query_max_abs_diff": 0.003086090087890625
+      },
+      "shape_summary": {
+        "cos_sin_cache": [
+          8,
+          128
+        ],
+        "key": [
+          4,
+          64
+        ],
+        "key_out": [
+          4,
+          64
+        ],
+        "positions": [
+          4
+        ],
+        "query": [
+          4,
+          64
+        ],
+        "query_out": [
+          4,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.19765086472034454,
+        "median": 0.17709133680909872,
+        "min": 0.17249095253646374
+      },
+      "variant": {
+        "batch": 4,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

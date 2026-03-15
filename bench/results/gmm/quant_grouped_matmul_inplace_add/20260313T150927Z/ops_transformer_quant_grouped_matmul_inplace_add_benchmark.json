@@ -1,0 +1,41 @@
+{
+  "entrypoint": "aclnnQuantGroupedMatmulInplaceAdd",
+  "reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+  "shape_summaries": [
+    {
+      "group_list": [
+        4
+      ],
+      "scale1": [
+        4
+      ],
+      "scale2": [
+        4,
+        128
+      ],
+      "x1": [
+        512,
+        96
+      ],
+      "x2": [
+        512,
+        128
+      ],
+      "y": [
+        4,
+        96,
+        128
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "groups": 4,
+      "k": 128,
+      "m": 96,
+      "n": 128,
+      "seed": 0
+    }
+  ]
+}

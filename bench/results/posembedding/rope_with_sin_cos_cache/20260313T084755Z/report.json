@@ -1,0 +1,362 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/rope_with_sin_cos_cache.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_rope_with_sin_cos_cache",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/ops_transformer_rope_with_sin_cos_cache_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "torch_npu does not expose npu_rope_with_sin_cos_cache on this environment.",
+      "status": "blocked"
+    },
+    "family": "posembedding",
+    "name": "rope_with_sin_cos_cache",
+    "ops_transformer_path": "posembedding/rope_with_sin_cos_cache",
+    "runtime_entrypoint": "torch_npu.npu_rope_with_sin_cos_cache",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/rope_with_sin_cos_cache",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_with_sin_cos_cache",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_with_sin_cos_cache/report.json",
+  "name": "rope_with_sin_cos_cache",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/rope_with_sin_cos_cache.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b2_cache8/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/b4_cache8/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.0038433074951171875,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "reference_contract": "fp16_half_rope_with_sin_cos_cache_nd_d64",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/ptodsl_rope_with_sin_cos_cache_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos_sin_cache": [
+            8,
+            128
+          ],
+          "key": [
+            2,
+            64
+          ],
+          "key_out": [
+            2,
+            64
+          ],
+          "positions": [
+            2
+          ],
+          "query": [
+            2,
+            64
+          ],
+          "query_out": [
+            2,
+            64
+          ]
+        },
+        {
+          "cos_sin_cache": [
+            8,
+            128
+          ],
+          "key": [
+            4,
+            64
+          ],
+          "key_out": [
+            4,
+            64
+          ],
+          "positions": [
+            4
+          ],
+          "query": [
+            4,
+            64
+          ],
+          "query_out": [
+            4,
+            64
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.21268194541335106,
+        "median": 0.17709133680909872,
+        "min": 0.17196102999150753
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.002559661865234375,
+            "query_max_abs_diff": 0.0038433074951171875
+          },
+          "shape_summary": {
+            "cos_sin_cache": [
+              8,
+              128
+            ],
+            "key": [
+              2,
+              64
+            ],
+            "key_out": [
+              2,
+              64
+            ],
+            "positions": [
+              2
+            ],
+            "query": [
+              2,
+              64
+            ],
+            "query_out": [
+              2,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.21268194541335106,
+            "median": 0.17700111493468285,
+            "min": 0.17196102999150753
+          },
+          "variant": {
+            "batch": 2,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "key_max_abs_diff": 0.0019330978393554688,
+            "query_max_abs_diff": 0.003086090087890625
+          },
+          "shape_summary": {
+            "cos_sin_cache": [
+              8,
+              128
+            ],
+            "key": [
+              4,
+              64
+            ],
+            "key_out": [
+              4,
+              64
+            ],
+            "positions": [
+              4
+            ],
+            "query": [
+              4,
+              64
+            ],
+            "query_out": [
+              4,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.19765086472034454,
+            "median": 0.17709133680909872,
+            "min": 0.17249095253646374
+          },
+          "variant": {
+            "batch": 4,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 1
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_with_sin_cos_cache/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_with_sin_cos_cache/kernel.py",
+    "meta": {
+      "archetype": "rope-cache-read",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface",
+        "ptodsl-cache-update-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "rope_with_sin_cos_cache",
+      "ops_transformer_path": "posembedding/rope_with_sin_cos_cache",
+      "seed_variant": {
+        "limits": [
+          "2D ND token-major slice only",
+          "float16 query/key and cache only",
+          "head_size fixed to 64",
+          "half-rope (NeoX) mode only",
+          "mrope disabled",
+          "current constrained PTO seed requires positions[row] == row",
+          "cosSinCache rows are consumed directly in PTO source; dynamic cache-index generalization remains open"
+        ],
+        "name": "nd_fp16_half_rope_cache_read_d64",
+        "shape": {
+          "variant_0": {
+            "cos_sin_cache": [
+              8,
+              128
+            ],
+            "key": [
+              2,
+              64
+            ],
+            "key_out": [
+              2,
+              64
+            ],
+            "positions": [
+              2
+            ],
+            "query": [
+              2,
+              64
+            ],
+            "query_out": [
+              2,
+              64
+            ]
+          },
+          "variant_1": {
+            "cos_sin_cache": [
+              8,
+              128
+            ],
+            "key": [
+              4,
+              64
+            ],
+            "key_out": [
+              4,
+              64
+            ],
+            "positions": [
+              4
+            ],
+            "query": [
+              4,
+              64
+            ],
+            "query_out": [
+              4,
+              64
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_with_sin_cos_cache/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_with_sin_cos_cache/20260313T084755Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

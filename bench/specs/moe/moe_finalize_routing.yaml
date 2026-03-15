@@ -1,0 +1,17 @@
+name: moe_finalize_routing
+family: moe
+wave: wave2
+inventory_ref: moe/moe_finalize_routing
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_finalize_routing.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_finalize_routing.py
+  kernel: python/pto_kernels/ops/moe/moe_finalize_routing/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_finalize_routing/meta.py
+notes:
+  - Top-1 no-skip2 910B slice of moe_finalize_routing.
+  - PTO port uses direct scalar row/expert routing indices and row-at-a-time GM views.
+correctness:
+  atol: 0.01
+  rtol: 0.001

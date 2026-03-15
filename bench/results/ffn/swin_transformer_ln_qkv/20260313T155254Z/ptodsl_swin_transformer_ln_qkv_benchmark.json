@@ -1,0 +1,405 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.so"
+  ],
+  "block_utilization": {
+    "nominal_base_m": 128,
+    "nominal_tiles": 48,
+    "nominal_tokens": 2048,
+    "requested_block_dim": 24,
+    "uses_all_blocks": true
+  },
+  "correctness": {
+    "atol": 0.01,
+    "max_abs_diff": 0.004702091217041016,
+    "passes": true,
+    "rtol": 0.0
+  },
+  "reference_contract": "fp16_layernorm_qkv_split_bnsd",
+  "shape_summaries": [
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "flattened_tokens": 64,
+      "gamma": [
+        128
+      ],
+      "inputX": [
+        1,
+        64,
+        128
+      ],
+      "key_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "query_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "value_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "weight": [
+        128,
+        384
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "flattened_tokens": 2048,
+      "gamma": [
+        128
+      ],
+      "inputX": [
+        8,
+        256,
+        128
+      ],
+      "key_output": [
+        8,
+        4,
+        256,
+        32
+      ],
+      "query_output": [
+        8,
+        4,
+        256,
+        32
+      ],
+      "value_output": [
+        8,
+        4,
+        256,
+        32
+      ],
+      "weight": [
+        128,
+        384
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "flattened_tokens": 1024,
+      "gamma": [
+        128
+      ],
+      "inputX": [
+        4,
+        256,
+        128
+      ],
+      "key_output": [
+        4,
+        4,
+        256,
+        32
+      ],
+      "query_output": [
+        4,
+        4,
+        256,
+        32
+      ],
+      "value_output": [
+        4,
+        4,
+        256,
+        32
+      ],
+      "weight": [
+        128,
+        384
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 3.8164029829204082,
+    "median": 0.739214476197958,
+    "min": 0.6965140346437693
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "k_max_abs_diff": 0.0030350685119628906,
+        "max_abs_diff": 0.003406047821044922,
+        "q_max_abs_diff": 0.003406047821044922,
+        "v_max_abs_diff": 0.003364086151123047
+      },
+      "shape_summary": {
+        "beta": [
+          128
+        ],
+        "bias": [
+          384
+        ],
+        "flattened_tokens": 64,
+        "gamma": [
+          128
+        ],
+        "inputX": [
+          1,
+          64,
+          128
+        ],
+        "key_output": [
+          1,
+          4,
+          64,
+          32
+        ],
+        "query_output": [
+          1,
+          4,
+          64,
+          32
+        ],
+        "value_output": [
+          1,
+          4,
+          64,
+          32
+        ],
+        "weight": [
+          128,
+          384
+        ]
+      },
+      "timings_ms": {
+        "max": 3.8164029829204082,
+        "median": 0.724273850210011,
+        "min": 0.7088349666446447
+      },
+      "variant": {
+        "base_m": 64,
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 32,
+        "heads": 4,
+        "hidden": 128,
+        "input_scale": 0.125,
+        "seed": 0,
+        "seq": 64
+      }
+    },
+    {
+      "correctness": {
+        "k_max_abs_diff": 0.004131317138671875,
+        "max_abs_diff": 0.004702091217041016,
+        "q_max_abs_diff": 0.004245281219482422,
+        "v_max_abs_diff": 0.004702091217041016
+      },
+      "shape_summary": {
+        "beta": [
+          128
+        ],
+        "bias": [
+          384
+        ],
+        "flattened_tokens": 2048,
+        "gamma": [
+          128
+        ],
+        "inputX": [
+          8,
+          256,
+          128
+        ],
+        "key_output": [
+          8,
+          4,
+          256,
+          32
+        ],
+        "query_output": [
+          8,
+          4,
+          256,
+          32
+        ],
+        "value_output": [
+          8,
+          4,
+          256,
+          32
+        ],
+        "weight": [
+          128,
+          384
+        ]
+      },
+      "timings_ms": {
+        "max": 0.8901760447770357,
+        "median": 0.7379790768027306,
+        "min": 0.6965140346437693
+      },
+      "variant": {
+        "base_m": 128,
+        "batch": 8,
+        "dtype": "float16",
+        "head_dim": 32,
+        "heads": 4,
+        "hidden": 128,
+        "input_scale": 0.125,
+        "seed": 1,
+        "seq": 256
+      }
+    },
+    {
+      "correctness": {
+        "k_max_abs_diff": 0.004131793975830078,
+        "max_abs_diff": 0.004131793975830078,
+        "q_max_abs_diff": 0.004070281982421875,
+        "v_max_abs_diff": 0.0040645599365234375
+      },
+      "shape_summary": {
+        "beta": [
+          128
+        ],
+        "bias": [
+          384
+        ],
+        "flattened_tokens": 1024,
+        "gamma": [
+          128
+        ],
+        "inputX": [
+          4,
+          256,
+          128
+        ],
+        "key_output": [
+          4,
+          4,
+          256,
+          32
+        ],
+        "query_output": [
+          4,
+          4,
+          256,
+          32
+        ],
+        "value_output": [
+          4,
+          4,
+          256,
+          32
+        ],
+        "weight": [
+          128,
+          384
+        ]
+      },
+      "timings_ms": {
+        "max": 0.9859660640358925,
+        "median": 0.739214476197958,
+        "min": 0.7057539187371731
+      },
+      "variant": {
+        "base_m": 128,
+        "batch": 4,
+        "dtype": "float16",
+        "head_dim": 32,
+        "heads": 4,
+        "hidden": 128,
+        "input_scale": 0.125,
+        "seed": 2,
+        "seq": 256
+      }
+    }
+  ],
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 0,
+      "seq": 64
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 1,
+      "seq": 256
+    },
+    {
+      "base_m": 128,
+      "batch": 4,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 2,
+      "seq": 256
+    }
+  ]
+}

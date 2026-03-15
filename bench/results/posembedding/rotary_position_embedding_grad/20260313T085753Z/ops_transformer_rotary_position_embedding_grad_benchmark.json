@@ -1,0 +1,262 @@
+{
+  "correctness": {
+    "atol": 0.02,
+    "max_abs_diff": 12.3687744140625,
+    "passes": false,
+    "rtol": 0.02
+  },
+  "entrypoint": "torch_npu.npu_rotary_mul_backward",
+  "reference_contract": "fp16_half_rotary_grad_bsnd_bnsd_d128_no_reduce",
+  "shape_summaries": [
+    {
+      "cos": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dcos": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dsin": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dx": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "dy": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "sin": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "x": [
+        2,
+        32,
+        1,
+        128
+      ]
+    },
+    {
+      "cos": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dcos": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dsin": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dx": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "dy": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "sin": [
+        2,
+        1,
+        32,
+        128
+      ],
+      "x": [
+        2,
+        1,
+        32,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.176331028342247,
+    "median": 0.11738552711904049,
+    "min": 0.1074101310223341
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "dcos_max_abs_diff": 12.3687744140625,
+        "dsin_max_abs_diff": 10.0904541015625,
+        "dx_max_abs_diff": 0.003520965576171875
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dcos": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dsin": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dx": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "dy": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "sin": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "x": [
+          2,
+          32,
+          1,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.176331028342247,
+        "median": 0.11738552711904049,
+        "min": 0.10929093696177006
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "mode": "half",
+        "seed": 0,
+        "seq_len": 32
+      }
+    },
+    {
+      "correctness": {
+        "dcos_max_abs_diff": 7.809539794921875,
+        "dsin_max_abs_diff": 6.89697265625,
+        "dx_max_abs_diff": 0.00228118896484375
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dcos": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dsin": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dx": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "dy": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "sin": [
+          2,
+          1,
+          32,
+          128
+        ],
+        "x": [
+          2,
+          1,
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.13490114361047745,
+        "median": 0.11641602031886578,
+        "min": 0.1074101310223341
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BNSD",
+        "mode": "half",
+        "seed": 1,
+        "seq_len": 32
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "mode": "half",
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BNSD",
+      "mode": "half",
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

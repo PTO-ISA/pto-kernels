@@ -1,0 +1,28 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 6.103515625e-05,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_fusion_attention_v2",
+  "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.1540409866720438,
+    "median": 0.13529590796679258,
+    "min": 0.12900098226964474
+  },
+  "variant": {
+    "batch": 1,
+    "dtype": "float16",
+    "head_dim": 64,
+    "heads": 1,
+    "input_layout": "BNSD",
+    "input_scale": 0.125,
+    "keep_prob": 1.0,
+    "seed": 0,
+    "seq_len": 32,
+    "sparse_mode": 0
+  }
+}

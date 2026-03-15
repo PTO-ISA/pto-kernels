@@ -1,0 +1,220 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00019812583923339844,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_gating_top_k_softmax",
+  "reference_contract": "top1_softmax_no_finished_2d",
+  "shape_summaries": [
+    {
+      "expert_idx_out": [
+        8,
+        1
+      ],
+      "row_idx_out": [
+        8,
+        1
+      ],
+      "x": [
+        8,
+        16
+      ],
+      "y_out": [
+        8,
+        1
+      ]
+    },
+    {
+      "expert_idx_out": [
+        256,
+        1
+      ],
+      "row_idx_out": [
+        256,
+        1
+      ],
+      "x": [
+        256,
+        64
+      ],
+      "y_out": [
+        256,
+        1
+      ]
+    },
+    {
+      "expert_idx_out": [
+        128,
+        1
+      ],
+      "row_idx_out": [
+        128,
+        1
+      ],
+      "x": [
+        128,
+        128
+      ],
+      "y_out": [
+        128,
+        1
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.22474187426269054,
+    "median": 0.10874983854591846,
+    "min": 0.10409997776150703
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 0.0,
+        "max_abs_diff": 0.00019812583923339844,
+        "passes": true,
+        "row_idx_max_abs_diff": 0.0,
+        "y_max_abs_diff": 0.00019812583923339844
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          8,
+          1
+        ],
+        "row_idx_out": [
+          8,
+          1
+        ],
+        "x": [
+          8,
+          16
+        ],
+        "y_out": [
+          8,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.22474187426269054,
+        "median": 0.10674551595002413,
+        "min": 0.10409997776150703
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 16,
+        "finished": false,
+        "rows": 8,
+        "seed": 0,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 0.0,
+        "max_abs_diff": 0.00011986494064331055,
+        "passes": true,
+        "row_idx_max_abs_diff": 0.0,
+        "y_max_abs_diff": 0.00011986494064331055
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          256,
+          1
+        ],
+        "row_idx_out": [
+          256,
+          1
+        ],
+        "x": [
+          256,
+          64
+        ],
+        "y_out": [
+          256,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1426211092621088,
+        "median": 0.10860094334930182,
+        "min": 0.10585994459688663
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 64,
+        "finished": false,
+        "rows": 256,
+        "seed": 1,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 0.0,
+        "max_abs_diff": 3.17692756652832e-05,
+        "passes": true,
+        "row_idx_max_abs_diff": 0.0,
+        "y_max_abs_diff": 3.17692756652832e-05
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          128,
+          1
+        ],
+        "row_idx_out": [
+          128,
+          1
+        ],
+        "x": [
+          128,
+          128
+        ],
+        "y_out": [
+          128,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1413810532540083,
+        "median": 0.10874983854591846,
+        "min": 0.10508112609386444
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 128,
+        "finished": false,
+        "rows": 128,
+        "seed": 2,
+        "top_k": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

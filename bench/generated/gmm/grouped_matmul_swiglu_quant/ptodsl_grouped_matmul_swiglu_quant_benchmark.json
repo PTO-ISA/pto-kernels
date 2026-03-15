@@ -1,0 +1,15 @@
+{
+  "reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+  "status": "blocked",
+  "variants": [
+    {
+      "e": 16,
+      "input_dtype": "int8",
+      "k": 256,
+      "m": 1024,
+      "n": 4096,
+      "seed": 0,
+      "weight_dtype": "int8_fractal_nz"
+    }
+  ]
+}

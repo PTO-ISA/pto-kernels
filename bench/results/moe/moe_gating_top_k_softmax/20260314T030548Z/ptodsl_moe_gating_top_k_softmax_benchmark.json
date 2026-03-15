@@ -1,0 +1,30 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op valid_col operand must be absent because result type v_col is 16\n note: unknown: see current operation: %14 = \"pto.alloc_tile\"(%3) <{operandSegmentSizes = array<i32: 0, 0, 1>}> : (index) -> !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

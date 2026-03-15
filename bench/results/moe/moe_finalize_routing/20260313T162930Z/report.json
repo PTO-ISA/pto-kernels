@@ -1,0 +1,529 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_finalize_routing.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.008062362670898438,
+        "passes": false,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_moe_finalize_routing",
+      "reference_contract": "top1_finalize_routing_no_skip2",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/ops_transformer_moe_finalize_routing_benchmark.json",
+      "shape_summaries": [
+        {
+          "bias": [
+            4,
+            16
+          ],
+          "bias_gather_indices": [
+            128
+          ],
+          "expanded_expert_idx": [
+            8,
+            1
+          ],
+          "expanded_gather_indices": [
+            128
+          ],
+          "expanded_row_idx": [
+            8
+          ],
+          "expanded_x": [
+            8,
+            16
+          ],
+          "out": [
+            8,
+            16
+          ],
+          "scale_gather_indices": [
+            128
+          ],
+          "scales": [
+            8,
+            1
+          ],
+          "x1": [
+            8,
+            16
+          ]
+        },
+        {
+          "bias": [
+            4,
+            64
+          ],
+          "bias_gather_indices": [
+            16384
+          ],
+          "expanded_expert_idx": [
+            256,
+            1
+          ],
+          "expanded_gather_indices": [
+            16384
+          ],
+          "expanded_row_idx": [
+            256
+          ],
+          "expanded_x": [
+            256,
+            64
+          ],
+          "out": [
+            256,
+            64
+          ],
+          "scale_gather_indices": [
+            16384
+          ],
+          "scales": [
+            256,
+            1
+          ],
+          "x1": [
+            256,
+            64
+          ]
+        },
+        {
+          "bias": [
+            4,
+            128
+          ],
+          "bias_gather_indices": [
+            16384
+          ],
+          "expanded_expert_idx": [
+            128,
+            1
+          ],
+          "expanded_gather_indices": [
+            16384
+          ],
+          "expanded_row_idx": [
+            128
+          ],
+          "expanded_x": [
+            128,
+            128
+          ],
+          "out": [
+            128,
+            128
+          ],
+          "scale_gather_indices": [
+            16384
+          ],
+          "scales": [
+            128,
+            1
+          ],
+          "x1": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.16165105625987053,
+        "median": 0.12047600466758013,
+        "min": 0.1065707765519619
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.001888275146484375,
+            "token_max_abs_diff": 0.001888275146484375
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              16
+            ],
+            "bias_gather_indices": [
+              128
+            ],
+            "expanded_expert_idx": [
+              8,
+              1
+            ],
+            "expanded_gather_indices": [
+              128
+            ],
+            "expanded_row_idx": [
+              8
+            ],
+            "expanded_x": [
+              8,
+              16
+            ],
+            "out": [
+              8,
+              16
+            ],
+            "scale_gather_indices": [
+              128
+            ],
+            "scales": [
+              8,
+              1
+            ],
+            "x1": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.16165105625987053,
+            "median": 0.11133053340017796,
+            "min": 0.1065707765519619
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "seed": 0,
+            "tokens": 8,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.008062362670898438,
+            "token_max_abs_diff": 0.008062362670898438
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              64
+            ],
+            "bias_gather_indices": [
+              16384
+            ],
+            "expanded_expert_idx": [
+              256,
+              1
+            ],
+            "expanded_gather_indices": [
+              16384
+            ],
+            "expanded_row_idx": [
+              256
+            ],
+            "expanded_x": [
+              256,
+              64
+            ],
+            "out": [
+              256,
+              64
+            ],
+            "scale_gather_indices": [
+              16384
+            ],
+            "scales": [
+              256,
+              1
+            ],
+            "x1": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1375309657305479,
+            "median": 0.12019544374197721,
+            "min": 0.11568097397685051
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 64,
+            "seed": 1,
+            "tokens": 256,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.007709503173828125,
+            "token_max_abs_diff": 0.007709503173828125
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              128
+            ],
+            "bias_gather_indices": [
+              16384
+            ],
+            "expanded_expert_idx": [
+              128,
+              1
+            ],
+            "expanded_gather_indices": [
+              16384
+            ],
+            "expanded_row_idx": [
+              128
+            ],
+            "expanded_x": [
+              128,
+              128
+            ],
+            "out": [
+              128,
+              128
+            ],
+            "scale_gather_indices": [
+              16384
+            ],
+            "scales": [
+              128,
+              1
+            ],
+            "x1": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.15310104936361313,
+            "median": 0.12047600466758013,
+            "min": 0.11418084613978863
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 128,
+            "seed": 2,
+            "tokens": 128,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        }
+      ],
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 8,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1,
+          "use_skip2": false
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_finalize_routing",
+      "note": "Baseline execution uses the installed custom ops runtime package. The constrained slice fixes topK=1, x2Optional=None, and dropPadMode=0.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_finalize_routing",
+    "ops_transformer_path": "moe/moe_finalize_routing",
+    "runtime_entrypoint": "torch_npu.npu_moe_finalize_routing",
+    "seed_variant": {
+      "default": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 8,
+        "top_k": 1,
+        "use_skip2": false
+      },
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 8,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1,
+          "use_skip2": false
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_finalize_routing",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing/report.json",
+  "name": "moe_finalize_routing",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_finalize_routing.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/t8_h16/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/t8_h16/kernel.so']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/ptodsl_moe_finalize_routing_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 8,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1,
+          "use_skip2": false
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1,
+          "use_skip2": false
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/kernel.so']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_finalize_routing",
+      "ops_transformer_path": "moe/moe_finalize_routing",
+      "seed_variant": {
+        "limits": [
+          "top-1 routing only",
+          "x2Optional fixed to None",
+          "dropPadMode fixed to 0",
+          "PTO seed currently consumes host-precomputed gather maps for expanded rows, expert bias rows, and scale broadcast",
+          "phase-2 rewrite follows contiguous per-core token-row ownership on the combine stage",
+          "nominal shape uses all requested block ids"
+        ],
+        "name": "top1_fp16_finalize_routing",
+        "shape": {
+          "boundary": {
+            "experts": 4,
+            "hidden": 128,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 4,
+            "hidden": 64,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 4,
+            "hidden": 16,
+            "tokens": 8
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

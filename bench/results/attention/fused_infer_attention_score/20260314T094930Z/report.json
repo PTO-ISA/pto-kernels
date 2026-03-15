@@ -1,0 +1,558 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T094930Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/fused_infer_attention_score.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 0.0009765625,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "entrypoint": "torch_npu.npu_fused_infer_attention_score",
+      "reference_contract": "single_block_bnsd_no_quant",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T094930Z/ops_transformer_fused_infer_attention_score_benchmark.json",
+      "shape_summaries": [
+        {
+          "attention_out": [
+            1,
+            1,
+            8,
+            16
+          ],
+          "block_table": [
+            1,
+            1
+          ],
+          "k_cache": [
+            1,
+            16,
+            16
+          ],
+          "query": [
+            1,
+            1,
+            8,
+            16
+          ],
+          "v_cache": [
+            1,
+            16,
+            16
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "block_table": [
+            1,
+            1
+          ],
+          "k_cache": [
+            1,
+            64,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "v_cache": [
+            1,
+            64,
+            64
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "block_table": [
+            1,
+            1
+          ],
+          "k_cache": [
+            1,
+            128,
+            128
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "v_cache": [
+            1,
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.22831209935247898,
+        "median": 0.19866705406457186,
+        "min": 0.16830116510391235
+      },
+      "variant_reports": [
+        {
+          "aux_shape": [
+            0
+          ],
+          "correctness": {
+            "max_abs_diff": 0.0009765625,
+            "out_max_abs_diff": 0.0009765625,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              8,
+              16
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              8,
+              16
+            ],
+            "v_cache": [
+              1,
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.22831209935247898,
+            "median": 0.17247593495994806,
+            "min": 0.16920105554163456
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 1,
+            "q_seq": 8,
+            "seed": 0
+          }
+        },
+        {
+          "aux_shape": [
+            0
+          ],
+          "correctness": {
+            "max_abs_diff": 0.00048828125,
+            "out_max_abs_diff": 0.00048828125,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "v_cache": [
+              1,
+              64,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.22387085482478142,
+            "median": 0.19866705406457186,
+            "min": 0.19350089132785797
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 64,
+            "q_heads": 1,
+            "q_seq": 64,
+            "seed": 1
+          }
+        },
+        {
+          "aux_shape": [
+            0
+          ],
+          "correctness": {
+            "max_abs_diff": 0.000244140625,
+            "out_max_abs_diff": 0.000244140625,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "v_cache": [
+              1,
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.191601924598217,
+            "median": 0.1733310054987669,
+            "min": 0.16830116510391235
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 32,
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 8,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 64,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_fused_infer_attention_score",
+      "note": "Baseline execution uses the installed runtime package on the constrained single-block no-quant slice.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "fused_infer_attention_score",
+    "ops_transformer_path": "attention/fused_infer_attention_score",
+    "runtime_entrypoint": "torch_npu.npu_fused_infer_attention_score",
+    "seed_variant": {
+      "default": {
+        "batch_size": 1,
+        "dtype": "float16",
+        "head_dim": 16,
+        "input_layout": "BNSD",
+        "kv_heads": 1,
+        "kv_seq": 16,
+        "q_heads": 1,
+        "q_seq": 8,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 8,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 64,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.002,
+    "rtol": 0.002,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/fused_infer_attention_score",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
+  "name": "fused_infer_attention_score",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/fused_infer_attention_score.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Invalid attribute value for the key \"value\" when attempting to create the operation \"arith.constant\" (Unable to cast Python instance of type <class 'ptodsl.api.scalar.Value'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T094930Z/ptodsl_fused_infer_attention_score_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 8,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 64,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Invalid attribute value for the key \"value\" when attempting to create the operation \"arith.constant\" (Unable to cast Python instance of type <class 'ptodsl.api.scalar.Value'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/fused_infer_attention_score/kernel.py",
+    "meta": {
+      "archetype": "attention-cache",
+      "blockers": [
+        "ptodsl-paged-cache-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "fused_infer_attention_score",
+      "ops_transformer_path": "attention/fused_infer_attention_score",
+      "seed_variant": {
+        "limits": [
+          "constrained no-quant slice only",
+          "batch=1, q_heads=kv_heads=1, total_blocks=1",
+          "cache layout fixed to [blocknum, blocksize, H]",
+          "input layout fixed to BNSD",
+          "no mask, no rope, no shared prefix, no quant/dequant branches"
+        ],
+        "name": "bnsd_single_block_no_quant",
+        "shape": {
+          "boundary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "v_cache": [
+              1,
+              128,
+              128
+            ]
+          },
+          "nominal": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "v_cache": [
+              1,
+              64,
+              64
+            ]
+          },
+          "smoke": {
+            "attention_out": [
+              1,
+              1,
+              8,
+              16
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              8,
+              16
+            ],
+            "v_cache": [
+              1,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/fused_infer_attention_score/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T094930Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

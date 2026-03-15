@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: PTO_MC2_MOE_DISPATCH_WORLD_SIZE must be one of (8), got 2",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 1,
+      "tokens": 16,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 2,
+      "tokens": 32,
+      "topk": 1
+    }
+  ]
+}

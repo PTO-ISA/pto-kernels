@@ -23,6 +23,8 @@ class DenseAttentionConfig:
     pv_base_k: int
     pv_block_dim: int
     softmax_block_dim: int
+    score_scale: float = 1.0
+    softmax_fp32: bool = False
 
     @property
     def qk_iters(self) -> int:
@@ -72,7 +74,9 @@ def _qk_meta_data(*, base_m: int, base_k: int, base_n: int):
     dtype = pto.float16
     acc_dtype = pto.float32
 
-    ptr = pto.PtrType(dtype)
+    scores_ptr = pto.PtrType(dtype)
+    query_ptr = pto.PtrType(dtype)
+    key_t_ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
 
     view_q = pto.SubTensorType(shape=[base_m, base_k], dtype=dtype)
@@ -86,7 +90,9 @@ def _qk_meta_data(*, base_m: int, base_k: int, base_n: int):
     scores_acc = pto.TileType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
-        "ptr": ptr,
+        "scores_ptr": scores_ptr,
+        "query_ptr": query_ptr,
+        "key_t_ptr": key_t_ptr,
         "tensor": tensor,
         "view_q": view_q,
         "view_kt": view_kt,
@@ -101,8 +107,9 @@ def _qk_meta_data(*, base_m: int, base_k: int, base_n: int):
 
 def _softmax_meta_data(config: DenseAttentionConfig):
     dtype = pto.float16
+    acc_dtype = pto.float32
 
-    ptr = pto.PtrType(dtype)
+    scores_ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
     row_view = pto.SubTensorType(shape=[1, config.scores_dim], dtype=dtype)
 
@@ -114,12 +121,20 @@ def _softmax_meta_data(config: DenseAttentionConfig):
         memory_space="VEC",
         config=cfg,
     )
+    row_tile_f32 = pto.TileType(
+        shape=[1, config.scores_dim],
+        valid_shape=[1, -1],
+        dtype=acc_dtype,
+        memory_space="VEC",
+        config=cfg,
+    )
 
     return {
-        "ptr": ptr,
+        "scores_ptr": scores_ptr,
         "tensor": tensor,
         "row_view": row_view,
         "row_tile": row_tile,
+        "row_tile_f32": row_tile_f32,
     }
 
 
@@ -127,7 +142,9 @@ def _pv_meta_data(*, base_m: int, base_k: int, base_n: int):
     dtype = pto.float16
     acc_dtype = pto.float32
 
-    ptr = pto.PtrType(dtype)
+    out_ptr = pto.PtrType(dtype)
+    scores_ptr = pto.PtrType(dtype)
+    value_ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
 
     view_p = pto.SubTensorType(shape=[base_m, base_k], dtype=dtype)
@@ -141,7 +158,9 @@ def _pv_meta_data(*, base_m: int, base_k: int, base_n: int):
     out_acc = pto.TileType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
 
     return {
-        "ptr": ptr,
+        "out_ptr": out_ptr,
+        "scores_ptr": scores_ptr,
+        "value_ptr": value_ptr,
         "tensor": tensor,
         "view_p": view_p,
         "view_v": view_v,
@@ -168,7 +187,11 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def dense_attention_qk_stage(scores_ptr: "ptr", query_ptr: "ptr", key_t_ptr: "ptr") -> None:
+    def dense_attention_qk_stage(
+        scores_ptr: "scores_ptr",
+        query_ptr: "query_ptr",
+        key_t_ptr: "key_t_ptr",
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cSeq = const(config.seq_len)
@@ -198,7 +221,19 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
                 m_off = m_idx * cBaseM
                 n_off = n_idx * cBaseN
 
-                for i in range(c0, cIter, c1):
+                sv_q0 = pto.slice_view(
+                    view_q, source=tv_query, offsets=[m_off, c0], sizes=[cBaseM, cBaseK]
+                )
+                sv_kt0 = pto.slice_view(
+                    view_kt, source=tv_key_t, offsets=[c0, n_off], sizes=[cBaseK, cBaseN]
+                )
+                pto.load(sv_q0, q_mat_tile)
+                pto.load(sv_kt0, kt_mat_tile)
+                pto.mov(q_mat_tile, q_tile_buf)
+                pto.mov(kt_mat_tile, kt_tile_buf)
+                pto.matmul(q_tile_buf, kt_tile_buf, scores_acc_tile)
+
+                for i in range(c1, cIter, c1):
                     k_off = i * cBaseK
                     sv_q = pto.slice_view(
                         view_q, source=tv_query, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
@@ -211,11 +246,7 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
                     pto.load(sv_kt, kt_mat_tile)
                     pto.mov(q_mat_tile, q_tile_buf)
                     pto.mov(kt_mat_tile, kt_tile_buf)
-
-                    if i == c0:
-                        pto.matmul(q_tile_buf, kt_tile_buf, scores_acc_tile)
-                    else:
-                        pto.matmul_acc(scores_acc_tile, q_tile_buf, kt_tile_buf, scores_acc_tile)
+                    pto.matmul_acc(scores_acc_tile, q_tile_buf, kt_tile_buf, scores_acc_tile)
 
                 sv_scores = pto.slice_view(
                     view_scores, source=tv_scores, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
@@ -233,12 +264,11 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def dense_attention_row_softmax(scores_ptr: "ptr") -> None:
+    def dense_attention_row_softmax(scores_ptr: "scores_ptr") -> None:
         c0 = const(0)
         c1 = const(1)
         cSeq = const(config.seq_len)
         cScores = const(config.scores_dim)
-
         tv_scores = pto.as_tensor(tensor, ptr=scores_ptr, shape=[cSeq, cScores], strides=[cScores, c1])
 
         with pto.section.vector():
@@ -248,25 +278,50 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
             row_start = bid * rows_per_core
             row_end = pto.min_u(row_start + rows_per_core, cSeq)
 
-            row_in = pto.alloc_tile(row_tile, valid_col=cScores)
-            row_tmp = pto.alloc_tile(row_tile, valid_col=cScores)
-            row_tmp2 = pto.alloc_tile(row_tile, valid_col=cScores)
-            scalar = pto.alloc_tile(row_tile, valid_col=c1)
-            scalar_expanded = pto.alloc_tile(row_tile, valid_col=cScores)
+            if config.softmax_fp32 or config.score_scale != 1.0:
+                row_in_f16 = pto.alloc_tile(row_tile, valid_col=cScores)
+                row_out_f16 = pto.alloc_tile(row_tile, valid_col=cScores)
+                row_in_f32 = pto.alloc_tile(row_tile_f32, valid_col=cScores)
+                row_tmp_f32 = pto.alloc_tile(row_tile_f32, valid_col=cScores)
+                row_tmp2_f32 = pto.alloc_tile(row_tile_f32, valid_col=cScores)
+                scalar_f32 = pto.alloc_tile(row_tile_f32, valid_col=c1)
+                scalar_expanded_f32 = pto.alloc_tile(row_tile_f32, valid_col=cScores)
+                for row_idx in range(row_start, row_end, c1):
+                    sv_row = pto.slice_view(row_view, source=tv_scores, offsets=[row_idx, c0], sizes=[c1, cScores])
+                    pto.load(sv_row, row_in_f16)
+                    pto.cvt(row_in_f16, row_in_f32)
+                    pto.muls(row_in_f32, const(config.score_scale, dtype=pto.float32), row_in_f32)
 
-            for row_idx in range(row_start, row_end, c1):
-                sv_row = pto.slice_view(row_view, source=tv_scores, offsets=[row_idx, c0], sizes=[c1, cScores])
-                pto.load(sv_row, row_in)
+                    pto.row_max(row_in_f32, row_tmp_f32, scalar_f32)
+                    pto.row_expand(scalar_f32, scalar_expanded_f32)
+                    pto.sub(row_in_f32, scalar_expanded_f32, row_tmp_f32)
+                    pto.exp(row_tmp_f32, row_tmp_f32)
 
-                pto.row_max(row_in, row_tmp, scalar)
-                pto.row_expand(scalar, scalar_expanded)
-                pto.sub(row_in, scalar_expanded, row_tmp)
-                pto.exp(row_tmp, row_tmp)
+                    pto.row_sum(row_tmp_f32, row_tmp2_f32, scalar_f32)
+                    pto.row_expand(scalar_f32, scalar_expanded_f32)
+                    pto.div(row_tmp_f32, scalar_expanded_f32, row_tmp2_f32)
+                    pto.cvt(row_tmp2_f32, row_out_f16)
+                    pto.store(row_out_f16, sv_row)
+            else:
+                row_in = pto.alloc_tile(row_tile, valid_col=cScores)
+                row_tmp = pto.alloc_tile(row_tile, valid_col=cScores)
+                row_tmp2 = pto.alloc_tile(row_tile, valid_col=cScores)
+                scalar = pto.alloc_tile(row_tile, valid_col=c1)
+                scalar_expanded = pto.alloc_tile(row_tile, valid_col=cScores)
 
-                pto.row_sum(row_tmp, row_tmp2, scalar)
-                pto.row_expand(scalar, scalar_expanded)
-                pto.div(row_tmp, scalar_expanded, row_tmp2)
-                pto.store(row_tmp2, sv_row)
+                for row_idx in range(row_start, row_end, c1):
+                    sv_row = pto.slice_view(row_view, source=tv_scores, offsets=[row_idx, c0], sizes=[c1, cScores])
+                    pto.load(sv_row, row_in)
+
+                    pto.row_max(row_in, row_tmp, scalar)
+                    pto.row_expand(scalar, scalar_expanded)
+                    pto.sub(row_in, scalar_expanded, row_tmp)
+                    pto.exp(row_tmp, row_tmp)
+
+                    pto.row_sum(row_tmp, row_tmp2, scalar)
+                    pto.row_expand(scalar, scalar_expanded)
+                    pto.div(row_tmp, scalar_expanded, row_tmp2)
+                    pto.store(row_tmp2, sv_row)
 
     return dense_attention_row_softmax
 
@@ -285,7 +340,11 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def dense_attention_pv_stage(out_ptr: "ptr", scores_ptr: "ptr", value_ptr: "ptr") -> None:
+    def dense_attention_pv_stage(
+        out_ptr: "out_ptr",
+        scores_ptr: "scores_ptr",
+        value_ptr: "value_ptr",
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cSeq = const(config.seq_len)
@@ -315,7 +374,19 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
                 m_off = m_idx * cBaseM
                 n_off = n_idx * cBaseN
 
-                for i in range(c0, cIter, c1):
+                sv_p0 = pto.slice_view(
+                    view_p, source=tv_scores, offsets=[m_off, c0], sizes=[cBaseM, cBaseK]
+                )
+                sv_v0 = pto.slice_view(
+                    view_v, source=tv_value, offsets=[c0, n_off], sizes=[cBaseK, cBaseN]
+                )
+                pto.load(sv_p0, p_mat_tile)
+                pto.load(sv_v0, v_mat_tile)
+                pto.mov(p_mat_tile, p_tile_buf)
+                pto.mov(v_mat_tile, v_tile_buf)
+                pto.matmul(p_tile_buf, v_tile_buf, out_acc_tile)
+
+                for i in range(c1, cIter, c1):
                     k_off = i * cBaseK
                     sv_p = pto.slice_view(
                         view_p, source=tv_scores, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
@@ -328,11 +399,7 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
                     pto.load(sv_v, v_mat_tile)
                     pto.mov(p_mat_tile, p_tile_buf)
                     pto.mov(v_mat_tile, v_tile_buf)
-
-                    if i == c0:
-                        pto.matmul(p_tile_buf, v_tile_buf, out_acc_tile)
-                    else:
-                        pto.matmul_acc(out_acc_tile, p_tile_buf, v_tile_buf, out_acc_tile)
+                    pto.matmul_acc(out_acc_tile, p_tile_buf, v_tile_buf, out_acc_tile)
 
                 sv_out = pto.slice_view(
                     view_out, source=tv_out, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]

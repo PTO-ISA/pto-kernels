@@ -1,0 +1,22 @@
+name: swin_transformer_ln_qkv
+family: ffn
+wave: wave1
+inventory_ref: ffn/swin_transformer_ln_qkv
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/ffn/swin_transformer_ln_qkv.py
+pto:
+  adapter: bench/adapters/ptodsl/ffn/swin_transformer_ln_qkv.py
+  kernel: python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/kernel.py
+  meta: python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/meta.py
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+correctness:
+  atol: 0.01
+  rtol: 0.0
+notes:
+  - Constrained fp16 910B slice of SwinTransformerLnQKV.
+  - Baseline is bounded-blocked on this host because torch_npu does not expose a Python entrypoint.

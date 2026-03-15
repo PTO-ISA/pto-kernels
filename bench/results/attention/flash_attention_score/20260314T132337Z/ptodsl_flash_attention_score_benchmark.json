@@ -1,0 +1,42 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T132337Z/b1_n1_s32_d64/stage1_qk/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T132337Z/b1_n1_s32_d64/stage1_qk/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 0,
+      "seq_len": 32,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 1,
+      "seq_len": 64,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 2,
+      "seq_len": 32,
+      "sparse_mode": 0
+    }
+  ]
+}

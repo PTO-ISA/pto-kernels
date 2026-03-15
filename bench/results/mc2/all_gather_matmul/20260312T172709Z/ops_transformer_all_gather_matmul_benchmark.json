@@ -1,0 +1,268 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "gather_max_abs_diff": 0.0,
+    "max_abs_diff": 0.000244140625,
+    "output_max_abs_diff": 0.000244140625,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_all_gather_base_mm",
+  "reference_contract": "output = allgather(x1) @ x2; gather_out = allgather(x1)",
+  "shape_summaries": [
+    {
+      "gather_out": [
+        128,
+        256
+      ],
+      "output": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        64,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    },
+    {
+      "gather_out": [
+        256,
+        256
+      ],
+      "output": [
+        256,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        128,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.8421849925071001,
+    "median": 0.559683539904654,
+    "min": 0.5007130093872547
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "gather_max_abs_diff": 0.0,
+        "max_abs_diff": 0.000244140625,
+        "output_max_abs_diff": 0.000244140625,
+        "per_rank_max_abs_diff": [
+          0.000244140625,
+          0.000244140625
+        ]
+      },
+      "entrypoint": "torch_npu.npu_all_gather_base_mm",
+      "rank_reports": [
+        {
+          "correctness": {
+            "gather_max_abs_diff": 0.0,
+            "max_abs_diff": 0.000244140625,
+            "output_max_abs_diff": 0.000244140625
+          },
+          "device": "npu:0",
+          "hcom_name": "group_name_0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.6236738990992308,
+            "median": 0.5467284936457872,
+            "min": 0.5007130093872547
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "gather_max_abs_diff": 0.0,
+            "max_abs_diff": 0.000244140625,
+            "output_max_abs_diff": 0.000244140625
+          },
+          "device": "npu:1",
+          "hcom_name": "group_name_0",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.6304141134023666,
+            "median": 0.5492280470207334,
+            "min": 0.5183331668376923
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "output = allgather(x1) @ x2; gather_out = allgather(x1)",
+      "shape_summary": {
+        "gather_out": [
+          128,
+          256
+        ],
+        "output": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          64,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.6304141134023666,
+        "median": 0.5492280470207334,
+        "min": 0.5007130093872547,
+        "per_rank_median": [
+          0.5467284936457872,
+          0.5492280470207334
+        ]
+      },
+      "variant": {
+        "comm_turn": 0,
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "gather_index": 0,
+        "gather_output": true,
+        "global_m": 128,
+        "input_scale": 0.125,
+        "k": 256,
+        "n": 128,
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "gather_max_abs_diff": 0.0,
+        "max_abs_diff": 0.000244140625,
+        "output_max_abs_diff": 0.000244140625,
+        "per_rank_max_abs_diff": [
+          0.000244140625,
+          0.000244140625
+        ]
+      },
+      "entrypoint": "torch_npu.npu_all_gather_base_mm",
+      "rank_reports": [
+        {
+          "correctness": {
+            "gather_max_abs_diff": 0.0,
+            "max_abs_diff": 0.000244140625,
+            "output_max_abs_diff": 0.000244140625
+          },
+          "device": "npu:0",
+          "hcom_name": "group_name_0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8421849925071001,
+            "median": 0.559683539904654,
+            "min": 0.5037731025367975
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "gather_max_abs_diff": 0.0,
+            "max_abs_diff": 0.000244140625,
+            "output_max_abs_diff": 0.000244140625
+          },
+          "device": "npu:1",
+          "hcom_name": "group_name_0",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8072240743786097,
+            "median": 0.5555489333346486,
+            "min": 0.5285029765218496
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "output = allgather(x1) @ x2; gather_out = allgather(x1)",
+      "shape_summary": {
+        "gather_out": [
+          256,
+          256
+        ],
+        "output": [
+          256,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          128,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.8421849925071001,
+        "median": 0.559683539904654,
+        "min": 0.5037731025367975,
+        "per_rank_median": [
+          0.559683539904654,
+          0.5555489333346486
+        ]
+      },
+      "variant": {
+        "comm_turn": 0,
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "gather_index": 0,
+        "gather_output": true,
+        "global_m": 256,
+        "input_scale": 0.125,
+        "k": 256,
+        "n": 128,
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "comm_turn": 0,
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "gather_index": 0,
+      "gather_output": true,
+      "global_m": 128,
+      "input_scale": 0.125,
+      "k": 256,
+      "n": 128,
+      "seed": 0
+    },
+    {
+      "comm_turn": 0,
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "gather_index": 0,
+      "gather_output": true,
+      "global_m": 256,
+      "input_scale": 0.125,
+      "k": 256,
+      "n": 128,
+      "seed": 1
+    }
+  ]
+}

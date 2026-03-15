@@ -1,0 +1,23 @@
+name: swin_transformer_ln_qkv_quant
+family: ffn
+wave: wave1
+inventory_ref: ffn/swin_transformer_ln_qkv_quant
+status: blocked
+baseline:
+  adapter: bench/adapters/ops_transformer/ffn/swin_transformer_ln_qkv_quant.py
+pto:
+  adapter: bench/adapters/ptodsl/ffn/swin_transformer_ln_qkv_quant.py
+  kernel: python/pto_kernels/ops/ffn/swin_transformer_ln_qkv_quant/kernel.py
+  meta: python/pto_kernels/ops/ffn/swin_transformer_ln_qkv_quant/meta.py
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+correctness:
+  atol: 0.01
+  rtol: 0.0
+notes:
+  - Bounded blocked 910B slice of SwinTransformerLnQkvQuant.
+  - Baseline is blocked on this host because torch_npu exposes no Python entrypoint and public ACLNN docs mark A2 unsupported.
+  - PTO port is blocked pending a real quantized LN -> int8 matmul -> dequant path in PTODSL/PTOAS/pto-isa.

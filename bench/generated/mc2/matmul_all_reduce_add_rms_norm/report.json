@@ -1,0 +1,761 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/matmul_all_reduce_add_rms_norm.py",
+    "baseline_note": "The constrained seed baseline uses the installed split runtime contract npu_mm_all_reduce_base + npu_add_rms_norm for the dense fp16 path.",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "rtol": 0.005,
+        "y_max_abs_diff": 0.0009765625
+      },
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/ops_transformer_matmul_all_reduce_add_rms_norm_benchmark.json",
+      "shape_summaries": [
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            128,
+            128
+          ],
+          "residual": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ],
+          "y": [
+            128,
+            128
+          ]
+        },
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            256,
+            128
+          ],
+          "residual": [
+            256,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            256,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ],
+          "y": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.8981949649751186,
+        "median": 0.6203589728102088,
+        "min": 0.5207329522818327
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.00390625
+            ],
+            "y_max_abs_diff": 0.0009765625
+          },
+          "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.8981949649751186,
+                "median": 0.6203589728102088,
+                "min": 0.5979640409350395
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.890485942363739,
+                "median": 0.6167039973661304,
+                "min": 0.5809229332953691
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              128,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8981949649751186,
+            "median": 0.6203589728102088,
+            "min": 0.5809229332953691,
+            "per_rank_median": [
+              0.6203589728102088,
+              0.6167039973661304
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.00390625
+            ],
+            "y_max_abs_diff": 0.0009765625
+          },
+          "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.8341649081557989,
+                "median": 0.5554129602387547,
+                "min": 0.5319130141288042
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.8371151052415371,
+                "median": 0.5624284967780113,
+                "min": 0.5207329522818327
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8371151052415371,
+            "median": 0.5624284967780113,
+            "min": 0.5207329522818327,
+            "per_rank_median": [
+              0.5554129602387547,
+              0.5624284967780113
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "environment": {
+        "arn_symbol_available": true,
+        "detected_npus": 8,
+        "device_index": 0,
+        "mm_symbol_available": true,
+        "npu_available": true
+      },
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "matmul_all_reduce_add_rms_norm",
+    "ops_transformer_path": "mc2/matmul_all_reduce_add_rms_norm",
+    "runtime_entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.005,
+    "rtol": 0.005,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/matmul_all_reduce_add_rms_norm",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm/report.json",
+  "name": "matmul_all_reduce_add_rms_norm",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/matmul_all_reduce_add_rms_norm.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "rtol": 0.005,
+        "y_max_abs_diff": 0.0009765625
+      },
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/ptodsl_matmul_all_reduce_add_rms_norm_benchmark.json",
+      "shape_summaries": [
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            128,
+            128
+          ],
+          "residual": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ],
+          "y": [
+            128,
+            128
+          ]
+        },
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            256,
+            128
+          ],
+          "residual": [
+            256,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            256,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ],
+          "y": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 2.901457017287612,
+        "median": 0.9665205143392086,
+        "min": 0.8445249404758215
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "atol": 0.005,
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.001953125
+            ],
+            "rtol": 0.005,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 2.901457017287612,
+                "median": 0.8636355632916093,
+                "min": 0.8446350693702698
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.001953125,
+                "norm_max_abs_diff": 0.001953125,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 2.8727271128445864,
+                "median": 0.8664551423862576,
+                "min": 0.8445249404758215
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              128,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 2.901457017287612,
+            "median": 0.8664551423862576,
+            "min": 0.8445249404758215,
+            "per_rank_median": [
+              0.8636355632916093,
+              0.8664551423862576
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "atol": 0.005,
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.001953125
+            ],
+            "rtol": 0.005,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.2081668246537447,
+                "median": 0.9665205143392086,
+                "min": 0.9244950488209724
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.001953125,
+                "norm_max_abs_diff": 0.001953125,
+                "y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.036505913361907,
+                "median": 0.960800563916564,
+                "min": 0.9213150478899479
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.2081668246537447,
+            "median": 0.9665205143392086,
+            "min": 0.9213150478899479,
+            "per_rank_median": [
+              0.9665205143392086,
+              0.960800563916564
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce_add_rms_norm/kernel.py",
+      "library_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/kernel/kernel.so"
+      ],
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce_add_rms_norm/kernel.py",
+    "meta": {
+      "archetype": "mc2-comm-epilogue",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "matmul_all_reduce_add_rms_norm",
+      "ops_transformer_path": "mc2/matmul_all_reduce_add_rms_norm",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 2 for the first seed contract",
+          "bias disabled",
+          "x3 disabled",
+          "float16 only",
+          "residual flattened to a 2D [M, N] dense tensor for the first seed",
+          "gamma fixed to 1D [N]",
+          "PTO local kernel mirrors the upstream splitM/numBlocksN core traversal for matmul and a separate vector epilogue for add+rms_norm",
+          "HCCL all_reduce(sum) remains host-orchestrated outside the PTO kernel boundary"
+        ],
+        "name": "dense_fp16_all_reduce_add_rms_norm",
+        "shape": [
+          128,
+          256,
+          128
+        ],
+        "tiling": {
+          "base_k_env": "PTO_MC2_MM_AR_BASE_K",
+          "base_m_env": "PTO_MC2_MM_AR_BASE_M",
+          "base_n_env": "PTO_MC2_MM_AR_BASE_N",
+          "block_dim_env": "PTO_MC2_MM_AR_BLOCK_DIM",
+          "epilogue_block_dim_env": "PTO_MC2_MM_ARN_BLOCK_DIM",
+          "strategy": "ops-transformer splitM/numBlocksN local matmul plus row-wise vector add+rms_norm epilogue"
+        }
+      },
+      "status": "prototype",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce_add_rms_norm/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

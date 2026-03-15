@@ -1,0 +1,14 @@
+name: moe_token_unpermute
+family: moe
+wave: wave2
+inventory_ref: moe/moe_token_unpermute
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_token_unpermute.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_token_unpermute.py
+  kernel: python/pto_kernels/ops/moe/moe_token_unpermute/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_token_unpermute/meta.py
+notes:
+  - Top-1 no-probs 910B slice of moe_token_unpermute.
+  - PTO port uses a host-precomputed inverse gather map for the current routing restore path.

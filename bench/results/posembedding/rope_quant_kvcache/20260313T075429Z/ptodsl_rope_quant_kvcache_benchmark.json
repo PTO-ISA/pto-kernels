@@ -1,0 +1,18 @@
+{
+  "reason": "PTO execution failed: Verification failed:\nerror: unknown: 'pto.tstore_fp' op expects src and dst to have the same element type\n note: unknown: see current operation: \"pto.tstore_fp\"(%33, %38, %51) : (!pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=64, v_row=1, v_col=64, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=f32, rows=1, cols=64, v_row=1, v_col=64, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.partition_tensor_view<1x64xi8>) -> ()",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

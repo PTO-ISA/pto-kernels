@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.tmuls' op operand #1 must be 32-bit float, but got 'f16'\n note: unknown: see current operation: \"pto.tmuls\"(%20, %26, %20) : (!pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>, f16, !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>) -> ()",
+  "status": "blocked",
+  "variants": [
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1,
+      "use_skip2": false
+    }
+  ]
+}

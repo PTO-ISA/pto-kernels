@@ -1,0 +1,557 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/rotary_position_embedding.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.003795623779296875,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "entrypoint": "torch_npu.npu_rotary_mul",
+      "reference_contract": "fp16_half_rotary_bsnd_bnsd_d128",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/ops_transformer_rotary_position_embedding_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "out": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "sin": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "x": [
+            2,
+            32,
+            1,
+            128
+          ]
+        },
+        {
+          "cos": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "out": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "sin": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "x": [
+            2,
+            1,
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.1931020524352789,
+        "median": 0.09962101466953754,
+        "min": 0.09437091648578644
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0035047531127929688
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "out": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "x": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1931020524352789,
+            "median": 0.09902555029839277,
+            "min": 0.09437091648578644
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "mode": "half",
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.003795623779296875
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "out": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12837094254791737,
+            "median": 0.09962101466953754,
+            "min": 0.09519094601273537
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BNSD",
+            "mode": "half",
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "mode": "half",
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BNSD",
+          "mode": "half",
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_rotary_mul",
+      "note": "Baseline execution uses the installed half-mode rotary runtime path exposed through torch_npu.npu_rotary_mul.",
+      "status": "runtime_builtin"
+    },
+    "family": "posembedding",
+    "name": "rotary_position_embedding",
+    "ops_transformer_path": "posembedding/rotary_position_embedding",
+    "runtime_entrypoint": "torch_npu.npu_rotary_mul",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "mode": "half",
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BNSD",
+          "mode": "half",
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/rotary_position_embedding",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding/report.json",
+  "name": "rotary_position_embedding",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/rotary_position_embedding.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bsnd_b2_s32_n1_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bsnd_b2_s32_n1_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bsnd_b2_s32_n1_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bsnd_b2_s32_n1_d128/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bnsd_b2_s32_n1_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bnsd_b2_s32_n1_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bnsd_b2_s32_n1_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/bnsd_b2_s32_n1_d128/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.004307746887207031,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "reference_contract": "fp16_half_rotary_bsnd_bnsd_d128",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/ptodsl_rotary_position_embedding_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "out": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "sin": [
+            2,
+            32,
+            1,
+            128
+          ],
+          "x": [
+            2,
+            32,
+            1,
+            128
+          ]
+        },
+        {
+          "cos": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "out": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "sin": [
+            2,
+            1,
+            32,
+            128
+          ],
+          "x": [
+            2,
+            1,
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.26397104375064373,
+        "median": 0.17763092182576656,
+        "min": 0.17155101522803307
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.004307746887207031
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "out": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "x": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.26397104375064373,
+            "median": 0.17675640992820263,
+            "min": 0.17169094644486904
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "mode": "half",
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.003795623779296875
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "out": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.20029209554195404,
+            "median": 0.17763092182576656,
+            "min": 0.17155101522803307
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BNSD",
+            "mode": "half",
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BSND",
+          "mode": "half",
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "layout": "BNSD",
+          "mode": "half",
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding/kernel.py",
+    "meta": {
+      "archetype": "rotary-single",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "rotary_position_embedding",
+      "ops_transformer_path": "posembedding/rotary_position_embedding",
+      "seed_variant": {
+        "limits": [
+          "float16 only",
+          "half mode only",
+          "head_dim fixed to 128",
+          "single-head validated shapes only",
+          "current PTO seed uses flattened [rows, D] row chunks and relies on PTOAS autosync"
+        ],
+        "name": "fp16_half_rotary_bsnd_bnsd_d128",
+        "shape": {
+          "variant_0": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "layout": "BSND",
+            "out": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "x": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "variant_1": {
+            "cos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "layout": "BNSD",
+            "out": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              128
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding/20260313T085246Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

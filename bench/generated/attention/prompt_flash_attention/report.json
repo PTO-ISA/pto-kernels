@@ -1,0 +1,839 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/prompt_flash_attention.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 3.0517578125e-05,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "entrypoint": "torch_npu.npu_prompt_flash_attention",
+      "reference_contract": "bnsd_no_mask_no_quant",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/ops_transformer_prompt_flash_attention_benchmark.json",
+      "shape_summaries": [
+        {
+          "attention_out": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "key": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "query": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "value": [
+            1,
+            1,
+            16,
+            16
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "key": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "value": [
+            1,
+            1,
+            128,
+            64
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "key": [
+            1,
+            1,
+            128,
+            128
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "value": [
+            1,
+            1,
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.4456029273569584,
+        "median": 0.3976174630224705,
+        "min": 0.3613019362092018
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 3.0517578125e-05,
+            "out_max_abs_diff": 3.0517578125e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "key": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "value": [
+              1,
+              1,
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4456029273569584,
+            "median": 0.36827195435762405,
+            "min": 0.3613019362092018
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 1,
+            "q_seq": 16,
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 1.52587890625e-05,
+            "out_max_abs_diff": 1.52587890625e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4009420517832041,
+            "median": 0.3771125338971615,
+            "min": 0.37287292070686817
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 64,
+            "seed": 1
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 3.0517578125e-05,
+            "out_max_abs_diff": 3.0517578125e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.42388192377984524,
+            "median": 0.3976174630224705,
+            "min": 0.3916318528354168
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 32,
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 16,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_prompt_flash_attention",
+      "note": "Baseline execution uses the installed runtime package on the constrained BNSD no-mask no-quant slice.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "prompt_flash_attention",
+    "ops_transformer_path": "attention/prompt_flash_attention",
+    "runtime_entrypoint": "torch_npu.npu_prompt_flash_attention",
+    "seed_variant": {
+      "default": {
+        "batch_size": 1,
+        "dtype": "float16",
+        "head_dim": 16,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "kv_heads": 1,
+        "kv_seq": 16,
+        "q_heads": 1,
+        "q_seq": 16,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 16,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.002,
+    "rtol": 0.002,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/prompt_flash_attention",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/prompt_flash_attention",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/prompt_flash_attention/report.json",
+  "name": "prompt_flash_attention",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/prompt_flash_attention.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q16_k16_d16/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q64_k128_d64/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/q32_k128_d128/stage3_pv/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 0.0006539821624755859,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "reference_contract": "bnsd_no_mask_no_quant",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/ptodsl_prompt_flash_attention_benchmark.json",
+      "shape_summaries": [
+        {
+          "attention_out": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "key": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "query": [
+            1,
+            1,
+            16,
+            16
+          ],
+          "value": [
+            1,
+            1,
+            16,
+            16
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "key": [
+            1,
+            1,
+            128,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "value": [
+            1,
+            1,
+            128,
+            64
+          ]
+        },
+        {
+          "attention_out": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "key": [
+            1,
+            1,
+            128,
+            128
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "value": [
+            1,
+            1,
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.5832631140947342,
+        "median": 0.5295434966683388,
+        "min": 0.4906230606138706
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 3.0517578125e-05,
+            "out_max_abs_diff": 3.0517578125e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "key": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "value": [
+              1,
+              1,
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5394029431045055,
+            "median": 0.5014929920434952,
+            "min": 0.4906230606138706
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 1,
+            "q_seq": 16,
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.000545501708984375,
+            "out_max_abs_diff": 0.000545501708984375,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5622240714728832,
+            "median": 0.5294985603541136,
+            "min": 0.51882304251194
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 64,
+            "seed": 1
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0006539821624755859,
+            "out_max_abs_diff": 0.0006539821624755859,
+            "passes": true
+          },
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5832631140947342,
+            "median": 0.5295434966683388,
+            "min": 0.5161631852388382
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 32,
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 16,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 16,
+          "q_heads": 1,
+          "q_seq": 16,
+          "seed": 0
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 64,
+          "seed": 1
+        },
+        {
+          "batch_size": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "kv_heads": 1,
+          "kv_seq": 128,
+          "q_heads": 1,
+          "q_seq": 32,
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/stage3_pv/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/prompt_flash_attention/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/prompt_flash_attention/kernel.py",
+    "meta": {
+      "archetype": "attention-dense",
+      "blockers": [],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "prompt_flash_attention",
+      "ops_transformer_path": "attention/prompt_flash_attention",
+      "seed_variant": {
+        "limits": [
+          "constrained no-mask no-quant slice only",
+          "batch=1, q_heads=kv_heads=1",
+          "input layout fixed to BNSD",
+          "actual_seq_lengths and actual_seq_lengths_kv fixed to full lengths",
+          "no pse, no mask, no sparse optimization, no page attention"
+        ],
+        "name": "bnsd_no_mask_no_quant",
+        "shape": {
+          "boundary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              128
+            ]
+          },
+          "nominal": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              64
+            ]
+          },
+          "smoke": {
+            "attention_out": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "key": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "value": [
+              1,
+              1,
+              16,
+              16
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/prompt_flash_attention/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/prompt_flash_attention/20260314T160210Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

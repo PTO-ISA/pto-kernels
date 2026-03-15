@@ -1,0 +1,238 @@
+{
+  "baseline_limitations": [
+    "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_unpermute_grad",
+  "reference_contract": "top1_inverse_permute_grad_no_probs",
+  "shape_summaries": [
+    {
+      "permuted_tokens": [
+        8,
+        16
+      ],
+      "permuted_tokens_grad": [
+        8,
+        16
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        8
+      ],
+      "unpermuted_tokens_grad": [
+        8,
+        16
+      ]
+    },
+    {
+      "permuted_tokens": [
+        256,
+        64
+      ],
+      "permuted_tokens_grad": [
+        256,
+        64
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        256
+      ],
+      "unpermuted_tokens_grad": [
+        256,
+        64
+      ]
+    },
+    {
+      "permuted_tokens": [
+        128,
+        128
+      ],
+      "permuted_tokens_grad": [
+        128,
+        128
+      ],
+      "probs_grad": [],
+      "sorted_indices": [
+        128
+      ],
+      "unpermuted_tokens_grad": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.5450339522212744,
+    "median": 0.17374102026224136,
+    "min": 0.10218983516097069
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "probs_max_abs_diff": 0.0,
+        "supported_outputs": [
+          "permuted_tokens_grad"
+        ],
+        "token_max_abs_diff": 0.0,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          8,
+          16
+        ],
+        "permuted_tokens_grad": [
+          8,
+          16
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          8
+        ],
+        "unpermuted_tokens_grad": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.21253200247883797,
+        "median": 0.10613538324832916,
+        "min": 0.10218983516097069
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "probs_max_abs_diff": 1.1259765625,
+        "supported_outputs": [
+          "permuted_tokens_grad"
+        ],
+        "token_max_abs_diff": 0.0,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          256,
+          64
+        ],
+        "permuted_tokens_grad": [
+          256,
+          64
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          256
+        ],
+        "unpermuted_tokens_grad": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.20023086108267307,
+        "median": 0.1732311211526394,
+        "min": 0.16603083349764347
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 64,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "probs_max_abs_diff": 2.980232238769531e-07,
+        "supported_outputs": [
+          "permuted_tokens_grad"
+        ],
+        "token_max_abs_diff": 0.0,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens": [
+          128,
+          128
+        ],
+        "permuted_tokens_grad": [
+          128,
+          128
+        ],
+        "probs_grad": [],
+        "sorted_indices": [
+          128
+        ],
+        "unpermuted_tokens_grad": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.5450339522212744,
+        "median": 0.17374102026224136,
+        "min": 0.1673509832471609
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 128,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 64,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 128,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

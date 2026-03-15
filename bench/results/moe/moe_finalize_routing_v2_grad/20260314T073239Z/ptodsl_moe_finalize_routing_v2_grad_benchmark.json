@@ -1,0 +1,33 @@
+{
+  "reason": "PTO compile failed: unsupported operand type(s) for +: 'mlir._mlir_libs._mlir.ir.OpResult' and 'mlir._mlir_libs._mlir.ir.OpResult'",
+  "status": "blocked",
+  "variants": [
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1
+    }
+  ]
+}

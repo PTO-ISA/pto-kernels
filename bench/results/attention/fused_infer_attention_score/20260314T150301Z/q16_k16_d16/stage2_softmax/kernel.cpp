@@ -1,0 +1,112 @@
+#include "pto/pto-inst.hpp"
+using namespace pto;
+__global__ AICORE void dense_attention_row_softmax(__gm__ half* v1) {
+  RoundMode v2 = RoundMode::CAST_ROUND;
+  unsigned v3 = 16;
+  unsigned v4 = 1;
+  unsigned v5 = 0;
+  int32_t v6 = 0;
+  int32_t v7 = 16;
+  int32_t v8 = 1;
+  float v9 = 0.25f;
+  int64_t v10 = 0;
+  int64_t v11 = 32;
+  int64_t v12 = 64;
+  int64_t v13 = 128;
+  int64_t v14 = 192;
+  int64_t v15 = 256;
+  int64_t v16 = 320;
+  using T = float;
+
+  #if defined(__DAV_VEC__)
+  set_mask_norm();
+  set_vector_mask(-1, -1);
+  int64_t v17 = get_block_idx();
+  int64_t v18 = get_block_num();
+  int32_t v19 = (int32_t) v18;
+  int32_t v20 = v7 / v19;
+  int32_t v21 = v7 % v19 != v6 && v7 < v6 == v19 < v6 ? v20 + v8 : v20;
+  int32_t v22 = (int32_t) ((uint32_t) ((int32_t) v17) * (uint32_t) v21);
+  int32_t v23 = (int32_t) ((uint32_t) v22 + (uint32_t) v21);
+  Tile<TileType::Vec, half, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v24;
+  TASSIGN(v24, v10);
+  Tile<TileType::Vec, half, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v25;
+  __ubuf__ half* v26 = v24.data();
+  uint64_t v27 = reinterpret_cast<uint64_t>(v26);
+  TASSIGN(v25, v27);
+  Tile<TileType::Vec, half, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v28;
+  TASSIGN(v28, v11);
+  Tile<TileType::Vec, half, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v29;
+  __ubuf__ half* v30 = v28.data();
+  uint64_t v31 = reinterpret_cast<uint64_t>(v30);
+  TASSIGN(v29, v31);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v32;
+  TASSIGN(v32, v12);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v33;
+  __ubuf__ float* v34 = v32.data();
+  uint64_t v35 = reinterpret_cast<uint64_t>(v34);
+  TASSIGN(v33, v35);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v36;
+  TASSIGN(v36, v13);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v37;
+  __ubuf__ float* v38 = v36.data();
+  uint64_t v39 = reinterpret_cast<uint64_t>(v38);
+  TASSIGN(v37, v39);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v40;
+  TASSIGN(v40, v14);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v41;
+  __ubuf__ float* v42 = v40.data();
+  uint64_t v43 = reinterpret_cast<uint64_t>(v42);
+  TASSIGN(v41, v43);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v44;
+  TASSIGN(v44, v15);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 1, SLayout::NoneBox, 512, PadValue::Null> v45;
+  __ubuf__ float* v46 = v44.data();
+  uint64_t v47 = reinterpret_cast<uint64_t>(v46);
+  TASSIGN(v45, v47);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v48;
+  TASSIGN(v48, v16);
+  Tile<TileType::Vec, float, 1, 16, BLayout::RowMajor, 1, 16, SLayout::NoneBox, 512, PadValue::Null> v49;
+  __ubuf__ float* v50 = v48.data();
+  uint64_t v51 = reinterpret_cast<uint64_t>(v50);
+  TASSIGN(v49, v51);
+  set_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
+  for (int32_t v52 = v22; v52 < ((uint32_t) v23 < (uint32_t) v7 ? v23 : v7); v52 += v8) {
+    pto::Shape<1, 1, 1, 1, 16> v53 = pto::Shape<1, 1, 1, 1, 16>();
+    pto::Stride<16, 16, 16, 16, 1> v54 = pto::Stride<16, 16, 16, 16, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 1, 16>, pto::Stride<16, 16, 16, 16, 1>, pto::Layout::ND> v55 = GlobalTensor<half, pto::Shape<1, 1, 1, 1, 16>, pto::Stride<16, 16, 16, 16, 1>, pto::Layout::ND>(v1 + (v5 + (unsigned) v52 * (unsigned) v7 + v5 * (unsigned) v8), v53, v54);
+    wait_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
+    TLOAD(v25, v55);
+    set_flag(PIPE_MTE2, PIPE_V, EVENT_ID0);
+    wait_flag(PIPE_MTE2, PIPE_V, EVENT_ID0);
+    TCVT(v33, v25, v2);
+    pipe_barrier(PIPE_V);
+    TMULS(v33, v33, v9);
+    pipe_barrier(PIPE_V);
+    TROWMAX(v45, v33, v37);
+    pipe_barrier(PIPE_V);
+    TROWEXPAND(v49, v45);
+    pipe_barrier(PIPE_V);
+    TSUB(v37, v33, v49);
+    pipe_barrier(PIPE_V);
+    TEXP(v37, v37);
+    pipe_barrier(PIPE_V);
+    TROWSUM(v45, v37, v41);
+    pipe_barrier(PIPE_V);
+    TROWEXPAND(v49, v45);
+    pipe_barrier(PIPE_V);
+    TDIV(v41, v37, v49);
+    pipe_barrier(PIPE_V);
+    TCVT(v29, v41, v2);
+    set_flag(PIPE_V, PIPE_MTE3, EVENT_ID0);
+    wait_flag(PIPE_V, PIPE_MTE3, EVENT_ID0);
+    TSTORE(v55, v29);
+    set_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
+  }
+  pipe_barrier(PIPE_ALL);
+  wait_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
+  #endif // __DAV_VEC__
+
+  return;
+}
+

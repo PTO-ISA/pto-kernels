@@ -1,0 +1,53 @@
+{
+  "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+  "reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+  "shape_summaries": [
+    {
+      "group_list": [
+        16
+      ],
+      "output": [
+        1024,
+        2048
+      ],
+      "output_scale": [
+        1024
+      ],
+      "weight_logical": [
+        16,
+        256,
+        4096
+      ],
+      "weight_scale": [
+        16,
+        4096
+      ],
+      "weight_storage_nz": [
+        16,
+        128,
+        16,
+        16,
+        32
+      ],
+      "x": [
+        1024,
+        256
+      ],
+      "x_scale": [
+        1024
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "e": 16,
+      "input_dtype": "int8",
+      "k": 256,
+      "m": 1024,
+      "n": 4096,
+      "seed": 0,
+      "weight_dtype": "int8_fractal_nz"
+    }
+  ]
+}

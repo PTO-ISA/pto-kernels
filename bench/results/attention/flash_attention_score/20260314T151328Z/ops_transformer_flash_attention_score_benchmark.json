@@ -1,0 +1,304 @@
+{
+  "correctness": {
+    "atol": 0.002,
+    "max_abs_diff": 6.103515625e-05,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_fusion_attention_v2",
+  "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
+  "shape_summaries": [
+    {
+      "key": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "output": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "query": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "scores": [
+        32,
+        32
+      ],
+      "value": [
+        1,
+        1,
+        32,
+        64
+      ]
+    },
+    {
+      "key": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "output": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "query": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "scores": [
+        64,
+        64
+      ],
+      "value": [
+        1,
+        1,
+        64,
+        64
+      ]
+    },
+    {
+      "key": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "output": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "query": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "scores": [
+        32,
+        32
+      ],
+      "value": [
+        1,
+        1,
+        32,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.19899103790521622,
+    "median": 0.15998096205294132,
+    "min": 0.1463908702135086
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 6.103515625e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "output": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "query": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "scores": [
+          32,
+          32
+        ],
+        "value": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.19899103790521622,
+        "median": 0.15540095046162605,
+        "min": 0.1463908702135086
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 3.0517578125e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "output": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "query": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "scores": [
+          64,
+          64
+        ],
+        "value": [
+          1,
+          1,
+          64,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.18239091150462627,
+        "median": 0.15998096205294132,
+        "min": 0.14936993829905987
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 1,
+        "seq_len": 64,
+        "sparse_mode": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 6.103515625e-05
+      },
+      "shape_summary": {
+        "key": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "output": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "query": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "scores": [
+          32,
+          32
+        ],
+        "value": [
+          1,
+          1,
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.18492108210921288,
+        "median": 0.15993101987987757,
+        "min": 0.1508512068539858
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 2,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 0,
+      "seq_len": 32,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 1,
+      "seq_len": 64,
+      "sparse_mode": 0
+    },
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 2,
+      "seq_len": 32,
+      "sparse_mode": 0
+    }
+  ]
+}

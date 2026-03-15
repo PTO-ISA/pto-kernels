@@ -1,0 +1,420 @@
+{
+  "cases": [
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "grouped_matmul",
+        "env": {
+          "PTO_GROUPED_MATMUL_BASE_K": "64"
+        },
+        "parity": {
+          "baseline_median_ms": 0.11413998436182737,
+          "gap_percent": 121.52317036477962,
+          "pto_median_ms": 0.25284651201218367,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/report.json"
+      },
+      "name": "grouped_matmul",
+      "spec": "bench/specs/gmm/grouped_matmul.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060854Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "grouped_matmul",
+          "env": {
+            "PTO_GROUPED_MATMUL_BASE_K": "32"
+          },
+          "parity": {
+            "baseline_median_ms": 0.11402589734643698,
+            "gap_percent": 122.7008346307971,
+            "pto_median_ms": 0.2539366250857711,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060854Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "grouped_matmul",
+          "env": {
+            "PTO_GROUPED_MATMUL_BASE_K": "64"
+          },
+          "parity": {
+            "baseline_median_ms": 0.11413998436182737,
+            "gap_percent": 121.52317036477962,
+            "pto_median_ms": 0.25284651201218367,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/report.json"
+        }
+      ]
+    },
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060921Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "apply_rotary_pos_emb",
+        "env": {
+          "PTO_APPLY_ROTARY_BLOCK_DIM": "4"
+        },
+        "parity": {
+          "baseline_median_ms": 0.10691594798117876,
+          "gap_percent": 99.24161667942435,
+          "pto_median_ms": 0.21302106324583292,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060921Z/report.json"
+      },
+      "name": "apply_rotary_pos_emb",
+      "spec": "bench/specs/posembedding/apply_rotary_pos_emb.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "apply_rotary_pos_emb",
+          "env": {
+            "PTO_APPLY_ROTARY_BLOCK_DIM": "1"
+          },
+          "parity": {
+            "baseline_median_ms": 0.10655098594725132,
+            "gap_percent": 104.86066345739926,
+            "pto_median_ms": 0.21828105673193932,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060916Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "apply_rotary_pos_emb",
+          "env": {
+            "PTO_APPLY_ROTARY_BLOCK_DIM": "2"
+          },
+          "parity": {
+            "baseline_median_ms": 0.10705110616981983,
+            "gap_percent": 102.75033113591037,
+            "pto_median_ms": 0.21704647224396467,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060916Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060921Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "apply_rotary_pos_emb",
+          "env": {
+            "PTO_APPLY_ROTARY_BLOCK_DIM": "4"
+          },
+          "parity": {
+            "baseline_median_ms": 0.10691594798117876,
+            "gap_percent": 99.24161667942435,
+            "pto_median_ms": 0.21302106324583292,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060921Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060927Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "apply_rotary_pos_emb",
+          "env": {
+            "PTO_APPLY_ROTARY_BLOCK_DIM": "8"
+          },
+          "parity": {
+            "baseline_median_ms": 0.1069455174729228,
+            "gap_percent": 100.46785790095302,
+            "pto_median_ms": 0.21439138799905777,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060927Z/report.json"
+        }
+      ]
+    },
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060946Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "ffn",
+        "env": {
+          "PTO_FFN_BASE_K1": "32",
+          "PTO_FFN_BASE_K2": "64"
+        },
+        "parity": {
+          "baseline_median_ms": 0.09253551252186298,
+          "gap_percent": 372.05984847913004,
+          "pto_median_ms": 0.4368230002000928,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060946Z/report.json"
+      },
+      "name": "ffn",
+      "spec": "bench/specs/ffn/ffn.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060932Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "ffn",
+          "env": {
+            "PTO_FFN_BASE_K1": "32",
+            "PTO_FFN_BASE_K2": "32"
+          },
+          "parity": {
+            "baseline_median_ms": 0.10973040480166674,
+            "gap_percent": 299.53605912302123,
+            "pto_median_ms": 0.43841253500431776,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060932Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060946Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "ffn",
+          "env": {
+            "PTO_FFN_BASE_K1": "32",
+            "PTO_FFN_BASE_K2": "64"
+          },
+          "parity": {
+            "baseline_median_ms": 0.09253551252186298,
+            "gap_percent": 372.05984847913004,
+            "pto_median_ms": 0.4368230002000928,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T060946Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T061001Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "ffn",
+          "env": {
+            "PTO_FFN_BASE_K1": "64",
+            "PTO_FFN_BASE_K2": "32"
+          },
+          "parity": {
+            "baseline_median_ms": 0.09416509419679642,
+            "gap_percent": 369.7148621784411,
+            "pto_median_ms": 0.4423074424266815,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T061001Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T061015Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "ffn",
+          "env": {
+            "PTO_FFN_BASE_K1": "64",
+            "PTO_FFN_BASE_K2": "64"
+          },
+          "parity": {
+            "baseline_median_ms": 0.09395589586347342,
+            "gap_percent": 371.85230616733264,
+            "pto_median_ms": 0.4433330614119768,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T061015Z/report.json"
+        }
+      ]
+    },
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T061029Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "moe_token_permute",
+        "env": {},
+        "parity": {
+          "baseline_median_ms": 0.11362601071596146,
+          "gap_percent": 206.59081595016596,
+          "pto_median_ms": 0.34836691338568926,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T061029Z/report.json"
+      },
+      "name": "moe_token_permute",
+      "spec": "bench/specs/moe/moe_token_permute.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T061029Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "moe_token_permute",
+          "env": {},
+          "parity": {
+            "baseline_median_ms": 0.11362601071596146,
+            "gap_percent": 206.59081595016596,
+            "pto_median_ms": 0.34836691338568926,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T061029Z/report.json"
+        }
+      ]
+    },
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061053Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "flash_attention_score",
+        "env": {
+          "PTO_ATTENTION_QK_BASE_K": "64"
+        },
+        "parity": {
+          "baseline_median_ms": 0.14692603144794703,
+          "gap_percent": 199.8396304527825,
+          "pto_median_ms": 0.44054246973246336,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061053Z/report.json"
+      },
+      "name": "flash_attention_score",
+      "spec": "bench/specs/attention/flash_attention_score.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "flash_attention_score",
+          "env": {
+            "PTO_ATTENTION_QK_BASE_K": "32"
+          },
+          "parity": {
+            "baseline_median_ms": 0.14868611469864845,
+            "gap_percent": 196.33433656643732,
+            "pto_median_ms": 0.4406080115586519,
+            "status": "blocked"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061053Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "flash_attention_score",
+          "env": {
+            "PTO_ATTENTION_QK_BASE_K": "64"
+          },
+          "parity": {
+            "baseline_median_ms": 0.14692603144794703,
+            "gap_percent": 199.8396304527825,
+            "pto_median_ms": 0.44054246973246336,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061053Z/report.json"
+        }
+      ]
+    },
+    {
+      "best_trial": {
+        "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061108Z",
+        "baseline_reason": null,
+        "baseline_status": "ok",
+        "case": "matmul_reduce_scatter",
+        "env": {
+          "PTO_MC2_BASE_K": "32"
+        },
+        "parity": {
+          "baseline_median_ms": 0.5458184750750661,
+          "gap_percent": 28.012144492587787,
+          "pto_median_ms": 0.6987139349803329,
+          "status": "measured"
+        },
+        "pto_reason": null,
+        "pto_status": "ok",
+        "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061108Z/report.json"
+      },
+      "name": "matmul_reduce_scatter",
+      "spec": "bench/specs/mc2/matmul_reduce_scatter.yaml",
+      "trials": [
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061108Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "matmul_reduce_scatter",
+          "env": {
+            "PTO_MC2_BASE_K": "32"
+          },
+          "parity": {
+            "baseline_median_ms": 0.5458184750750661,
+            "gap_percent": 28.012144492587787,
+            "pto_median_ms": 0.6987139349803329,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061108Z/report.json"
+        },
+        {
+          "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061159Z",
+          "baseline_reason": null,
+          "baseline_status": "ok",
+          "case": "matmul_reduce_scatter",
+          "env": {
+            "PTO_MC2_BASE_K": "64"
+          },
+          "parity": {
+            "baseline_median_ms": 0.5505284061655402,
+            "gap_percent": 33.06741399825714,
+            "pto_median_ms": 0.732573913410306,
+            "status": "measured"
+          },
+          "pto_reason": null,
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T061159Z/report.json"
+        }
+      ]
+    }
+  ],
+  "generated_at": "20260312T060854Z"
+}

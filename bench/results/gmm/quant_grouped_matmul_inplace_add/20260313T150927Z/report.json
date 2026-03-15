@@ -1,0 +1,222 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/quant_grouped_matmul_inplace_add/20260313T150927Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/quant_grouped_matmul_inplace_add.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "aclnnQuantGroupedMatmulInplaceAdd",
+      "reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/quant_grouped_matmul_inplace_add/20260313T150927Z/ops_transformer_quant_grouped_matmul_inplace_add_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            4
+          ],
+          "scale1": [
+            4
+          ],
+          "scale2": [
+            4,
+            128
+          ],
+          "x1": [
+            512,
+            96
+          ],
+          "x2": [
+            512,
+            128
+          ],
+          "y": [
+            4,
+            96,
+            128
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "groups": 4,
+          "k": 128,
+          "m": 96,
+          "n": 128,
+          "seed": 0
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "aclnnQuantGroupedMatmulInplaceAdd",
+      "reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+      "shape_summaries": [
+        {
+          "group_list": [
+            4
+          ],
+          "scale1": [
+            4
+          ],
+          "scale2": [
+            4,
+            128
+          ],
+          "x1": [
+            512,
+            96
+          ],
+          "x2": [
+            512,
+            128
+          ],
+          "y": [
+            4,
+            96,
+            128
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "groups": 4,
+          "k": 128,
+          "m": 96,
+          "n": 128,
+          "seed": 0
+        }
+      ]
+    },
+    "family": "gmm",
+    "name": "quant_grouped_matmul_inplace_add",
+    "ops_transformer_path": "gmm/quant_grouped_matmul_inplace_add",
+    "runtime_entrypoint": "aclnnQuantGroupedMatmulInplaceAdd",
+    "seed_variant": {
+      "default": {
+        "groups": 4,
+        "k": 128,
+        "m": 96,
+        "n": 128,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "groups": 4,
+          "k": 128,
+          "m": 96,
+          "n": 128,
+          "seed": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/quant_grouped_matmul_inplace_add",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/quant_grouped_matmul_inplace_add",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/quant_grouped_matmul_inplace_add/report.json",
+  "name": "quant_grouped_matmul_inplace_add",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/quant_grouped_matmul_inplace_add.py",
+    "benchmark": {
+      "reason": "PTO port is deferred until a reproducible baseline host contract exists.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/quant_grouped_matmul_inplace_add/20260313T150927Z/ptodsl_quant_grouped_matmul_inplace_add_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "groups": 4,
+          "k": 128,
+          "m": 96,
+          "n": 128,
+          "seed": 0
+        }
+      ]
+    },
+    "compile": {
+      "reason": "quant_grouped_matmul_inplace_add PTO port is deferred until a reproducible baseline host contract exists.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/quant_grouped_matmul_inplace_add/kernel.py",
+    "meta": {
+      "archetype": "quant-grouped-matmul-inplace-add",
+      "blockers": [
+        "ops-transformer-quant-grouped-matmul-inplace-add-entrypoint-gap",
+        "ptodsl-group-routing-primitives",
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "quant_grouped_matmul_inplace_add",
+      "ops_transformer_path": "gmm/quant_grouped_matmul_inplace_add",
+      "seed_variant": {
+        "limits": [
+          "baseline contract probe only",
+          "current host exposes ACLNN/C++ coverage but no torch_npu Python entrypoint",
+          "PTO kernel implementation is deferred until a reproducible Python or packaged baseline path exists"
+        ],
+        "name": "acl_only_quant_grouped_matmul_inplace_add_probe",
+        "shape": {
+          "variant_0": {
+            "group_list": [
+              4
+            ],
+            "scale1": [
+              4
+            ],
+            "scale2": [
+              4,
+              128
+            ],
+            "x1": [
+              512,
+              96
+            ],
+            "x2": [
+              512,
+              128
+            ],
+            "y": [
+              4,
+              96,
+              128
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/quant_grouped_matmul_inplace_add/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/quant_grouped_matmul_inplace_add/20260313T150927Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

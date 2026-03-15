@@ -1,0 +1,263 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260313T150927Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul_swiglu_quant.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+      "reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260313T150927Z/ops_transformer_grouped_matmul_swiglu_quant_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            16
+          ],
+          "output": [
+            1024,
+            2048
+          ],
+          "output_scale": [
+            1024
+          ],
+          "weight_logical": [
+            16,
+            256,
+            4096
+          ],
+          "weight_scale": [
+            16,
+            4096
+          ],
+          "weight_storage_nz": [
+            16,
+            128,
+            16,
+            16,
+            32
+          ],
+          "x": [
+            1024,
+            256
+          ],
+          "x_scale": [
+            1024
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+      "reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "shape_summaries": [
+        {
+          "group_list": [
+            16
+          ],
+          "output": [
+            1024,
+            2048
+          ],
+          "output_scale": [
+            1024
+          ],
+          "weight_logical": [
+            16,
+            256,
+            4096
+          ],
+          "weight_scale": [
+            16,
+            4096
+          ],
+          "weight_storage_nz": [
+            16,
+            128,
+            16,
+            16,
+            32
+          ],
+          "x": [
+            1024,
+            256
+          ],
+          "x_scale": [
+            1024
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "family": "gmm",
+    "name": "grouped_matmul_swiglu_quant",
+    "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+    "seed_variant": {
+      "default": {
+        "e": 16,
+        "input_dtype": "int8",
+        "k": 256,
+        "m": 1024,
+        "n": 4096,
+        "seed": 0,
+        "weight_dtype": "int8_fractal_nz"
+      },
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/grouped_matmul_swiglu_quant",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant/report.json",
+  "name": "grouped_matmul_swiglu_quant",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul_swiglu_quant.py",
+    "benchmark": {
+      "reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260313T150927Z/ptodsl_grouped_matmul_swiglu_quant_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "compile": {
+      "reason": "grouped_matmul_swiglu_quant PTO port is deferred until the FRACTAL_NZ baseline contract is reproducible on this host.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant/kernel.py",
+    "meta": {
+      "archetype": "grouped-matmul-swiglu-quant",
+      "blockers": [
+        "ops-transformer-grouped-swiglu-quant-format-contract",
+        "ptodsl-group-routing-primitives",
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "grouped_matmul_swiglu_quant",
+      "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant",
+      "seed_variant": {
+        "limits": [
+          "baseline contract probe only",
+          "requires FRACTAL_NZ weight storage metadata",
+          "requires int8 input/output quantized path",
+          "PTO kernel implementation is deferred until the host baseline contract is reproducible"
+        ],
+        "name": "fractal_nz_int8_swiglu_quant_contract_probe",
+        "shape": {
+          "variant_0": {
+            "group_list": [
+              16
+            ],
+            "output": [
+              1024,
+              2048
+            ],
+            "output_scale": [
+              1024
+            ],
+            "weight_logical": [
+              16,
+              256,
+              4096
+            ],
+            "weight_scale": [
+              16,
+              4096
+            ],
+            "weight_storage_nz": [
+              16,
+              128,
+              16,
+              16,
+              32
+            ],
+            "x": [
+              1024,
+              256
+            ],
+            "x_scale": [
+              1024
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260313T150927Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

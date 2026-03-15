@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'scf.if' op must have an else block if defining values\n note: unknown: see current operation: \n  %25 = \"scf.if\"(%24) ({\n    %26 = \"arith.addi\"(%arg9, %1) <{overflowFlags = #arith.overflow<none>}> : (index, index) -> index\n    \"scf.yield\"(%26) : (index) -> ()\n  }, {\n  }) : (i1) -> index",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 8,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 8,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1
+    }
+  ]
+}

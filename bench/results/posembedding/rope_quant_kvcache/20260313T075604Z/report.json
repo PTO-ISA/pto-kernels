@@ -1,0 +1,424 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/rope_quant_kvcache.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.003516674041748047,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "entrypoint": "torch_npu.npu_rope_quant_kvcache",
+      "reference_contract": "fp16_half_rope_quant_kvcache_unit_scale_bsnd_2d",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/ops_transformer_rope_quant_kvcache_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos": [
+            2,
+            64
+          ],
+          "k": [
+            2,
+            1,
+            64
+          ],
+          "k_cache": [
+            2,
+            8,
+            1,
+            64
+          ],
+          "q": [
+            2,
+            1,
+            64
+          ],
+          "sin": [
+            2,
+            64
+          ],
+          "v": [
+            2,
+            1,
+            64
+          ],
+          "v_cache": [
+            2,
+            8,
+            1,
+            64
+          ],
+          "x": [
+            2,
+            192
+          ]
+        },
+        {
+          "cos": [
+            4,
+            64
+          ],
+          "k": [
+            4,
+            1,
+            64
+          ],
+          "k_cache": [
+            4,
+            8,
+            1,
+            64
+          ],
+          "q": [
+            4,
+            1,
+            64
+          ],
+          "sin": [
+            4,
+            64
+          ],
+          "v": [
+            4,
+            1,
+            64
+          ],
+          "v_cache": [
+            4,
+            8,
+            1,
+            64
+          ],
+          "x": [
+            4,
+            192
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.22738194093108177,
+        "median": 0.14051608741283417,
+        "min": 0.13332092203199863
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "k_cache_max_abs_diff": 0.0,
+            "k_max_abs_diff": 0.002789020538330078,
+            "q_max_abs_diff": 0.0024328231811523438,
+            "v_cache_max_abs_diff": 0.0,
+            "v_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              64
+            ],
+            "k": [
+              2,
+              1,
+              64
+            ],
+            "k_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              2,
+              1,
+              64
+            ],
+            "sin": [
+              2,
+              64
+            ],
+            "v": [
+              2,
+              1,
+              64
+            ],
+            "v_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              2,
+              192
+            ]
+          },
+          "timings_ms": {
+            "max": 0.22738194093108177,
+            "median": 0.13709103222936392,
+            "min": 0.13332092203199863
+          },
+          "variant": {
+            "batch": 2,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "k_cache_max_abs_diff": 0.0,
+            "k_max_abs_diff": 0.0030221939086914062,
+            "q_max_abs_diff": 0.003516674041748047,
+            "v_cache_max_abs_diff": 0.0,
+            "v_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "cos": [
+              4,
+              64
+            ],
+            "k": [
+              4,
+              1,
+              64
+            ],
+            "k_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              4,
+              1,
+              64
+            ],
+            "sin": [
+              4,
+              64
+            ],
+            "v": [
+              4,
+              1,
+              64
+            ],
+            "v_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              4,
+              192
+            ]
+          },
+          "timings_ms": {
+            "max": 0.16065104864537716,
+            "median": 0.14051608741283417,
+            "min": 0.13442104682326317
+          },
+          "variant": {
+            "batch": 4,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 1
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "compile_kernel() is not implemented",
+      "status": "blocked"
+    },
+    "family": "posembedding",
+    "name": "rope_quant_kvcache",
+    "ops_transformer_path": "posembedding/rope_quant_kvcache",
+    "runtime_entrypoint": "torch_npu.npu_rope_quant_kvcache",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/rope_quant_kvcache",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_quant_kvcache",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_quant_kvcache/report.json",
+  "name": "rope_quant_kvcache",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/rope_quant_kvcache.py",
+    "benchmark": {
+      "reason": "PTO execution failed: operator():build/CMakeFiles/torch_npu.dir/compiler_depend.ts:47 NPU function error: c10_npu::acl::AclrtSynchronizeStreamWithTimeout(copy_stream), error code is 507014\n[ERROR] 2026-03-13-16:05:30 (PID:313741, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution times out. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 313741] 2026-03-13-16:05:30.916.715 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1952, there is an exception of fftsplus aivector error, core id is 40, error code = 0, dump info: pc start: 0x1240000120b0, current: 0x124000012450, vec error info: 0x400000085, mte error info: 0x7000000ee, ifu error info: 0x1dffffcaaf000, ccu error info: 0x41f000081380002a, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100000080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0, 0, 0) errorStr: timeout or trap error. fixp_error0 info: 0xee, fixp_error1 info: 0x7, fsmId:1, tslot:7, thread:0, ctxid:0, blk:0, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x25, [aicore timeout].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtStreamSynchronizeWithTimeout execution failed, reason=aicore timeout[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       synchronize stream with timeout failed, runtime result = 507014[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/ptodsl_rope_quant_kvcache_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/stage_full/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/stage_full/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/stage_full/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/stage_full/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_quant_kvcache/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/stage_full/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_quant_kvcache/kernel.py",
+    "meta": {
+      "archetype": "rope-kvcache",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface",
+        "ptodsl-cache-update-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "rope_quant_kvcache",
+      "ops_transformer_path": "posembedding/rope_quant_kvcache",
+      "seed_variant": {
+        "limits": [
+          "2D token-major slice only",
+          "float16 input only",
+          "size_splits fixed to [64, 64, 64]",
+          "single q-head and single k/v-head only",
+          "static unit quant scales only",
+          "cache_mode fixed to contiguous",
+          "current PTO path uses torch-based split and cache update around PTODSL rotary-half stages"
+        ],
+        "name": "bsnd_2d_fp16_unit_scale_d64",
+        "shape": {
+          "variant_0": {
+            "cos": [
+              2,
+              64
+            ],
+            "k_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "sin": [
+              2,
+              64
+            ],
+            "v_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              2,
+              192
+            ]
+          },
+          "variant_1": {
+            "cos": [
+              4,
+              64
+            ],
+            "k_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "sin": [
+              4,
+              64
+            ],
+            "v_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              4,
+              192
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rope_quant_kvcache/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rope_quant_kvcache/20260313T075604Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

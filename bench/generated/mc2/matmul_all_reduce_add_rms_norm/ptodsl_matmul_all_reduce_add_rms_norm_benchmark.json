@@ -1,0 +1,309 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/mm_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m128_k256_n128_w2/arn_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/mm_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/m256_k256_n128_w2/arn_compile_probe/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.005,
+    "max_abs_diff": 0.00390625,
+    "norm_max_abs_diff": 0.00390625,
+    "passes": true,
+    "rtol": 0.005,
+    "y_max_abs_diff": 0.0009765625
+  },
+  "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+  "shape_summaries": [
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        128,
+        128
+      ],
+      "residual": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        128,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ],
+      "y": [
+        128,
+        128
+      ]
+    },
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        256,
+        128
+      ],
+      "residual": [
+        256,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        256,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ],
+      "y": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 2.901457017287612,
+    "median": 0.9665205143392086,
+    "min": 0.8445249404758215
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.001953125
+        ],
+        "rtol": 0.005,
+        "y_max_abs_diff": 0.0009765625
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 2.901457017287612,
+            "median": 0.8636355632916093,
+            "min": 0.8446350693702698
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.001953125,
+            "norm_max_abs_diff": 0.001953125,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 2.8727271128445864,
+            "median": 0.8664551423862576,
+            "min": 0.8445249404758215
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          128,
+          128
+        ],
+        "residual": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          128,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ],
+        "y": [
+          128,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 2.901457017287612,
+        "median": 0.8664551423862576,
+        "min": 0.8445249404758215,
+        "per_rank_median": [
+          0.8636355632916093,
+          0.8664551423862576
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.001953125
+        ],
+        "rtol": 0.005,
+        "y_max_abs_diff": 0.0009765625
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.2081668246537447,
+            "median": 0.9665205143392086,
+            "min": 0.9244950488209724
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.001953125,
+            "norm_max_abs_diff": 0.001953125,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.036505913361907,
+            "median": 0.960800563916564,
+            "min": 0.9213150478899479
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          256,
+          128
+        ],
+        "residual": [
+          256,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          256,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ],
+        "y": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 1.2081668246537447,
+        "median": 0.9665205143392086,
+        "min": 0.9213150478899479,
+        "per_rank_median": [
+          0.9665205143392086,
+          0.960800563916564
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 256,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 256,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 1
+    }
+  ]
+}

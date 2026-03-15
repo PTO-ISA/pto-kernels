@@ -1,0 +1,292 @@
+{
+  "correctness": {
+    "atol": 0.005,
+    "max_abs_diff": 0.00390625,
+    "norm_max_abs_diff": 0.00390625,
+    "passes": true,
+    "rtol": 0.005,
+    "y_max_abs_diff": 0.0009765625
+  },
+  "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+  "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+  "shape_summaries": [
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        128,
+        128
+      ],
+      "residual": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        128,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ],
+      "y": [
+        128,
+        128
+      ]
+    },
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        256,
+        128
+      ],
+      "residual": [
+        256,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        256,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ],
+      "y": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 1.1200171429663897,
+    "median": 0.6117040757089853,
+    "min": 0.5143031012266874
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.00390625
+        ],
+        "y_max_abs_diff": 0.0009765625
+      },
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "hcom_name": "group_name_0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.9244249667972326,
+            "median": 0.5484480643644929,
+            "min": 0.5188530776649714
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "hcom_name": "group_name_0",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.7094938773661852,
+            "median": 0.5587181076407433,
+            "min": 0.5143031012266874
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          128,
+          128
+        ],
+        "residual": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          128,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ],
+        "y": [
+          128,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.9244249667972326,
+        "median": 0.5587181076407433,
+        "min": 0.5143031012266874,
+        "per_rank_median": [
+          0.5484480643644929,
+          0.5587181076407433
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.00390625
+        ],
+        "y_max_abs_diff": 0.0009765625
+      },
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "hcom_name": "group_name_0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.1200171429663897,
+            "median": 0.6117040757089853,
+            "min": 0.5629430525004864
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "hcom_name": "group_name_0",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.662944046780467,
+            "median": 0.5975785898044705,
+            "min": 0.5635428242385387
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          256,
+          128
+        ],
+        "residual": [
+          256,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          256,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ],
+        "y": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 1.1200171429663897,
+        "median": 0.6117040757089853,
+        "min": 0.5629430525004864,
+        "per_rank_median": [
+          0.6117040757089853,
+          0.5975785898044705
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 256,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 256,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 1
+    }
+  ]
+}

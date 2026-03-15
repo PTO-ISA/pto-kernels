@@ -1,0 +1,250 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.000244140625,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_ffn",
+  "reference_contract": "fp16_dense_relu_ffn_torch_ops",
+  "shape_summaries": [
+    {
+      "hidden": [
+        32,
+        256
+      ],
+      "output": [
+        32,
+        128
+      ],
+      "weight1": [
+        128,
+        256
+      ],
+      "weight2": [
+        256,
+        128
+      ],
+      "x": [
+        32,
+        128
+      ]
+    },
+    {
+      "hidden": [
+        64,
+        256
+      ],
+      "output": [
+        64,
+        128
+      ],
+      "weight1": [
+        128,
+        256
+      ],
+      "weight2": [
+        256,
+        128
+      ],
+      "x": [
+        64,
+        128
+      ]
+    },
+    {
+      "hidden": [
+        32,
+        512
+      ],
+      "output": [
+        32,
+        128
+      ],
+      "weight1": [
+        128,
+        512
+      ],
+      "weight2": [
+        512,
+        128
+      ],
+      "x": [
+        32,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.3048619255423546,
+    "median": 0.10074593592435122,
+    "min": 0.08398108184337616
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.000244140625
+      },
+      "shape_summary": {
+        "hidden": [
+          32,
+          256
+        ],
+        "output": [
+          32,
+          128
+        ],
+        "weight1": [
+          128,
+          256
+        ],
+        "weight2": [
+          256,
+          128
+        ],
+        "x": [
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.13711093924939632,
+        "median": 0.09028613567352295,
+        "min": 0.08398108184337616
+      },
+      "variant": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 256,
+        "output_size": 128,
+        "seed": 0,
+        "tokens": 32
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0001220703125
+      },
+      "shape_summary": {
+        "hidden": [
+          64,
+          256
+        ],
+        "output": [
+          64,
+          128
+        ],
+        "weight1": [
+          128,
+          256
+        ],
+        "weight2": [
+          256,
+          128
+        ],
+        "x": [
+          64,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1197510864585638,
+        "median": 0.09686057455837727,
+        "min": 0.08621113374829292
+      },
+      "variant": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 256,
+        "output_size": 128,
+        "seed": 1,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "hidden": [
+          32,
+          512
+        ],
+        "output": [
+          32,
+          128
+        ],
+        "weight1": [
+          128,
+          512
+        ],
+        "weight2": [
+          512,
+          128
+        ],
+        "x": [
+          32,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.3048619255423546,
+        "median": 0.10074593592435122,
+        "min": 0.09138998575508595
+      },
+      "variant": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 512,
+        "output_size": 128,
+        "seed": 2,
+        "tokens": 32
+      }
+    }
+  ],
+  "variants": [
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 0,
+      "tokens": 32
+    },
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 1,
+      "tokens": 64
+    },
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 512,
+      "output_size": 128,
+      "seed": 2,
+      "tokens": 32
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "correctness": {
+    "atol": 0.01,
+    "max_abs_diff": 0.0078125,
+    "passes": true,
+    "rtol": 0.01
+  },
+  "entrypoint": "torch_npu.npu_interleave_rope",
+  "reference_contract": "fp16_interleave_rope_bnsd_d64",
+  "shape_summaries": [
+    {
+      "cos": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "sin": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "x": [
+        1,
+        1,
+        32,
+        64
+      ],
+      "y": [
+        1,
+        1,
+        32,
+        64
+      ]
+    },
+    {
+      "cos": [
+        2,
+        1,
+        32,
+        64
+      ],
+      "sin": [
+        2,
+        1,
+        32,
+        64
+      ],
+      "x": [
+        2,
+        1,
+        32,
+        64
+      ],
+      "y": [
+        2,
+        1,
+        32,
+        64
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.1517001073807478,
+    "median": 0.0978249590843916,
+    "min": 0.08922116830945015
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0078125
+      },
+      "shape_summary": {
+        "cos": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "sin": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "x": [
+          1,
+          1,
+          32,
+          64
+        ],
+        "y": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1517001073807478,
+        "median": 0.09490607772022486,
+        "min": 0.08922116830945015
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "seed": 0,
+        "seq_len": 32
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0078125
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          1,
+          32,
+          64
+        ],
+        "sin": [
+          2,
+          1,
+          32,
+          64
+        ],
+        "x": [
+          2,
+          1,
+          32,
+          64
+        ],
+        "y": [
+          2,
+          1,
+          32,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1187699381262064,
+        "median": 0.0978249590843916,
+        "min": 0.0918298028409481
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "seed": 1,
+        "seq_len": 32
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

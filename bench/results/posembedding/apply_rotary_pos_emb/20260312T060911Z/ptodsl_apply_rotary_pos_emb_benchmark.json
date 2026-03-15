@@ -1,0 +1,93 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T060911Z/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "fp16_half_rope_tnd_and_bsnd",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.3432820085436106,
+    "median": 0.21828105673193932,
+    "min": 0.207431148737669
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.24308101274073124,
+        "median": 0.21394598297774792,
+        "min": 0.207431148737669
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "TND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 64,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.3432820085436106,
+        "median": 0.21828105673193932,
+        "min": 0.20828098058700562
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 32,
+        "tokens": 64
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "TND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 64,
+      "tokens": 64
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 32,
+      "tokens": 64
+    }
+  ]
+}

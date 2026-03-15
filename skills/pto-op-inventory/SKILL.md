@@ -14,9 +14,14 @@ Workflow:
 3. Keep AI CPU scheduler ops and A3-only MC2 ops under `excluded`.
 4. Maintain `seed_kernels`, `wave`, `phase`, and `ops_transformer_path` for every in-scope kernel.
 5. Mirror high-level execution order in `checklists/910b_ai_core_migration.md`.
+6. Keep `bench/regression_kernels.yaml` aligned with the currently runnable 910B parity set.
+7. Use `bench/reports/regression_latest.md` as the fast summary of what is green today:
+   11 kernels are currently green on NPU, while `moe_distribute_dispatch` and `moe_distribute_combine` remain blocked by the local 8-rank MC2 routing baseline.
 
 Important files:
 
 - `bench/kernel_inventory.yaml`
+- `bench/regression_kernels.yaml`
+- `bench/reports/regression_latest.md`
 - `checklists/910b_ai_core_migration.md`
 - `scripts/generate_inventory.py`

@@ -1,0 +1,13 @@
+name: moe_gating_top_k_softmax
+family: moe
+wave: wave2
+inventory_ref: moe/moe_gating_top_k_softmax
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_gating_top_k_softmax.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_gating_top_k_softmax.py
+  kernel: python/pto_kernels/ops/moe/moe_gating_top_k_softmax/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_gating_top_k_softmax/meta.py
+notes:
+  - Seed kernel for top-1 2D gating softmax in the MOE wave.

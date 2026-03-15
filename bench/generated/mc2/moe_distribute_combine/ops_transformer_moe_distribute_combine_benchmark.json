@@ -1,0 +1,75 @@
+{
+  "entrypoint": "torch_npu.npu_moe_distribute_combine",
+  "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+  "status": "blocked",
+  "variant_reports": [
+    {
+      "rank_reports": [],
+      "rank_stages": [
+        {
+          "rank": 0,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.451919
+        },
+        {
+          "rank": 1,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.0030434
+        },
+        {
+          "rank": 2,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.1073298
+        },
+        {
+          "rank": 3,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.4468606
+        },
+        {
+          "rank": 4,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.259938
+        },
+        {
+          "rank": 5,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.2377276
+        },
+        {
+          "rank": 6,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.201293
+        },
+        {
+          "rank": 7,
+          "stage": "worker_fn",
+          "timestamp": 1773337203.2611206
+        }
+      ],
+      "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+      "status": "blocked",
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "world_size": 8
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    }
+  ]
+}

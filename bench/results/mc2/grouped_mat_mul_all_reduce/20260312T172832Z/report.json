@@ -1,0 +1,649 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/grouped_mat_mul_all_reduce.py",
+    "baseline_note": "The installed custom package on this host does not expose aclnnGroupedMatMulAllReduce. The constrained seed baseline therefore uses the same local grouped-matmul runtime contract plus HCCL all_reduce(sum), matching the upstream distributed math for one dense group.",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/ops_transformer_grouped_mat_mul_all_reduce_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            128
+          ],
+          "groups": 1,
+          "output": [
+            128,
+            128
+          ],
+          "weight_local": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x_local": [
+            128,
+            128
+          ]
+        },
+        {
+          "group_list": [
+            256
+          ],
+          "groups": 1,
+          "output": [
+            256,
+            128
+          ],
+          "weight_local": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x_local": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.9454560931771994,
+        "median": 0.6979240570217371,
+        "min": 0.5953230429440737
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125,
+            "per_rank_max_abs_diff": [
+              0.00048828125,
+              0.00048828125
+            ]
+          },
+          "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.6811239290982485,
+                "median": 0.6198635092005134,
+                "min": 0.5969330668449402
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.6755439098924398,
+                "median": 0.6169190164655447,
+                "min": 0.5953230429440737
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+          "shape_summary": {
+            "group_list": [
+              128
+            ],
+            "groups": 1,
+            "output": [
+              128,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              128,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.6811239290982485,
+            "median": 0.6198635092005134,
+            "min": 0.5953230429440737,
+            "per_rank_median": [
+              0.6198635092005134,
+              0.6169190164655447
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 128,
+            "n": 128,
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125,
+            "per_rank_max_abs_diff": [
+              0.00048828125,
+              0.00048828125
+            ]
+          },
+          "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.9454560931771994,
+                "median": 0.6979240570217371,
+                "min": 0.6360339466482401
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 0.943545950576663,
+                "median": 0.6954295095056295,
+                "min": 0.6702139507979155
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+          "shape_summary": {
+            "group_list": [
+              256
+            ],
+            "groups": 1,
+            "output": [
+              256,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.9454560931771994,
+            "median": 0.6979240570217371,
+            "min": 0.6360339466482401,
+            "per_rank_median": [
+              0.6979240570217371,
+              0.6954295095056295
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 256,
+            "n": 128,
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 128,
+          "n": 128,
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 256,
+          "n": 128,
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "environment": {
+        "detected_npus": 8,
+        "device_index": 0,
+        "npu_available": true,
+        "symbol_available": true
+      },
+      "note": "Baseline execution uses the local grouped-matmul runtime plus a repo-local multi-rank HCCL all_reduce contract because the installed package does not expose the grouped_mat_mul_all_reduce op.",
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "grouped_mat_mul_all_reduce",
+    "ops_transformer_path": "mc2/grouped_mat_mul_all_reduce",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 256,
+        "n": 128,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 128,
+          "n": 128,
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 256,
+          "n": 128,
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/grouped_mat_mul_all_reduce",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce/report.json",
+  "name": "grouped_mat_mul_all_reduce",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/grouped_mat_mul_all_reduce.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/ptodsl_grouped_mat_mul_all_reduce_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            128
+          ],
+          "groups": 1,
+          "output": [
+            128,
+            128
+          ],
+          "weight_local": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x_local": [
+            128,
+            128
+          ]
+        },
+        {
+          "group_list": [
+            256
+          ],
+          "groups": 1,
+          "output": [
+            256,
+            128
+          ],
+          "weight_local": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x_local": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 8.262699004262686,
+        "median": 0.8191996021196246,
+        "min": 0.6756340153515339
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "atol": 0.001,
+            "max_abs_diff": 0.00048828125,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.00048828125,
+              0.00048828125
+            ],
+            "rtol": 0.001
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 8.262699004262686,
+                "median": 0.8191996021196246,
+                "min": 0.7113849278539419
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 3.5514209885150194,
+                "median": 0.8177600102499127,
+                "min": 0.7348849903792143
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+          "shape_summary": {
+            "group_list": [
+              128
+            ],
+            "groups": 1,
+            "output": [
+              128,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              128,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 8.262699004262686,
+            "median": 0.8191996021196246,
+            "min": 0.7113849278539419,
+            "per_rank_median": [
+              0.8191996021196246,
+              0.8177600102499127
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 128,
+            "n": 128,
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "atol": 0.001,
+            "max_abs_diff": 0.00048828125,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.00048828125,
+              0.00048828125
+            ],
+            "rtol": 0.001
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 3.630442079156637,
+                "median": 0.7085039978846908,
+                "min": 0.6765939760953188
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00048828125
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 3.6765120457857847,
+                "median": 0.7026639068499207,
+                "min": 0.6756340153515339
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+          "shape_summary": {
+            "group_list": [
+              256
+            ],
+            "groups": 1,
+            "output": [
+              256,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.6765120457857847,
+            "median": 0.7085039978846908,
+            "min": 0.6756340153515339,
+            "per_rank_median": [
+              0.7085039978846908,
+              0.7026639068499207
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 256,
+            "n": 128,
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 128,
+          "n": 128,
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "groups": 1,
+          "input_scale": 0.125,
+          "k_total": 256,
+          "m": 256,
+          "n": 128,
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/kernel.py",
+    "meta": {
+      "archetype": "mc2-comm",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-group-routing-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "grouped_mat_mul_all_reduce",
+      "ops_transformer_path": "mc2/grouped_mat_mul_all_reduce",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 2 for the first seed contract",
+          "single dense group only",
+          "split_item equivalent to 0",
+          "bias disabled",
+          "float16 only",
+          "PTO and baseline both use host HCCL all_reduce(sum) around the local grouped-matmul path",
+          "PTO local kernel mirrors the upstream turn-based splitM/numBlocksN core traversal, but not the upstream HCCL overlap pipeline"
+        ],
+        "name": "single_group_fp16_all_reduce",
+        "shape": [
+          256,
+          256,
+          128
+        ],
+        "tiling": {
+          "base_k_env": "PTO_MC2_GMM_AR_BASE_K",
+          "base_m_env": "PTO_MC2_GMM_AR_BASE_M",
+          "base_n_env": "PTO_MC2_GMM_AR_BASE_N",
+          "block_dim_env": "PTO_MC2_GMM_AR_BLOCK_DIM",
+          "strategy": "ops-transformer splitM/numBlocksN turn loop for one dense group"
+        }
+      },
+      "status": "planned",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

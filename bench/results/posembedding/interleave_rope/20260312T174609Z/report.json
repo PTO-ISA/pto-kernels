@@ -1,0 +1,332 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/interleave_rope.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.0078125,
+        "passes": true,
+        "rtol": 0.01
+      },
+      "entrypoint": "torch_npu.npu_interleave_rope",
+      "reference_contract": "fp16_interleave_rope_bnsd_d64",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/ops_transformer_interleave_rope_benchmark.json",
+      "shape_summaries": [
+        {
+          "cos": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "sin": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "x": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "y": [
+            1,
+            1,
+            32,
+            64
+          ]
+        },
+        {
+          "cos": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "sin": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "x": [
+            2,
+            1,
+            32,
+            64
+          ],
+          "y": [
+            2,
+            1,
+            32,
+            64
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.15057111158967018,
+        "median": 0.10352046228945255,
+        "min": 0.0963809434324503
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0078125
+          },
+          "shape_summary": {
+            "cos": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.15057111158967018,
+            "median": 0.09989493992179632,
+            "min": 0.0963809434324503
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0078125
+          },
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              2,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12991088442504406,
+            "median": 0.10352046228945255,
+            "min": 0.09969016537070274
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_interleave_rope",
+      "note": "Baseline execution relies on the installed runtime builtin for fp16 BNSD D=64 interleave_rope.",
+      "status": "runtime_builtin"
+    },
+    "family": "posembedding",
+    "name": "interleave_rope",
+    "ops_transformer_path": "posembedding/interleave_rope",
+    "runtime_entrypoint": "torch_npu.npu_interleave_rope",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.01,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/interleave_rope",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope/report.json",
+  "name": "interleave_rope",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/interleave_rope.py",
+    "benchmark": {
+      "reason": "PTO execution failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507015\n[ERROR] 2026-03-13-01:46:17 (PID:3328232, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution is abnormal. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 3328232] 2026-03-13-01:46:17.140.899 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1951, there is an exception of fftsplus aivector error, core id is 4, error code = 0x4000000000000000, dump info: pc start: 0x1240000010b0, current: 0x12400000126c, vec error info: 0x4000000a6, mte error info: 0xbb, ifu error info: 0x217fa80000000, ccu error info: 0x41f0000800000000, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100008080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x4000000000000000, 0, 0) errorStr: VEC instruction error: the ub address out of bounds. fixp_error0 info: 0xbb, fixp_error1 info: 0, fsmId:1, tslot:2, thread:0, ctxid:0, blk:1, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x26, [aicore exception].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore exception[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507015.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/ptodsl_interleave_rope_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 0,
+          "seq_len": 32
+        },
+        {
+          "batch": 2,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "seed": 1,
+          "seq_len": 32
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/kernel.py",
+    "meta": {
+      "archetype": "rope-pos",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "interleave_rope",
+      "ops_transformer_path": "posembedding/interleave_rope",
+      "seed_variant": {
+        "limits": [
+          "BNSD layout only",
+          "float16 only",
+          "head_dim fixed to 64",
+          "heads fixed to 1",
+          "cos and sin use the same sequence length as x",
+          "PTO path uses a fixed even-odd gather map before the rotary half transform",
+          "current PTO rewrite does not yet model the upstream vector queue and double-buffer pipeline"
+        ],
+        "name": "bnsd_fp16_d64",
+        "shape": {
+          "variant_0": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "variant_1": [
+            2,
+            1,
+            32,
+            64
+          ]
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T174609Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

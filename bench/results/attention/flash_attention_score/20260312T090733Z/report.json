@@ -1,0 +1,810 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/flash_attention_score.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/ops_transformer_flash_attention_score_benchmark.json",
+      "shape_summaries": [
+        {
+          "key": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "output": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "scores": [
+            32,
+            32
+          ],
+          "value": [
+            1,
+            1,
+            32,
+            64
+          ]
+        },
+        {
+          "key": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "output": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "scores": [
+            64,
+            64
+          ],
+          "value": [
+            1,
+            1,
+            64,
+            64
+          ]
+        },
+        {
+          "key": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "output": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "scores": [
+            32,
+            32
+          ],
+          "value": [
+            1,
+            1,
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.3886120393872261,
+        "median": 0.14621554873883724,
+        "min": 0.13911002315580845
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3886120393872261,
+            "median": 0.14621554873883724,
+            "min": 0.14097103849053383
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 0,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 3.0517578125e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "scores": [
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              64,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1762108877301216,
+            "median": 0.1454659504815936,
+            "min": 0.13938103802502155
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 1,
+            "seq_len": 64,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.16603083349764347,
+            "median": 0.14420610386878252,
+            "min": 0.13911002315580845
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 2,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 0,
+          "seq_len": 32,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 1,
+          "seq_len": 64,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 2,
+          "seq_len": 32,
+          "sparse_mode": 0
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to dense BNSD attention with no masks, no dropout, and fp16 inputs.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "flash_attention_score",
+    "ops_transformer_path": "attention/flash_attention_score",
+    "runtime_entrypoint": "torch_npu.npu_fusion_attention_v2",
+    "seed_variant": {
+      "default": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      },
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 0,
+          "seq_len": 32,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 1,
+          "seq_len": 64,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 2,
+          "seq_len": 32,
+          "sparse_mode": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/flash_attention_score",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
+  "name": "flash_attention_score",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/flash_attention_score.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d64/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s64_d64/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/b1_n1_s32_d128/stage3_pv/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "reference_contract": "dense_scaled_dot_product_attention",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/ptodsl_flash_attention_score_benchmark.json",
+      "shape_summaries": [
+        {
+          "key": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "output": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            64
+          ],
+          "scores": [
+            32,
+            32
+          ],
+          "value": [
+            1,
+            1,
+            32,
+            64
+          ]
+        },
+        {
+          "key": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "output": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "query": [
+            1,
+            1,
+            64,
+            64
+          ],
+          "scores": [
+            64,
+            64
+          ],
+          "value": [
+            1,
+            1,
+            64,
+            64
+          ]
+        },
+        {
+          "key": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "output": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "query": [
+            1,
+            1,
+            32,
+            128
+          ],
+          "scores": [
+            32,
+            32
+          ],
+          "value": [
+            1,
+            1,
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 1.652049133554101,
+        "median": 0.41712692473083735,
+        "min": 0.39778207428753376
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 1.652049133554101,
+            "median": 0.40920241735875607,
+            "min": 0.39778207428753376
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 0,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 3.0517578125e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "scores": [
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              64,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4518029745668173,
+            "median": 0.41712692473083735,
+            "min": 0.4096520133316517
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 1,
+            "seq_len": 64,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05
+          },
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 1.0918769985437393,
+            "median": 0.41653693187981844,
+            "min": 0.406723003834486
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 2,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        }
+      ],
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 0,
+          "seq_len": 32,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 64,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 1,
+          "seq_len": 64,
+          "sparse_mode": 0
+        },
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 128,
+          "heads": 1,
+          "input_layout": "BNSD",
+          "input_scale": 0.125,
+          "keep_prob": 1.0,
+          "seed": 2,
+          "seq_len": 32,
+          "sparse_mode": 0
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/stage3_pv/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/kernel.py",
+    "meta": {
+      "archetype": "attention-core",
+      "blockers": [
+        "ptodsl-sparse-attention-primitives",
+        "ptodsl-attention-softmax-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "flash_attention_score",
+      "ops_transformer_path": "attention/flash_attention_score",
+      "seed_variant": {
+        "limits": [
+          "input_layout fixed to BNSD",
+          "no masks, prefix, rope, or dropout",
+          "sparse_mode fixed to 0",
+          "float16 only",
+          "dense self-attention only",
+          "PTO seed runs as a staged QK matmul, row-wise softmax, and PV matmul path",
+          "PTO benchmark pre-scales the query input by 1 / sqrt(64) to match the attention contract"
+        ],
+        "name": "dense_bnsd_fp16",
+        "shape": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "status": "planned",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T090733Z/report.json",
+  "status": "planned",
+  "wave": "wave3"
+}

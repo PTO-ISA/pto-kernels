@@ -1,0 +1,245 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153511Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/ffn/swin_attention_ffn.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_swin_attention_ffn",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153511Z/ops_transformer_swin_attention_ffn_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 48,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 8,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        }
+      ]
+    },
+    "compile": {
+      "reason": "torch_npu does not expose npu_swin_attention_ffn on this host.",
+      "status": "blocked"
+    },
+    "family": "ffn",
+    "name": "swin_attention_ffn",
+    "ops_transformer_path": "ffn/swin_attention_ffn",
+    "runtime_entrypoint": "torch_npu.npu_swin_attention_ffn",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 48,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 8,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.005,
+    "rtol": 0.0,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "ffn",
+  "inventory_ref": "ffn/swin_attention_ffn",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_attention_ffn",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_attention_ffn/report.json",
+  "name": "swin_attention_ffn",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/ffn/swin_attention_ffn.py",
+    "benchmark": {
+      "reason": "PTO compile failed: swin_attention_ffn zero-shift slice requires tokens=64 divisible by 128",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153511Z/ptodsl_swin_attention_ffn_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 1,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 48,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        },
+        {
+          "batch": 8,
+          "dtype": "float16",
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 64,
+          "shift1": 0,
+          "shift2": 0
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Unknown annotation ''ptr''.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_attention_ffn/kernel.py",
+    "meta": {
+      "blockers": [
+        "ops-transformer-swin-ffn-python-entrypoint-gap",
+        "ptodsl-swin-layout-shift-surface"
+      ],
+      "family": "ffn",
+      "name": "swin_attention_ffn",
+      "phase": "phase3",
+      "seed_variant": {
+        "boundary_shape": {
+          "bias": [
+            128
+          ],
+          "x1": [
+            8,
+            64,
+            128
+          ],
+          "x2": [
+            128,
+            128
+          ],
+          "x3": [
+            8,
+            64,
+            128
+          ]
+        },
+        "constraints": [
+          "910B zero-shift slice only (shift1=0, shift2=0)",
+          "fp16 ND inputs and outputs",
+          "x1 and x3 flattened to [tokens, hidden]",
+          "nominal variant uses all block ids"
+        ],
+        "formula": "y = x1 @ x2 + bias + x3",
+        "nominal_shape": {
+          "bias": [
+            128
+          ],
+          "x1": [
+            48,
+            64,
+            128
+          ],
+          "x2": [
+            128,
+            128
+          ],
+          "x3": [
+            48,
+            64,
+            128
+          ]
+        },
+        "smoke_shape": {
+          "bias": [
+            128
+          ],
+          "x1": [
+            1,
+            64,
+            128
+          ],
+          "x2": [
+            128,
+            128
+          ],
+          "x3": [
+            1,
+            64,
+            128
+          ]
+        }
+      },
+      "status": "prototype",
+      "tiling": {
+        "add_block_dim": 24,
+        "base_k": 128,
+        "base_m": 128,
+        "base_n": 128,
+        "block_dim": 24
+      },
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_attention_ffn/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153511Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

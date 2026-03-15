@@ -1,0 +1,209 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/posembedding/qkv_rms_norm_rope_cache.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_qkv_rms_norm_rope_cache",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/ops_transformer_qkv_rms_norm_rope_cache_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "compile_kernel() is not implemented",
+      "status": "blocked"
+    },
+    "family": "posembedding",
+    "name": "qkv_rms_norm_rope_cache",
+    "ops_transformer_path": "posembedding/qkv_rms_norm_rope_cache",
+    "runtime_entrypoint": "torch_npu.npu_qkv_rms_norm_rope_cache",
+    "seed_variant": {
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "posembedding",
+  "inventory_ref": "posembedding/qkv_rms_norm_rope_cache",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
+  "name": "qkv_rms_norm_rope_cache",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/posembedding/qkv_rms_norm_rope_cache.py",
+    "benchmark": {
+      "reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/ptodsl_qkv_rms_norm_rope_cache_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "batch": 2,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 0
+        },
+        {
+          "batch": 4,
+          "cache_len": 8,
+          "dtype": "float16",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/qkv_rms_norm_rope_cache/kernel.py",
+    "meta": {
+      "archetype": "rope-kvcache",
+      "blockers": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-queue-pipeline-surface",
+        "ptodsl-cache-update-primitives",
+        "ptodsl-vector-rms-norm-generalization",
+        "ptoisa-a2a3-vec-quant-store"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "posembedding",
+      "name": "qkv_rms_norm_rope_cache",
+      "ops_transformer_path": "posembedding/qkv_rms_norm_rope_cache",
+      "seed_variant": {
+        "limits": [
+          "2D token-major slice only",
+          "float16 input only",
+          "single q-head and single k/v-head only",
+          "size_splits fixed to [64, 64, 64]",
+          "half-and-half rope only",
+          "unit quant scales only",
+          "cache_mode fixed to contiguous",
+          "current staged PTO path keeps q/k rms_norm+rope in a rotary kernel and explicit fp16->int8 tcvt plus contiguous cache writeback in a cache kernel",
+          "validated only for indices[row] == row in the current constrained seed"
+        ],
+        "name": "bsnd_2d_fp16_qkv_rms_norm_rope_cache_d64",
+        "shape": {
+          "variant_0": {
+            "cos": [
+              2,
+              64
+            ],
+            "k_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "k_gamma": [
+              64
+            ],
+            "q_gamma": [
+              64
+            ],
+            "qkv": [
+              2,
+              192
+            ],
+            "sin": [
+              2,
+              64
+            ],
+            "v_cache": [
+              2,
+              8,
+              1,
+              64
+            ]
+          },
+          "variant_1": {
+            "cos": [
+              4,
+              64
+            ],
+            "k_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "k_gamma": [
+              64
+            ],
+            "q_gamma": [
+              64
+            ],
+            "qkv": [
+              4,
+              192
+            ],
+            "sin": [
+              4,
+              64
+            ],
+            "v_cache": [
+              4,
+              8,
+              1,
+              64
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/qkv_rms_norm_rope_cache/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

@@ -1,0 +1,27 @@
+module {
+  func.func @k(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<f16>, %arg2: !pto.ptr<i16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c2 = arith.constant 2 : index
+    %c16 = arith.constant 16 : index
+    %0 = pto.make_tensor_view %arg1, shape = [%c1, %c16] strides = [%c16, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg2, shape = [%c1, %c16] strides = [%c16, %c1] : !pto.tensor_view<?x?xi16>
+    %2 = pto.make_tensor_view %arg0, shape = [%c2, %c16] strides = [%c16, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.vector {
+      %3 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      %4 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=i16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      %5 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=2, cols=16, v_row=2, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      %6 = pto.partition_view %2, offsets = [%c0, %c0], sizes = [%c2, %c16] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<2x16xf16>
+      pto.tload ins(%6 : !pto.partition_tensor_view<2x16xf16>) outs(%5 : !pto.tile_buf<loc=vec, dtype=f16, rows=2, cols=16, v_row=2, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+      %7 = pto.partition_view %0, offsets = [%c0, %c0], sizes = [%c1, %c16] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x16xf16>
+      pto.tload ins(%7 : !pto.partition_tensor_view<1x16xf16>) outs(%3 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+      %8 = pto.partition_view %1, offsets = [%c0, %c0], sizes = [%c1, %c16] : !pto.tensor_view<?x?xi16> -> !pto.partition_tensor_view<1x16xi16>
+      pto.tload ins(%8 : !pto.partition_tensor_view<1x16xi16>) outs(%4 : !pto.tile_buf<loc=vec, dtype=i16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+      pto.tscatter ins(%3, %4 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=i16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%5 : !pto.tile_buf<loc=vec, dtype=f16, rows=2, cols=16, v_row=2, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+      %9 = pto.partition_view %2, offsets = [%c0, %c0], sizes = [%c2, %c16] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<2x16xf16>
+      pto.tstore ins(%5 : !pto.tile_buf<loc=vec, dtype=f16, rows=2, cols=16, v_row=2, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%9 : !pto.partition_tensor_view<2x16xf16>)
+    }
+    return
+  }
+}
+

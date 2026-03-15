@@ -1,0 +1,255 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m128_k256_n128_w2/compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m256_k256_n128_w2/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m256_k256_n128_w2/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T120810Z/m256_k256_n128_w2/compile_probe/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+  "shape_summaries": [
+    {
+      "group_list": [
+        128
+      ],
+      "groups": 1,
+      "output": [
+        128,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        128,
+        128
+      ]
+    },
+    {
+      "group_list": [
+        256
+      ],
+      "groups": 1,
+      "output": [
+        256,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 6.569288903847337,
+    "median": 0.7363839540630579,
+    "min": 0.6589640397578478
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ],
+        "rtol": 0.001
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.255467999726534,
+            "median": 0.7304996252059937,
+            "min": 0.7053639274090528
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 2.305733971297741,
+            "median": 0.7363839540630579,
+            "min": 0.6974542047828436
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+      "shape_summary": {
+        "group_list": [
+          128
+        ],
+        "groups": 1,
+        "output": [
+          128,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          128,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 2.305733971297741,
+        "median": 0.7363839540630579,
+        "min": 0.6974542047828436,
+        "per_rank_median": [
+          0.7304996252059937,
+          0.7363839540630579
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 128,
+        "n": 128,
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ],
+        "rtol": 0.001
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 6.569288903847337,
+            "median": 0.696829054504633,
+            "min": 0.6589640397578478
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 2.1326730493456125,
+            "median": 0.6966495420783758,
+            "min": 0.6715939380228519
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
+      "shape_summary": {
+        "group_list": [
+          256
+        ],
+        "groups": 1,
+        "output": [
+          256,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 6.569288903847337,
+        "median": 0.696829054504633,
+        "min": 0.6589640397578478,
+        "per_rank_median": [
+          0.696829054504633,
+          0.6966495420783758
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 256,
+        "n": 128,
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 128,
+      "n": 128,
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 256,
+      "n": 128,
+      "seed": 1
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+name: moe_re_routing
+family: moe
+wave: wave2
+inventory_ref: moe/moe_re_routing
+status: blocked
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_re_routing.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_re_routing.py
+  kernel: python/pto_kernels/ops/moe/moe_re_routing/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_re_routing/meta.py
+correctness:
+  atol: 0.001
+  rtol: 0.001
+notes:
+  - FP16 + per_token_scales 910B slice of moe_re_routing.
+  - PTO port computes expert-major row order directly from expert_token_num_per_rank.

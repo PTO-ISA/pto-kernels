@@ -10,10 +10,12 @@ gaps:
   - id: ptodsl-rope-generalization
     component: ptodsl
     status: open
-    summary: The apply_rotary_pos_emb seed now runs for both TND and BSND half-mode layouts on 910B, but PTODSL still lacks broader rotary-mode coverage and reusable posembedding helpers for the rest of the rope family.
+    summary: The apply_rotary_pos_emb seed now runs for both TND and BSND half-mode layouts on 910B, rotary_position_embedding now has a correctness-green PTO slice for BSND and BNSD fp16 half-mode single-route rotary, rotary_position_embedding_grad now has a correctness-green PTO backward slice for BSND and BNSD fp16 half-mode single-route rotary, qkv_rms_norm_rope_cache now has a bounded staged PTO slice for a constrained 2D fp16 q/k/v cache contract, and rope_with_sin_cos_cache now has a correctness-green PTO staged slice for a constrained ND fp16 half-rope cache-read contract. PTODSL still lacks broader rotary-mode coverage and reusable posembedding helpers for the rest of the rope family.
     blocking_kernels:
       - rotary_position_embedding
+      - rotary_position_embedding_grad
       - rope_with_sin_cos_cache
+      - qkv_rms_norm_rope_cache
   - id: ptodsl-vector-queue-pipeline-surface
     component: ptodsl
     status: open
@@ -21,6 +23,44 @@ gaps:
     blocking_kernels:
       - apply_rotary_pos_emb
       - rotary_position_embedding
+      - rotary_position_embedding_grad
+      - interleave_rope
+  - id: ptodsl-vector-interleave-surface
+    component: ptodsl
+    status: open
+    summary: The interleave_rope seed is now correctness-green on 910B, but its current PTO path performs the interleave stage with NPU reshape+transpose preprocessing before the PTODSL rotary-half stage. PTODSL still lacks a reusable vector-shuffle or GatherMask-style surface to express the upstream on-device even/odd split and pack directly in PTO source.
+    blocking_kernels:
+      - interleave_rope
+      - qkv_rms_norm_rope_cache
+  - id: ptodsl-cache-update-primitives
+    component: ptodsl
+    status: open
+    summary: The rope_quant_kvcache and dequant_rope_quant_kvcache PTO rewrites no longer depend on torch-side split, dequant, or cache update logic in source, qkv_rms_norm_rope_cache now uses staged PTO rotary plus explicit cache writeback, and rope_with_sin_cos_cache now has a PTO cache-read stage for contiguous cache rows. The current remaining gap is a reusable PTO stack surface for dynamic cache read/write indexing and fused cache-update contracts: the constrained seeds currently rely on explicit in-kernel tcvt plus contiguous tstore and validate only identity row-to-cache lookup (`indices[row] == row` or `positions[row] == row`). Broader split-pack, dynamic index, and fused cache read/write primitives are still missing for the full rope cache family.
+    blocking_kernels:
+      - rope_quant_kvcache
+      - dequant_rope_quant_kvcache
+      - qkv_rms_norm_rope_cache
+      - rope_with_sin_cos_cache
+  - id: ptoisa-a2a3-vec-quant-store
+    component: pto-isa
+    status: open
+    summary: A2/A3 does not currently expose a native vector-tile quantized store contract through PTO-ISA/PTOAS. Vec TSTORE requires matching source and destination element types, while TSTORE_FP is wired to the accumulator quantized-store path rather than a generic vec -> int8 GM store. The current rope cache seeds therefore use the legal explicit path `tcvt(f16->i8) + tstore(i8)` for cache writeback instead of a fused quantized vec store.
+    blocking_kernels:
+      - rope_quant_kvcache
+      - dequant_rope_quant_kvcache
+      - qkv_rms_norm_rope_cache
+  - id: ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: This host does not expose a Python-visible `torch_npu.npu_qkv_rms_norm_rope_cache` entrypoint, so the current 910B slice is bounded to PTO-vs-reference until a packaged baseline path exists.
+    blocking_kernels:
+      - qkv_rms_norm_rope_cache
+  - id: ptoas-section-local-scf-parent-terminator
+    component: PTOAS
+    status: open
+    summary: The current `qkv_rms_norm_rope_cache` rotary stage lowers valid PTODSL IR, but PTOAS still fails during pass execution on the section-local `scf.if` / `scf.for` form emitted inside `pto.section.vector`, reporting that an operation with block successors does not terminate its parent block. The active blocked artifact is `bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/stage_rotary/kernel.pto`.
+    blocking_kernels:
+      - qkv_rms_norm_rope_cache
   - id: ptodsl-sparse-attention-primitives
     component: ptodsl
     status: open
@@ -36,7 +76,39 @@ gaps:
     summary: The dense staged attention path now lives in python/pto_kernels/ops/attention/common.py and the phase-2 PTO rewrite now mirrors ops-transformer host tiling more closely with tiled S1xS2 QK ownership, contiguous row-chunk softmax ownership, and tiled S1xD PV ownership for the validated dense flash_attention_score seed on 910B. Remaining work is online and masked softmax, generalized attention accumulation, and later advanced attention semantics.
     blocking_kernels:
       - flash_attention_score_grad
-      - prompt_flash_attention
+  - id: ptodsl-attention-update-list-surface
+    component: ptodsl
+    status: mitigated
+    summary: The checked-in `attention_update` PTO slice is now tile-first and correctness-green on 910B for the constrained `sp=2`, `updateType=0`, fp16 localOut contract with row-wise log-sum-exp merge. Remaining work is broader operator coverage for list-valued SP inputs and the optional `lseOut` branch, not the current seed kernel.
+    blocking_kernels:
+  - id: ptoas-section-cube-scf-if-terminator
+    component: ptoas
+    status: mitigated
+    summary: The rebuilt local PTOAS toolchain now accepts the shared dense-attention cube-section `scf.for` form again after keeping section-local `scf.for` / `scf.if` in structured SCF instead of forcing whole-function `SCFToCF` inside `pto.section.cube`. That restores `grouped_matmul`, `flash_attention_score`, and the compile path for the current `fused_infer_attention_score` slice on this host.
+    blocking_kernels:
+  - id: ptodsl-paged-cache-surface
+    component: ptodsl
+    status: open
+    summary: The first `fused_infer_attention_score` slice validates the baseline runtime on a constrained single-block cache contract, but broader PTO parity will still need a reusable surface for paged/cache-backed attention layouts beyond the current flattened single-block seed.
+    blocking_kernels:
+  - id: host-ring-attention-update-python-entrypoint
+    component: runtime
+    status: open
+    summary: The first `ring_attention_update` PTO slice is correctness-green for a constrained `TND` `N=1` contract, but this 910B host does not expose a Python-visible ring_attention_update runtime entrypoint for baseline parity.
+    blocking_kernels:
+      - ring_attention_update
+  - id: ptodsl-ring-attention-update-list-surface
+    component: ptodsl
+    status: open
+    summary: The checked-in `ring_attention_update` PTO slice is correctness-green on 910B for two-way row-wise merge with repeated last-dim-8 softmax max/sum tensors, and the current seed is now tile-first with the metadata path expressed through `1x8` tile `row_max` and `row_sum` instead of scalar loads/select in the hot path. Full operator coverage still needs list-valued SP inputs and broader layout support beyond the current fixed `TND`, `N=1` seed.
+    blocking_kernels:
+      - ring_attention_update
+  - id: ptodsl-recurrent-state-update-primitives
+    component: ptodsl
+    status: open
+    summary: The first `recurrent_gated_delta_rule` bounded slice now has a verified host baseline on A3 for a constrained ND recurrent contract (`batch=1`, `nv=nk=16`, `gk=None`, `actual_seq_lengths` fixed to full length, `ssm_state_indices=arange(T)`). PTODSL now exposes both the PTOAS `tgemv` surface and the new column-broadcast binops needed to compose a tile-first rank-1 update (`tcolexpand{sub,div,mul}` alongside `trowexpand*`). PTO remains intentionally blocked because the stack still lacks the remaining recurrent integration pieces after that: a checked tile-first outer-product update path wired into the kernel and the ragged token-to-state writeback/mapping contract. The migration program is explicitly not using a scalar-loop fallback for this family.
+    blocking_kernels:
+      - recurrent_gated_delta_rule
   - id: ptodsl-multicore-collective-primitives
     component: ptodsl
     status: open
@@ -52,7 +124,7 @@ gaps:
   - id: ptodsl-cube-preload-pipeline-surface
     component: ptodsl
     status: open
-    summary: The grouped_matmul PTO rewrite now mirrors ops-transformer basic-block tiling and diagonal block traversal, the first all_gather_matmul seed mirrors the upstream local-first wrapped rank-chunk traversal, and the grouped_mat_mul_all_reduce, matmul_all_reduce, matmul_all_reduce_add_rms_norm, and inplace_matmul_all_reduce_add_rms_norm seeds mirror the upstream splitM/numBlocksN turn loop for dense local cube work, but PTODSL still lacks a reusable source-level surface for async preload, double-buffered cube staging, and callback-style fix-axis/store pipelines. PTOAS autosync covers correctness, not the full overlap strategy used by the upstream AscendC kernels.
+    summary: The grouped_matmul and grouped_matmul_add PTO rewrites now mirror ops-transformer basic-block tiling and diagonal block traversal for constrained dense BF16 -> F32 slices, the first all_gather_matmul seed mirrors the upstream local-first wrapped rank-chunk traversal, and the grouped_mat_mul_all_reduce, matmul_all_reduce, matmul_all_reduce_add_rms_norm, and inplace_matmul_all_reduce_add_rms_norm seeds mirror the upstream splitM/numBlocksN turn loop for dense local cube work, but PTODSL still lacks a reusable source-level surface for async preload, double-buffered cube staging, and callback-style fix-axis/store pipelines. PTOAS autosync covers correctness, not the full overlap strategy used by the upstream AscendC kernels.
     blocking_kernels:
       - grouped_matmul
       - grouped_matmul_add
@@ -60,6 +132,11 @@ gaps:
       - matmul_all_reduce
       - matmul_all_reduce_add_rms_norm
       - inplace_matmul_all_reduce_add_rms_norm
+  - id: ptoisa-a2a3-tile-runtime-api
+    component: pto-isa
+    status: mitigated
+    summary: The live `fused_infer_attention_score` stop is no longer the old A2/A3 tile runtime API mismatch. Rewriting the PTO slice onto legal `16x*` cube tiles removed the earlier illegal `8x16` mat/acc shapes, and the current constrained kernel now compiles and benchmarks through Bisheng on this host.
+    blocking_kernels: []
   - id: ptodsl-vector-rms-norm-generalization
     component: ptodsl
     status: mitigated
@@ -96,7 +173,6 @@ gaps:
     summary: The current staged seed kernels and the first host-orchestrated MC2 phase-2 slice now run successfully on 910B after removing DSL-level event record/wait pairs from the active PTO sources and relying on PTOAS insert-sync lowering instead. Remaining risk is concentrated in future fused or overlap-heavy ports rather than in the current validated seeds.
     blocking_kernels:
       - swin_attention_ffn
-      - prompt_flash_attention
       - all_gather_matmul
   - id: ptoas-python-binding-runtime-abi
     component: PTOAS
@@ -121,6 +197,47 @@ gaps:
       - swin_attention_ffn
       - swin_transformer_ln_qkv
       - swin_transformer_ln_qkv_quant
+  - id: ops-transformer-swin-ffn-python-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: This host does not expose a torch_npu Python entrypoint for swin_attention_ffn, so the SwinAttentionFFN regression slice is bounded to PTO-vs-reference until a packaged Python-visible baseline path exists.
+    blocking_kernels:
+      - swin_attention_ffn
+  - id: ops-transformer-swin-ln-qkv-python-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: This host does not expose a torch_npu Python entrypoint for swin_transformer_ln_qkv, so the current PTO regression slice is bounded to PTO-vs-reference until a packaged Python-visible baseline path exists. The constrained PTO port itself is now correctness-green on 910B for three fp16 shapes and uses all requested block ids on the nominal 2048-token variant.
+    blocking_kernels:
+      - swin_transformer_ln_qkv
+  - id: ops-transformer-swin-ln-qkv-quant-python-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: This host does not expose a Python-visible baseline entrypoint for swin_transformer_ln_qkv_quant, and the public ACLNN documentation for the packaged operator marks Atlas A2 / 910B unsupported. The kernel is therefore tracked as a bounded blocked slice until either a supported baseline path exists on this machine or the migration program intentionally targets a different product class.
+    blocking_kernels:
+      - swin_transformer_ln_qkv_quant
+  - id: ops-transformer-moe-gating-top-k-softmax-v2-python-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: This host does not expose a Python-visible baseline entrypoint for moe_gating_top_k_softmax_v2 in either `torch_npu` or `torch.ops.npu`, so the current 910B regression slice is bounded to PTO-vs-reference until a packaged Python-visible baseline path exists.
+    blocking_kernels:
+      - moe_gating_top_k_softmax_v2
+  - id: ptoas-emitc-f16-scalar-gating-select
+    component: PTOAS
+    status: resolved
+    summary: The rebuilt local PTOAS build-19 toolchain now lowers the unrolled `f16` top-1 select shape used by `moe_gating_top_k_softmax_v2` all the way through EmitC/Bisheng. The remaining v2 limitation on this host is baseline availability, not PTO codegen.
+    blocking_kernels: []
+  - id: ptodsl-swin-ln-qkv-quant-surface
+    component: ptodsl
+    status: open
+    summary: A real PTO port of SwinTransformerLnQkvQuant needs a reusable PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That end-to-end quantized Swin path is not yet exposed or validated in the current PTO stack.
+    blocking_kernels:
+      - swin_transformer_ln_qkv_quant
+  - id: ptodsl-swin-layout-shift-surface
+    component: ptodsl
+    status: open
+    summary: The current PTO SwinAttentionFFN port only covers the zero-shift path. The upstream AscendC kernel also supports nonzero shift1/shift2 remap logic that needs a reusable PTODSL vector remap surface before the full kernel is covered.
+    blocking_kernels:
+      - swin_attention_ffn
   - id: ptodsl-group-routing-primitives
     component: ptodsl
     status: open
@@ -128,14 +245,54 @@ gaps:
     blocking_kernels:
       - grouped_matmul
       - grouped_matmul_finalize_routing
+      - moe_re_routing
+  - id: ptoas-scf-routing-emit
+    component: PTOAS
+    status: open
+    summary: PTOAS EmitC still fails on section-local SCF in the remaining Wave-2 routing ports on 910B. The preserved traces show two concrete unsupported shapes: the direct `moe_re_routing` PTODSL port still hits EmitC on scalar-control-heavy SCF loop-carried routing/count logic, and `moe_init_routing_v2` still fails even after isolating the row-copy path because the current EmitC lowering does not accept the `pto.section.vector` loop form that carries `partition_view` + `tload` / `tstore` over dynamic row ranges. The frontend IR verifies in both cases, so the active blocker is now specifically PTOAS backend emission for section-local SCF, not PTODSL construction.
+    blocking_kernels:
+      - moe_re_routing
+      - moe_init_routing_v2
+  - id: ops-transformer-moe-init-routing-v2-host-crash
+    component: ops-transformer
+    status: open
+    summary: The Python-visible `torch.ops.npu.npu_moe_init_routing_v2` entrypoint segfaults on this host for the validated dropless top-1 grouped-expert probe, so the current `moe_init_routing_v2` slice is bounded by a host-runtime crash before baseline parity can be measured.
+    blocking_kernels:
+      - moe_init_routing_v2
+  - id: pto-multiblock-scalar-gm-routing
+    component: pto-isa
+    status: mitigated
+    summary: The earlier multiblock scalar-GM corruption in `moe_compute_expert_tokens` is mitigated by keeping the running upper-bound position as an SSA loop-carried scalar and writing it back to GM once per expert instead of round-tripping through `pto.load_scalar` / `pto.store_scalar` on every row. The remaining routing kernels that still use scalar-control-heavy GM update patterns should prefer the same loop-carried form before asking for backend changes.
+    blocking_kernels: []
   - id: ptodsl-routing-sort-primitives
     component: ptodsl
     status: open
-    summary: The moe_token_permute seed now runs with contiguous per-core token-row ownership and a host-precomputed gather map on 910B, the first moe_distribute_dispatch PTO slice now compiles as a destination-major local send-buffer pack for the real `8 x 7168` A2 contract via a flattened gather-map stopgap, and the first moe_distribute_combine PTO slice now compiles and passes a local single-rank smoke via host-precompacted reverse-route buffers plus chunk-local flattened scatter indices. MoE routing kernels still need reusable on-device sort, inverse-permutation, group-count, and reorder/scatter primitives so later ports do not depend on host-side preprocessing or oversized flattened gather maps.
+    summary: The moe_token_permute seed now runs with contiguous per-core token-row ownership and a host-precomputed gather map on 910B, the moe_token_permute_grad seed now matches the current Python-visible top-1 no-probs host contract with direct sorted-index row gathers in PTODSL, the moe_token_permute_with_routing_map seed now matches the Python-visible top-1 routing-map contract with contiguous per-core row ownership plus host-precomputed gather and inverse-order maps, the moe_token_permute_with_routing_map_grad seed now matches the Python-visible top-1 routing-map backward contract with direct sorted-index row stores in PTODSL, the moe_token_unpermute seed now restores top-1 no-probs tokens with the same contiguous per-core token-row ownership and a host-precomputed inverse gather map, the moe_token_unpermute_with_routing_map seed now matches the Python-visible top-1 routing-map unpermute contract with contiguous per-core row ownership plus a host-precomputed gather map, the moe_token_unpermute_grad seed now writes top-1 no-probs gradient rows back with direct scalar routing indices and row-at-a-time GM stores, the moe_token_unpermute_with_routing_map_grad seed now matches the Python-visible top-1 routing-map backward contract with direct out-index row stores in PTODSL, the moe_finalize_routing seed now combines top-1 rows with direct scalar routing indices for expanded rows and expert bias rows, the moe_finalize_routing_v2 seed now extends that combine path with the second shared expert addend and validates the documented `x1 + x2 + scale * (expandedX[row] + bias[expert])` top-1 contract in PTODSL, the moe_finalize_routing_v2_grad seed now emits the matching top-1 backward slice with dynamic gradExpandedX row scatter and row_sum-based gradScales reduction, the moe_compute_expert_tokens PTO slice now expresses contiguous per-core expert-range ownership and direct upper-bound position search in PTODSL, the first moe_init_routing PTO slice now runs on the real `row_idx/expert_idx` contract for the top-1 case where `expert_idx` is already grouped by expert, the first moe_init_routing_v2 PTO slice now runs on the real dropless `moe_init_routing_v2` host contract for the top-1 grouped-expert case and produces expanded rows plus expert count/cumsum outputs in PTODSL, the first moe_distribute_dispatch PTO slice now compiles as a destination-major local send-buffer pack for the real `8 x 7168` A2 contract via a flattened gather-map stopgap, and the first moe_distribute_combine PTO slice now compiles and passes a local single-rank smoke via host-precompacted reverse-route buffers plus chunk-local flattened scatter indices. MoE routing kernels still need reusable on-device sort, inverse-permutation, group-count, and reorder/scatter primitives so later ports do not depend on host-side preprocessing or oversized flattened gather maps.
     blocking_kernels:
+      - moe_finalize_routing
+      - moe_finalize_routing_v2
+      - moe_finalize_routing_v2_grad
+      - moe_token_permute_grad
+      - moe_token_permute
+      - moe_token_permute_with_routing_map
+      - moe_token_permute_with_routing_map_grad
       - moe_distribute_combine
       - moe_token_unpermute
+      - moe_token_unpermute_with_routing_map
+      - moe_token_unpermute_with_routing_map_grad
       - moe_init_routing
+      - moe_init_routing_v2
+  - id: ptoas-scalar-f16-routing-reduction-store
+    component: PTOAS
+    status: open
+    summary: The first `moe_finalize_routing_v2_grad` PTO slice lowers through PTODSL, but PTOAS still fails during pass execution on the top-1 backward pattern that combines dynamic row scatter for `gradExpandedXOut` with scalar-heavy `f16` inner-loop reduction and `store_scalar` for `gradScalesOut`. The kernel no longer depends on host-side math, so the remaining gap is now a PTOAS lowering/runtime issue for section-local scalar `f16` reduction/store patterns rather than missing frontend surface.
+    blocking_kernels:
+      - moe_finalize_routing_v2_grad
+  - id: pto-stack-make-tensor-view-printer-parser-mismatch
+    component: pto-stack
+    status: mitigated
+    summary: PTOAS now accepts both `pto.make_tensor_view ... shape = [...] strides = [...]` and the comma-separated spelling, so the stale PTODSL Python binding format no longer blocks active kernel bring-up. This unblocked the `moe_gating_top_k_softmax` PTO slice and keeps the current mixed local package/toolchain usable while the Python bindings are converged.
+    blocking_kernels: []
   - id: ops-transformer-runtime-package-bringup
     component: ops-transformer
     status: mitigated
@@ -151,6 +308,25 @@ gaps:
     status: mitigated
     summary: The local CANN package path does not expose the share/info/*/version.info metadata expected by ops-transformer package builds, but the PTO workspace now synthesizes a compatible package root under build/ops_transformer_cann_compat so seed builds can reach CMake and compilation.
     blocking_kernels: []
+  - id: ops-transformer-grouped-finalize-routing-format-contract
+    component: ops-transformer
+    status: open
+    summary: The public `torch_npu.npu_grouped_matmul_finalize_routing` entrypoint on this host does not accept the same simple dense ND tensors used by the first grouped-matmul ports. It requires the routed quantized contract (`scale`, `pertokenScale`, `logit`, `rowIndex`) and either a valid ND quantized weight type (`INT32` / frontend low-precision formats) or a FRACTAL_NZ-style weight tensor with nontrivial storage metadata. Direct minimal probes on the current host reject missing routed tensors, reject plain ND `INT8` weights (`weightNd weight type should be INT_32, FLOAT8_E4M3FN, FLOAT8_E5M2, FLOAT4_E1M2 or FLOAT4_E2M1`), and the obvious `torch_npu.npu_format_cast` routes used to probe NZ-format weights currently fall into a local TBE-side environment failure (`ModuleNotFoundError: decorator`) before a stable repeatable baseline contract is reached. The next grouped finalize-routing slice is therefore blocked on reproducing the required weight layout and routed input contract in the benchmark harness.
+    blocking_kernels:
+      - grouped_matmul_finalize_routing
+  - id: ops-transformer-grouped-swiglu-quant-format-contract
+    component: ops-transformer
+    status: open
+    summary: The public torch_npu grouped swiglu quant entrypoints are present on this host, but the host baseline contracts are still gated on upstream-specific quantized layout requirements. `torch_npu.npu_grouped_matmul_swiglu_quant` requires FRACTAL_NZ-formatted int8 weight storage metadata and rejects plain contiguous PyTorch weights with a storageShape-dimnum error. `torch_npu.npu_grouped_matmul_swiglu_quant_v2` expects list-valued FP8/scale tensors matching the upstream ACLNN example, and a stable minimal Python baseline slice is not reproduced yet. Both kernels are now tracked as bounded blocked slices rather than remaining unclassified.
+    blocking_kernels:
+      - grouped_matmul_swiglu_quant
+      - grouped_matmul_swiglu_quant_v2
+  - id: ops-transformer-quant-grouped-matmul-inplace-add-entrypoint-gap
+    component: ops-transformer
+    status: open
+    summary: The upstream quant_grouped_matmul_inplace_add kernel is present in ops-transformer ACLNN/C++ tests on 910B, but this host does not expose a matching torch_npu Python entrypoint. The current PTO workspace can therefore only track it as a bounded blocked slice until a packaged Python-visible runtime or alternate reproducible baseline path exists.
+    blocking_kernels:
+      - quant_grouped_matmul_inplace_add
   - id: ops-transformer-cann-open-api-gap
     component: ops-transformer
     status: resolved

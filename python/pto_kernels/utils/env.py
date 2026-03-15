@@ -9,12 +9,14 @@ import shutil
 import subprocess
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
+import importlib.util
 
 
 EXPECTED_SOC = "ascend910b"
 EXPECTED_PTO_ARCH = "a3"
 EXPECTED_NPU_ARCH = "dav-2201"
 EXPECTED_MODEL_PREFIX = "910B"
+REQUIRED_TBE_PYTHON_MODULES = ("decorator", "attrs", "scipy", "psutil", "cloudpickle", "tornado", "absl")
 
 
 @dataclass
@@ -29,6 +31,7 @@ class DetectedEnv:
     soc_target: str | None
     pto_arch: str | None
     npu_arch: str | None
+    tbe_python_modules: dict[str, bool] = field(default_factory=dict)
     warnings: list[str] = field(default_factory=list)
 
     def to_json(self) -> str:
@@ -115,6 +118,10 @@ def _torch_npu_available() -> bool:
     return True
 
 
+def _tbe_python_modules() -> dict[str, bool]:
+    return {name: importlib.util.find_spec(name) is not None for name in REQUIRED_TBE_PYTHON_MODULES}
+
+
 def detect_env() -> DetectedEnv:
     warnings: list[str] = []
     npu_model = None
@@ -147,6 +154,14 @@ def detect_env() -> DetectedEnv:
     if not bisheng_path:
         warnings.append("bisheng is not on PATH.")
 
+    tbe_python_modules = _tbe_python_modules()
+    missing_modules = [name for name, available in tbe_python_modules.items() if not available]
+    if missing_modules:
+        warnings.append(
+            "Missing TBE Python dependencies for host-side format/layout tooling: "
+            + ", ".join(missing_modules)
+        )
+
     return DetectedEnv(
         toolkit_home=toolkit_home,
         toolkit_version=toolkit_version,
@@ -158,5 +173,6 @@ def detect_env() -> DetectedEnv:
         soc_target=soc_target,
         pto_arch=pto_arch,
         npu_arch=npu_arch,
+        tbe_python_modules=tbe_python_modules,
         warnings=warnings,
     )

@@ -1,0 +1,14 @@
+name: moe_init_routing
+family: moe
+wave: wave2
+inventory_ref: moe/moe_init_routing
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_init_routing.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_init_routing.py
+  kernel: python/pto_kernels/ops/moe/moe_init_routing/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_init_routing/meta.py
+notes:
+  - Top-1 grouped-expert 910B slice of moe_init_routing.
+  - PTO port assumes expert_idx is already grouped by expert and therefore only covers the gather/copy stage.

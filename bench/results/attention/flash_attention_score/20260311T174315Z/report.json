@@ -1,0 +1,136 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/flash_attention_score.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/ops_transformer_flash_attention_score_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.19069085828959942,
+        "median": 0.14997099060565233,
+        "min": 0.14156103134155273
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to dense BNSD attention with no masks, no dropout, and fp16 inputs.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "flash_attention_score",
+    "ops_transformer_path": "attention/flash_attention_score",
+    "runtime_entrypoint": "torch_npu.npu_fusion_attention_v2",
+    "seed_variant": {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 0,
+      "seq_len": 32,
+      "sparse_mode": 0
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/flash_attention_score",
+  "name": "flash_attention_score",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/flash_attention_score.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/stage2_softmax/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/stage2_softmax/kernel.so']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/ptodsl_flash_attention_score_benchmark.json",
+      "status": "blocked"
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/stage2_softmax/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260311T174315Z/stage2_softmax/kernel.so']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/kernel.py",
+    "meta": {
+      "archetype": "attention-core",
+      "blockers": [
+        "ptodsl-sparse-attention-primitives",
+        "ptodsl-attention-softmax-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "flash_attention_score",
+      "ops_transformer_path": "attention/flash_attention_score",
+      "seed_variant": {
+        "limits": [
+          "input_layout fixed to BNSD",
+          "no masks, prefix, rope, or dropout",
+          "sparse_mode fixed to 0",
+          "float16 only",
+          "dense self-attention only"
+        ],
+        "name": "dense_bnsd_fp16",
+        "shape": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "status": "planned",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/meta.py"
+  },
+  "status": "planned",
+  "wave": "wave3"
+}

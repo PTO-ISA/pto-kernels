@@ -1,0 +1,28 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "key_max_abs_diff": 0.0,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "query_max_abs_diff": 0.0,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+  "reference_contract": "fp16_rounded_half_rope_tnd",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.13658101670444012,
+    "median": 0.10181544348597527,
+    "min": 0.09892089292407036
+  },
+  "variant": {
+    "dtype": "float16",
+    "head_dim": 128,
+    "key_heads": 1,
+    "layout": "TND",
+    "query_heads": 1,
+    "rotary_mode": "half",
+    "seed": 0,
+    "tokens": 64
+  }
+}

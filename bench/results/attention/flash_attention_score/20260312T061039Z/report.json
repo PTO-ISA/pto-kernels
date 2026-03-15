@@ -1,0 +1,191 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/flash_attention_score.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/ops_transformer_flash_attention_score_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.39690197445452213,
+        "median": 0.14868611469864845,
+        "min": 0.14447118155658245
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_fusion_attention_v2",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to dense BNSD attention with no masks, no dropout, and fp16 inputs.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "flash_attention_score",
+    "ops_transformer_path": "attention/flash_attention_score",
+    "runtime_entrypoint": "torch_npu.npu_fusion_attention_v2",
+    "seed_variant": {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "input_layout": "BNSD",
+      "input_scale": 0.125,
+      "keep_prob": 1.0,
+      "seed": 0,
+      "seq_len": 32,
+      "sparse_mode": 0
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/flash_attention_score",
+  "name": "flash_attention_score",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/flash_attention_score.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0013275146484375,
+        "passes": false,
+        "rtol": 0.001
+      },
+      "reference_contract": "dense_scaled_dot_product_attention",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/ptodsl_flash_attention_score_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.48750312998890877,
+        "median": 0.4406080115586519,
+        "min": 0.43091317638754845
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "heads": 1,
+        "input_layout": "BNSD",
+        "input_scale": 0.125,
+        "keep_prob": 1.0,
+        "seed": 0,
+        "seq_len": 32,
+        "sparse_mode": 0
+      }
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z/stage3_pv/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T061039Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/kernel.py",
+    "meta": {
+      "archetype": "attention-core",
+      "blockers": [
+        "ptodsl-sparse-attention-primitives",
+        "ptodsl-attention-softmax-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "flash_attention_score",
+      "ops_transformer_path": "attention/flash_attention_score",
+      "seed_variant": {
+        "limits": [
+          "input_layout fixed to BNSD",
+          "no masks, prefix, rope, or dropout",
+          "sparse_mode fixed to 0",
+          "float16 only",
+          "dense self-attention only",
+          "PTO seed runs as a staged QK matmul, row-wise softmax, and PV matmul path",
+          "PTO benchmark pre-scales the query input by 1 / sqrt(64) to match the attention contract"
+        ],
+        "name": "dense_bnsd_fp16",
+        "shape": [
+          1,
+          1,
+          32,
+          64
+        ]
+      },
+      "status": "planned",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/flash_attention_score/meta.py"
+  },
+  "status": "planned",
+  "wave": "wave3"
+}

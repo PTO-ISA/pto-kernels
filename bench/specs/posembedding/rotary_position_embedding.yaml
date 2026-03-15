@@ -1,0 +1,16 @@
+name: rotary_position_embedding
+family: posembedding
+wave: wave1
+inventory_ref: posembedding/rotary_position_embedding
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/posembedding/rotary_position_embedding.py
+pto:
+  adapter: bench/adapters/ptodsl/posembedding/rotary_position_embedding.py
+  kernel: python/pto_kernels/ops/posembedding/rotary_position_embedding/kernel.py
+  meta: python/pto_kernels/ops/posembedding/rotary_position_embedding/meta.py
+correctness:
+  atol: 0.01
+  rtol: 0.01
+notes:
+  - First fp16 half-mode rotary_position_embedding migration slice using BSND and BNSD shapes with head_dim 128.

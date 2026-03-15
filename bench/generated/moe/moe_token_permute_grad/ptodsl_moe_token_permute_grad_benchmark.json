@@ -1,0 +1,242 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "top1_sorted_indices_gather_no_probs",
+  "shape_summaries": [
+    {
+      "grad_permuted_tokens": [
+        8,
+        16
+      ],
+      "indices": [
+        8
+      ],
+      "out": [
+        8,
+        16
+      ],
+      "sorted_indices": [
+        8
+      ],
+      "tokens": [
+        8,
+        16
+      ]
+    },
+    {
+      "grad_permuted_tokens": [
+        256,
+        64
+      ],
+      "indices": [
+        256
+      ],
+      "out": [
+        256,
+        64
+      ],
+      "sorted_indices": [
+        256
+      ],
+      "tokens": [
+        256,
+        64
+      ]
+    },
+    {
+      "grad_permuted_tokens": [
+        128,
+        128
+      ],
+      "indices": [
+        128
+      ],
+      "out": [
+        128,
+        128
+      ],
+      "sorted_indices": [
+        128
+      ],
+      "tokens": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.2527208998799324,
+    "median": 0.2260664477944374,
+    "min": 0.2194708213210106
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "out_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "grad_permuted_tokens": [
+          8,
+          16
+        ],
+        "indices": [
+          8
+        ],
+        "out": [
+          8,
+          16
+        ],
+        "sorted_indices": [
+          8
+        ],
+        "tokens": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2518219407647848,
+        "median": 0.22468599490821362,
+        "min": 0.22073090076446533
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "out_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "grad_permuted_tokens": [
+          256,
+          64
+        ],
+        "indices": [
+          256
+        ],
+        "out": [
+          256,
+          64
+        ],
+        "sorted_indices": [
+          256
+        ],
+        "tokens": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2513208892196417,
+        "median": 0.2260664477944374,
+        "min": 0.22025196813046932
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 64,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 1,
+        "tokens": 256,
+        "topk": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "out_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "grad_permuted_tokens": [
+          128,
+          128
+        ],
+        "indices": [
+          128
+        ],
+        "out": [
+          128,
+          128
+        ],
+        "sorted_indices": [
+          128
+        ],
+        "tokens": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2527208998799324,
+        "median": 0.22594654001295567,
+        "min": 0.2194708213210106
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 128,
+        "padded_mode": false,
+        "probs": false,
+        "seed": 2,
+        "tokens": 128,
+        "topk": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 64,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 1,
+      "tokens": 256,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 128,
+      "padded_mode": false,
+      "probs": false,
+      "seed": 2,
+      "tokens": 128,
+      "topk": 1
+    }
+  ]
+}

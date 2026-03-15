@@ -1,0 +1,39 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.tmuls' op operand #1 must be 32-bit float, but got 'f16'\n note: unknown: see current operation: \"pto.tmuls\"(%14, %4, %14) : (!pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=?, blayout=row_major, slayout=none_box, fractal=512, pad=0>, f16, !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=?, blayout=row_major, slayout=none_box, fractal=512, pad=0>) -> ()",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 16,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 16,
+      "q_heads": 1,
+      "q_seq": 16,
+      "seed": 0
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 64,
+      "q_heads": 1,
+      "q_seq": 64,
+      "seed": 1
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 128,
+      "q_heads": 1,
+      "q_seq": 32,
+      "seed": 2
+    }
+  ]
+}

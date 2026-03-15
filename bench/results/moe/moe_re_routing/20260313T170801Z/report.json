@@ -1,0 +1,700 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_re_routing.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_moe_re_routing",
+      "reference_contract": "fp16_moe_re_routing_idx0_with_scales",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/ops_transformer_moe_re_routing_benchmark.json",
+      "shape_summaries": [
+        {
+          "expert_token_num": [
+            2
+          ],
+          "expert_token_num_per_rank": [
+            2,
+            2
+          ],
+          "per_token_scales": [
+            8
+          ],
+          "permute_per_token_scales": [
+            8
+          ],
+          "permute_token_idx": [
+            8
+          ],
+          "permute_tokens": [
+            8,
+            16
+          ],
+          "tokens": [
+            8,
+            16
+          ]
+        },
+        {
+          "expert_token_num": [
+            4
+          ],
+          "expert_token_num_per_rank": [
+            4,
+            4
+          ],
+          "per_token_scales": [
+            256
+          ],
+          "permute_per_token_scales": [
+            256
+          ],
+          "permute_token_idx": [
+            256
+          ],
+          "permute_tokens": [
+            256,
+            64
+          ],
+          "tokens": [
+            256,
+            64
+          ]
+        },
+        {
+          "expert_token_num": [
+            4
+          ],
+          "expert_token_num_per_rank": [
+            4,
+            4
+          ],
+          "per_token_scales": [
+            128
+          ],
+          "permute_per_token_scales": [
+            128
+          ],
+          "permute_token_idx": [
+            128
+          ],
+          "permute_tokens": [
+            128,
+            128
+          ],
+          "tokens": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.1737610436975956,
+        "median": 0.13022101484239101,
+        "min": 0.12200092896819115
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "expert_token_num_max_abs_diff": 0,
+            "idx_max_abs_diff": 0,
+            "max_abs_diff": 0.0,
+            "scale_max_abs_diff": 0.0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expert_token_num": [
+              2
+            ],
+            "expert_token_num_per_rank": [
+              2,
+              2
+            ],
+            "per_token_scales": [
+              8
+            ],
+            "permute_per_token_scales": [
+              8
+            ],
+            "permute_token_idx": [
+              8
+            ],
+            "permute_tokens": [
+              8,
+              16
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1737610436975956,
+            "median": 0.12616044841706753,
+            "min": 0.12200092896819115
+          },
+          "variant": {
+            "counts": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 16,
+            "idx_type": 0,
+            "seed": 0,
+            "use_scales": true
+          }
+        },
+        {
+          "correctness": {
+            "expert_token_num_max_abs_diff": 0,
+            "idx_max_abs_diff": 0,
+            "max_abs_diff": 0.0,
+            "scale_max_abs_diff": 0.0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expert_token_num": [
+              4
+            ],
+            "expert_token_num_per_rank": [
+              4,
+              4
+            ],
+            "per_token_scales": [
+              256
+            ],
+            "permute_per_token_scales": [
+              256
+            ],
+            "permute_token_idx": [
+              256
+            ],
+            "permute_tokens": [
+              256,
+              64
+            ],
+            "tokens": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1564410049468279,
+            "median": 0.1288949279114604,
+            "min": 0.1250309869647026
+          },
+          "variant": {
+            "counts": [
+              [
+                20,
+                12,
+                16,
+                16
+              ],
+              [
+                18,
+                14,
+                10,
+                22
+              ],
+              [
+                12,
+                20,
+                18,
+                14
+              ],
+              [
+                14,
+                18,
+                12,
+                20
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 64,
+            "idx_type": 0,
+            "seed": 1,
+            "use_scales": true
+          }
+        },
+        {
+          "correctness": {
+            "expert_token_num_max_abs_diff": 0,
+            "idx_max_abs_diff": 0,
+            "max_abs_diff": 0.0,
+            "scale_max_abs_diff": 0.0,
+            "token_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expert_token_num": [
+              4
+            ],
+            "expert_token_num_per_rank": [
+              4,
+              4
+            ],
+            "per_token_scales": [
+              128
+            ],
+            "permute_per_token_scales": [
+              128
+            ],
+            "permute_token_idx": [
+              128
+            ],
+            "permute_tokens": [
+              128,
+              128
+            ],
+            "tokens": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.14740112237632275,
+            "median": 0.13022101484239101,
+            "min": 0.12368103489279747
+          },
+          "variant": {
+            "counts": [
+              [
+                16,
+                0,
+                8,
+                8
+              ],
+              [
+                0,
+                20,
+                4,
+                8
+              ],
+              [
+                12,
+                4,
+                24,
+                0
+              ],
+              [
+                8,
+                4,
+                0,
+                12
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 128,
+            "idx_type": 0,
+            "seed": 2,
+            "use_scales": true
+          }
+        }
+      ],
+      "variants": [
+        {
+          "counts": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 16,
+          "idx_type": 0,
+          "seed": 0,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              20,
+              12,
+              16,
+              16
+            ],
+            [
+              18,
+              14,
+              10,
+              22
+            ],
+            [
+              12,
+              20,
+              18,
+              14
+            ],
+            [
+              14,
+              18,
+              12,
+              20
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 64,
+          "idx_type": 0,
+          "seed": 1,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              16,
+              0,
+              8,
+              8
+            ],
+            [
+              0,
+              20,
+              4,
+              8
+            ],
+            [
+              12,
+              4,
+              24,
+              0
+            ],
+            [
+              8,
+              4,
+              0,
+              12
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 128,
+          "idx_type": 0,
+          "seed": 2,
+          "use_scales": true
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_re_routing",
+      "note": "Baseline execution uses the installed custom ops runtime package. The constrained slice fixes per_token_scales enabled, expert_token_num_type=1, and idx_type=0.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_re_routing",
+    "ops_transformer_path": "moe/moe_re_routing",
+    "runtime_entrypoint": "torch_npu.npu_moe_re_routing",
+    "seed_variant": {
+      "default": {
+        "counts": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "dtype": "float16",
+        "expert_token_num_type": 1,
+        "hidden_size": 16,
+        "idx_type": 0,
+        "seed": 0,
+        "use_scales": true
+      },
+      "variants": [
+        {
+          "counts": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 16,
+          "idx_type": 0,
+          "seed": 0,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              20,
+              12,
+              16,
+              16
+            ],
+            [
+              18,
+              14,
+              10,
+              22
+            ],
+            [
+              12,
+              20,
+              18,
+              14
+            ],
+            [
+              14,
+              18,
+              12,
+              20
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 64,
+          "idx_type": 0,
+          "seed": 1,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              16,
+              0,
+              8,
+              8
+            ],
+            [
+              0,
+              20,
+              4,
+              8
+            ],
+            [
+              12,
+              4,
+              24,
+              0
+            ],
+            [
+              8,
+              4,
+              0,
+              12
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 128,
+          "idx_type": 0,
+          "seed": 2,
+          "use_scales": true
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_re_routing",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
+  "name": "moe_re_routing",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_re_routing.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/ptodsl_moe_re_routing_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "counts": [
+            [
+              2,
+              1
+            ],
+            [
+              3,
+              2
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 16,
+          "idx_type": 0,
+          "seed": 0,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              20,
+              12,
+              16,
+              16
+            ],
+            [
+              18,
+              14,
+              10,
+              22
+            ],
+            [
+              12,
+              20,
+              18,
+              14
+            ],
+            [
+              14,
+              18,
+              12,
+              20
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 64,
+          "idx_type": 0,
+          "seed": 1,
+          "use_scales": true
+        },
+        {
+          "counts": [
+            [
+              16,
+              0,
+              8,
+              8
+            ],
+            [
+              0,
+              20,
+              4,
+              8
+            ],
+            [
+              12,
+              4,
+              24,
+              0
+            ],
+            [
+              8,
+              4,
+              0,
+              12
+            ]
+          ],
+          "dtype": "float16",
+          "expert_token_num_type": 1,
+          "hidden_size": 128,
+          "idx_type": 0,
+          "seed": 2,
+          "use_scales": true
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_re_routing/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_re_routing",
+      "ops_transformer_path": "moe/moe_re_routing",
+      "seed_variant": {
+        "limits": [
+          "per_token_scales is enabled for the validated slice",
+          "expert_token_num_type fixed to 1 (count mode)",
+          "idx_type fixed to 0 (gather indices) because Atlas A2/910B does not support idx_type=1",
+          "PTO seed computes expert-major destination order directly from expert_token_num_per_rank with scalar prefix scans",
+          "phase-2 rewrite follows contiguous per-core destination-row ownership",
+          "nominal shape uses all requested block ids"
+        ],
+        "name": "fp16_moe_re_routing_with_scales",
+        "shape": {
+          "boundary": {
+            "experts": 4,
+            "hidden": 128,
+            "ranks": 4,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 4,
+            "hidden": 64,
+            "ranks": 4,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 2,
+            "hidden": 16,
+            "ranks": 2,
+            "tokens": 8
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_re_routing/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260313T170801Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

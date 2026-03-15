@@ -1,0 +1,13 @@
+{
+  "reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
+  "status": "blocked",
+  "variants": [
+    {
+      "e": 8,
+      "k": 7168,
+      "m": 2048,
+      "n": 4096,
+      "seed": 0
+    }
+  ]
+}

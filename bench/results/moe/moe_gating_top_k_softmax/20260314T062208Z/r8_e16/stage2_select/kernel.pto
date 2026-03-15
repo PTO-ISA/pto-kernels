@@ -1,0 +1,167 @@
+module {
+  func.func @moe_gating_top_k_select_stage(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<i32>, %arg2: !pto.ptr<i32>, %arg3: !pto.ptr<f16>, %arg4: !pto.ptr<f16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c16 = arith.constant 16 : index
+    pto.section.vector {
+      %0 = pto.get_block_idx
+      %1 = arith.index_cast %0 : i64 to index
+      %2 = pto.get_block_num
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = arith.ceildivsi %c8, %3 : index
+      %5 = arith.muli %1, %4 : index
+      %6 = arith.addi %5, %4 : index
+      %7 = arith.minui %6, %c8 : index
+      scf.for %arg5 = %5 to %7 step %c1 {
+        %8 = arith.muli %arg5, %c16 : index
+        %9 = arith.addi %8, %c0 : index
+        %10 = pto.load_scalar %arg4[%9] : !pto.ptr<f16> -> f16
+        %c1_0 = arith.constant 1 : index
+        %11 = arith.addi %8, %c1_0 : index
+        %12 = pto.load_scalar %arg4[%11] : !pto.ptr<f16> -> f16
+        %13 = arith.cmpf ogt, %12, %10 : f16
+        %14:2 = scf.if %13 -> (index, f16) {
+          scf.yield %c1_0, %12 : index, f16
+        } else {
+          scf.yield %c0, %10 : index, f16
+        }
+        %c2 = arith.constant 2 : index
+        %15 = arith.addi %8, %c2 : index
+        %16 = pto.load_scalar %arg4[%15] : !pto.ptr<f16> -> f16
+        %17 = arith.cmpf ogt, %16, %14#1 : f16
+        %18:2 = scf.if %17 -> (index, f16) {
+          scf.yield %c2, %16 : index, f16
+        } else {
+          scf.yield %14#0, %14#1 : index, f16
+        }
+        %c3 = arith.constant 3 : index
+        %19 = arith.addi %8, %c3 : index
+        %20 = pto.load_scalar %arg4[%19] : !pto.ptr<f16> -> f16
+        %21 = arith.cmpf ogt, %20, %18#1 : f16
+        %22:2 = scf.if %21 -> (index, f16) {
+          scf.yield %c3, %20 : index, f16
+        } else {
+          scf.yield %18#0, %18#1 : index, f16
+        }
+        %c4 = arith.constant 4 : index
+        %23 = arith.addi %8, %c4 : index
+        %24 = pto.load_scalar %arg4[%23] : !pto.ptr<f16> -> f16
+        %25 = arith.cmpf ogt, %24, %22#1 : f16
+        %26:2 = scf.if %25 -> (index, f16) {
+          scf.yield %c4, %24 : index, f16
+        } else {
+          scf.yield %22#0, %22#1 : index, f16
+        }
+        %c5 = arith.constant 5 : index
+        %27 = arith.addi %8, %c5 : index
+        %28 = pto.load_scalar %arg4[%27] : !pto.ptr<f16> -> f16
+        %29 = arith.cmpf ogt, %28, %26#1 : f16
+        %30:2 = scf.if %29 -> (index, f16) {
+          scf.yield %c5, %28 : index, f16
+        } else {
+          scf.yield %26#0, %26#1 : index, f16
+        }
+        %c6 = arith.constant 6 : index
+        %31 = arith.addi %8, %c6 : index
+        %32 = pto.load_scalar %arg4[%31] : !pto.ptr<f16> -> f16
+        %33 = arith.cmpf ogt, %32, %30#1 : f16
+        %34:2 = scf.if %33 -> (index, f16) {
+          scf.yield %c6, %32 : index, f16
+        } else {
+          scf.yield %30#0, %30#1 : index, f16
+        }
+        %c7 = arith.constant 7 : index
+        %35 = arith.addi %8, %c7 : index
+        %36 = pto.load_scalar %arg4[%35] : !pto.ptr<f16> -> f16
+        %37 = arith.cmpf ogt, %36, %34#1 : f16
+        %38:2 = scf.if %37 -> (index, f16) {
+          scf.yield %c7, %36 : index, f16
+        } else {
+          scf.yield %34#0, %34#1 : index, f16
+        }
+        %c8_1 = arith.constant 8 : index
+        %39 = arith.addi %8, %c8_1 : index
+        %40 = pto.load_scalar %arg4[%39] : !pto.ptr<f16> -> f16
+        %41 = arith.cmpf ogt, %40, %38#1 : f16
+        %42:2 = scf.if %41 -> (index, f16) {
+          scf.yield %c8_1, %40 : index, f16
+        } else {
+          scf.yield %38#0, %38#1 : index, f16
+        }
+        %c9 = arith.constant 9 : index
+        %43 = arith.addi %8, %c9 : index
+        %44 = pto.load_scalar %arg4[%43] : !pto.ptr<f16> -> f16
+        %45 = arith.cmpf ogt, %44, %42#1 : f16
+        %46:2 = scf.if %45 -> (index, f16) {
+          scf.yield %c9, %44 : index, f16
+        } else {
+          scf.yield %42#0, %42#1 : index, f16
+        }
+        %c10 = arith.constant 10 : index
+        %47 = arith.addi %8, %c10 : index
+        %48 = pto.load_scalar %arg4[%47] : !pto.ptr<f16> -> f16
+        %49 = arith.cmpf ogt, %48, %46#1 : f16
+        %50:2 = scf.if %49 -> (index, f16) {
+          scf.yield %c10, %48 : index, f16
+        } else {
+          scf.yield %46#0, %46#1 : index, f16
+        }
+        %c11 = arith.constant 11 : index
+        %51 = arith.addi %8, %c11 : index
+        %52 = pto.load_scalar %arg4[%51] : !pto.ptr<f16> -> f16
+        %53 = arith.cmpf ogt, %52, %50#1 : f16
+        %54:2 = scf.if %53 -> (index, f16) {
+          scf.yield %c11, %52 : index, f16
+        } else {
+          scf.yield %50#0, %50#1 : index, f16
+        }
+        %c12 = arith.constant 12 : index
+        %55 = arith.addi %8, %c12 : index
+        %56 = pto.load_scalar %arg4[%55] : !pto.ptr<f16> -> f16
+        %57 = arith.cmpf ogt, %56, %54#1 : f16
+        %58:2 = scf.if %57 -> (index, f16) {
+          scf.yield %c12, %56 : index, f16
+        } else {
+          scf.yield %54#0, %54#1 : index, f16
+        }
+        %c13 = arith.constant 13 : index
+        %59 = arith.addi %8, %c13 : index
+        %60 = pto.load_scalar %arg4[%59] : !pto.ptr<f16> -> f16
+        %61 = arith.cmpf ogt, %60, %58#1 : f16
+        %62:2 = scf.if %61 -> (index, f16) {
+          scf.yield %c13, %60 : index, f16
+        } else {
+          scf.yield %58#0, %58#1 : index, f16
+        }
+        %c14 = arith.constant 14 : index
+        %63 = arith.addi %8, %c14 : index
+        %64 = pto.load_scalar %arg4[%63] : !pto.ptr<f16> -> f16
+        %65 = arith.cmpf ogt, %64, %62#1 : f16
+        %66:2 = scf.if %65 -> (index, f16) {
+          scf.yield %c14, %64 : index, f16
+        } else {
+          scf.yield %62#0, %62#1 : index, f16
+        }
+        %c15 = arith.constant 15 : index
+        %67 = arith.addi %8, %c15 : index
+        %68 = pto.load_scalar %arg4[%67] : !pto.ptr<f16> -> f16
+        %69 = arith.cmpf ogt, %68, %66#1 : f16
+        %70:2 = scf.if %69 -> (index, f16) {
+          scf.yield %c15, %68 : index, f16
+        } else {
+          scf.yield %66#0, %66#1 : index, f16
+        }
+        %71 = arith.addi %8, %70#0 : index
+        %72 = pto.load_scalar %arg3[%71] : !pto.ptr<f16> -> f16
+        pto.store_scalar %72, %arg0[%arg5] : !pto.ptr<f16>, f16
+        %73 = arith.index_cast %70#0 : index to i32
+        pto.store_scalar %73, %arg1[%arg5] : !pto.ptr<i32>, i32
+        %74 = arith.index_cast %arg5 : index to i32
+        pto.store_scalar %74, %arg2[%arg5] : !pto.ptr<i32>, i32
+      }
+    }
+    return
+  }
+}
+

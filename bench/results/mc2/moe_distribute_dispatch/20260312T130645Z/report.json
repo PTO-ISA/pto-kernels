@@ -1,0 +1,314 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T130645Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/moe_distribute_dispatch.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+      "reason": "Distributed ranked job failed.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T130645Z/ops_transformer_moe_distribute_dispatch_benchmark.json",
+      "status": "blocked",
+      "variant_reports": [
+        {
+          "rank_reports": [
+            {
+              "rank": 0,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:06:56 (PID:2976448, Device:0, RankID:0) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2976448] 2026-03-12-21:06:56.910.115 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            },
+            {
+              "rank": 1,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:06:56 (PID:2976449, Device:1, RankID:1) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2976449] 2026-03-12-21:06:56.909.616 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            }
+          ],
+          "reason": "Distributed ranked job failed.",
+          "status": "blocked",
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          },
+          "world_size": 2
+        },
+        {
+          "rank_reports": [
+            {
+              "rank": 0,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:07:13 (PID:2977203, Device:0, RankID:0) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2977203] 2026-03-12-21:07:13.945.118 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            },
+            {
+              "rank": 1,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:07:13 (PID:2977204, Device:1, RankID:1) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2977204] 2026-03-12-21:07:13.945.164 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            }
+          ],
+          "reason": "Distributed ranked job failed.",
+          "status": "blocked",
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 1,
+            "tokens": 16,
+            "topk": 1
+          },
+          "world_size": 2
+        },
+        {
+          "rank_reports": [
+            {
+              "rank": 0,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:07:30 (PID:2977897, Device:0, RankID:0) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2977897] 2026-03-12-21:07:30.600.017 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            },
+            {
+              "rank": 1,
+              "reason": "npu_moe_distribute_dispatch:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:105 NPU function error: call aclnnMoeDistributeDispatch failed, error code is 561002\n[ERROR] 2026-03-12-21:07:30 (PID:2977899, Device:1, RankID:1) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 2977899] 2026-03-12-21:07:30.453.675 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeDispatchA2CheckAttrAndSetTiling][FILE:moe_distribute_dispatch_tiling.cpp][LINE:620]\n        TraceBack (most recent call last):\n       op[MoeDistributeDispatch], MoeDistributeDispatchA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeDispatchA2TilingFuncImpl][FILE:moe_distribute_dispatch_tiling.cpp][LINE:790]\n       MoeDistributeDispatch do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+              "status": "blocked",
+              "world_size": 2
+            }
+          ],
+          "reason": "Distributed ranked job failed.",
+          "status": "blocked",
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 2,
+            "tokens": 32,
+            "topk": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 1,
+          "tokens": 16,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 2,
+          "tokens": 32,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+      "environment": {
+        "detected_npus": 8,
+        "device_index": 0,
+        "npu_available": true,
+        "symbol_available": true
+      },
+      "note": "Baseline execution uses a local multi-rank HCCL launch from the benchmark adapter.",
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "moe_distribute_dispatch",
+    "ops_transformer_path": "mc2/moe_distribute_dispatch",
+    "runtime_entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "quant_mode": 0,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 1,
+          "tokens": 16,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 2,
+          "tokens": 32,
+          "topk": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.0,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/moe_distribute_dispatch",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
+  "name": "moe_distribute_dispatch",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/moe_distribute_dispatch.py",
+    "benchmark": {
+      "reason": "PTO compile failed: PTO_MC2_MOE_DISPATCH_WORLD_SIZE must be one of (8), got 2",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T130645Z/ptodsl_moe_distribute_dispatch_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 1,
+          "tokens": 16,
+          "topk": 1
+        },
+        {
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 2,
+          "tokens": 32,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Unknown annotation ''ptr''.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_dispatch/kernel.py",
+    "meta": {
+      "archetype": "mc2-routing",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "moe_distribute_dispatch",
+      "ops_transformer_path": "mc2/moe_distribute_dispatch",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 2 for the first seed contract",
+          "EP-only path only; TP group remains empty",
+          "top-1 routing only",
+          "float16 only",
+          "hidden size fixed to 7168 for the A2/910B baseline contract",
+          "quant_mode fixed to 0",
+          "local expert count fixed to 1 per rank",
+          "PTO seed uses a host-precomputed destination-major row order plus host HCCL all_to_all_single",
+          "validated shapes currently target 8x7168, 16x7168, and 32x7168"
+        ],
+        "name": "ep_only_top1_fp16_dispatch",
+        "shape": [
+          8,
+          16
+        ],
+        "tiling": {
+          "block_dim_env": "PTO_MC2_MOE_DISPATCH_BLOCK_DIM",
+          "strategy": "destination-major local send packing with contiguous per-core token-row ownership"
+        }
+      },
+      "status": "planned",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_dispatch/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T130645Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

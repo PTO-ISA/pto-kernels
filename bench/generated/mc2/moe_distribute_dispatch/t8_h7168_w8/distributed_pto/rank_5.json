@@ -1,0 +1,19 @@
+{
+  "correctness": {
+    "ep_recv_counts_prefix_max_abs_diff": 0,
+    "expand_idx_max_abs_diff": 0,
+    "expand_x_max_abs_diff": 0.0,
+    "expert_token_nums_max_abs_diff": 0,
+    "max_abs_diff": 0.0
+  },
+  "device": "npu:5",
+  "rank": 5,
+  "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+  "status": "ok",
+  "timings_ms": {
+    "max": 27.898177038878202,
+    "median": 27.898177038878202,
+    "min": 27.898177038878202
+  },
+  "world_size": 8
+}

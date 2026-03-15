@@ -1,0 +1,27 @@
+name: attention_update
+family: attention
+wave: wave3
+inventory_ref: attention/attention_update
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/attention/attention_update.py
+pto:
+  adapter: bench/adapters/ptodsl/attention/attention_update.py
+  kernel: python/pto_kernels/ops/attention/attention_update/kernel.py
+  meta: python/pto_kernels/ops/attention/attention_update/meta.py
+notes:
+  - First attention_update migration slice with sp fixed to 2 and updateType fixed to 0.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 2.0e-3
+  rtol: 2.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

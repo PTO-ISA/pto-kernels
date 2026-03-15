@@ -1,0 +1,33 @@
+{
+  "entrypoint": "torch_npu.npu_moe_distribute_combine",
+  "reason": "Distributed ranked job timed out after 60s before all ranks produced reports.",
+  "status": "blocked",
+  "variant_reports": [
+    {
+      "rank_reports": [],
+      "reason": "Distributed ranked job timed out after 60s before all ranks produced reports.",
+      "status": "blocked",
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "world_size": 8
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    }
+  ]
+}

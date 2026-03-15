@@ -1,0 +1,293 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/mm_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/mm_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/mm_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/mm_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/iarn_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/iarn_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/iarn_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m128_k256_n128_w2/iarn_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/mm_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/mm_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/mm_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/mm_compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/iarn_compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/iarn_compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/iarn_compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T155015Z/m256_k256_n128_w2/iarn_compile_probe/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.005,
+    "max_abs_diff": 0.00390625,
+    "norm_max_abs_diff": 0.00390625,
+    "passes": true,
+    "residual_y_max_abs_diff": 0.0009765625,
+    "rtol": 0.005
+  },
+  "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+  "shape_summaries": [
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        128,
+        128
+      ],
+      "residual_inout": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        128,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    },
+    {
+      "gamma": [
+        128
+      ],
+      "norm_out": [
+        256,
+        128
+      ],
+      "residual_inout": [
+        256,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        256,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 5.892395041882992,
+    "median": 1.0981919476762414,
+    "min": 0.9387959726154804
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.001953125
+        ],
+        "residual_y_max_abs_diff": 0.0009765625,
+        "rtol": 0.005
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.3300480786710978,
+            "median": 1.0981919476762414,
+            "min": 1.0263861622661352
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.001953125,
+            "norm_max_abs_diff": 0.001953125,
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.3369179796427488,
+            "median": 1.0851265396922827,
+            "min": 1.0180859826505184
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          128,
+          128
+        ],
+        "residual_inout": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          128,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 1.3369179796427488,
+        "median": 1.0981919476762414,
+        "min": 1.0180859826505184,
+        "per_rank_median": [
+          1.0981919476762414,
+          1.0851265396922827
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.00390625,
+          0.001953125
+        ],
+        "residual_y_max_abs_diff": 0.0009765625,
+        "rtol": 0.005
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 5.892395041882992,
+            "median": 0.9752210462465882,
+            "min": 0.9387959726154804
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.001953125,
+            "norm_max_abs_diff": 0.001953125,
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.490678871050477,
+            "median": 0.9851859649643302,
+            "min": 0.9445350151509047
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+      "shape_summary": {
+        "gamma": [
+          128
+        ],
+        "norm_out": [
+          256,
+          128
+        ],
+        "residual_inout": [
+          256,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          256,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 5.892395041882992,
+        "median": 0.9851859649643302,
+        "min": 0.9387959726154804,
+        "per_rank_median": [
+          0.9752210462465882,
+          0.9851859649643302
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 256,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "epsilon": 0.001,
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 256,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 1
+    }
+  ]
+}

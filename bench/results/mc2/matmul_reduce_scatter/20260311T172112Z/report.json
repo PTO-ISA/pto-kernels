@@ -1,0 +1,201 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260311T172112Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/matmul_reduce_scatter.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "max_abs_diff": 0.05377197265625,
+        "per_rank_max_abs_diff": [
+          0.04901123046875,
+          0.05377197265625
+        ]
+      },
+      "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.04901123046875
+          },
+          "device": "npu:0",
+          "hcom_name": "group_name_0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.7537940982729197,
+            "median": 0.5393230821937323,
+            "min": 0.5114730447530746
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.05377197265625
+          },
+          "device": "npu:1",
+          "hcom_name": "group_name_0",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.5986031610518694,
+            "median": 0.539997941814363,
+            "min": 0.5107629112899303
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "reduce_scatter(sum_i(x1_i @ x2_i))",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260311T172112Z/ops_transformer_matmul_reduce_scatter_benchmark.json",
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.7537940982729197,
+        "median": 0.539997941814363,
+        "min": 0.5107629112899303,
+        "per_rank_median": [
+          0.5393230821937323,
+          0.539997941814363
+        ]
+      },
+      "variant": {
+        "bias": false,
+        "comm_turn": 0,
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0,
+        "stream_mode": 1
+      },
+      "world_size": 2
+    },
+    "compile": {
+      "environment": {
+        "device_index": 0,
+        "dist_backend": null,
+        "distributed_available": true,
+        "distributed_initialized": false,
+        "parsed_world_size": null,
+        "resolved_world_size": 2,
+        "runtime_entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+        "supported_world_sizes": [
+          2,
+          4,
+          8
+        ],
+        "symbol_available": true,
+        "variant": {
+          "bias": false,
+          "comm_turn": 0,
+          "dtype": "float16",
+          "expected_world_size": 2,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0,
+          "stream_mode": 1
+        },
+        "world_size_env": null
+      },
+      "note": "The installed runtime entrypoint exists. The benchmark adapter will try a local multi-rank HCCL launch during benchmark() when the environment supports it.",
+      "reason": "torch_npu.npu_mm_reduce_scatter_base requires a multi-rank HCCL process group and an hcom handle from get_hccl_comm_name, but this benchmark is running outside a distributed launcher. Set up a torch.distributed hccl job with world_size in {2, 4, 8}.",
+      "status": "blocked"
+    },
+    "family": "mc2",
+    "name": "matmul_reduce_scatter",
+    "ops_transformer_path": "mc2/matmul_reduce_scatter",
+    "runtime_entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+    "seed_variant": {
+      "bias": false,
+      "comm_turn": 0,
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0,
+      "stream_mode": 1
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/matmul_reduce_scatter",
+  "name": "matmul_reduce_scatter",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/matmul_reduce_scatter.py",
+    "benchmark": {
+      "reason": "matmul_reduce_scatter PTO seed is blocked on reusable MC2 collective primitives, PTOAS sync/memory lowering for communication overlap, and a multi-rank HCCL launch contract for the benchmark harness.",
+      "status": "blocked"
+    },
+    "compile": {
+      "reason": "matmul_reduce_scatter PTO seed is blocked on reusable MC2 collective primitives, PTOAS sync/memory lowering for communication overlap, and a multi-rank HCCL launch contract for the benchmark harness.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py",
+    "meta": {
+      "archetype": "mc2-comm",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-mc2-distributed-launch-contract",
+        "ptoas-memory-plan-sync-pipeline",
+        "ptoisa-a2a3-template-gaps"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "matmul_reduce_scatter",
+      "ops_transformer_path": "mc2/matmul_reduce_scatter",
+      "seed_variant": {
+        "limits": [
+          "world_size expected to be 2 for the first seed contract",
+          "only HCCL reduce_op=sum",
+          "bias disabled",
+          "float16 only",
+          "x1 and x2 fixed to 2D dense ND tensors"
+        ],
+        "name": "dense_fp16_reduce_scatter",
+        "shape": [
+          128,
+          256,
+          128
+        ]
+      },
+      "status": "planned",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_reduce_scatter/meta.py"
+  },
+  "status": "planned",
+  "wave": "wave5"
+}

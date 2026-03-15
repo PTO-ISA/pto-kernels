@@ -1,0 +1,122 @@
+module {
+  func.func @moe_gating_top_k_select_stage(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<i32>, %arg2: !pto.ptr<i32>, %arg3: !pto.ptr<f16>, %arg4: !pto.ptr<f16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c16 = arith.constant 16 : index
+    pto.section.vector {
+      %0 = pto.get_block_idx
+      %1 = arith.index_cast %0 : i64 to index
+      %2 = pto.get_block_num
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = arith.ceildivsi %c8, %3 : index
+      %5 = arith.muli %1, %4 : index
+      %6 = arith.addi %5, %4 : index
+      %7 = arith.minui %6, %c8 : index
+      scf.for %arg5 = %5 to %7 step %c1 {
+        %8 = arith.muli %arg5, %c16 : index
+        %9 = arith.addi %8, %c0 : index
+        %10 = pto.load_scalar %arg4[%9] : !pto.ptr<f16> -> f16
+        %c1_0 = arith.constant 1 : index
+        %11 = arith.addi %8, %c1_0 : index
+        %12 = pto.load_scalar %arg4[%11] : !pto.ptr<f16> -> f16
+        %13 = arith.cmpf ogt, %12, %10 : f16
+        %14 = arith.select %13, %12, %10 : f16
+        %15 = arith.select %13, %c1_0, %c0 : index
+        %c2 = arith.constant 2 : index
+        %16 = arith.addi %8, %c2 : index
+        %17 = pto.load_scalar %arg4[%16] : !pto.ptr<f16> -> f16
+        %18 = arith.cmpf ogt, %17, %14 : f16
+        %19 = arith.select %18, %17, %14 : f16
+        %20 = arith.select %18, %c2, %15 : index
+        %c3 = arith.constant 3 : index
+        %21 = arith.addi %8, %c3 : index
+        %22 = pto.load_scalar %arg4[%21] : !pto.ptr<f16> -> f16
+        %23 = arith.cmpf ogt, %22, %19 : f16
+        %24 = arith.select %23, %22, %19 : f16
+        %25 = arith.select %23, %c3, %20 : index
+        %c4 = arith.constant 4 : index
+        %26 = arith.addi %8, %c4 : index
+        %27 = pto.load_scalar %arg4[%26] : !pto.ptr<f16> -> f16
+        %28 = arith.cmpf ogt, %27, %24 : f16
+        %29 = arith.select %28, %27, %24 : f16
+        %30 = arith.select %28, %c4, %25 : index
+        %c5 = arith.constant 5 : index
+        %31 = arith.addi %8, %c5 : index
+        %32 = pto.load_scalar %arg4[%31] : !pto.ptr<f16> -> f16
+        %33 = arith.cmpf ogt, %32, %29 : f16
+        %34 = arith.select %33, %32, %29 : f16
+        %35 = arith.select %33, %c5, %30 : index
+        %c6 = arith.constant 6 : index
+        %36 = arith.addi %8, %c6 : index
+        %37 = pto.load_scalar %arg4[%36] : !pto.ptr<f16> -> f16
+        %38 = arith.cmpf ogt, %37, %34 : f16
+        %39 = arith.select %38, %37, %34 : f16
+        %40 = arith.select %38, %c6, %35 : index
+        %c7 = arith.constant 7 : index
+        %41 = arith.addi %8, %c7 : index
+        %42 = pto.load_scalar %arg4[%41] : !pto.ptr<f16> -> f16
+        %43 = arith.cmpf ogt, %42, %39 : f16
+        %44 = arith.select %43, %42, %39 : f16
+        %45 = arith.select %43, %c7, %40 : index
+        %c8_1 = arith.constant 8 : index
+        %46 = arith.addi %8, %c8_1 : index
+        %47 = pto.load_scalar %arg4[%46] : !pto.ptr<f16> -> f16
+        %48 = arith.cmpf ogt, %47, %44 : f16
+        %49 = arith.select %48, %47, %44 : f16
+        %50 = arith.select %48, %c8_1, %45 : index
+        %c9 = arith.constant 9 : index
+        %51 = arith.addi %8, %c9 : index
+        %52 = pto.load_scalar %arg4[%51] : !pto.ptr<f16> -> f16
+        %53 = arith.cmpf ogt, %52, %49 : f16
+        %54 = arith.select %53, %52, %49 : f16
+        %55 = arith.select %53, %c9, %50 : index
+        %c10 = arith.constant 10 : index
+        %56 = arith.addi %8, %c10 : index
+        %57 = pto.load_scalar %arg4[%56] : !pto.ptr<f16> -> f16
+        %58 = arith.cmpf ogt, %57, %54 : f16
+        %59 = arith.select %58, %57, %54 : f16
+        %60 = arith.select %58, %c10, %55 : index
+        %c11 = arith.constant 11 : index
+        %61 = arith.addi %8, %c11 : index
+        %62 = pto.load_scalar %arg4[%61] : !pto.ptr<f16> -> f16
+        %63 = arith.cmpf ogt, %62, %59 : f16
+        %64 = arith.select %63, %62, %59 : f16
+        %65 = arith.select %63, %c11, %60 : index
+        %c12 = arith.constant 12 : index
+        %66 = arith.addi %8, %c12 : index
+        %67 = pto.load_scalar %arg4[%66] : !pto.ptr<f16> -> f16
+        %68 = arith.cmpf ogt, %67, %64 : f16
+        %69 = arith.select %68, %67, %64 : f16
+        %70 = arith.select %68, %c12, %65 : index
+        %c13 = arith.constant 13 : index
+        %71 = arith.addi %8, %c13 : index
+        %72 = pto.load_scalar %arg4[%71] : !pto.ptr<f16> -> f16
+        %73 = arith.cmpf ogt, %72, %69 : f16
+        %74 = arith.select %73, %72, %69 : f16
+        %75 = arith.select %73, %c13, %70 : index
+        %c14 = arith.constant 14 : index
+        %76 = arith.addi %8, %c14 : index
+        %77 = pto.load_scalar %arg4[%76] : !pto.ptr<f16> -> f16
+        %78 = arith.cmpf ogt, %77, %74 : f16
+        %79 = arith.select %78, %77, %74 : f16
+        %80 = arith.select %78, %c14, %75 : index
+        %c15 = arith.constant 15 : index
+        %81 = arith.addi %8, %c15 : index
+        %82 = pto.load_scalar %arg4[%81] : !pto.ptr<f16> -> f16
+        %83 = arith.cmpf ogt, %82, %79 : f16
+        %84 = arith.select %83, %82, %79 : f16
+        %85 = arith.select %83, %c15, %80 : index
+        %86 = arith.addi %8, %85 : index
+        %87 = pto.load_scalar %arg3[%86] : !pto.ptr<f16> -> f16
+        pto.store_scalar %87, %arg0[%arg5] : !pto.ptr<f16>, f16
+        %88 = arith.index_cast %85 : index to i32
+        pto.store_scalar %88, %arg1[%arg5] : !pto.ptr<i32>, i32
+        %89 = arith.index_cast %arg5 : index to i32
+        pto.store_scalar %89, %arg2[%arg5] : !pto.ptr<i32>, i32
+      }
+    }
+    return
+  }
+}
+

@@ -1,0 +1,652 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/attention/attention_update.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 6.103515625e-05,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "entrypoint": "torch_npu.npu_attention_update",
+      "reference_contract": "sp2_update_type0",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/ops_transformer_attention_update_benchmark.json",
+      "shape_summaries": [
+        {
+          "local_out0": [
+            8,
+            16
+          ],
+          "local_out1": [
+            8,
+            16
+          ],
+          "lse0": [
+            8
+          ],
+          "lse1": [
+            8
+          ],
+          "out": [
+            8,
+            16
+          ]
+        },
+        {
+          "local_out0": [
+            256,
+            64
+          ],
+          "local_out1": [
+            256,
+            64
+          ],
+          "lse0": [
+            256
+          ],
+          "lse1": [
+            256
+          ],
+          "out": [
+            256,
+            64
+          ]
+        },
+        {
+          "local_out0": [
+            128,
+            128
+          ],
+          "local_out1": [
+            128,
+            128
+          ],
+          "lse0": [
+            128
+          ],
+          "lse1": [
+            128
+          ],
+          "out": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.15900097787380219,
+        "median": 0.09064050391316414,
+        "min": 0.08595106191933155
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "out_max_abs_diff": 0.0,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.13680988922715187,
+            "median": 0.08879054803401232,
+            "min": 0.08595106191933155
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 16,
+            "rows": 8,
+            "seed": 0,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 1.9073486328125e-06,
+            "out_max_abs_diff": 1.9073486328125e-06,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.15900097787380219,
+            "median": 0.08999044075608253,
+            "min": 0.08670007809996605
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 64,
+            "rows": 256,
+            "seed": 1,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 6.103515625e-05,
+            "out_max_abs_diff": 6.103515625e-05,
+            "passes": true
+          },
+          "shape_summary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.11550099588930607,
+            "median": 0.09064050391316414,
+            "min": 0.08680997416377068
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 128,
+            "rows": 128,
+            "seed": 2,
+            "sp": 2,
+            "update_type": 0
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_attention_update",
+      "note": "Baseline execution uses the installed runtime package on the constrained sp=2, updateType=0 slice.",
+      "status": "runtime_builtin"
+    },
+    "family": "attention",
+    "name": "attention_update",
+    "ops_transformer_path": "attention/attention_update",
+    "runtime_entrypoint": "torch_npu.npu_attention_update",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "head_dim": 16,
+        "rows": 8,
+        "seed": 0,
+        "sp": 2,
+        "update_type": 0
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.002,
+    "rtol": 0.002,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "attention",
+  "inventory_ref": "attention/attention_update",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update/report.json",
+  "name": "attention_update",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/attention/attention_update.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r8_d16/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r8_d16/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r8_d16/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r8_d16/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r256_d64/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r256_d64/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r256_d64/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r256_d64/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r128_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r128_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r128_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/r128_d128/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.002,
+        "max_abs_diff": 0.0009765625,
+        "passes": true,
+        "rtol": 0.002
+      },
+      "reference_contract": "sp2_update_type0",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/ptodsl_attention_update_benchmark.json",
+      "shape_summaries": [
+        {
+          "local_out0": [
+            8,
+            16
+          ],
+          "local_out1": [
+            8,
+            16
+          ],
+          "lse0": [
+            8
+          ],
+          "lse1": [
+            8
+          ],
+          "out": [
+            8,
+            16
+          ]
+        },
+        {
+          "local_out0": [
+            256,
+            64
+          ],
+          "local_out1": [
+            256,
+            64
+          ],
+          "lse0": [
+            256
+          ],
+          "lse1": [
+            256
+          ],
+          "out": [
+            256,
+            64
+          ]
+        },
+        {
+          "local_out0": [
+            128,
+            128
+          ],
+          "local_out1": [
+            128,
+            128
+          ],
+          "lse0": [
+            128
+          ],
+          "lse1": [
+            128
+          ],
+          "out": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.2608511131256819,
+        "median": 0.23691600654274225,
+        "min": 0.23044180124998093
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0,
+            "out_max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.2597810234874487,
+            "median": 0.235986546613276,
+            "min": 0.23044180124998093
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 16,
+            "rows": 8,
+            "seed": 0,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 1.9073486328125e-06,
+            "out_max_abs_diff": 1.9073486328125e-06
+          },
+          "shape_summary": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.2584620378911495,
+            "median": 0.23671146482229233,
+            "min": 0.23046089336276054
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 64,
+            "rows": 256,
+            "seed": 1,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0009765625,
+            "out_max_abs_diff": 0.0009765625
+          },
+          "shape_summary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.2608511131256819,
+            "median": 0.23691600654274225,
+            "min": 0.23146113380789757
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 128,
+            "rows": 128,
+            "seed": 2,
+            "sp": 2,
+            "update_type": 0
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "head_dim": 16,
+          "rows": 8,
+          "seed": 0,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 64,
+          "rows": 256,
+          "seed": 1,
+          "sp": 2,
+          "update_type": 0
+        },
+        {
+          "dtype": "float16",
+          "head_dim": 128,
+          "rows": 128,
+          "seed": 2,
+          "sp": 2,
+          "update_type": 0
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/attention_update/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/attention_update/kernel.py",
+    "meta": {
+      "archetype": "attention-update",
+      "blockers": [
+        "ptodsl-attention-update-list-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "attention",
+      "name": "attention_update",
+      "ops_transformer_path": "attention/attention_update",
+      "seed_variant": {
+        "limits": [
+          "constrained sp=2 slice only",
+          "updateType fixed to 0 so lseOut is omitted",
+          "float32 lse inputs, float16 localOut/output",
+          "row-wise update contract only",
+          "nominal shape uses all requested block ids on the checked-in block_dim"
+        ],
+        "name": "sp2_fp16_update_type0",
+        "shape": {
+          "boundary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "nominal": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "smoke": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave3"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/attention_update/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/attention_update/20260314T165450Z/report.json",
+  "status": "prototype",
+  "wave": "wave3"
+}

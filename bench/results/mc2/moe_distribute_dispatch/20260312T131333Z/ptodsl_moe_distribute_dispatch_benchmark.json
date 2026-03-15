@@ -1,0 +1,26 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T131333Z/t16_h7168_w8/compile_probe/pack_send_buffer/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T131333Z/t16_h7168_w8/compile_probe/pack_send_buffer/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 1,
+      "tokens": 16,
+      "topk": 1
+    }
+  ]
+}

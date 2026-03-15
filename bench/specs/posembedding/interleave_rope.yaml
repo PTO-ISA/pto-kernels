@@ -1,0 +1,16 @@
+name: interleave_rope
+family: posembedding
+wave: wave1
+inventory_ref: posembedding/interleave_rope
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/posembedding/interleave_rope.py
+pto:
+  adapter: bench/adapters/ptodsl/posembedding/interleave_rope.py
+  kernel: python/pto_kernels/ops/posembedding/interleave_rope/kernel.py
+  meta: python/pto_kernels/ops/posembedding/interleave_rope/meta.py
+correctness:
+  atol: 0.01
+  rtol: 0.01
+notes:
+  - First BNSD fp16 D=64 interleave_rope migration slice for the rope family.

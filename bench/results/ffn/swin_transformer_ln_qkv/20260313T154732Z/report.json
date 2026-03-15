@@ -1,0 +1,315 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T154732Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/ffn/swin_transformer_ln_qkv.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_swin_transformer_ln_qkv",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T154732Z/ops_transformer_swin_transformer_ln_qkv_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "base_m": 64,
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64
+        },
+        {
+          "base_m": 128,
+          "batch": 8,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 256
+        },
+        {
+          "base_m": 128,
+          "batch": 4,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 256
+        }
+      ]
+    },
+    "compile": {
+      "reason": "torch_npu does not expose npu_swin_transformer_ln_qkv on this host.",
+      "status": "blocked"
+    },
+    "family": "ffn",
+    "name": "swin_transformer_ln_qkv",
+    "ops_transformer_path": "ffn/swin_transformer_ln_qkv",
+    "runtime_entrypoint": "torch_npu.npu_swin_transformer_ln_qkv",
+    "seed_variant": {
+      "variants": [
+        {
+          "base_m": 64,
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64
+        },
+        {
+          "base_m": 128,
+          "batch": 8,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 256
+        },
+        {
+          "base_m": 128,
+          "batch": 4,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 256
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.0,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "ffn",
+  "inventory_ref": "ffn/swin_transformer_ln_qkv",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv/report.json",
+  "name": "swin_transformer_ln_qkv",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/ffn/swin_transformer_ln_qkv.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Result 0 of operation \"pto.alloc_tile\" must be a Type (Unable to cast Python instance of type <class 'mlir._mlir_libs._mlir.ir.OpResult'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T154732Z/ptodsl_swin_transformer_ln_qkv_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "base_m": 64,
+          "batch": 1,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 0,
+          "seq": 64
+        },
+        {
+          "base_m": 128,
+          "batch": 8,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 1,
+          "seq": 256
+        },
+        {
+          "base_m": 128,
+          "batch": 4,
+          "dtype": "float16",
+          "head_dim": 32,
+          "heads": 4,
+          "hidden": 128,
+          "input_scale": 0.125,
+          "seed": 2,
+          "seq": 256
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Result 0 of operation \"pto.alloc_tile\" must be a Type (Unable to cast Python instance of type <class 'mlir._mlir_libs._mlir.ir.OpResult'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/kernel.py",
+    "meta": {
+      "blockers": [
+        "ops-transformer-swin-ln-qkv-python-entrypoint-gap",
+        "ptodsl-ffn-interstage-cast-path",
+        "ptodsl-swin-layout-shift-surface"
+      ],
+      "family": "ffn",
+      "name": "swin_transformer_ln_qkv",
+      "phase": "phase3",
+      "seed_variant": {
+        "boundary_shape": {
+          "beta": [
+            128
+          ],
+          "bias": [
+            384
+          ],
+          "gamma": [
+            128
+          ],
+          "inputX": [
+            4,
+            256,
+            128
+          ],
+          "key_output": [
+            4,
+            4,
+            256,
+            32
+          ],
+          "query_output": [
+            4,
+            4,
+            256,
+            32
+          ],
+          "value_output": [
+            4,
+            4,
+            256,
+            32
+          ],
+          "weight": [
+            128,
+            384
+          ]
+        },
+        "constraints": [
+          "910B fp16 slice only",
+          "hidden fixed to 128",
+          "logical outputs reshaped to [B, heads, S, head_dim]",
+          "PTO stage mirrors upstream hidden=128, baseM=128, baseK=64, FIRSTN-style row ownership",
+          "PTO matmul stage currently uses baseN=128 tiles instead of the upstream 256+128 N-tail macro split",
+          "nominal variant uses all requested block ids"
+        ],
+        "formula": "(Q,K,V)=split(layernorm(x) @ weight + bias)",
+        "nominal_shape": {
+          "beta": [
+            128
+          ],
+          "bias": [
+            384
+          ],
+          "gamma": [
+            128
+          ],
+          "inputX": [
+            8,
+            256,
+            128
+          ],
+          "key_output": [
+            8,
+            4,
+            256,
+            32
+          ],
+          "query_output": [
+            8,
+            4,
+            256,
+            32
+          ],
+          "value_output": [
+            8,
+            4,
+            256,
+            32
+          ],
+          "weight": [
+            128,
+            384
+          ]
+        },
+        "smoke_shape": {
+          "beta": [
+            128
+          ],
+          "bias": [
+            384
+          ],
+          "gamma": [
+            128
+          ],
+          "inputX": [
+            1,
+            64,
+            128
+          ],
+          "key_output": [
+            1,
+            4,
+            64,
+            32
+          ],
+          "query_output": [
+            1,
+            4,
+            64,
+            32
+          ],
+          "value_output": [
+            1,
+            4,
+            64,
+            32
+          ],
+          "weight": [
+            128,
+            384
+          ]
+        }
+      },
+      "status": "prototype",
+      "tiling": {
+        "base_k": 64,
+        "base_m": 128,
+        "base_n": 128,
+        "layernorm_block_dim": 24,
+        "matmul_block_dim": 24,
+        "split_block_dim": 24
+      },
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T154732Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

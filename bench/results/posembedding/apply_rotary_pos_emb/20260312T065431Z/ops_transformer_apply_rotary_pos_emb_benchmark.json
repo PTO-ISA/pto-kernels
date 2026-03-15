@@ -1,0 +1,88 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+  "reference_contract": "fp16_half_rope_tnd_and_bsnd",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.18521095626056194,
+    "median": 0.09317556396126747,
+    "min": 0.08860090747475624
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.18521095626056194,
+        "median": 0.09263004176318645,
+        "min": 0.08860090747475624
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "TND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 64,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "timings_ms": {
+        "max": 0.12183096259832382,
+        "median": 0.09317556396126747,
+        "min": 0.08994084782898426
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 32,
+        "tokens": 64
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "TND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 64,
+      "tokens": 64
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 32,
+      "tokens": 64
+    }
+  ]
+}

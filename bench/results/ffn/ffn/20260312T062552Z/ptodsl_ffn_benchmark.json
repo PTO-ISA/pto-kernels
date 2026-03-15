@@ -1,0 +1,39 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage2_relu/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage2_relu/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage2_relu/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage2_relu/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage3/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage3/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage3/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T062552Z/stage3/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "status": "ok",
+  "timings_ms": {
+    "max": 1.238037832081318,
+    "median": 0.4267931217327714,
+    "min": 0.4173030611127615
+  },
+  "variant": {
+    "activation": "relu",
+    "bias": false,
+    "dtype": "float16",
+    "hidden_size": 128,
+    "input_scale": 0.125,
+    "intermediate_size": 256,
+    "output_size": 128,
+    "seed": 0,
+    "tokens": 32
+  }
+}

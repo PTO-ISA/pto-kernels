@@ -1,0 +1,26 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.125,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_ffn",
+  "reference_contract": "fp16_dense_relu_ffn",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.14173099771142006,
+    "median": 0.09185599628835917,
+    "min": 0.08854991756379604
+  },
+  "variant": {
+    "activation": "relu",
+    "bias": false,
+    "dtype": "float16",
+    "hidden_size": 128,
+    "intermediate_size": 256,
+    "output_size": 128,
+    "seed": 0,
+    "tokens": 32
+  }
+}

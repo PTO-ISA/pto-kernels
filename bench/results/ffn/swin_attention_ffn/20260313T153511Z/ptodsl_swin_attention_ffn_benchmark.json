@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: swin_attention_ffn zero-shift slice requires tokens=64 divisible by 128",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 0,
+      "seq": 64,
+      "shift1": 0,
+      "shift2": 0
+    },
+    {
+      "batch": 48,
+      "dtype": "float16",
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 1,
+      "seq": 64,
+      "shift1": 0,
+      "shift2": 0
+    },
+    {
+      "batch": 8,
+      "dtype": "float16",
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 2,
+      "seq": 64,
+      "shift1": 0,
+      "shift2": 0
+    }
+  ]
+}

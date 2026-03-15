@@ -1,0 +1,33 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T165944Z/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T165944Z/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T165944Z/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260311T165944Z/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "key_max_abs_diff": 0.0078125,
+    "max_abs_diff": 0.0078125,
+    "passes": false,
+    "query_max_abs_diff": 0.00390625,
+    "rtol": 0.001
+  },
+  "reference_contract": "fp16_rounded_half_rope_tnd",
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.23138104006648064,
+    "median": 0.2125260652974248,
+    "min": 0.20846212282776833
+  },
+  "variant": {
+    "dtype": "float16",
+    "head_dim": 128,
+    "key_heads": 1,
+    "layout": "TND",
+    "query_heads": 1,
+    "rotary_mode": "half",
+    "seed": 0,
+    "tokens": 64
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+  "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+  "shape_summaries": [
+    {
+      "group_list": [
+        128
+      ],
+      "groups": 1,
+      "output": [
+        128,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        128,
+        128
+      ]
+    },
+    {
+      "group_list": [
+        256
+      ],
+      "groups": 1,
+      "output": [
+        256,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 3.7143719382584095,
+    "median": 0.723700039088726,
+    "min": 0.65217399969697
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ]
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.7143719382584095,
+            "median": 0.7037540199235082,
+            "min": 0.65217399969697
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.9605549275875092,
+            "median": 0.702764606103301,
+            "min": 0.6571139674633741
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+      "shape_summary": {
+        "group_list": [
+          128
+        ],
+        "groups": 1,
+        "output": [
+          128,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          128,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 3.7143719382584095,
+        "median": 0.7037540199235082,
+        "min": 0.65217399969697,
+        "per_rank_median": [
+          0.7037540199235082,
+          0.702764606103301
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 128,
+        "n": 128,
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ]
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8951351046562195,
+            "median": 0.723700039088726,
+            "min": 0.6712041795253754
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8102850988507271,
+            "median": 0.7220139959827065,
+            "min": 0.6951040122658014
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+      "shape_summary": {
+        "group_list": [
+          256
+        ],
+        "groups": 1,
+        "output": [
+          256,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.8951351046562195,
+        "median": 0.723700039088726,
+        "min": 0.6712041795253754,
+        "per_rank_median": [
+          0.723700039088726,
+          0.7220139959827065
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 256,
+        "n": 128,
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 128,
+      "n": 128,
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 256,
+      "n": 128,
+      "seed": 1
+    }
+  ]
+}

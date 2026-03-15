@@ -1,0 +1,143 @@
+module {
+  func.func @grouped_matmul_dense_bf16_bf16(%arg0: !pto.ptr<bf16>, %arg1: !pto.ptr<bf16>, %arg2: !pto.ptr<bf16>, %arg3: i32) {
+    pto.section.cube {
+      %c0 = arith.constant 0 : index
+      %c1 = arith.constant 1 : index
+      %c128 = arith.constant 128 : index
+      %c128_0 = arith.constant 128 : index
+      %c128_1 = arith.constant 128 : index
+      %c16 = arith.constant 16 : index
+      %c64 = arith.constant 64 : index
+      %c32 = arith.constant 32 : index
+      %c4 = arith.constant 4 : index
+      %c16_2 = arith.constant 16 : index
+      %0 = pto.get_block_idx
+      %1 = arith.index_cast %0 : i64 to index
+      %2 = pto.get_block_num
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.make_tensor_view %arg1, shape = [%c128, %c128_0] strides = [%c128_0, %c1] : !pto.tensor_view<?x?xbf16>
+      %5 = pto.make_tensor_view %arg2, shape = [%c128_0, %c128_1] strides = [%c128_1, %c1] : !pto.tensor_view<?x?xbf16>
+      %6 = pto.make_tensor_view %arg0, shape = [%c128, %c128_1] strides = [%c128_1, %c1] : !pto.tensor_view<?x?xbf16>
+      %7 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %8 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %9 = pto.alloc_tile : !pto.tile_buf<loc=left, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=row_major, slayout=col_major, fractal=512, pad=0>
+      %11 = pto.alloc_tile : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>
+      scf.for %arg4 = %1 to %c16_2 step %3 {
+        %c0_3 = arith.constant 0 : index
+        %c0_4 = arith.constant 0 : index
+        %c1_5 = arith.constant 1 : index
+        %12 = arith.cmpi eq, %arg4, %c1_5 : index
+        %c1_6 = arith.constant 1 : index
+        %13 = arith.select %12, %c1_6, %c0_3 : index
+        %c1_7 = arith.constant 1 : index
+        %14 = arith.select %12, %c1_7, %c0_4 : index
+        %c2 = arith.constant 2 : index
+        %15 = arith.cmpi eq, %arg4, %c2 : index
+        %c2_8 = arith.constant 2 : index
+        %16 = arith.select %15, %c2_8, %13 : index
+        %c0_9 = arith.constant 0 : index
+        %17 = arith.select %15, %c0_9, %14 : index
+        %c3 = arith.constant 3 : index
+        %18 = arith.cmpi eq, %arg4, %c3 : index
+        %c3_10 = arith.constant 3 : index
+        %19 = arith.select %18, %c3_10, %16 : index
+        %c1_11 = arith.constant 1 : index
+        %20 = arith.select %18, %c1_11, %17 : index
+        %c4_12 = arith.constant 4 : index
+        %21 = arith.cmpi eq, %arg4, %c4_12 : index
+        %c4_13 = arith.constant 4 : index
+        %22 = arith.select %21, %c4_13, %19 : index
+        %c0_14 = arith.constant 0 : index
+        %23 = arith.select %21, %c0_14, %20 : index
+        %c5 = arith.constant 5 : index
+        %24 = arith.cmpi eq, %arg4, %c5 : index
+        %c5_15 = arith.constant 5 : index
+        %25 = arith.select %24, %c5_15, %22 : index
+        %c1_16 = arith.constant 1 : index
+        %26 = arith.select %24, %c1_16, %23 : index
+        %c6 = arith.constant 6 : index
+        %27 = arith.cmpi eq, %arg4, %c6 : index
+        %c6_17 = arith.constant 6 : index
+        %28 = arith.select %27, %c6_17, %25 : index
+        %c0_18 = arith.constant 0 : index
+        %29 = arith.select %27, %c0_18, %26 : index
+        %c7 = arith.constant 7 : index
+        %30 = arith.cmpi eq, %arg4, %c7 : index
+        %c7_19 = arith.constant 7 : index
+        %31 = arith.select %30, %c7_19, %28 : index
+        %c1_20 = arith.constant 1 : index
+        %32 = arith.select %30, %c1_20, %29 : index
+        %c8 = arith.constant 8 : index
+        %33 = arith.cmpi eq, %arg4, %c8 : index
+        %c0_21 = arith.constant 0 : index
+        %34 = arith.select %33, %c0_21, %31 : index
+        %c1_22 = arith.constant 1 : index
+        %35 = arith.select %33, %c1_22, %32 : index
+        %c9 = arith.constant 9 : index
+        %36 = arith.cmpi eq, %arg4, %c9 : index
+        %c1_23 = arith.constant 1 : index
+        %37 = arith.select %36, %c1_23, %34 : index
+        %c0_24 = arith.constant 0 : index
+        %38 = arith.select %36, %c0_24, %35 : index
+        %c10 = arith.constant 10 : index
+        %39 = arith.cmpi eq, %arg4, %c10 : index
+        %c2_25 = arith.constant 2 : index
+        %40 = arith.select %39, %c2_25, %37 : index
+        %c1_26 = arith.constant 1 : index
+        %41 = arith.select %39, %c1_26, %38 : index
+        %c11 = arith.constant 11 : index
+        %42 = arith.cmpi eq, %arg4, %c11 : index
+        %c3_27 = arith.constant 3 : index
+        %43 = arith.select %42, %c3_27, %40 : index
+        %c0_28 = arith.constant 0 : index
+        %44 = arith.select %42, %c0_28, %41 : index
+        %c12 = arith.constant 12 : index
+        %45 = arith.cmpi eq, %arg4, %c12 : index
+        %c4_29 = arith.constant 4 : index
+        %46 = arith.select %45, %c4_29, %43 : index
+        %c1_30 = arith.constant 1 : index
+        %47 = arith.select %45, %c1_30, %44 : index
+        %c13 = arith.constant 13 : index
+        %48 = arith.cmpi eq, %arg4, %c13 : index
+        %c5_31 = arith.constant 5 : index
+        %49 = arith.select %48, %c5_31, %46 : index
+        %c0_32 = arith.constant 0 : index
+        %50 = arith.select %48, %c0_32, %47 : index
+        %c14 = arith.constant 14 : index
+        %51 = arith.cmpi eq, %arg4, %c14 : index
+        %c6_33 = arith.constant 6 : index
+        %52 = arith.select %51, %c6_33, %49 : index
+        %c1_34 = arith.constant 1 : index
+        %53 = arith.select %51, %c1_34, %50 : index
+        %c15 = arith.constant 15 : index
+        %54 = arith.cmpi eq, %arg4, %c15 : index
+        %c7_35 = arith.constant 7 : index
+        %55 = arith.select %54, %c7_35, %52 : index
+        %c0_36 = arith.constant 0 : index
+        %56 = arith.select %54, %c0_36, %53 : index
+        %57 = arith.muli %55, %c16 : index
+        %58 = arith.muli %56, %c64 : index
+        scf.for %arg5 = %c0 to %c4 step %c1 {
+          %60 = arith.muli %arg5, %c32 : index
+          %61 = pto.partition_view %4, offsets = [%57, %60], sizes = [%c16, %c32] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<16x32xbf16>
+          %62 = pto.partition_view %5, offsets = [%60, %58], sizes = [%c32, %c64] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<32x64xbf16>
+          pto.tload ins(%61 : !pto.partition_tensor_view<16x32xbf16>) outs(%7 : !pto.tile_buf<loc=mat, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tload ins(%62 : !pto.partition_tensor_view<32x64xbf16>) outs(%8 : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tmov ins(%7 : !pto.tile_buf<loc=mat, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%9 : !pto.tile_buf<loc=left, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tmov ins(%8 : !pto.tile_buf<loc=mat, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%10 : !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=row_major, slayout=col_major, fractal=512, pad=0>)
+          %63 = arith.cmpi eq, %arg5, %c0 : index
+          scf.if %63 {
+            pto.tmatmul ins(%9, %10 : !pto.tile_buf<loc=left, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+          } else {
+            pto.tmatmul.acc ins(%11, %9, %10 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>, !pto.tile_buf<loc=left, dtype=bf16, rows=16, cols=32, v_row=16, v_col=32, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=bf16, rows=32, cols=64, v_row=32, v_col=64, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+          }
+        }
+        %59 = pto.partition_view %6, offsets = [%57, %58], sizes = [%c16, %c64] : !pto.tensor_view<?x?xbf16> -> !pto.partition_tensor_view<16x64xbf16>
+        pto.tstore ins(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>) outs(%59 : !pto.partition_tensor_view<16x64xbf16>)
+      }
+    }
+    return
+  }
+}
+

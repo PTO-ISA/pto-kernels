@@ -1,0 +1,29 @@
+module {
+  func.func @moe_distribute_combine_seed(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<f16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c7168 = arith.constant 7168 : index
+    %0 = pto.make_tensor_view %arg1, shape = [%c8, %c7168] strides = [%c7168, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg0, shape = [%c8, %c7168] strides = [%c7168, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.vector {
+      %2 = pto.get_block_idx
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.get_block_num
+      %5 = arith.index_cast %4 : i64 to index
+      %6 = arith.ceildivsi %c8, %5 : index
+      %7 = arith.muli %3, %6 : index
+      %8 = arith.addi %7, %6 : index
+      %9 = arith.minui %8, %c8 : index
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      scf.for %arg2 = %7 to %9 step %c1 {
+        %11 = pto.partition_view %0, offsets = [%arg2, %c0], sizes = [%c1, %c7168] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x7168xf16>
+        %12 = pto.partition_view %1, offsets = [%arg2, %c0], sizes = [%c1, %c7168] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x7168xf16>
+        pto.tload ins(%11 : !pto.partition_tensor_view<1x7168xf16>) outs(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+        pto.tstore ins(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%12 : !pto.partition_tensor_view<1x7168xf16>)
+      }
+    }
+    return
+  }
+}
+

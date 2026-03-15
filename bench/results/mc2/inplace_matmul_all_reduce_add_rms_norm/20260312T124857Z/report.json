@@ -1,0 +1,730 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/inplace_matmul_all_reduce_add_rms_norm.py",
+    "baseline_note": "The constrained inplace seed uses the installed split runtime contract npu_mm_all_reduce_base + npu_add_rms_norm and validates the residual alias contract in the harness.",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.00390625,
+        "norm_max_abs_diff": 0.00390625,
+        "passes": true,
+        "residual_y_max_abs_diff": 0.0009765625,
+        "rtol": 0.005
+      },
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "reference_contract": "inplace_add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/ops_transformer_inplace_matmul_all_reduce_add_rms_norm_benchmark.json",
+      "shape_summaries": [
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            128,
+            128
+          ],
+          "residual_inout": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        },
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            256,
+            128
+          ],
+          "residual_inout": [
+            256,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            256,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 7.311873836442828,
+        "median": 0.61759352684021,
+        "min": 0.5330031272023916
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.00390625
+            ],
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 7.311873836442828,
+                "median": 0.574833364225924,
+                "min": 0.5428229924291372
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 7.201393134891987,
+                "median": 0.5757284816354513,
+                "min": 0.5399729125201702
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "inplace_add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual_inout": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 7.311873836442828,
+            "median": 0.5757284816354513,
+            "min": 0.5399729125201702,
+            "per_rank_median": [
+              0.574833364225924,
+              0.5757284816354513
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00390625,
+            "norm_max_abs_diff": 0.00390625,
+            "per_rank_max_abs_diff": [
+              0.00390625,
+              0.00390625
+            ],
+            "residual_y_max_abs_diff": 0.0009765625
+          },
+          "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "hcom_name": "group_name_0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.1188460048288107,
+                "median": 0.5984884919598699,
+                "min": 0.5330031272023916
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.00390625,
+                "norm_max_abs_diff": 0.00390625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "hcom_name": "group_name_0",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.0433269198983908,
+                "median": 0.61759352684021,
+                "min": 0.535542843863368
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "inplace_add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual_inout": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.1188460048288107,
+            "median": 0.61759352684021,
+            "min": 0.5330031272023916,
+            "per_rank_median": [
+              0.5984884919598699,
+              0.61759352684021
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+      "environment": {
+        "arn_symbol_available": true,
+        "detected_npus": 8,
+        "device_index": 0,
+        "mm_symbol_available": true,
+        "npu_available": true
+      },
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "inplace_matmul_all_reduce_add_rms_norm",
+    "ops_transformer_path": "mc2/inplace_matmul_all_reduce_add_rms_norm",
+    "runtime_entrypoint": "torch_npu.npu_mm_all_reduce_base + torch_npu.npu_add_rms_norm",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "epsilon": 0.001,
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.005,
+    "rtol": 0.005,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/inplace_matmul_all_reduce_add_rms_norm",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm/report.json",
+  "name": "inplace_matmul_all_reduce_add_rms_norm",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/inplace_matmul_all_reduce_add_rms_norm.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/mm_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/mm_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/mm_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/mm_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/iarn_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/iarn_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/iarn_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m128_k256_n128_w2/iarn_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/mm_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/mm_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/mm_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/mm_compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/iarn_compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/iarn_compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/iarn_compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/m256_k256_n128_w2/iarn_compile_probe/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.005,
+        "max_abs_diff": 0.01171875,
+        "norm_max_abs_diff": 0.01171875,
+        "passes": false,
+        "residual_y_max_abs_diff": 0.0009765625,
+        "rtol": 0.005
+      },
+      "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/ptodsl_inplace_matmul_all_reduce_add_rms_norm_benchmark.json",
+      "shape_summaries": [
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            128,
+            128
+          ],
+          "residual_inout": [
+            128,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            128,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        },
+        {
+          "gamma": [
+            128
+          ],
+          "norm_out": [
+            256,
+            128
+          ],
+          "residual_inout": [
+            256,
+            128
+          ],
+          "world_size": 2,
+          "x1_local": [
+            256,
+            256
+          ],
+          "x2": [
+            256,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 1.2074371334165335,
+        "median": 0.9660404175519943,
+        "min": 0.8950158953666687
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "atol": 0.005,
+            "max_abs_diff": 0.01171875,
+            "norm_max_abs_diff": 0.01171875,
+            "passes": false,
+            "per_rank_max_abs_diff": [
+              0.009765625,
+              0.01171875
+            ],
+            "residual_y_max_abs_diff": 0.0009765625,
+            "rtol": 0.005
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.009765625,
+                "norm_max_abs_diff": 0.009765625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.1715269647538662,
+                "median": 0.9631854481995106,
+                "min": 0.9375459048897028
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.01171875,
+                "norm_max_abs_diff": 0.01171875,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.2074371334165335,
+                "median": 0.9660404175519943,
+                "min": 0.9375149384140968
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual_inout": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.2074371334165335,
+            "median": 0.9660404175519943,
+            "min": 0.9375149384140968,
+            "per_rank_median": [
+              0.9631854481995106,
+              0.9660404175519943
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "atol": 0.005,
+            "max_abs_diff": 0.01171875,
+            "norm_max_abs_diff": 0.01171875,
+            "passes": false,
+            "per_rank_max_abs_diff": [
+              0.01171875,
+              0.009765625
+            ],
+            "residual_y_max_abs_diff": 0.0009765625,
+            "rtol": 0.005
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "max_abs_diff": 0.01171875,
+                "norm_max_abs_diff": 0.01171875,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.0677659884095192,
+                "median": 0.9388205362483859,
+                "min": 0.8950158953666687
+              },
+              "world_size": 2
+            },
+            {
+              "correctness": {
+                "max_abs_diff": 0.009765625,
+                "norm_max_abs_diff": 0.009765625,
+                "residual_y_max_abs_diff": 0.0009765625
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "status": "ok",
+              "timings_ms": {
+                "max": 1.114716986194253,
+                "median": 0.9370900224894285,
+                "min": 0.9121759794652462
+              },
+              "world_size": 2
+            }
+          ],
+          "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual_inout": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 1.114716986194253,
+            "median": 0.9388205362483859,
+            "min": 0.8950158953666687,
+            "per_rank_median": [
+              0.9388205362483859,
+              0.9370900224894285
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          },
+          "world_size": 2
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 128,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 0
+        },
+        {
+          "dtype": "float16",
+          "epsilon": 0.001,
+          "expected_world_size": 2,
+          "input_scale": 0.125,
+          "k": 256,
+          "m": 256,
+          "n": 128,
+          "reduce_op": "sum",
+          "seed": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/inplace_matmul_all_reduce_add_rms_norm/kernel.py",
+      "library_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/kernel/kernel.so"
+      ],
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/inplace_matmul_all_reduce_add_rms_norm/kernel.py",
+    "meta": {
+      "archetype": "mc2-comm-epilogue-inplace",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-vector-rms-norm-generalization",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "inplace_matmul_all_reduce_add_rms_norm",
+      "ops_transformer_path": "mc2/inplace_matmul_all_reduce_add_rms_norm",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 2 for the first seed contract",
+          "bias disabled",
+          "x3 disabled",
+          "float16 only",
+          "residual flattened to a 2D [M, N] dense tensor for the first seed",
+          "gamma fixed to 1D [N]",
+          "PTO local kernel mirrors the upstream splitM/numBlocksN core traversal for matmul and aliases y onto the residual buffer in a separate vector epilogue",
+          "HCCL all_reduce(sum) remains host-orchestrated outside the PTO kernel boundary"
+        ],
+        "name": "dense_fp16_inplace_all_reduce_add_rms_norm",
+        "shape": [
+          128,
+          256,
+          128
+        ],
+        "tiling": {
+          "base_k_env": "PTO_MC2_MM_AR_BASE_K",
+          "base_m_env": "PTO_MC2_MM_AR_BASE_M",
+          "base_n_env": "PTO_MC2_MM_AR_BASE_N",
+          "block_dim_env": "PTO_MC2_MM_AR_BLOCK_DIM",
+          "epilogue_block_dim_env": "PTO_MC2_IMM_ARN_BLOCK_DIM",
+          "strategy": "ops-transformer splitM/numBlocksN local matmul plus row-wise vector inplace add+rms_norm epilogue"
+        }
+      },
+      "status": "prototype",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/inplace_matmul_all_reduce_add_rms_norm/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T124857Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

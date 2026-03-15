@@ -1,5 +1,5 @@
 {
-  "generated_at": "20260312T172618Z",
+  "generated_at": "20260314T170132Z",
   "kernels": [
     {
       "baseline_reason": null,
@@ -13,11 +13,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.10871095582842827,
-          "baseline_over_pto_pct": 41.612320334032205,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1250660279765725,
+          "baseline_over_pto_pct": 48.74707499581413,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2612470416352153,
+          "pto_median_ms": 0.2565610921010375,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -52,11 +53,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.1101209782063961,
-          "baseline_over_pto_pct": 42.02257743083213,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1147654838860035,
+          "baseline_over_pto_pct": 44.903763464369526,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2620519371703267,
+          "pto_median_ms": 0.25558099150657654,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -91,11 +93,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.10958104394376278,
-          "baseline_over_pto_pct": 41.62290109888166,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11600099969655275,
+          "baseline_over_pto_pct": 45.35336069412729,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.26327103842049837,
+          "pto_median_ms": 0.25577156338840723,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -133,6 +136,202 @@
     {
       "baseline_reason": null,
       "baseline_status": "ok",
+      "family": "gmm",
+      "name": "grouped_matmul_add",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_add/report.json",
+      "spec": "bench/specs/gmm/grouped_matmul_add.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.24264154490083456,
+          "baseline_over_pto_pct": 68.72199882093358,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3530769608914852,
+          "pto_status": "ok",
+          "shape_summary": {
+            "output": [
+              64,
+              128
+            ],
+            "weight": [
+              128,
+              128
+            ],
+            "x_pto": [
+              64,
+              128
+            ],
+            "x_t": [
+              128,
+              64
+            ],
+            "y_init": [
+              64,
+              128
+            ]
+          },
+          "variant": {
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 64,
+            "n": 128,
+            "output_dtype": "float32",
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.24947605561465025,
+          "baseline_over_pto_pct": 70.44806706788084,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3541276091709733,
+          "pto_status": "ok",
+          "shape_summary": {
+            "output": [
+              128,
+              256
+            ],
+            "weight": [
+              128,
+              256
+            ],
+            "x_pto": [
+              128,
+              128
+            ],
+            "x_t": [
+              128,
+              128
+            ],
+            "y_init": [
+              128,
+              256
+            ]
+          },
+          "variant": {
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 256,
+            "output_dtype": "float32",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "baseline_status": "blocked",
+      "family": "gmm",
+      "name": "grouped_matmul_finalize_routing",
+      "pto_reason": "PTO port is intentionally deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_finalize_routing/report.json",
+      "spec": "bench/specs/gmm/grouped_matmul_finalize_routing.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO port is intentionally deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "baseline_status": "blocked",
+      "family": "gmm",
+      "name": "grouped_matmul_swiglu_quant",
+      "pto_reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant/report.json",
+      "spec": "bench/specs/gmm/grouped_matmul_swiglu_quant.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+      "baseline_status": "blocked",
+      "family": "gmm",
+      "name": "grouped_matmul_swiglu_quant_v2",
+      "pto_reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant_v2/report.json",
+      "spec": "bench/specs/gmm/grouped_matmul_swiglu_quant_v2.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+      "baseline_status": "blocked",
+      "family": "gmm",
+      "name": "quant_grouped_matmul_inplace_add",
+      "pto_reason": "PTO port is deferred until a reproducible baseline host contract exists.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/quant_grouped_matmul_inplace_add/report.json",
+      "spec": "bench/specs/gmm/quant_grouped_matmul_inplace_add.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "This host does not expose a torch_npu Python entrypoint for quant_grouped_matmul_inplace_add. The upstream contract is currently only visible through ACLNN/C++ tests and examples.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO port is deferred until a reproducible baseline host contract exists.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
       "family": "posembedding",
       "name": "apply_rotary_pos_emb",
       "pto_reason": null,
@@ -142,6 +341,7 @@
       "variants": [
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.09931495878845453,
           "baseline_over_pto_pct": 47.668269002430044,
           "baseline_status": "ok",
@@ -184,6 +384,7 @@
         },
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.10027550160884857,
           "baseline_over_pto_pct": 48.34847544239169,
           "baseline_status": "ok",
@@ -233,6 +434,640 @@
     {
       "baseline_reason": null,
       "baseline_status": "ok",
+      "family": "posembedding",
+      "name": "dequant_rope_quant_kvcache",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/dequant_rope_quant_kvcache/report.json",
+      "spec": "bench/specs/posembedding/dequant_rope_quant_kvcache.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.14484103303402662,
+          "baseline_over_pto_pct": 17.951320960687664,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.8068544557318091,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              64
+            ],
+            "k": [
+              2,
+              1,
+              64
+            ],
+            "k_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              2,
+              1,
+              64
+            ],
+            "sin": [
+              2,
+              64
+            ],
+            "v": [
+              2,
+              1,
+              64
+            ],
+            "v_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "weight_scale": [
+              192
+            ],
+            "x": [
+              2,
+              192
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "cache_len": 8,
+            "dtype": "int32",
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.15132047701627016,
+          "baseline_over_pto_pct": 18.778123853303786,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.8058338426053524,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              4,
+              64
+            ],
+            "k": [
+              4,
+              1,
+              64
+            ],
+            "k_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              4,
+              1,
+              64
+            ],
+            "sin": [
+              4,
+              64
+            ],
+            "v": [
+              4,
+              1,
+              64
+            ],
+            "v_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "weight_scale": [
+              192
+            ],
+            "x": [
+              4,
+              192
+            ]
+          },
+          "variant": {
+            "batch": 4,
+            "cache_len": 8,
+            "dtype": "int32",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "posembedding",
+      "name": "interleave_rope",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope/report.json",
+      "spec": "bench/specs/posembedding/interleave_rope.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09735545609146357,
+          "baseline_over_pto_pct": 29.89370516982651,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3256720956414938,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09922042954713106,
+          "baseline_over_pto_pct": 30.671250396751997,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.32349652610719204,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              64
+            ],
+            "y": [
+              2,
+              1,
+              32,
+              64
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "posembedding",
+      "name": "rope_quant_kvcache",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_quant_kvcache/report.json",
+      "spec": "bench/specs/posembedding/rope_quant_kvcache.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1299309078603983,
+          "baseline_over_pto_pct": 16.697433025011485,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.7781489985063672,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              64
+            ],
+            "k": [
+              2,
+              1,
+              64
+            ],
+            "k_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              2,
+              1,
+              64
+            ],
+            "sin": [
+              2,
+              64
+            ],
+            "v": [
+              2,
+              1,
+              64
+            ],
+            "v_cache": [
+              2,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              2,
+              192
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1329559599980712,
+          "baseline_over_pto_pct": 17.027089442525597,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.7808496011421084,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              4,
+              64
+            ],
+            "k": [
+              4,
+              1,
+              64
+            ],
+            "k_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "q": [
+              4,
+              1,
+              64
+            ],
+            "sin": [
+              4,
+              64
+            ],
+            "v": [
+              4,
+              1,
+              64
+            ],
+            "v_cache": [
+              4,
+              8,
+              1,
+              64
+            ],
+            "x": [
+              4,
+              192
+            ]
+          },
+          "variant": {
+            "batch": 4,
+            "cache_len": 8,
+            "dtype": "float16",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "posembedding",
+      "name": "rotary_position_embedding",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding/report.json",
+      "spec": "bench/specs/posembedding/rotary_position_embedding.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09902555029839277,
+          "baseline_over_pto_pct": 56.02373930236326,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.17675640992820263,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "out": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "x": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "mode": "half",
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09962101466953754,
+          "baseline_over_pto_pct": 56.08314906300669,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.17763092182576656,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "out": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BNSD",
+            "mode": "half",
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "posembedding",
+      "name": "rotary_position_embedding_grad",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding_grad/report.json",
+      "spec": "bench/specs/posembedding/rotary_position_embedding_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "On this host torch_npu.npu_rotary_mul_backward returns zero-filled dcos/dsin outputs.",
+            "Baseline correctness and parity are therefore validated on dx only; PTO still validates dx/dcos/dsin against the PTO reference."
+          ],
+          "baseline_median_ms": 0.11236045975238085,
+          "baseline_over_pto_pct": 39.26469493419535,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2861615503206849,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "dcos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "dsin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "dx": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "dy": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "x": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "mode": "half",
+            "seed": 0,
+            "seq_len": 32
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "On this host torch_npu.npu_rotary_mul_backward returns zero-filled dcos/dsin outputs.",
+            "Baseline correctness and parity are therefore validated on dx only; PTO still validates dx/dcos/dsin against the PTO reference."
+          ],
+          "baseline_median_ms": 0.11306593660265207,
+          "baseline_over_pto_pct": 40.74059936223067,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.277526443824172,
+          "pto_status": "ok",
+          "shape_summary": {
+            "cos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "dcos": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "dsin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "dx": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "dy": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "sin": [
+              2,
+              1,
+              32,
+              128
+            ],
+            "x": [
+              2,
+              1,
+              32,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BNSD",
+            "mode": "half",
+            "seed": 1,
+            "seq_len": 32
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "posembedding",
+      "name": "qkv_rms_norm_rope_cache",
+      "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
+      "spec": "bench/specs/posembedding/qkv_rms_norm_rope_cache.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
       "family": "ffn",
       "name": "ffn",
       "pto_reason": null,
@@ -242,6 +1077,7 @@
       "variants": [
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.08752592839300632,
           "baseline_over_pto_pct": 19.467160905040362,
           "baseline_status": "ok",
@@ -284,6 +1120,7 @@
         },
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.0895005650818348,
           "baseline_over_pto_pct": 19.711265308968887,
           "baseline_status": "ok",
@@ -326,6 +1163,7 @@
         },
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.0953056151047349,
           "baseline_over_pto_pct": 20.56535128341745,
           "baseline_status": "ok",
@@ -369,6 +1207,87 @@
       ]
     },
     {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "ffn",
+      "name": "swin_attention_ffn",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_attention_ffn/report.json",
+      "spec": "bench/specs/ffn/swin_attention_ffn.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.36869198083877563,
+          "pto_reason": null,
+          "pto_status": "ok",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "ffn",
+      "name": "swin_transformer_ln_qkv",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv/report.json",
+      "spec": "bench/specs/ffn/swin_transformer_ln_qkv.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.739214476197958,
+          "pto_reason": null,
+          "pto_status": "ok",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "This host does not expose a Python baseline entrypoint for SwinTransformerLnQkvQuant, and the public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B.",
+      "baseline_status": "blocked",
+      "family": "ffn",
+      "name": "swin_transformer_ln_qkv_quant",
+      "pto_reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv_quant/report.json",
+      "spec": "bench/specs/ffn/swin_transformer_ln_qkv_quant.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [
+            "No Python-visible torch_npu or torch.ops.npu entrypoint on this host",
+            "Public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B"
+          ],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "This host does not expose a Python baseline entrypoint for SwinTransformerLnQkvQuant, and the public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
       "baseline_reason": null,
       "baseline_status": "ok",
       "family": "moe",
@@ -380,6 +1299,7 @@
       "variants": [
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.1075860345736146,
           "baseline_over_pto_pct": 30.53975127549545,
           "baseline_status": "ok",
@@ -410,6 +1330,7 @@
         },
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.10740489233285189,
           "baseline_over_pto_pct": 30.480112458476427,
           "baseline_status": "ok",
@@ -440,6 +1361,7 @@
         },
         {
           "baseline_correct": true,
+          "baseline_limitations": [],
           "baseline_median_ms": 0.10840059258043766,
           "baseline_over_pto_pct": 30.783639697252806,
           "baseline_status": "ok",
@@ -473,6 +1395,2703 @@
     {
       "baseline_reason": null,
       "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_finalize_routing",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing/report.json",
+      "spec": "bench/specs/moe/moe_finalize_routing.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10234559886157513,
+          "baseline_over_pto_pct": 34.319230498973326,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.29821647331118584,
+          "pto_status": "ok",
+          "shape_summary": {
+            "bias": [
+              4,
+              16
+            ],
+            "expanded_expert_idx": [
+              16,
+              1
+            ],
+            "expanded_row_idx": [
+              16
+            ],
+            "expanded_x": [
+              16,
+              16
+            ],
+            "out": [
+              16,
+              16
+            ],
+            "scales": [
+              16,
+              1
+            ],
+            "x1": [
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "seed": 0,
+            "tokens": 16,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10703550651669502,
+          "baseline_over_pto_pct": 35.783219605524785,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.29912206809967756,
+          "pto_status": "ok",
+          "shape_summary": {
+            "bias": [
+              4,
+              64
+            ],
+            "expanded_expert_idx": [
+              256,
+              1
+            ],
+            "expanded_row_idx": [
+              256
+            ],
+            "expanded_x": [
+              256,
+              64
+            ],
+            "out": [
+              256,
+              64
+            ],
+            "scales": [
+              256,
+              1
+            ],
+            "x1": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 64,
+            "seed": 1,
+            "tokens": 256,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10469555854797363,
+          "baseline_over_pto_pct": 34.21961130197515,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3059519222006202,
+          "pto_status": "ok",
+          "shape_summary": {
+            "bias": [
+              4,
+              128
+            ],
+            "expanded_expert_idx": [
+              128,
+              1
+            ],
+            "expanded_row_idx": [
+              128
+            ],
+            "expanded_x": [
+              128,
+              128
+            ],
+            "out": [
+              128,
+              128
+            ],
+            "scales": [
+              128,
+              1
+            ],
+            "x1": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 128,
+            "seed": 2,
+            "tokens": 128,
+            "top_k": 1,
+            "use_skip2": false
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "moe",
+      "name": "moe_finalize_routing_v2",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2/report.json",
+      "spec": "bench/specs/moe/moe_finalize_routing_v2.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.31449703965336084,
+          "pto_reason": null,
+          "pto_status": "ok",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "moe",
+      "name": "moe_finalize_routing_v2_grad",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
+      "spec": "bench/specs/moe/moe_finalize_routing_v2_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_gating_top_k",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k/report.json",
+      "spec": "bench/specs/moe/moe_gating_top_k.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.12773112393915653,
+          "baseline_over_pto_pct": 54.135736774094234,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.23594603408128023,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              8,
+              1
+            ],
+            "norm_out": [
+              8,
+              16
+            ],
+            "x": [
+              8,
+              16
+            ],
+            "y_out": [
+              8,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 16,
+            "group_count": 1,
+            "group_select_mode": 0,
+            "k_group": 1,
+            "norm_type": 1,
+            "out_flag": false,
+            "renorm": 0,
+            "rows": 8,
+            "seed": 0,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.12994545977562666,
+          "baseline_over_pto_pct": 54.94848624027087,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.23648596834391356,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              256,
+              1
+            ],
+            "norm_out": [
+              256,
+              64
+            ],
+            "x": [
+              256,
+              64
+            ],
+            "y_out": [
+              256,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 64,
+            "group_count": 1,
+            "group_select_mode": 0,
+            "k_group": 1,
+            "norm_type": 1,
+            "out_flag": false,
+            "renorm": 0,
+            "rows": 256,
+            "seed": 1,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1326949568465352,
+          "baseline_over_pto_pct": 55.747978120268094,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.23802649229764938,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              128,
+              1
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "x": [
+              128,
+              128
+            ],
+            "y_out": [
+              128,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 128,
+            "group_count": 1,
+            "group_select_mode": 0,
+            "k_group": 1,
+            "norm_type": 1,
+            "out_flag": false,
+            "renorm": 0,
+            "rows": 128,
+            "seed": 2,
+            "top_k": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_gating_top_k_softmax",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax/report.json",
+      "spec": "bench/specs/moe/moe_gating_top_k_softmax.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10959606152027845,
+          "baseline_over_pto_pct": 30.105247471623926,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3640430513769388,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              8,
+              1
+            ],
+            "row_idx_out": [
+              8,
+              1
+            ],
+            "x": [
+              8,
+              16
+            ],
+            "y_out": [
+              8,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 16,
+            "finished": false,
+            "rows": 8,
+            "seed": 0,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10833586566150188,
+          "baseline_over_pto_pct": 28.613535036743226,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3786175511777401,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              256,
+              1
+            ],
+            "row_idx_out": [
+              256,
+              1
+            ],
+            "x": [
+              256,
+              64
+            ],
+            "y_out": [
+              256,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 64,
+            "finished": false,
+            "rows": 256,
+            "seed": 1,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10936101898550987,
+          "baseline_over_pto_pct": 29.890062058046418,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.36587752401828766,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expert_idx_out": [
+              128,
+              1
+            ],
+            "row_idx_out": [
+              128,
+              1
+            ],
+            "x": [
+              128,
+              128
+            ],
+            "y_out": [
+              128,
+              1
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 128,
+            "finished": false,
+            "rows": 128,
+            "seed": 2,
+            "top_k": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "moe",
+      "name": "moe_gating_top_k_softmax_v2",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax_v2/report.json",
+      "spec": "bench/specs/moe/moe_gating_top_k_softmax_v2.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.36233686842024326,
+          "pto_reason": null,
+          "pto_status": "ok",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_compute_expert_tokens",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
+      "spec": "bench/specs/moe/moe_compute_expert_tokens.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10221998672932386,
+          "baseline_over_pto_pct": 44.00969747759325,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2322669606655836,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out": [
+              8
+            ],
+            "sorted_experts": [
+              64
+            ]
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 8,
+            "rows": 64,
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10194594506174326,
+          "baseline_over_pto_pct": 30.638125023397322,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3327421145513654,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out": [
+              64
+            ],
+            "sorted_experts": [
+              4096
+            ]
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 64,
+            "rows": 4096,
+            "seed": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10146608110517263,
+          "baseline_over_pto_pct": 13.077295984162973,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.7758949650451541,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out": [
+              128
+            ],
+            "sorted_experts": [
+              8192
+            ]
+          },
+          "variant": {
+            "dtype": "int32",
+            "num_experts": 128,
+            "rows": 8192,
+            "seed": 2
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_init_routing",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing/report.json",
+      "spec": "bench/specs/moe/moe_init_routing.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1074555329978466,
+          "baseline_over_pto_pct": 17.268770730369422,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": 0.6222535157576203,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expanded_expert_idx": [
+              16
+            ],
+            "expanded_row_idx": [
+              16
+            ],
+            "expanded_x": [
+              16,
+              16
+            ],
+            "expert_idx": [
+              16,
+              1
+            ],
+            "gather_indices": [
+              256
+            ],
+            "row_idx": [
+              16,
+              1
+            ],
+            "x": [
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "seed": 0,
+            "tokens": 16,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11366500984877348,
+          "baseline_over_pto_pct": 17.86837165993444,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": 0.6361240521073341,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expanded_expert_idx": [
+              256
+            ],
+            "expanded_row_idx": [
+              256
+            ],
+            "expanded_x": [
+              256,
+              64
+            ],
+            "expert_idx": [
+              256,
+              1
+            ],
+            "gather_indices": [
+              16384
+            ],
+            "row_idx": [
+              256,
+              1
+            ],
+            "x": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 64,
+            "seed": 1,
+            "tokens": 256,
+            "top_k": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11320051271468401,
+          "baseline_over_pto_pct": 17.684016450535456,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": 0.6401289720088243,
+          "pto_status": "ok",
+          "shape_summary": {
+            "expanded_expert_idx": [
+              128
+            ],
+            "expanded_row_idx": [
+              128
+            ],
+            "expanded_x": [
+              128,
+              128
+            ],
+            "expert_idx": [
+              128,
+              1
+            ],
+            "gather_indices": [
+              16384
+            ],
+            "row_idx": [
+              128,
+              1
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 128,
+            "seed": 2,
+            "tokens": 128,
+            "top_k": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+      "baseline_status": "blocked",
+      "family": "moe",
+      "name": "moe_init_routing_v2",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
+      "spec": "bench/specs/moe/moe_init_routing_v2.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+          "baseline_status": "blocked",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+          "pto_status": "blocked",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_permute_grad",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_grad/report.json",
+      "spec": "bench/specs/moe/moe_token_permute_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09608559776097536,
+          "baseline_over_pto_pct": 42.76439116742779,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22468599490821362,
+          "pto_status": "ok",
+          "shape_summary": {
+            "grad_permuted_tokens": [
+              8,
+              16
+            ],
+            "indices": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ],
+            "sorted_indices": [
+              8
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09993044659495354,
+          "baseline_over_pto_pct": 44.20401504508995,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2260664477944374,
+          "pto_status": "ok",
+          "shape_summary": {
+            "grad_permuted_tokens": [
+              256,
+              64
+            ],
+            "indices": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ],
+            "sorted_indices": [
+              256
+            ],
+            "tokens": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 64,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 1,
+            "tokens": 256,
+            "topk": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09972043335437775,
+          "baseline_over_pto_pct": 44.13452551592948,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22594654001295567,
+          "pto_status": "ok",
+          "shape_summary": {
+            "grad_permuted_tokens": [
+              128,
+              128
+            ],
+            "indices": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ],
+            "sorted_indices": [
+              128
+            ],
+            "tokens": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 128,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 2,
+            "tokens": 128,
+            "topk": 1
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_permute_with_routing_map",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map/report.json",
+      "spec": "bench/specs/moe/moe_token_permute_with_routing_map.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10177993681281805,
+          "baseline_over_pto_pct": 30.15416760221247,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3375319065526128,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              128
+            ],
+            "routing_map": [
+              8,
+              4
+            ],
+            "sorted_indices": [
+              8
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "num_out_tokens": 8,
+            "routing_dtype": "int8",
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11042109690606594,
+          "baseline_over_pto_pct": 32.611834894054766,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3385921008884907,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "routing_map": [
+              256,
+              8
+            ],
+            "sorted_indices": [
+              256
+            ],
+            "tokens": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 64,
+            "num_out_tokens": 256,
+            "routing_dtype": "int8",
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10806589853018522,
+          "baseline_over_pto_pct": 31.856052546688723,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.3392319194972515,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "routing_map": [
+              128,
+              8
+            ],
+            "sorted_indices": [
+              128
+            ],
+            "tokens": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 128,
+            "num_out_tokens": 128,
+            "routing_dtype": "int8",
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_permute_with_routing_map_grad",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map_grad/report.json",
+      "spec": "bench/specs/moe/moe_token_permute_with_routing_map_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
+          ],
+          "baseline_median_ms": 0.08572603110224009,
+          "baseline_over_pto_pct": 33.345272855052094,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.25708600878715515,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens_grad": [
+              8,
+              16
+            ],
+            "routing_map": [
+              8,
+              4
+            ],
+            "sorted_indices": [
+              8
+            ],
+            "token_grad_out": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
+          ],
+          "baseline_median_ms": 0.08277548477053642,
+          "baseline_over_pto_pct": 31.862275899895682,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2597915008664131,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens_grad": [
+              256,
+              64
+            ],
+            "routing_map": [
+              256,
+              8
+            ],
+            "sorted_indices": [
+              256
+            ],
+            "token_grad_out": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 64,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
+          ],
+          "baseline_median_ms": 0.09242550004273653,
+          "baseline_over_pto_pct": 36.598783834429625,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2525370800867677,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens_grad": [
+              128,
+              128
+            ],
+            "routing_map": [
+              128,
+              8
+            ],
+            "sorted_indices": [
+              128
+            ],
+            "token_grad_out": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 128,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_re_routing",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
+      "spec": "bench/specs/moe/moe_re_routing.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11407549027353525,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "expert_token_num": [
+              2
+            ],
+            "expert_token_num_per_rank": [
+              2,
+              2
+            ],
+            "per_token_scales": [
+              8
+            ],
+            "permute_per_token_scales": [
+              8
+            ],
+            "permute_token_idx": [
+              8
+            ],
+            "permute_tokens": [
+              8,
+              16
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "counts": [
+              [
+                2,
+                1
+              ],
+              [
+                3,
+                2
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 16,
+            "idx_type": 0,
+            "seed": 0,
+            "use_scales": true
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1169105526059866,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "expert_token_num": [
+              4
+            ],
+            "expert_token_num_per_rank": [
+              4,
+              4
+            ],
+            "per_token_scales": [
+              256
+            ],
+            "permute_per_token_scales": [
+              256
+            ],
+            "permute_token_idx": [
+              256
+            ],
+            "permute_tokens": [
+              256,
+              64
+            ],
+            "tokens": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "counts": [
+              [
+                20,
+                12,
+                16,
+                16
+              ],
+              [
+                18,
+                14,
+                10,
+                22
+              ],
+              [
+                12,
+                20,
+                18,
+                14
+              ],
+              [
+                14,
+                18,
+                12,
+                20
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 64,
+            "idx_type": 0,
+            "seed": 1,
+            "use_scales": true
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.11934107169508934,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "expert_token_num": [
+              4
+            ],
+            "expert_token_num_per_rank": [
+              4,
+              4
+            ],
+            "per_token_scales": [
+              128
+            ],
+            "permute_per_token_scales": [
+              128
+            ],
+            "permute_token_idx": [
+              128
+            ],
+            "permute_tokens": [
+              128,
+              128
+            ],
+            "tokens": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "counts": [
+              [
+                16,
+                0,
+                8,
+                8
+              ],
+              [
+                0,
+                20,
+                4,
+                8
+              ],
+              [
+                12,
+                4,
+                24,
+                0
+              ],
+              [
+                8,
+                4,
+                0,
+                12
+              ]
+            ],
+            "dtype": "float16",
+            "expert_token_num_type": 1,
+            "hidden_size": 128,
+            "idx_type": 0,
+            "seed": 2,
+            "use_scales": true
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_unpermute",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute/report.json",
+      "spec": "bench/specs/moe/moe_token_unpermute.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10396039579063654,
+          "baseline_over_pto_pct": 45.92478729881842,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22637099027633667,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              128
+            ],
+            "out": [
+              8,
+              16
+            ],
+            "permuted_tokens": [
+              8,
+              16
+            ],
+            "sorted_indices": [
+              8
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "index_dtype": "int32",
+            "padded_mode": false,
+            "probs": false,
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10769593063741922,
+          "baseline_over_pto_pct": 46.98844565985908,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22919662296772003,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "out": [
+              256,
+              64
+            ],
+            "permuted_tokens": [
+              256,
+              64
+            ],
+            "sorted_indices": [
+              256
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 64,
+            "index_dtype": "int32",
+            "padded_mode": false,
+            "probs": false,
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10714039672166109,
+          "baseline_over_pto_pct": 47.30764110242915,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22647588048130274,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "out": [
+              128,
+              128
+            ],
+            "permuted_tokens": [
+              128,
+              128
+            ],
+            "sorted_indices": [
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 128,
+            "index_dtype": "int32",
+            "padded_mode": false,
+            "probs": false,
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_unpermute_grad",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_grad/report.json",
+      "spec": "bench/specs/moe/moe_token_unpermute_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.10613538324832916,
+          "baseline_over_pto_pct": 40.15001382818872,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.26434706524014473,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens": [
+              8,
+              16
+            ],
+            "permuted_tokens_grad": [
+              8,
+              16
+            ],
+            "probs_grad": [],
+            "sorted_indices": [
+              8
+            ],
+            "unpermuted_tokens_grad": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.1732311211526394,
+          "baseline_over_pto_pct": 66.77592224784085,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2594215329736471,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens": [
+              256,
+              64
+            ],
+            "permuted_tokens_grad": [
+              256,
+              64
+            ],
+            "probs_grad": [],
+            "sorted_indices": [
+              256
+            ],
+            "unpermuted_tokens_grad": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 64,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.17374102026224136,
+          "baseline_over_pto_pct": 62.12213354711928,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2796765184029937,
+          "pto_status": "ok",
+          "shape_summary": {
+            "permuted_tokens": [
+              128,
+              128
+            ],
+            "permuted_tokens_grad": [
+              128,
+              128
+            ],
+            "probs_grad": [],
+            "sorted_indices": [
+              128
+            ],
+            "unpermuted_tokens_grad": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 128,
+            "padded_mode": false,
+            "probs": false,
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_unpermute_with_routing_map",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map/report.json",
+      "spec": "bench/specs/moe/moe_token_unpermute_with_routing_map.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10210054460912943,
+          "baseline_over_pto_pct": 45.49902858224886,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2244015922769904,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              128
+            ],
+            "permuted_tokens": [
+              8,
+              16
+            ],
+            "restore_shape": [
+              8,
+              16
+            ],
+            "routing_map": [
+              8,
+              4
+            ],
+            "sorted_indices": [
+              8
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.10308087803423405,
+          "baseline_over_pto_pct": 45.691577799083746,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22560148499906063,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "permuted_tokens": [
+              256,
+              64
+            ],
+            "restore_shape": [
+              256,
+              64
+            ],
+            "routing_map": [
+              256,
+              8
+            ],
+            "sorted_indices": [
+              256
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 64,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1044559758156538,
+          "baseline_over_pto_pct": 46.60060754723448,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.22415153216570616,
+          "pto_status": "ok",
+          "shape_summary": {
+            "gather_indices": [
+              16384
+            ],
+            "permuted_tokens": [
+              128,
+              128
+            ],
+            "restore_shape": [
+              128,
+              128
+            ],
+            "routing_map": [
+              128,
+              8
+            ],
+            "sorted_indices": [
+              128
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 128,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "moe",
+      "name": "moe_token_unpermute_with_routing_map_grad",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map_grad/report.json",
+      "spec": "bench/specs/moe/moe_token_unpermute_with_routing_map_grad.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.10955601464956999,
+          "baseline_over_pto_pct": 41.830195220823555,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.26190653443336487,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out_index": [
+              8
+            ],
+            "permute_token_id": [
+              8
+            ],
+            "permuted_tokens_grad": [
+              8,
+              16
+            ],
+            "restore_shape": [
+              8,
+              16
+            ],
+            "routing_map": [
+              8,
+              4
+            ],
+            "unpermuted_tokens_grad": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.11040107347071171,
+          "baseline_over_pto_pct": 41.94702846206142,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.2631916431710124,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out_index": [
+              256
+            ],
+            "permute_token_id": [
+              256
+            ],
+            "permuted_tokens_grad": [
+              256,
+              64
+            ],
+            "restore_shape": [
+              256,
+              64
+            ],
+            "routing_map": [
+              256,
+              8
+            ],
+            "unpermuted_tokens_grad": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 64,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 1,
+            "tokens": 256
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
+            "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
+          ],
+          "baseline_median_ms": 0.1106759300455451,
+          "baseline_over_pto_pct": 42.27468927603796,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.26180187705904245,
+          "pto_status": "ok",
+          "shape_summary": {
+            "out_index": [
+              128
+            ],
+            "permute_token_id": [
+              128
+            ],
+            "permuted_tokens_grad": [
+              128,
+              128
+            ],
+            "restore_shape": [
+              128,
+              128
+            ],
+            "routing_map": [
+              128,
+              8
+            ],
+            "unpermuted_tokens_grad": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "drop_and_pad": false,
+            "dtype": "float16",
+            "experts": 8,
+            "hidden_size": 128,
+            "probs": false,
+            "routing_dtype": "int8",
+            "seed": 2,
+            "tokens": 128
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "attention",
+      "name": "attention_update",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update/report.json",
+      "spec": "bench/specs/attention/attention_update.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.08879054803401232,
+          "baseline_over_pto_pct": 37.62525843454891,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.235986546613276,
+          "pto_status": "ok",
+          "shape_summary": {
+            "local_out0": [
+              8,
+              16
+            ],
+            "local_out1": [
+              8,
+              16
+            ],
+            "lse0": [
+              8
+            ],
+            "lse1": [
+              8
+            ],
+            "out": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 16,
+            "rows": 8,
+            "seed": 0,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.08999044075608253,
+          "baseline_over_pto_pct": 38.01693374828361,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.23671146482229233,
+          "pto_status": "ok",
+          "shape_summary": {
+            "local_out0": [
+              256,
+              64
+            ],
+            "local_out1": [
+              256,
+              64
+            ],
+            "lse0": [
+              256
+            ],
+            "lse1": [
+              256
+            ],
+            "out": [
+              256,
+              64
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 64,
+            "rows": 256,
+            "seed": 1,
+            "sp": 2,
+            "update_type": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.09064050391316414,
+          "baseline_over_pto_pct": 38.25849727751999,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.23691600654274225,
+          "pto_status": "ok",
+          "shape_summary": {
+            "local_out0": [
+              128,
+              128
+            ],
+            "local_out1": [
+              128,
+              128
+            ],
+            "lse0": [
+              128
+            ],
+            "lse1": [
+              128
+            ],
+            "out": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "head_dim": 128,
+            "rows": 128,
+            "seed": 2,
+            "sp": 2,
+            "update_type": 0
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "attention",
+      "name": "fused_infer_attention_score",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
+      "spec": "bench/specs/attention/fused_infer_attention_score.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.17698609735816717,
+          "baseline_over_pto_pct": 37.38829676435963,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.4733729874715209,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "v_cache": [
+              1,
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 1,
+            "q_seq": 16,
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.1778160221874714,
+          "baseline_over_pto_pct": 37.537447058031326,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.47370302490890026,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "v_cache": [
+              1,
+              64,
+              64
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 64,
+            "q_heads": 1,
+            "q_seq": 64,
+            "seed": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.17520610708743334,
+          "baseline_over_pto_pct": 36.169867099965465,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.48439798410981894,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "block_table": [
+              1,
+              1
+            ],
+            "k_cache": [
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "v_cache": [
+              1,
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 32,
+            "seed": 2
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "attention",
+      "name": "incre_flash_attention",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/incre_flash_attention/report.json",
+      "spec": "bench/specs/attention/incre_flash_attention.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.13072113506495953,
+          "baseline_over_pto_pct": 26.40868042440683,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.4949930589646101,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              16,
+              1,
+              16
+            ],
+            "key": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              16,
+              1,
+              16
+            ],
+            "value": [
+              1,
+              1,
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 16,
+            "q_seq": 1,
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.13523048255592585,
+          "baseline_over_pto_pct": 24.06863664288371,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.5618535215035081,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              16,
+              1,
+              64
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              64
+            ],
+            "query": [
+              1,
+              16,
+              1,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              64
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 16,
+            "q_seq": 1,
+            "seed": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.13546098489314318,
+          "baseline_over_pto_pct": 27.82408479021481,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.4868479445576668,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              16,
+              1,
+              128
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              16,
+              1,
+              128
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 16,
+            "q_seq": 1,
+            "seed": 2
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "attention",
+      "name": "prompt_flash_attention",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/prompt_flash_attention/report.json",
+      "spec": "bench/specs/attention/prompt_flash_attention.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.36827195435762405,
+          "baseline_over_pto_pct": 73.4351147873435,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.5014929920434952,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "key": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "query": [
+              1,
+              1,
+              16,
+              16
+            ],
+            "value": [
+              1,
+              1,
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 16,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 16,
+            "q_heads": 1,
+            "q_seq": 16,
+            "seed": 0
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.3771125338971615,
+          "baseline_over_pto_pct": 71.22069107137125,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.5294985603541136,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              64
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 64,
+            "seed": 1
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.3976174630224705,
+          "baseline_over_pto_pct": 75.08683715768572,
+          "baseline_status": "ok",
+          "pto_correct": true,
+          "pto_median_ms": 0.5295434966683388,
+          "pto_status": "ok",
+          "shape_summary": {
+            "attention_out": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "key": [
+              1,
+              1,
+              128,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "value": [
+              1,
+              1,
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "kv_heads": 1,
+            "kv_seq": 128,
+            "q_heads": 1,
+            "q_seq": 32,
+            "seed": 2
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "family": "attention",
+      "name": "recurrent_gated_delta_rule",
+      "pto_reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/recurrent_gated_delta_rule/report.json",
+      "spec": "bench/specs/attention/recurrent_gated_delta_rule.yaml",
+      "variants": [
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "baseline timing uses the functional entrypoint to observe both output and final_state",
+            "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
+          ],
+          "baseline_median_ms": 0.14757609460502863,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "attention_out": [
+              2,
+              16,
+              16
+            ],
+            "beta": [
+              2,
+              16
+            ],
+            "final_state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "g": [
+              2,
+              16
+            ],
+            "key": [
+              2,
+              16,
+              16
+            ],
+            "query": [
+              2,
+              16,
+              16
+            ],
+            "state": [
+              2,
+              16,
+              16,
+              16
+            ],
+            "value": [
+              2,
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 16,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 0,
+            "seq_len": 2
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "baseline timing uses the functional entrypoint to observe both output and final_state",
+            "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
+          ],
+          "baseline_median_ms": 0.13442093040794134,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "attention_out": [
+              4,
+              16,
+              64
+            ],
+            "beta": [
+              4,
+              16
+            ],
+            "final_state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "g": [
+              4,
+              16
+            ],
+            "key": [
+              4,
+              16,
+              64
+            ],
+            "query": [
+              4,
+              16,
+              64
+            ],
+            "state": [
+              4,
+              16,
+              64,
+              64
+            ],
+            "value": [
+              4,
+              16,
+              64
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 64,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 1,
+            "seq_len": 4
+          }
+        },
+        {
+          "baseline_correct": true,
+          "baseline_limitations": [
+            "baseline timing uses the functional entrypoint to observe both output and final_state",
+            "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
+          ],
+          "baseline_median_ms": 0.12065551709383726,
+          "baseline_over_pto_pct": null,
+          "baseline_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
+          "shape_summary": {
+            "attention_out": [
+              8,
+              16,
+              128
+            ],
+            "beta": [
+              8,
+              16
+            ],
+            "final_state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "g": [
+              8,
+              16
+            ],
+            "key": [
+              8,
+              16,
+              128
+            ],
+            "query": [
+              8,
+              16,
+              128
+            ],
+            "state": [
+              8,
+              16,
+              128,
+              128
+            ],
+            "value": [
+              8,
+              16,
+              128
+            ]
+          },
+          "variant": {
+            "batch_size": 1,
+            "dim": 128,
+            "input_scale": 0.125,
+            "num_heads": 16,
+            "num_value_heads": 16,
+            "seed": 2,
+            "seq_len": 8
+          }
+        }
+      ]
+    },
+    {
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "family": "attention",
+      "name": "ring_attention_update",
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
+      "spec": "bench/specs/attention/ring_attention_update.yaml",
+      "variants": [
+        {
+          "baseline_correct": false,
+          "baseline_limitations": [],
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+          "baseline_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.2813219325616956,
+          "pto_reason": null,
+          "pto_status": "ok",
+          "shape_summary": null,
+          "variant": {}
+        }
+      ]
+    },
+    {
+      "baseline_reason": null,
+      "baseline_status": "ok",
       "family": "attention",
       "name": "flash_attention_score",
       "pto_reason": null,
@@ -482,11 +4101,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.16292603686451912,
-          "baseline_over_pto_pct": 36.19593107295624,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.15970098320394754,
+          "baseline_over_pto_pct": 35.75469185181864,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4501225193962455,
+          "pto_median_ms": 0.44665741734206676,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -533,11 +4153,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.1633909996598959,
-          "baseline_over_pto_pct": 36.77633306274405,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.16570102889090776,
+          "baseline_over_pto_pct": 39.01804188427711,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4442830104380846,
+          "pto_median_ms": 0.4246779717504978,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -584,11 +4205,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.15763100236654282,
-          "baseline_over_pto_pct": 35.66454195859453,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.16397598665207624,
+          "baseline_over_pto_pct": 38.5026756970931,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4419824108481407,
+          "pto_median_ms": 0.4258820554241538,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -647,11 +4269,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.5942890420556068,
-          "baseline_over_pto_pct": 81.09020322969054,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.5995885003358126,
+          "baseline_over_pto_pct": 80.06901844901884,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7328740321099758,
+          "pto_median_ms": 0.7488395785912871,
           "pto_status": "ok",
           "shape_summary": {
             "local_mm": [
@@ -688,11 +4311,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.5417934153228998,
-          "baseline_over_pto_pct": 70.68591753995625,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.5245929351076484,
+          "baseline_over_pto_pct": 69.4034519531517,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7664799923077226,
+          "pto_median_ms": 0.7558600045740604,
           "pto_status": "ok",
           "shape_summary": {
             "local_mm": [
@@ -741,11 +4365,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.5443084519356489,
-          "baseline_over_pto_pct": 52.116785229408315,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.5492280470207334,
+          "baseline_over_pto_pct": 57.017580116282275,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 1.0444014333188534,
+          "pto_median_ms": 0.9632608853280544,
           "pto_status": "ok",
           "shape_summary": {
             "gather_out": [
@@ -781,11 +4406,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.5741029744967818,
-          "baseline_over_pto_pct": 59.5538761046857,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.559683539904654,
+          "baseline_over_pto_pct": 57.3636680044954,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.9640060598030686,
+          "pto_median_ms": 0.9756759973242879,
           "pto_status": "ok",
           "shape_summary": {
             "gather_out": [
@@ -833,11 +4459,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.7037540199235082,
-          "baseline_over_pto_pct": 95.56889663883746,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.6198635092005134,
+          "baseline_over_pto_pct": 75.66696902643234,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7363839540630579,
+          "pto_median_ms": 0.8191996021196246,
           "pto_status": "ok",
           "shape_summary": {
             "group_list": [
@@ -871,11 +4498,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.723700039088726,
-          "baseline_over_pto_pct": 103.85618027985291,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.6979240570217371,
+          "baseline_over_pto_pct": 98.50672107785685,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.696829054504633,
+          "pto_median_ms": 0.7085039978846908,
           "pto_status": "ok",
           "shape_summary": {
             "group_list": [
@@ -921,11 +4549,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.5761384963989258,
-          "baseline_over_pto_pct": 82.7482011140678,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.6053539691492915,
+          "baseline_over_pto_pct": 85.9982313966294,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.6962550105527043,
+          "pto_median_ms": 0.7039144402369857,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -955,11 +4584,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.6508741062134504,
-          "baseline_over_pto_pct": 87.03859611541783,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.5381930386647582,
+          "baseline_over_pto_pct": 75.9249271551196,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7477994076907635,
+          "pto_median_ms": 0.708848936483264,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -1001,11 +4631,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.6312590558081865,
-          "baseline_over_pto_pct": 71.12173515568489,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.6203589728102088,
+          "baseline_over_pto_pct": 71.59735599256892,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.8875754429027438,
+          "pto_median_ms": 0.8664551423862576,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -1047,11 +4678,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.6049684016034007,
-          "baseline_over_pto_pct": 62.801919114403624,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.5624284967780113,
+          "baseline_over_pto_pct": 58.191056313226085,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.9632960427552462,
+          "pto_median_ms": 0.9665205143392086,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -1105,11 +4737,12 @@
       "variants": [
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.6040040170773864,
-          "baseline_over_pto_pct": 52.50419154744402,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.553588499315083,
+          "baseline_over_pto_pct": 52.62894081590596,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 1.1503919959068298,
+          "pto_median_ms": 1.0518708731979132,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -1147,11 +4780,12 @@
         },
         {
           "baseline_correct": true,
-          "baseline_median_ms": 0.6303179543465376,
-          "baseline_over_pto_pct": 59.214140376836845,
+          "baseline_limitations": [],
+          "baseline_median_ms": 0.674733892083168,
+          "baseline_over_pto_pct": 59.314033355700914,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 1.064472016878426,
+          "pto_median_ms": 1.1375619797036052,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -1190,27 +4824,28 @@
       ]
     },
     {
-      "baseline_reason": "Distributed ranked job failed.",
+      "baseline_reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
       "baseline_status": "blocked",
       "family": "mc2",
       "name": "moe_distribute_dispatch",
-      "pto_reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.tgather' op src0 and dst must have the same element type\n note: unknown: see current operation: \"pto.tgather\"(%16, %17, %18) : (!pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=57344, v_row=1, v_col=57344, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=i32, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>) -> ()",
-      "pto_status": "blocked",
+      "pto_reason": null,
+      "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
       "spec": "bench/specs/mc2/moe_distribute_dispatch.yaml",
       "variants": [
         {
           "baseline_correct": false,
+          "baseline_limitations": [],
           "baseline_median_ms": null,
           "baseline_over_pto_pct": null,
           "baseline_status": "blocked",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 27.90528698824346,
+          "pto_status": "ok",
           "shape_summary": null,
           "variant": {
             "dtype": "float16",
-            "expected_world_size": 2,
+            "expected_world_size": 8,
             "hidden_size": 7168,
             "input_scale": 0.125,
             "quant_mode": 0,
@@ -1218,31 +4853,11 @@
             "tokens": 8,
             "topk": 1
           }
-        },
-        {
-          "baseline_correct": false,
-          "baseline_median_ms": null,
-          "baseline_over_pto_pct": null,
-          "baseline_status": "blocked",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_status": "blocked",
-          "shape_summary": null,
-          "variant": {
-            "dtype": "float16",
-            "expected_world_size": 2,
-            "hidden_size": 7168,
-            "input_scale": 0.125,
-            "quant_mode": 0,
-            "seed": 1,
-            "tokens": 16,
-            "topk": 1
-          }
         }
       ]
     },
     {
-      "baseline_reason": "Distributed ranked job failed.",
+      "baseline_reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
       "baseline_status": "blocked",
       "family": "mc2",
       "name": "moe_distribute_combine",
@@ -1253,6 +4868,7 @@
       "variants": [
         {
           "baseline_correct": false,
+          "baseline_limitations": [],
           "baseline_median_ms": null,
           "baseline_over_pto_pct": null,
           "baseline_status": "blocked",
@@ -1262,29 +4878,10 @@
           "shape_summary": null,
           "variant": {
             "dtype": "float16",
-            "expected_world_size": 2,
+            "expected_world_size": 8,
             "hidden_size": 7168,
             "input_scale": 0.125,
             "seed": 0,
-            "tokens": 8,
-            "topk": 1
-          }
-        },
-        {
-          "baseline_correct": false,
-          "baseline_median_ms": null,
-          "baseline_over_pto_pct": null,
-          "baseline_status": "blocked",
-          "pto_correct": true,
-          "pto_median_ms": null,
-          "pto_status": "ok",
-          "shape_summary": null,
-          "variant": {
-            "dtype": "float16",
-            "expected_world_size": 2,
-            "hidden_size": 7168,
-            "input_scale": 0.125,
-            "seed": 1,
             "tokens": 8,
             "topk": 1
           }

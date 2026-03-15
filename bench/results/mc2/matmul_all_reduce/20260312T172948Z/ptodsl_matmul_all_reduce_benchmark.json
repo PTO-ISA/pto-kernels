@@ -1,0 +1,239 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0009765625,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "pto_local_matmul_then_all_reduce",
+  "shape_summaries": [
+    {
+      "output": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        128,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    },
+    {
+      "output": [
+        256,
+        128
+      ],
+      "world_size": 2,
+      "x1_local": [
+        256,
+        256
+      ],
+      "x2": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 4.4906469993293285,
+    "median": 0.708848936483264,
+    "min": 0.6717238575220108
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0009765625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.0009765625,
+          0.0009765625
+        ],
+        "rtol": 0.001
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.3094401005655527,
+            "median": 0.7033939473330975,
+            "min": 0.6717238575220108
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.2774000428617,
+            "median": 0.7039144402369857,
+            "min": 0.671743880957365
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce",
+      "shape_summary": {
+        "output": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          128,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 3.3094401005655527,
+        "median": 0.7039144402369857,
+        "min": 0.6717238575220108,
+        "per_rank_median": [
+          0.7033939473330975,
+          0.7039144402369857
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 128,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0009765625,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.0009765625,
+          0.0009765625
+        ],
+        "rtol": 0.001
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0009765625
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 4.462156910449266,
+            "median": 0.708848936483264,
+            "min": 0.6829039193689823
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0009765625
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 4.4906469993293285,
+            "median": 0.7054944289848208,
+            "min": 0.6792140193283558
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "pto_local_matmul_then_all_reduce",
+      "shape_summary": {
+        "output": [
+          256,
+          128
+        ],
+        "world_size": 2,
+        "x1_local": [
+          256,
+          256
+        ],
+        "x2": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 4.4906469993293285,
+        "median": 0.708848936483264,
+        "min": 0.6792140193283558,
+        "per_rank_median": [
+          0.708848936483264,
+          0.7054944289848208
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "input_scale": 0.125,
+        "k": 256,
+        "m": 256,
+        "n": 128,
+        "reduce_op": "sum",
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 256,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 1
+    }
+  ]
+}

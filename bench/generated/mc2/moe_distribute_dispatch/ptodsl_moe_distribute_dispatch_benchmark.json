@@ -1,0 +1,293 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.0
+  },
+  "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+  "shape_summaries": [
+    {
+      "ep_recv_counts_prefix": [
+        8
+      ],
+      "expand_idx": [
+        8
+      ],
+      "expand_x": [
+        64,
+        7168
+      ],
+      "expert_ids_local": [
+        8,
+        1
+      ],
+      "expert_token_nums": [
+        1
+      ],
+      "send_buffer_local": [
+        8,
+        7168
+      ],
+      "world_size": 8,
+      "x_local": [
+        8,
+        7168
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 27.90528698824346,
+    "median": 27.90528698824346,
+    "min": 27.783306082710624
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "per_rank_max_abs_diff": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rtol": 0.0
+      },
+      "rank_reports": [
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.896276907995343,
+            "median": 27.896276907995343,
+            "min": 27.896276907995343
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.783306082710624,
+            "median": 27.783306082710624,
+            "min": 27.783306082710624
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:2",
+          "rank": 2,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.90528698824346,
+            "median": 27.90528698824346,
+            "min": 27.90528698824346
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:3",
+          "rank": 3,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.877296786755323,
+            "median": 27.877296786755323,
+            "min": 27.877296786755323
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:4",
+          "rank": 4,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.89896703325212,
+            "median": 27.89896703325212,
+            "min": 27.89896703325212
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:5",
+          "rank": 5,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.898177038878202,
+            "median": 27.898177038878202,
+            "min": 27.898177038878202
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:6",
+          "rank": 6,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.893856866285205,
+            "median": 27.893856866285205,
+            "min": 27.893856866285205
+          },
+          "world_size": 8
+        },
+        {
+          "correctness": {
+            "ep_recv_counts_prefix_max_abs_diff": 0,
+            "expand_idx_max_abs_diff": 0,
+            "expand_x_max_abs_diff": 0.0,
+            "expert_token_nums_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "device": "npu:7",
+          "rank": 7,
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.903876965865493,
+            "median": 27.903876965865493,
+            "min": 27.903876965865493
+          },
+          "world_size": 8
+        }
+      ],
+      "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+      "shape_summary": {
+        "ep_recv_counts_prefix": [
+          8
+        ],
+        "expand_idx": [
+          8
+        ],
+        "expand_x": [
+          64,
+          7168
+        ],
+        "expert_ids_local": [
+          8,
+          1
+        ],
+        "expert_token_nums": [
+          1
+        ],
+        "send_buffer_local": [
+          8,
+          7168
+        ],
+        "world_size": 8,
+        "x_local": [
+          8,
+          7168
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 27.90528698824346,
+        "median": 27.90528698824346,
+        "min": 27.783306082710624,
+        "per_rank_median": [
+          27.896276907995343,
+          27.783306082710624,
+          27.90528698824346,
+          27.877296786755323,
+          27.89896703325212,
+          27.898177038878202,
+          27.893856866285205,
+          27.903876965865493
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "quant_mode": 0,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "world_size": 8
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 8,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    }
+  ]
+}

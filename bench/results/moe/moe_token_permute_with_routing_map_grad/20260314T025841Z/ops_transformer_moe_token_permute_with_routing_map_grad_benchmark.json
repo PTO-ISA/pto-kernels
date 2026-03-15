@@ -1,0 +1,246 @@
+{
+  "baseline_limitations": [
+    "t8_h16_e4: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+    "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
+    "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 6.248046875,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_permute_with_routing_map_grad",
+  "reference_contract": "top1_routing_map_permute_grad_no_probs",
+  "shape_summaries": [
+    {
+      "permuted_tokens_grad": [
+        8,
+        16
+      ],
+      "routing_map": [
+        8,
+        4
+      ],
+      "sorted_indices": [
+        8
+      ],
+      "token_grad_out": [
+        8,
+        16
+      ]
+    },
+    {
+      "permuted_tokens_grad": [
+        256,
+        64
+      ],
+      "routing_map": [
+        256,
+        8
+      ],
+      "sorted_indices": [
+        256
+      ],
+      "token_grad_out": [
+        256,
+        64
+      ]
+    },
+    {
+      "permuted_tokens_grad": [
+        128,
+        128
+      ],
+      "routing_map": [
+        128,
+        8
+      ],
+      "sorted_indices": [
+        128
+      ],
+      "token_grad_out": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.15221093781292439,
+    "median": 0.09242550004273653,
+    "min": 0.07698102854192257
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 3.909912109375,
+        "passes": false,
+        "probs_max_abs_diff": 0.0,
+        "supported_outputs": [
+          "token_grad"
+        ],
+        "token_max_abs_diff": 3.909912109375,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens_grad": [
+          8,
+          16
+        ],
+        "routing_map": [
+          8,
+          4
+        ],
+        "sorted_indices": [
+          8
+        ],
+        "token_grad_out": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.15221093781292439,
+        "median": 0.08572603110224009,
+        "min": 0.07936102338135242
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 6.248046875,
+        "passes": false,
+        "probs_max_abs_diff": 0.0,
+        "supported_outputs": [
+          "token_grad"
+        ],
+        "token_max_abs_diff": 6.248046875,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens_grad": [
+          256,
+          64
+        ],
+        "routing_map": [
+          256,
+          8
+        ],
+        "sorted_indices": [
+          256
+        ],
+        "token_grad_out": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1042000949382782,
+        "median": 0.08277548477053642,
+        "min": 0.07698102854192257
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 64,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 5.4775390625,
+        "passes": false,
+        "probs_max_abs_diff": 0.0,
+        "supported_outputs": [
+          "token_grad"
+        ],
+        "token_max_abs_diff": 5.4775390625,
+        "unsupported_outputs": [
+          "probs_grad"
+        ]
+      },
+      "shape_summary": {
+        "permuted_tokens_grad": [
+          128,
+          128
+        ],
+        "routing_map": [
+          128,
+          8
+        ],
+        "sorted_indices": [
+          128
+        ],
+        "token_grad_out": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.11995108798146248,
+        "median": 0.09242550004273653,
+        "min": 0.08610985241830349
+      },
+      "variant": {
+        "drop_and_pad": false,
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 128,
+        "probs": false,
+        "routing_dtype": "int8",
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 64,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "drop_and_pad": false,
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 128,
+      "probs": false,
+      "routing_dtype": "int8",
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

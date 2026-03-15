@@ -1,0 +1,15 @@
+{
+  "blocking_gap": "ops-transformer-runtime-package-bringup",
+  "entrypoint": "torch_npu.npu_grouped_matmul",
+  "reason": "npu_grouped_matmul:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:266 NPU function error: call aclnnGroupedMatmulV5 failed, error code is 161002\n[ERROR] 2026-03-12-00:36:19 (PID:1407940, Device:0, RankID:-1) ERR00100 PTA call acl api failed.\n[PID: 1407940] 2026-03-12-00:36:19.002.860 AclNN_Parameter_Error(EZ1001): weight[0] dim num should be 3 in this case, but now is 2.\n        TraceBack (most recent call last):\n        Dim num or format of tensor in tensor list weight is invalid.\n        Split m, single x, single weight, single y case failed.\n        Invalid inputs!\n",
+  "status": "blocked",
+  "variant": {
+    "batch": 1,
+    "input_dtype": "bfloat16",
+    "k": 128,
+    "m": 128,
+    "n": 128,
+    "output_dtype": "float32",
+    "seed": 0
+  }
+}

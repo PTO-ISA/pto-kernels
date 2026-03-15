@@ -1,0 +1,624 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul",
+      "reference_contract": "bf16_rounded_matmul",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/ops_transformer_grouped_matmul_benchmark.json",
+      "shape_summaries": [
+        {
+          "output": [
+            1,
+            128,
+            128
+          ],
+          "weight": [
+            128,
+            128
+          ],
+          "weight_v5": [
+            1,
+            128,
+            128
+          ],
+          "x": [
+            128,
+            128
+          ]
+        },
+        {
+          "output": [
+            1,
+            64,
+            128
+          ],
+          "weight": [
+            64,
+            128
+          ],
+          "weight_v5": [
+            1,
+            64,
+            128
+          ],
+          "x": [
+            64,
+            64
+          ]
+        },
+        {
+          "output": [
+            1,
+            128,
+            256
+          ],
+          "weight": [
+            128,
+            256
+          ],
+          "weight_v5": [
+            1,
+            128,
+            256
+          ],
+          "x": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.13602105900645256,
+        "median": 0.10522047523409128,
+        "min": 0.09596114978194237
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "output_type": "<class 'list'>",
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              128
+            ],
+            "weight": [
+              128,
+              128
+            ],
+            "weight_v5": [
+              1,
+              128,
+              128
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12308103032410145,
+            "median": 0.1042104559019208,
+            "min": 0.09790086187422276
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 9.5367431640625e-07
+          },
+          "output_type": "<class 'list'>",
+          "shape_summary": {
+            "output": [
+              1,
+              64,
+              128
+            ],
+            "weight": [
+              64,
+              128
+            ],
+            "weight_v5": [
+              1,
+              64,
+              128
+            ],
+            "x": [
+              64,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.13602105900645256,
+            "median": 0.10522047523409128,
+            "min": 0.0989711843430996
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 64,
+            "m": 64,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 1
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "output_type": "<class 'list'>",
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              256
+            ],
+            "weight": [
+              128,
+              256
+            ],
+            "weight_v5": [
+              1,
+              128,
+              256
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12107985094189644,
+            "median": 0.10315596591681242,
+            "min": 0.09596114978194237
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 256,
+            "output_dtype": "bfloat16",
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 0
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 64,
+          "m": 64,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 1
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 256,
+          "output_dtype": "bfloat16",
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_grouped_matmul",
+      "note": "Baseline execution currently relies on the runtime-installed op. Building the standalone ops-transformer example is tracked as a separate blocker.",
+      "status": "runtime_builtin"
+    },
+    "family": "gmm",
+    "name": "grouped_matmul",
+    "ops_transformer_path": "gmm/grouped_matmul",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul",
+    "seed_variant": {
+      "default": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 128,
+        "m": 128,
+        "n": 128,
+        "output_dtype": "bfloat16",
+        "seed": 0
+      },
+      "variants": [
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 0
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 64,
+          "m": 64,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 1
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 256,
+          "output_dtype": "bfloat16",
+          "seed": 2
+        }
+      ]
+    },
+    "upstream_build_status": "fast_kernel_launch_example is currently blocked on this host because bisheng fails while compiling torch header dependencies in the example extension."
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/grouped_matmul",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+  "name": "grouped_matmul",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n128/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m64_k64_n128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m64_k64_n128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m64_k64_n128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m64_k64_n128/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n256/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n256/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n256/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/b1_m128_k128_n256/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00048828125,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/ptodsl_grouped_matmul_benchmark.json",
+      "shape_summaries": [
+        {
+          "output": [
+            1,
+            128,
+            128
+          ],
+          "weight": [
+            128,
+            128
+          ],
+          "weight_v5": [
+            1,
+            128,
+            128
+          ],
+          "x": [
+            128,
+            128
+          ]
+        },
+        {
+          "output": [
+            1,
+            64,
+            128
+          ],
+          "weight": [
+            64,
+            128
+          ],
+          "weight_v5": [
+            1,
+            64,
+            128
+          ],
+          "x": [
+            64,
+            64
+          ]
+        },
+        {
+          "output": [
+            1,
+            128,
+            256
+          ],
+          "weight": [
+            128,
+            256
+          ],
+          "weight_v5": [
+            1,
+            128,
+            256
+          ],
+          "x": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.4423519130796194,
+        "median": 0.24024653248488903,
+        "min": 0.23260083980858326
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              128
+            ],
+            "weight": [
+              128,
+              128
+            ],
+            "weight_v5": [
+              1,
+              128,
+              128
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4359029699116945,
+            "median": 0.2385210245847702,
+            "min": 0.23388094268739223
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 0
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 9.5367431640625e-07
+          },
+          "shape_summary": {
+            "output": [
+              1,
+              64,
+              128
+            ],
+            "weight": [
+              64,
+              128
+            ],
+            "weight_v5": [
+              1,
+              64,
+              128
+            ],
+            "x": [
+              64,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.2667410299181938,
+            "median": 0.23803149815648794,
+            "min": 0.23260083980858326
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 64,
+            "m": 64,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 1
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              256
+            ],
+            "weight": [
+              128,
+              256
+            ],
+            "weight_v5": [
+              1,
+              128,
+              256
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4423519130796194,
+            "median": 0.24024653248488903,
+            "min": 0.2329009585082531
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 256,
+            "output_dtype": "bfloat16",
+            "seed": 2
+          }
+        }
+      ],
+      "variants": [
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 0
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 64,
+          "m": 64,
+          "n": 128,
+          "output_dtype": "bfloat16",
+          "seed": 1
+        },
+        {
+          "baseline_weight_layout": "single_3d_weight_for_v5",
+          "batch": 1,
+          "input_dtype": "bfloat16",
+          "k": 128,
+          "m": 128,
+          "n": 256,
+          "output_dtype": "bfloat16",
+          "seed": 2
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul/kernel.py",
+    "meta": {
+      "archetype": "gmm",
+      "blockers": [
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "grouped_matmul",
+      "ops_transformer_path": "gmm/grouped_matmul",
+      "seed_variant": {
+        "limits": [
+          "single batch only",
+          "single dense weight only",
+          "baseline path uses a single 3D weight tensor to satisfy aclnnGroupedMatmulV5",
+          "no bias/quantization/activation",
+          "pto path stores ACC output directly to bf16 GM for parity with the baseline contract"
+        ],
+        "name": "dense_single_weight_bf16_to_bf16",
+        "shape": [
+          128,
+          128,
+          128
+        ]
+      },
+      "status": "planned",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090412Z/report.json",
+  "status": "planned",
+  "wave": "wave1"
+}

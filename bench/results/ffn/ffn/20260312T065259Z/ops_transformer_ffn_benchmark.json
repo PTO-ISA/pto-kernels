@@ -1,0 +1,40 @@
+{
+  "entrypoint": "torch_npu.npu_ffn",
+  "reason": "npu_ffn:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:70 NPU function error: call aclnnFFNV2 failed, error code is 161002\n[ERROR] 2026-03-12-14:53:07 (PID:2218202, Device:0, RankID:-1) ERR00100 PTA call acl api failed.\n[PID: 2218202] 2026-03-12-14:53:07.321.948 AclNN_Parameter_Error(EZ1001): weight1 KDimValue[256] is not equal to weight2 NDimValue[128]\n",
+  "status": "blocked",
+  "variants": [
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 0,
+      "tokens": 32
+    },
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 128,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 1,
+      "tokens": 64
+    },
+    {
+      "activation": "relu",
+      "bias": false,
+      "dtype": "float16",
+      "hidden_size": 256,
+      "input_scale": 0.125,
+      "intermediate_size": 256,
+      "output_size": 128,
+      "seed": 2,
+      "tokens": 32
+    }
+  ]
+}

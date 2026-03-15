@@ -1,0 +1,195 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_gating_top_k_softmax_v2.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_gating_top_k_softmax_v2 | torch.ops.npu.npu_moe_gating_top_k_softmax_v2",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/ops_transformer_moe_gating_top_k_softmax_v2_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "This host does not expose torch_npu.npu_moe_gating_top_k_softmax_v2 or torch.ops.npu.npu_moe_gating_top_k_softmax_v2.",
+      "status": "blocked"
+    },
+    "family": "moe",
+    "name": "moe_gating_top_k_softmax_v2",
+    "ops_transformer_path": "moe/moe_gating_top_k_softmax_v2",
+    "runtime_entrypoint": "torch_npu.npu_moe_gating_top_k_softmax_v2 | torch.ops.npu.npu_moe_gating_top_k_softmax_v2",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "experts": 16,
+        "output_softmax_result_flag": false,
+        "renorm": 0,
+        "rows": 8,
+        "seed": 0,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_gating_top_k_softmax_v2",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax_v2",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax_v2/report.json",
+  "name": "moe_gating_top_k_softmax_v2",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_gating_top_k_softmax_v2.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/r8_e16/stage2_select/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/r8_e16/stage2_select/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/ptodsl_moe_gating_top_k_softmax_v2_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "output_softmax_result_flag": false,
+          "renorm": 0,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/stage2_select/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/stage2_select/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_gating_top_k_softmax_v2",
+      "ops_transformer_path": "moe/moe_gating_top_k_softmax_v2",
+      "seed_variant": {
+        "limits": [
+          "top-k fixed to 1",
+          "renorm fixed to 0",
+          "2D x only",
+          "finishedOptional fixed to none",
+          "outputSoftmaxResultFlag fixed to false",
+          "validated shapes currently cover 8x16, 256x64, and 128x128",
+          "renorm=1, optional softmax output, and 3D inputs remain open",
+          "this host does not expose a Python-visible baseline entrypoint for v2"
+        ],
+        "name": "top1_fp16_2d_softmax_v2_renorm0",
+        "shape": [
+          8,
+          16
+        ]
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

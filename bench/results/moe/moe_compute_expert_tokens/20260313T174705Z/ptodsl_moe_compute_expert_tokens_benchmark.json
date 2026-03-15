@@ -1,0 +1,24 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.store_scalar' op operand #0 must be Ptr or MemRef in GM, but got 'index'\n note: unknown: see current operation: \"pto.store_scalar\"(%16, %arg0, %arg2) : (index, !pto.ptr<i32>, index) -> ()",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "int32",
+      "num_experts": 8,
+      "rows": 64,
+      "seed": 0
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 64,
+      "rows": 4096,
+      "seed": 1
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 128,
+      "rows": 8192,
+      "seed": 2
+    }
+  ]
+}

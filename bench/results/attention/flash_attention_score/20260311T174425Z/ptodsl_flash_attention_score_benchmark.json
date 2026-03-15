@@ -1,0 +1,4 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.alloc_tile' op valid_col operand is required because result type v_col is ?\n note: unknown: see current operation: %5 = \"pto.alloc_tile\"() <{operandSegmentSizes = array<i32: 0, 0, 0>}> : () -> !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=32, v_row=1, v_col=?, blayout=row_major, slayout=none_box, fractal=512, pad=0>",
+  "status": "blocked"
+}

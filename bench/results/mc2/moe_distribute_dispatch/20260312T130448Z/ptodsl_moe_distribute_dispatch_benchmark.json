@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: Unknown annotation ''ptr''.",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 16,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 16,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 1,
+      "tokens": 16,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 32,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 2,
+      "tokens": 16,
+      "topk": 1
+    }
+  ]
+}

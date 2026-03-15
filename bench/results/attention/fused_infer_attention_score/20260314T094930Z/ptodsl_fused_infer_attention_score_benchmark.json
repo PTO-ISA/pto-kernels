@@ -1,0 +1,39 @@
+{
+  "reason": "PTO compile failed: Invalid attribute value for the key \"value\" when attempting to create the operation \"arith.constant\" (Unable to cast Python instance of type <class 'ptodsl.api.scalar.Value'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 16,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 16,
+      "q_heads": 1,
+      "q_seq": 8,
+      "seed": 0
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 64,
+      "q_heads": 1,
+      "q_seq": 64,
+      "seed": 1
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 128,
+      "q_heads": 1,
+      "q_seq": 32,
+      "seed": 2
+    }
+  ]
+}

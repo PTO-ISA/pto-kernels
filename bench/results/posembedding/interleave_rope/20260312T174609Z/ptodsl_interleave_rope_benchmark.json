@@ -1,0 +1,22 @@
+{
+  "reason": "PTO execution failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507015\n[ERROR] 2026-03-13-01:46:17 (PID:3328232, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution is abnormal. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 3328232] 2026-03-13-01:46:17.140.899 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1951, there is an exception of fftsplus aivector error, core id is 4, error code = 0x4000000000000000, dump info: pc start: 0x1240000010b0, current: 0x12400000126c, vec error info: 0x4000000a6, mte error info: 0xbb, ifu error info: 0x217fa80000000, ccu error info: 0x41f0000800000000, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100008080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x4000000000000000, 0, 0) errorStr: VEC instruction error: the ub address out of bounds. fixp_error0 info: 0xbb, fixp_error1 info: 0, fsmId:1, tslot:2, thread:0, ctxid:0, blk:1, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x26, [aicore exception].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore exception[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507015.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

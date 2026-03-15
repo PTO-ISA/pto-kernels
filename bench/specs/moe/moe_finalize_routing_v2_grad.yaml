@@ -1,0 +1,28 @@
+name: moe_finalize_routing_v2_grad
+family: moe
+wave: wave2
+inventory_ref: moe/moe_finalize_routing_v2_grad
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_finalize_routing_v2_grad.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_finalize_routing_v2_grad.py
+  kernel: python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/meta.py
+notes:
+  - Top-1 910B slice of moe_finalize_routing_v2_grad with scales and bias present.
+  - PTO port uses direct scalar row/expert routing indices, dynamic row scatter for gradExpandedXOut, and row_sum reduction for gradScalesOut.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 1.0e-2
+  rtol: 1.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

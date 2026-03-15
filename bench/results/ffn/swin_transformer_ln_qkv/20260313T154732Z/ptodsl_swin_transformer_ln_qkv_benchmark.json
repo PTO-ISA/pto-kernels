@@ -1,0 +1,39 @@
+{
+  "reason": "PTO compile failed: Result 0 of operation \"pto.alloc_tile\" must be a Type (Unable to cast Python instance of type <class 'mlir._mlir_libs._mlir.ir.OpResult'> to C++ type '?' (#define PYBIND11_DETAILED_ERROR_MESSAGES or compile in debug mode for details))",
+  "status": "blocked",
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 0,
+      "seq": 64
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 1,
+      "seq": 256
+    },
+    {
+      "base_m": 128,
+      "batch": 4,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 2,
+      "seq": 256
+    }
+  ]
+}

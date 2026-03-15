@@ -1,0 +1,39 @@
+{
+  "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T144058Z/q8_k16_d16/stage1_qk/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T144058Z/q8_k16_d16/stage1_qk/kernel.so']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 16,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 16,
+      "q_heads": 1,
+      "q_seq": 8,
+      "seed": 0
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 64,
+      "q_heads": 1,
+      "q_seq": 64,
+      "seed": 1
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 128,
+      "q_heads": 1,
+      "q_seq": 32,
+      "seed": 2
+    }
+  ]
+}

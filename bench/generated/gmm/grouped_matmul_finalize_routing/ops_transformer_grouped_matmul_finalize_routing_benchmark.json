@@ -1,0 +1,106 @@
+{
+  "entrypoint": "torch_npu.npu_grouped_matmul_finalize_routing",
+  "environment": {
+    "measured_failures": [
+      "missing scale/pertokenScale/logit/rowIndex -> invalid parameter",
+      "plain ND int8 weight -> weightNd weight type should be INT_32 or supported low-precision format",
+      "W4A8-sized ND probe -> host runtime segmentation fault before stable benchmark",
+      "npu_format_cast NZ probe -> local TBE environment import failure"
+    ],
+    "missing_tbe_python_modules": [
+      "decorator",
+      "attrs",
+      "scipy"
+    ],
+    "quantized_route_required": true,
+    "symbol_available": true
+  },
+  "reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+  "shape_summaries": [
+    {
+      "group_list": [
+        1
+      ],
+      "logit": [
+        64
+      ],
+      "output": [
+        64,
+        128
+      ],
+      "pertoken_scale": [
+        64
+      ],
+      "row_index": [
+        64
+      ],
+      "scale": [
+        1,
+        1,
+        128
+      ],
+      "weight": [
+        1,
+        128,
+        128
+      ],
+      "x": [
+        64,
+        128
+      ]
+    },
+    {
+      "group_list": [
+        1
+      ],
+      "logit": [
+        64
+      ],
+      "output": [
+        64,
+        1024
+      ],
+      "pertoken_scale": [
+        64
+      ],
+      "row_index": [
+        64
+      ],
+      "scale": [
+        1,
+        1,
+        1024
+      ],
+      "weight": [
+        1,
+        192,
+        128
+      ],
+      "x": [
+        64,
+        192
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "input_dtype": "int8",
+      "k": 128,
+      "m": 64,
+      "n": 128,
+      "seed": 0,
+      "weight_dtype": "int8_nd",
+      "weight_n_storage": 128
+    },
+    {
+      "input_dtype": "int8",
+      "k": 192,
+      "m": 64,
+      "n": 1024,
+      "seed": 1,
+      "weight_dtype": "int32_w4a8_nd",
+      "weight_n_storage": 128
+    }
+  ]
+}

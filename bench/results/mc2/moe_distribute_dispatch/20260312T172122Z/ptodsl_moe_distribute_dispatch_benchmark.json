@@ -1,0 +1,26 @@
+{
+  "reason": "PTO compile failed: Verification failed:\nerror: unknown: 'pto.tgather' op src0 and dst must have the same element type\n note: unknown: see current operation: \"pto.tgather\"(%16, %17, %18) : (!pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=57344, v_row=1, v_col=57344, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=i32, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>, !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=7168, v_row=1, v_col=7168, blayout=row_major, slayout=none_box, fractal=512, pad=0>) -> ()",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 0,
+      "tokens": 8,
+      "topk": 1
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "hidden_size": 7168,
+      "input_scale": 0.125,
+      "quant_mode": 0,
+      "seed": 1,
+      "tokens": 16,
+      "topk": 1
+    }
+  ]
+}

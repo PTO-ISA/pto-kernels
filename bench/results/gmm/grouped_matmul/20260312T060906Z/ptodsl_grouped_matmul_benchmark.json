@@ -1,0 +1,30 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T060906Z/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.2835509367287159,
+    "median": 0.25284651201218367,
+    "min": 0.2483909483999014
+  },
+  "variant": {
+    "baseline_weight_layout": "single_3d_weight_for_v5",
+    "batch": 1,
+    "input_dtype": "bfloat16",
+    "k": 128,
+    "m": 128,
+    "n": 128,
+    "output_dtype": "bfloat16",
+    "seed": 0
+  }
+}

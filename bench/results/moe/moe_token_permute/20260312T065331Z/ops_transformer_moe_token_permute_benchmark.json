@@ -1,0 +1,184 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_permute",
+  "reference_contract": "top1_argsort_permute",
+  "shape_summaries": [
+    {
+      "gather_indices": [
+        128
+      ],
+      "indices": [
+        8
+      ],
+      "tokens": [
+        8,
+        16
+      ]
+    },
+    {
+      "gather_indices": [
+        256
+      ],
+      "indices": [
+        16
+      ],
+      "tokens": [
+        16,
+        16
+      ]
+    },
+    {
+      "gather_indices": [
+        512
+      ],
+      "indices": [
+        16
+      ],
+      "tokens": [
+        16,
+        32
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.14782091602683067,
+    "median": 0.11301564518362284,
+    "min": 0.10474096052348614
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          128
+        ],
+        "indices": [
+          8
+        ],
+        "tokens": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1310210209339857,
+        "median": 0.11301564518362284,
+        "min": 0.10474096052348614
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          256
+        ],
+        "indices": [
+          16
+        ],
+        "tokens": [
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.14782091602683067,
+        "median": 0.11269107926636934,
+        "min": 0.10528997518122196
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 1,
+        "tokens": 16
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "sorted_index_max_abs_diff": 0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          512
+        ],
+        "indices": [
+          16
+        ],
+        "tokens": [
+          16,
+          32
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1262009609490633,
+        "median": 0.11290598195046186,
+        "min": 0.10702107101678848
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 32,
+        "index_dtype": "int32",
+        "num_out_tokens": 0,
+        "padded_mode": false,
+        "seed": 2,
+        "tokens": 16
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 1,
+      "tokens": 16
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 32,
+      "index_dtype": "int32",
+      "num_out_tokens": 0,
+      "padded_mode": false,
+      "seed": 2,
+      "tokens": 16
+    }
+  ]
+}

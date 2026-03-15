@@ -1,0 +1,244 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n128/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n128/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n128/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n128/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m64_k64_n128/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m64_k64_n128/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m64_k64_n128/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m64_k64_n128/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n256/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n256/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n256/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T090423Z/b1_m128_k128_n256/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "shape_summaries": [
+    {
+      "output": [
+        1,
+        128,
+        128
+      ],
+      "weight": [
+        128,
+        128
+      ],
+      "weight_v5": [
+        1,
+        128,
+        128
+      ],
+      "x": [
+        128,
+        128
+      ]
+    },
+    {
+      "output": [
+        1,
+        64,
+        128
+      ],
+      "weight": [
+        64,
+        128
+      ],
+      "weight_v5": [
+        1,
+        64,
+        128
+      ],
+      "x": [
+        64,
+        64
+      ]
+    },
+    {
+      "output": [
+        1,
+        128,
+        256
+      ],
+      "weight": [
+        128,
+        256
+      ],
+      "weight_v5": [
+        1,
+        128,
+        256
+      ],
+      "x": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.2897018566727638,
+    "median": 0.24426646996289492,
+    "min": 0.23650191724300385
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125
+      },
+      "shape_summary": {
+        "output": [
+          1,
+          128,
+          128
+        ],
+        "weight": [
+          128,
+          128
+        ],
+        "weight_v5": [
+          1,
+          128,
+          128
+        ],
+        "x": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2897018566727638,
+        "median": 0.2433916088193655,
+        "min": 0.2386209089308977
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 128,
+        "m": 128,
+        "n": 128,
+        "output_dtype": "bfloat16",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 9.5367431640625e-07
+      },
+      "shape_summary": {
+        "output": [
+          1,
+          64,
+          128
+        ],
+        "weight": [
+          64,
+          128
+        ],
+        "weight_v5": [
+          1,
+          64,
+          128
+        ],
+        "x": [
+          64,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2789620775729418,
+        "median": 0.24426646996289492,
+        "min": 0.23650191724300385
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 64,
+        "m": 64,
+        "n": 128,
+        "output_dtype": "bfloat16",
+        "seed": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "output": [
+          1,
+          128,
+          256
+        ],
+        "weight": [
+          128,
+          256
+        ],
+        "weight_v5": [
+          1,
+          128,
+          256
+        ],
+        "x": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.27595204301178455,
+        "median": 0.24420209228992462,
+        "min": 0.23935199715197086
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 128,
+        "m": 128,
+        "n": 256,
+        "output_dtype": "bfloat16",
+        "seed": 2
+      }
+    }
+  ],
+  "variants": [
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 128,
+      "m": 128,
+      "n": 128,
+      "output_dtype": "bfloat16",
+      "seed": 0
+    },
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 64,
+      "m": 64,
+      "n": 128,
+      "output_dtype": "bfloat16",
+      "seed": 1
+    },
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 128,
+      "m": 128,
+      "n": 256,
+      "output_dtype": "bfloat16",
+      "seed": 2
+    }
+  ]
+}

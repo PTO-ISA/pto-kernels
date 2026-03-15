@@ -1,0 +1,16 @@
+name: rotary_position_embedding_grad
+family: posembedding
+wave: wave1
+inventory_ref: posembedding/rotary_position_embedding_grad
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/posembedding/rotary_position_embedding_grad.py
+pto:
+  adapter: bench/adapters/ptodsl/posembedding/rotary_position_embedding_grad.py
+  kernel: python/pto_kernels/ops/posembedding/rotary_position_embedding_grad/kernel.py
+  meta: python/pto_kernels/ops/posembedding/rotary_position_embedding_grad/meta.py
+correctness:
+  atol: 0.02
+  rtol: 0.02
+notes:
+  - First fp16 half-mode rotary_position_embedding_grad migration slice using the no-reduction dcos/dsin contract on BSND and BNSD shapes with head_dim 128.

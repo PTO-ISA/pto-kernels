@@ -1,0 +1,17 @@
+name: rope_with_sin_cos_cache
+family: posembedding
+wave: wave1
+inventory_ref: posembedding/rope_with_sin_cos_cache
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/posembedding/rope_with_sin_cos_cache.py
+pto:
+  adapter: bench/adapters/ptodsl/posembedding/rope_with_sin_cos_cache.py
+  kernel: python/pto_kernels/ops/posembedding/rope_with_sin_cos_cache/kernel.py
+  meta: python/pto_kernels/ops/posembedding/rope_with_sin_cos_cache/meta.py
+correctness:
+  atol: 0.01
+  rtol: 0.01
+notes:
+  - First ND fp16 half-rope rope_with_sin_cos_cache migration slice with head_size 64 and contiguous cache rows.
+  - Current PTO seed validates only the constrained positions[row] == row contract on 910B.

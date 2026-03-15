@@ -1,0 +1,694 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/ffn/ffn.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.000244140625,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_ffn",
+      "reference_contract": "fp16_dense_relu_ffn_torch_ops",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/ops_transformer_ffn_benchmark.json",
+      "shape_summaries": [
+        {
+          "hidden": [
+            32,
+            256
+          ],
+          "output": [
+            32,
+            128
+          ],
+          "weight1": [
+            128,
+            256
+          ],
+          "weight2": [
+            256,
+            128
+          ],
+          "x": [
+            32,
+            128
+          ]
+        },
+        {
+          "hidden": [
+            64,
+            256
+          ],
+          "output": [
+            64,
+            128
+          ],
+          "weight1": [
+            128,
+            256
+          ],
+          "weight2": [
+            256,
+            128
+          ],
+          "x": [
+            64,
+            128
+          ]
+        },
+        {
+          "hidden": [
+            32,
+            512
+          ],
+          "output": [
+            32,
+            128
+          ],
+          "weight1": [
+            128,
+            512
+          ],
+          "weight2": [
+            512,
+            128
+          ],
+          "x": [
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.1335709821432829,
+        "median": 0.11011608876287937,
+        "min": 0.09052013047039509
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.000244140625
+          },
+          "shape_summary": {
+            "hidden": [
+              32,
+              256
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.11438108049333096,
+            "median": 0.10018004104495049,
+            "min": 0.09052013047039509
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 0,
+            "tokens": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0001220703125
+          },
+          "shape_summary": {
+            "hidden": [
+              64,
+              256
+            ],
+            "output": [
+              64,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              64,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12260093353688717,
+            "median": 0.10557612404227257,
+            "min": 0.09524007327854633
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 1,
+            "tokens": 64
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "hidden": [
+              32,
+              512
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              512
+            ],
+            "weight2": [
+              512,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.1335709821432829,
+            "median": 0.11011608876287937,
+            "min": 0.10056979954242706
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 512,
+            "output_size": 128,
+            "seed": 2,
+            "tokens": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 0,
+          "tokens": 32
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 1,
+          "tokens": 64
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 512,
+          "output_size": 128,
+          "seed": 2,
+          "tokens": 32
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_ffn",
+      "note": "Baseline execution relies on the installed custom ops runtime package. The seed variant is constrained to dense float16 FFN with relu activation and no bias.",
+      "status": "runtime_builtin"
+    },
+    "family": "ffn",
+    "name": "ffn",
+    "ops_transformer_path": "ffn/ffn",
+    "runtime_entrypoint": "torch_npu.npu_ffn",
+    "seed_variant": {
+      "default": {
+        "activation": "relu",
+        "bias": false,
+        "dtype": "float16",
+        "hidden_size": 128,
+        "input_scale": 0.125,
+        "intermediate_size": 256,
+        "output_size": 128,
+        "seed": 0,
+        "tokens": 32
+      },
+      "variants": [
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 0,
+          "tokens": 32
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 1,
+          "tokens": 64
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 512,
+          "output_size": 128,
+          "seed": 2,
+          "tokens": 32
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "ffn",
+  "inventory_ref": "ffn/ffn",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn/report.json",
+  "name": "ffn",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/ffn/ffn.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i256_o128/stage3/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t64_h128_i256_o128/stage3/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/t32_h128_i512_o128/stage3/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/ptodsl_ffn_benchmark.json",
+      "shape_summaries": [
+        {
+          "hidden": [
+            32,
+            256
+          ],
+          "output": [
+            32,
+            128
+          ],
+          "weight1": [
+            128,
+            256
+          ],
+          "weight2": [
+            256,
+            128
+          ],
+          "x": [
+            32,
+            128
+          ]
+        },
+        {
+          "hidden": [
+            64,
+            256
+          ],
+          "output": [
+            64,
+            128
+          ],
+          "weight1": [
+            128,
+            256
+          ],
+          "weight2": [
+            256,
+            128
+          ],
+          "x": [
+            64,
+            128
+          ]
+        },
+        {
+          "hidden": [
+            32,
+            512
+          ],
+          "output": [
+            32,
+            128
+          ],
+          "weight1": [
+            128,
+            512
+          ],
+          "weight2": [
+            512,
+            128
+          ],
+          "x": [
+            32,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.5495930090546608,
+        "median": 0.4282130394130945,
+        "min": 0.40524196811020374
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "hidden": [
+              32,
+              256
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.44089299626648426,
+            "median": 0.4137624055147171,
+            "min": 0.40524196811020374
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 0,
+            "tokens": 32
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "hidden": [
+              64,
+              256
+            ],
+            "output": [
+              64,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              64,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.4512830637395382,
+            "median": 0.41750248055905104,
+            "min": 0.4081130027770996
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 1,
+            "tokens": 64
+          }
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "hidden": [
+              32,
+              512
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              512
+            ],
+            "weight2": [
+              512,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5495930090546608,
+            "median": 0.4282130394130945,
+            "min": 0.41357195004820824
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 512,
+            "output_size": 128,
+            "seed": 2,
+            "tokens": 32
+          }
+        }
+      ],
+      "variants": [
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 0,
+          "tokens": 32
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 256,
+          "output_size": 128,
+          "seed": 1,
+          "tokens": 64
+        },
+        {
+          "activation": "relu",
+          "bias": false,
+          "dtype": "float16",
+          "hidden_size": 128,
+          "input_scale": 0.125,
+          "intermediate_size": 512,
+          "output_size": 128,
+          "seed": 2,
+          "tokens": 32
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage2_relu/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage2_relu/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage2_relu/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage2_relu/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage3/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage3/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage3/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/stage3/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/kernel.py",
+    "meta": {
+      "archetype": "ffn",
+      "blockers": [
+        "ptodsl-ffn-interstage-cast-path"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "ffn",
+      "name": "ffn",
+      "ops_transformer_path": "ffn/ffn",
+      "seed_variant": {
+        "limits": [
+          "dense FFN only, no expert tokens",
+          "activation fixed to relu",
+          "float16 only",
+          "bias disabled",
+          "seed tensors scaled by 0.125 for stable fp16 reference comparison",
+          "PTO seed currently runs as a staged matmul -> relu -> matmul pipeline"
+        ],
+        "name": "dense_relu_fp16",
+        "shape": [
+          32,
+          128,
+          256,
+          128
+        ]
+      },
+      "status": "planned",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/ffn/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T090452Z/report.json",
+  "status": "planned",
+  "wave": "wave1"
+}

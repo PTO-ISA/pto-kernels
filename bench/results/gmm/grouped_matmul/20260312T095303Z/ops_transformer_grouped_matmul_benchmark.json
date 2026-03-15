@@ -1,0 +1,235 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_grouped_matmul",
+  "reference_contract": "bf16_rounded_matmul",
+  "shape_summaries": [
+    {
+      "output": [
+        1,
+        128,
+        128
+      ],
+      "weight": [
+        128,
+        128
+      ],
+      "weight_v5": [
+        1,
+        128,
+        128
+      ],
+      "x": [
+        128,
+        128
+      ]
+    },
+    {
+      "output": [
+        1,
+        64,
+        128
+      ],
+      "weight": [
+        64,
+        128
+      ],
+      "weight_v5": [
+        1,
+        64,
+        128
+      ],
+      "x": [
+        64,
+        64
+      ]
+    },
+    {
+      "output": [
+        1,
+        128,
+        256
+      ],
+      "weight": [
+        128,
+        256
+      ],
+      "weight_v5": [
+        1,
+        128,
+        256
+      ],
+      "x": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.1405810471624136,
+    "median": 0.10541093070060015,
+    "min": 0.09896093979477882
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125
+      },
+      "output_type": "<class 'list'>",
+      "shape_summary": {
+        "output": [
+          1,
+          128,
+          128
+        ],
+        "weight": [
+          128,
+          128
+        ],
+        "weight_v5": [
+          1,
+          128,
+          128
+        ],
+        "x": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1405810471624136,
+        "median": 0.10541093070060015,
+        "min": 0.09971088729798794
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 128,
+        "m": 128,
+        "n": 128,
+        "output_dtype": "bfloat16",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 9.5367431640625e-07
+      },
+      "output_type": "<class 'list'>",
+      "shape_summary": {
+        "output": [
+          1,
+          64,
+          128
+        ],
+        "weight": [
+          64,
+          128
+        ],
+        "weight_v5": [
+          1,
+          64,
+          128
+        ],
+        "x": [
+          64,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.13885018415749073,
+        "median": 0.10439532343298197,
+        "min": 0.09999098256230354
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 64,
+        "m": 64,
+        "n": 128,
+        "output_dtype": "bfloat16",
+        "seed": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0
+      },
+      "output_type": "<class 'list'>",
+      "shape_summary": {
+        "output": [
+          1,
+          128,
+          256
+        ],
+        "weight": [
+          128,
+          256
+        ],
+        "weight_v5": [
+          1,
+          128,
+          256
+        ],
+        "x": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1294710673391819,
+        "median": 0.10510091669857502,
+        "min": 0.09896093979477882
+      },
+      "variant": {
+        "baseline_weight_layout": "single_3d_weight_for_v5",
+        "batch": 1,
+        "input_dtype": "bfloat16",
+        "k": 128,
+        "m": 128,
+        "n": 256,
+        "output_dtype": "bfloat16",
+        "seed": 2
+      }
+    }
+  ],
+  "variants": [
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 128,
+      "m": 128,
+      "n": 128,
+      "output_dtype": "bfloat16",
+      "seed": 0
+    },
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 64,
+      "m": 64,
+      "n": 128,
+      "output_dtype": "bfloat16",
+      "seed": 1
+    },
+    {
+      "baseline_weight_layout": "single_3d_weight_for_v5",
+      "batch": 1,
+      "input_dtype": "bfloat16",
+      "k": 128,
+      "m": 128,
+      "n": 256,
+      "output_dtype": "bfloat16",
+      "seed": 2
+    }
+  ]
+}

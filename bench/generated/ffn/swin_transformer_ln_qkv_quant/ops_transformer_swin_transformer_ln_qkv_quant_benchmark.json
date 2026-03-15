@@ -1,0 +1,219 @@
+{
+  "baseline_limitations": [
+    "No Python-visible torch_npu or torch.ops.npu entrypoint on this host",
+    "Public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B"
+  ],
+  "entrypoint": "torch_npu.npu_swin_transformer_ln_qkv_quant",
+  "environment": {
+    "ops_namespace_entrypoint_available": false,
+    "public_a2_support": false,
+    "python_entrypoint_available": false
+  },
+  "reason": "This host does not expose a Python baseline entrypoint for SwinTransformerLnQkvQuant, and the public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B.",
+  "shape_summaries": [
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 64,
+      "value_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        1,
+        64,
+        128
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 512,
+      "value_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        8,
+        64,
+        128
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 2048,
+      "value_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        32,
+        64,
+        128
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 0,
+      "seq": 64,
+      "w_win_size": 8
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 1,
+      "seq": 64,
+      "w_win_size": 8
+    },
+    {
+      "base_m": 128,
+      "batch": 32,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 2,
+      "seq": 64,
+      "w_win_size": 8
+    }
+  ]
+}

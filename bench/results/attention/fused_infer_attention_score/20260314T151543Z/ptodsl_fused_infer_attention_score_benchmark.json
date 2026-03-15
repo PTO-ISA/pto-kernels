@@ -1,0 +1,329 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q16_k16_d16/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q64_k64_d64/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T151543Z/q32_k128_d128/stage3_pv/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.002,
+    "max_abs_diff": NaN,
+    "passes": false,
+    "rtol": 0.002
+  },
+  "reference_contract": "single_block_bnsd_no_quant",
+  "shape_summaries": [
+    {
+      "attention_out": [
+        1,
+        1,
+        16,
+        16
+      ],
+      "block_table": [
+        1,
+        1
+      ],
+      "k_cache": [
+        1,
+        16,
+        16
+      ],
+      "query": [
+        1,
+        1,
+        16,
+        16
+      ],
+      "v_cache": [
+        1,
+        16,
+        16
+      ]
+    },
+    {
+      "attention_out": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "block_table": [
+        1,
+        1
+      ],
+      "k_cache": [
+        1,
+        64,
+        64
+      ],
+      "query": [
+        1,
+        1,
+        64,
+        64
+      ],
+      "v_cache": [
+        1,
+        64,
+        64
+      ]
+    },
+    {
+      "attention_out": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "block_table": [
+        1,
+        1
+      ],
+      "k_cache": [
+        1,
+        128,
+        128
+      ],
+      "query": [
+        1,
+        1,
+        32,
+        128
+      ],
+      "v_cache": [
+        1,
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.5181930027902126,
+    "median": 0.44992740731686354,
+    "min": 0.4295031540095806
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": NaN,
+        "out_max_abs_diff": NaN,
+        "passes": false
+      },
+      "shape_summary": {
+        "attention_out": [
+          1,
+          1,
+          16,
+          16
+        ],
+        "block_table": [
+          1,
+          1
+        ],
+        "k_cache": [
+          1,
+          16,
+          16
+        ],
+        "query": [
+          1,
+          1,
+          16,
+          16
+        ],
+        "v_cache": [
+          1,
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.472821993753314,
+        "median": 0.4374973941594362,
+        "min": 0.4295031540095806
+      },
+      "variant": {
+        "batch_size": 1,
+        "dtype": "float16",
+        "head_dim": 16,
+        "input_layout": "BNSD",
+        "kv_heads": 1,
+        "kv_seq": 16,
+        "q_heads": 1,
+        "q_seq": 16,
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": NaN,
+        "out_max_abs_diff": NaN,
+        "passes": false
+      },
+      "shape_summary": {
+        "attention_out": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "block_table": [
+          1,
+          1
+        ],
+        "k_cache": [
+          1,
+          64,
+          64
+        ],
+        "query": [
+          1,
+          1,
+          64,
+          64
+        ],
+        "v_cache": [
+          1,
+          64,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.4962729290127754,
+        "median": 0.4477325128391385,
+        "min": 0.43822196312248707
+      },
+      "variant": {
+        "batch_size": 1,
+        "dtype": "float16",
+        "head_dim": 64,
+        "input_layout": "BNSD",
+        "kv_heads": 1,
+        "kv_seq": 64,
+        "q_heads": 1,
+        "q_seq": 64,
+        "seed": 1
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": NaN,
+        "out_max_abs_diff": NaN,
+        "passes": false
+      },
+      "shape_summary": {
+        "attention_out": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "block_table": [
+          1,
+          1
+        ],
+        "k_cache": [
+          1,
+          128,
+          128
+        ],
+        "query": [
+          1,
+          1,
+          32,
+          128
+        ],
+        "v_cache": [
+          1,
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.5181930027902126,
+        "median": 0.44992740731686354,
+        "min": 0.4312819801270962
+      },
+      "variant": {
+        "batch_size": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "input_layout": "BNSD",
+        "kv_heads": 1,
+        "kv_seq": 128,
+        "q_heads": 1,
+        "q_seq": 32,
+        "seed": 2
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 16,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 16,
+      "q_heads": 1,
+      "q_seq": 16,
+      "seed": 0
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 64,
+      "q_heads": 1,
+      "q_seq": 64,
+      "seed": 1
+    },
+    {
+      "batch_size": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "input_layout": "BNSD",
+      "kv_heads": 1,
+      "kv_seq": 128,
+      "q_heads": 1,
+      "q_seq": 32,
+      "seed": 2
+    }
+  ]
+}

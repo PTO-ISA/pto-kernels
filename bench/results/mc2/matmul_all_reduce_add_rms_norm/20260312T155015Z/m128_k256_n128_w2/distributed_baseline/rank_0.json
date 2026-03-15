@@ -1,0 +1,6 @@
+{
+  "rank": 0,
+  "reason": "create_config:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:130 HCCL function error: hcclCommInitRootInfoConfig(numRanks, &rootInfo, rank, config, &(comm->hcclComm_)), error code is 7\n[ERROR] 2026-03-12-23:50:32 (PID:3160565, Device:0, RankID:0) ERR02200 DIST call hccl api failed.\n[PID: 3160565] 2026-03-12-23:50:32.093.987 Communication_Error_Bind_IP_Port(EJ0003): Failed to bind the IP port. Reason: The IP address and port have been bound already.\n",
+  "status": "blocked",
+  "world_size": 2
+}

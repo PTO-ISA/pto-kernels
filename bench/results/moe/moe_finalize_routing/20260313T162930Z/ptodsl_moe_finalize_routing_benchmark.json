@@ -1,0 +1,36 @@
+{
+  "reason": "PTO compile failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/t8_h16/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing/20260313T162930Z/t8_h16/kernel.so']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 8,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1,
+      "use_skip2": false
+    },
+    {
+      "drop_pad_mode": 0,
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1,
+      "use_skip2": false
+    }
+  ]
+}

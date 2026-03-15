@@ -1,0 +1,242 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r8_e16/stage2_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r256_e64/stage2_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T063205Z/r128_e128/stage2_select/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 1459232398.0,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "reference_contract": "top1_softmax_no_finished_2d",
+  "shape_summaries": [
+    {
+      "expert_idx_out": [
+        8,
+        1
+      ],
+      "row_idx_out": [
+        8,
+        1
+      ],
+      "x": [
+        8,
+        16
+      ],
+      "y_out": [
+        8,
+        1
+      ]
+    },
+    {
+      "expert_idx_out": [
+        256,
+        1
+      ],
+      "row_idx_out": [
+        256,
+        1
+      ],
+      "x": [
+        256,
+        64
+      ],
+      "y_out": [
+        256,
+        1
+      ]
+    },
+    {
+      "expert_idx_out": [
+        128,
+        1
+      ],
+      "row_idx_out": [
+        128,
+        1
+      ],
+      "x": [
+        128,
+        128
+      ],
+      "y_out": [
+        128,
+        1
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.5577839910984039,
+    "median": 0.38633705116808414,
+    "min": 0.3729630261659622
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 0.0,
+        "max_abs_diff": 0.00019812583923339844,
+        "row_idx_max_abs_diff": 0.0,
+        "y_max_abs_diff": 0.00019812583923339844
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          8,
+          1
+        ],
+        "row_idx_out": [
+          8,
+          1
+        ],
+        "x": [
+          8,
+          16
+        ],
+        "y_out": [
+          8,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.43105194345116615,
+        "median": 0.38633705116808414,
+        "min": 0.3729630261659622
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 16,
+        "finished": false,
+        "rows": 8,
+        "seed": 0,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 371481048.0,
+        "max_abs_diff": NaN,
+        "row_idx_max_abs_diff": 371481242.0,
+        "y_max_abs_diff": NaN
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          256,
+          1
+        ],
+        "row_idx_out": [
+          256,
+          1
+        ],
+        "x": [
+          256,
+          64
+        ],
+        "y_out": [
+          256,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.4401418846100569,
+        "median": 0.3825420280918479,
+        "min": 0.3740321844816208
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 64,
+        "finished": false,
+        "rows": 256,
+        "seed": 1,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expert_idx_max_abs_diff": 1459232372.0,
+        "max_abs_diff": 1459232398.0,
+        "row_idx_max_abs_diff": 1459232398.0,
+        "y_max_abs_diff": 0.00012689828872680664
+      },
+      "shape_summary": {
+        "expert_idx_out": [
+          128,
+          1
+        ],
+        "row_idx_out": [
+          128,
+          1
+        ],
+        "x": [
+          128,
+          128
+        ],
+        "y_out": [
+          128,
+          1
+        ]
+      },
+      "timings_ms": {
+        "max": 0.5577839910984039,
+        "median": 0.38547697477042675,
+        "min": 0.3760631661862135
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 128,
+        "finished": false,
+        "rows": 128,
+        "seed": 2,
+        "top_k": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "finished": false,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "finished": false,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "finished": false,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

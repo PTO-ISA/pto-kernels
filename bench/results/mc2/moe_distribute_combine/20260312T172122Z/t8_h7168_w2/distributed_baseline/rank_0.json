@@ -1,0 +1,6 @@
+{
+  "rank": 0,
+  "reason": "npu_moe_distribute_combine:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:63 NPU function error: call aclnnMoeDistributeCombine failed, error code is 561002\n[ERROR] 2026-03-13-01:21:53 (PID:3271525, Device:0, RankID:0) ERR00100 PTA call acl api failed.\nEZ9999: Inner Error!\nEZ9999[PID: 3271525] 2026-03-13-01:21:53.036.502 (EZ9999):  epWorldSize is invalid.[FUNC:MoeDistributeCombineA2CheckAttrAndSetTiling][FILE:moe_distribute_combine_tiling.cpp][LINE:162]\n        TraceBack (most recent call last):\n       op[MoeDistributeCombine], MoeDistributeCombineA2 CheckAttrAndSetTiling Failed[FUNC:MoeDistributeCombineA2TilingFuncImpl][FILE:moe_distribute_combine_tiling.cpp][LINE:315]\n       MoeDistributeCombine do tiling failed, ret is -1.\n       Check NnopbaseExecutorDoTiling(executor) failed\n       Check NnopbaseExecutorTilingAndUpdateBinInfo(executor) failed\n       Check NnopbaseExecutorMatchCache(executor) failed\n       Check NnopbaseRunForWorkspace(*executor, workspaceSize) failed\n",
+  "status": "blocked",
+  "world_size": 2
+}

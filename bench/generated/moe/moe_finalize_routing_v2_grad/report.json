@@ -1,0 +1,208 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_finalize_routing_v2_grad.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_finalize_routing_v2_grad | torch.ops.npu.npu_moe_finalize_routing_v2_grad",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/ops_transformer_moe_finalize_routing_v2_grad_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "This host does not expose torch_npu.npu_moe_finalize_routing_v2_grad or torch.ops.npu.npu_moe_finalize_routing_v2_grad.",
+      "status": "blocked"
+    },
+    "family": "moe",
+    "name": "moe_finalize_routing_v2_grad",
+    "ops_transformer_path": "moe/moe_finalize_routing_v2_grad",
+    "runtime_entrypoint": "torch_npu.npu_moe_finalize_routing_v2_grad | torch.ops.npu.npu_moe_finalize_routing_v2_grad",
+    "seed_variant": {
+      "default": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_finalize_routing_v2_grad",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
+  "name": "moe_finalize_routing_v2_grad",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_finalize_routing_v2_grad.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/ptodsl_moe_finalize_routing_v2_grad_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_finalize_routing_v2_grad",
+      "ops_transformer_path": "moe/moe_finalize_routing_v2_grad",
+      "seed_variant": {
+        "limits": [
+          "top-k fixed to 1",
+          "scalesOptional and biasOptional both required in the validated slice",
+          "dropPadMode fixed to 0",
+          "activeNum fixed to full expanded row count",
+          "PTO seed currently consumes direct scalar routing indices for expanded rows and expert bias rows",
+          "phase-2 rewrite follows contiguous per-core token-row ownership on the gradient combine stage",
+          "nominal shape uses all requested block ids",
+          "this host does not expose a Python-visible baseline entrypoint for v2_grad"
+        ],
+        "name": "top1_fp16_finalize_routing_v2_grad",
+        "shape": {
+          "boundary": {
+            "experts": 4,
+            "hidden": 128,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 4,
+            "hidden": 64,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 4,
+            "hidden": 16,
+            "tokens": 16
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

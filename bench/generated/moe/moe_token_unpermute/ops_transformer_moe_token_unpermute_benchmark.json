@@ -1,0 +1,205 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_moe_token_unpermute",
+  "reference_contract": "top1_inverse_permute_no_probs",
+  "shape_summaries": [
+    {
+      "gather_indices": [
+        128
+      ],
+      "out": [
+        8,
+        16
+      ],
+      "permuted_tokens": [
+        8,
+        16
+      ],
+      "sorted_indices": [
+        8
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "out": [
+        256,
+        64
+      ],
+      "permuted_tokens": [
+        256,
+        64
+      ],
+      "sorted_indices": [
+        256
+      ]
+    },
+    {
+      "gather_indices": [
+        16384
+      ],
+      "out": [
+        128,
+        128
+      ],
+      "permuted_tokens": [
+        128,
+        128
+      ],
+      "sorted_indices": [
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.2145911566913128,
+    "median": 0.10769593063741922,
+    "min": 0.10000006295740604
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          128
+        ],
+        "out": [
+          8,
+          16
+        ],
+        "permuted_tokens": [
+          8,
+          16
+        ],
+        "sorted_indices": [
+          8
+        ]
+      },
+      "timings_ms": {
+        "max": 0.2145911566913128,
+        "median": 0.10396039579063654,
+        "min": 0.10000006295740604
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 16,
+        "index_dtype": "int32",
+        "padded_mode": false,
+        "probs": false,
+        "seed": 0,
+        "tokens": 8
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "out": [
+          256,
+          64
+        ],
+        "permuted_tokens": [
+          256,
+          64
+        ],
+        "sorted_indices": [
+          256
+        ]
+      },
+      "timings_ms": {
+        "max": 0.15889108180999756,
+        "median": 0.10769593063741922,
+        "min": 0.10174093768000603
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 64,
+        "index_dtype": "int32",
+        "padded_mode": false,
+        "probs": false,
+        "seed": 1,
+        "tokens": 256
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "gather_indices": [
+          16384
+        ],
+        "out": [
+          128,
+          128
+        ],
+        "permuted_tokens": [
+          128,
+          128
+        ],
+        "sorted_indices": [
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.13167085126042366,
+        "median": 0.10714039672166109,
+        "min": 0.1034000888466835
+      },
+      "variant": {
+        "dtype": "float16",
+        "hidden_size": 128,
+        "index_dtype": "int32",
+        "padded_mode": false,
+        "probs": false,
+        "seed": 2,
+        "tokens": 128
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "hidden_size": 16,
+      "index_dtype": "int32",
+      "padded_mode": false,
+      "probs": false,
+      "seed": 0,
+      "tokens": 8
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 64,
+      "index_dtype": "int32",
+      "padded_mode": false,
+      "probs": false,
+      "seed": 1,
+      "tokens": 256
+    },
+    {
+      "dtype": "float16",
+      "hidden_size": 128,
+      "index_dtype": "int32",
+      "padded_mode": false,
+      "probs": false,
+      "seed": 2,
+      "tokens": 128
+    }
+  ]
+}

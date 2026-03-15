@@ -1,0 +1,14 @@
+name: moe_token_permute_grad
+family: moe
+wave: wave2
+inventory_ref: moe/moe_token_permute_grad
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_token_permute_grad.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_token_permute_grad.py
+  kernel: python/pto_kernels/ops/moe/moe_token_permute_grad/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_token_permute_grad/meta.py
+notes:
+  - Top-1 no-probs 910B slice of moe_token_permute_grad.
+  - PTO port computes direct sorted-index gather in PTODSL to match the current Python-visible host contract on this machine.

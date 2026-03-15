@@ -1,0 +1,39 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155131Z/b1_s64_h128/stage3_split/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155131Z/b1_s64_h128/stage3_split/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 0,
+      "seq": 64
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 1,
+      "seq": 256
+    },
+    {
+      "base_m": 128,
+      "batch": 4,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 2,
+      "seq": 256
+    }
+  ]
+}

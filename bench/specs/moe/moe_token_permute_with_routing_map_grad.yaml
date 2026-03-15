@@ -1,0 +1,13 @@
+name: moe_token_permute_with_routing_map_grad
+family: moe
+wave: wave2
+inventory_ref: moe/moe_token_permute_with_routing_map_grad
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_token_permute_with_routing_map_grad.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_token_permute_with_routing_map_grad.py
+  kernel: python/pto_kernels/ops/moe/moe_token_permute_with_routing_map_grad/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_token_permute_with_routing_map_grad/meta.py
+notes:
+  - Seed kernel for routing-map based token permute grad in the MOE wave.

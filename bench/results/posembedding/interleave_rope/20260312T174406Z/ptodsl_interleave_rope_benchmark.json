@@ -1,0 +1,22 @@
+{
+  "reason": "PTO execution failed: get(): incompatible function arguments. The following argument types are supported:\n    1. (type: mlir._mlir_libs._mlir.ir.Type, value: typing.SupportsInt) -> mlir._mlir_libs._mlir.ir.IntegerAttr\n\nInvoked with: IntegerType(i64), <ptodsl.api.scalar.Value object at 0xfffda7cfdd90>",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 0,
+      "seq_len": 32
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 64,
+      "heads": 1,
+      "seed": 1,
+      "seq_len": 32
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "rank": 1,
+  "reason": "npu_mm_reduce_scatter_base:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:54 NPU function error: call aclnnMatmulReduceScatter failed, error code is 161002\n[ERROR] 2026-03-12-14:56:50 (PID:2230870, Device:1, RankID:1) ERR00100 PTA call acl api failed.\n[PID: 2230870] 2026-03-12-14:56:50.560.886 AclNN_Parameter_Error(EZ1001): The k-axis should be in range[256, 65535), but it is: 128.\n",
+  "status": "blocked",
+  "world_size": 2
+}

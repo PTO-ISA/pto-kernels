@@ -1,0 +1,250 @@
+{
+  "correctness": {
+    "atol": 0.02,
+    "max_abs_diff": 0.01409912109375,
+    "passes": true,
+    "rtol": 0.02
+  },
+  "entrypoint": "torch_npu.npu_dequant_rope_quant_kvcache",
+  "reference_contract": "int32_weight_scale_half_rope_quant_kvcache_bsnd_2d",
+  "shape_summaries": [
+    {
+      "cos": [
+        2,
+        64
+      ],
+      "k": [
+        2,
+        1,
+        64
+      ],
+      "k_cache": [
+        2,
+        8,
+        1,
+        64
+      ],
+      "q": [
+        2,
+        1,
+        64
+      ],
+      "sin": [
+        2,
+        64
+      ],
+      "v": [
+        2,
+        1,
+        64
+      ],
+      "v_cache": [
+        2,
+        8,
+        1,
+        64
+      ],
+      "weight_scale": [
+        192
+      ],
+      "x": [
+        2,
+        192
+      ]
+    },
+    {
+      "cos": [
+        4,
+        64
+      ],
+      "k": [
+        4,
+        1,
+        64
+      ],
+      "k_cache": [
+        4,
+        8,
+        1,
+        64
+      ],
+      "q": [
+        4,
+        1,
+        64
+      ],
+      "sin": [
+        4,
+        64
+      ],
+      "v": [
+        4,
+        1,
+        64
+      ],
+      "v_cache": [
+        4,
+        8,
+        1,
+        64
+      ],
+      "weight_scale": [
+        192
+      ],
+      "x": [
+        4,
+        192
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.1902109943330288,
+    "median": 0.1446909736841917,
+    "min": 0.13530091382563114
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.0139007568359375,
+        "q_max_abs_diff": 0.0059413909912109375,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0038852691650390625
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          64
+        ],
+        "k": [
+          2,
+          1,
+          64
+        ],
+        "k_cache": [
+          2,
+          8,
+          1,
+          64
+        ],
+        "q": [
+          2,
+          1,
+          64
+        ],
+        "sin": [
+          2,
+          64
+        ],
+        "v": [
+          2,
+          1,
+          64
+        ],
+        "v_cache": [
+          2,
+          8,
+          1,
+          64
+        ],
+        "weight_scale": [
+          192
+        ],
+        "x": [
+          2,
+          192
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1902109943330288,
+        "median": 0.1389861572533846,
+        "min": 0.13530091382563114
+      },
+      "variant": {
+        "batch": 2,
+        "cache_len": 8,
+        "dtype": "int32",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.01409912109375,
+        "q_max_abs_diff": 0.006385326385498047,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0038862228393554688
+      },
+      "shape_summary": {
+        "cos": [
+          4,
+          64
+        ],
+        "k": [
+          4,
+          1,
+          64
+        ],
+        "k_cache": [
+          4,
+          8,
+          1,
+          64
+        ],
+        "q": [
+          4,
+          1,
+          64
+        ],
+        "sin": [
+          4,
+          64
+        ],
+        "v": [
+          4,
+          1,
+          64
+        ],
+        "v_cache": [
+          4,
+          8,
+          1,
+          64
+        ],
+        "weight_scale": [
+          192
+        ],
+        "x": [
+          4,
+          192
+        ]
+      },
+      "timings_ms": {
+        "max": 0.17624092288315296,
+        "median": 0.1446909736841917,
+        "min": 0.14065089635550976
+      },
+      "variant": {
+        "batch": 4,
+        "cache_len": 8,
+        "dtype": "int32",
+        "seed": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "int32",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "int32",
+      "seed": 1
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+name: prompt_flash_attention
+family: attention
+wave: wave3
+inventory_ref: attention/prompt_flash_attention
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/attention/prompt_flash_attention.py
+pto:
+  adapter: bench/adapters/ptodsl/attention/prompt_flash_attention.py
+  kernel: python/pto_kernels/ops/attention/prompt_flash_attention/kernel.py
+  meta: python/pto_kernels/ops/attention/prompt_flash_attention/meta.py
+notes:
+  - First prompt_flash_attention migration slice with batch=1, heads=1, BNSD layout, and no mask/quant/page-attention features.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 2.0e-3
+  rtol: 2.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

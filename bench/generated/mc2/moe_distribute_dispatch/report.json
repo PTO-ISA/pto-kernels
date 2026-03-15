@@ -1,0 +1,510 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/mc2/moe_distribute_dispatch.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+      "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/ops_transformer_moe_distribute_dispatch_benchmark.json",
+      "status": "blocked",
+      "variant_reports": [
+        {
+          "rank_reports": [],
+          "rank_stages": [
+            {
+              "rank": 0,
+              "stage": "worker_fn",
+              "timestamp": 1773336874.327052
+            },
+            {
+              "rank": 1,
+              "stage": "worker_fn",
+              "timestamp": 1773336873.5911973
+            },
+            {
+              "rank": 2,
+              "stage": "worker_fn",
+              "timestamp": 1773336873.9903817
+            },
+            {
+              "rank": 3,
+              "stage": "worker_fn",
+              "timestamp": 1773336874.3246498
+            },
+            {
+              "rank": 4,
+              "stage": "worker_fn",
+              "timestamp": 1773336873.8837826
+            },
+            {
+              "rank": 5,
+              "stage": "worker_fn",
+              "timestamp": 1773336874.1480505
+            },
+            {
+              "rank": 6,
+              "stage": "worker_fn",
+              "timestamp": 1773336873.8991776
+            },
+            {
+              "rank": 7,
+              "stage": "worker_fn",
+              "timestamp": 1773336874.213116
+            }
+          ],
+          "reason": "Distributed ranked job timed out after 300s before all ranks produced reports.",
+          "status": "blocked",
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 8,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          },
+          "world_size": 8
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+      "environment": {
+        "detected_npus": 8,
+        "device_index": 0,
+        "npu_available": true,
+        "symbol_available": true
+      },
+      "note": "Baseline execution uses a local multi-rank HCCL launch from the benchmark adapter.",
+      "status": "runtime_builtin_distributed"
+    },
+    "family": "mc2",
+    "name": "moe_distribute_dispatch",
+    "ops_transformer_path": "mc2/moe_distribute_dispatch",
+    "runtime_entrypoint": "torch_npu.npu_moe_distribute_dispatch",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expected_world_size": 8,
+        "hidden_size": 7168,
+        "input_scale": 0.125,
+        "quant_mode": 0,
+        "seed": 0,
+        "tokens": 8,
+        "topk": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 1,
+    "statistic": "median",
+    "warmup": 0
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.0,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "mc2",
+  "inventory_ref": "mc2/moe_distribute_dispatch",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
+  "name": "moe_distribute_dispatch",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/mc2/moe_distribute_dispatch.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/t8_h7168_w8/compile_probe/pack_send_buffer/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.0
+      },
+      "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/ptodsl_moe_distribute_dispatch_benchmark.json",
+      "shape_summaries": [
+        {
+          "ep_recv_counts_prefix": [
+            8
+          ],
+          "expand_idx": [
+            8
+          ],
+          "expand_x": [
+            64,
+            7168
+          ],
+          "expert_ids_local": [
+            8,
+            1
+          ],
+          "expert_token_nums": [
+            1
+          ],
+          "send_buffer_local": [
+            8,
+            7168
+          ],
+          "world_size": 8,
+          "x_local": [
+            8,
+            7168
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 27.90528698824346,
+        "median": 27.90528698824346,
+        "min": 27.783306082710624
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "atol": 0.001,
+            "max_abs_diff": 0.0,
+            "passes": true,
+            "per_rank_max_abs_diff": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rtol": 0.0
+          },
+          "rank_reports": [
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:0",
+              "rank": 0,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.896276907995343,
+                "median": 27.896276907995343,
+                "min": 27.896276907995343
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:1",
+              "rank": 1,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.783306082710624,
+                "median": 27.783306082710624,
+                "min": 27.783306082710624
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:2",
+              "rank": 2,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.90528698824346,
+                "median": 27.90528698824346,
+                "min": 27.90528698824346
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:3",
+              "rank": 3,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.877296786755323,
+                "median": 27.877296786755323,
+                "min": 27.877296786755323
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:4",
+              "rank": 4,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.89896703325212,
+                "median": 27.89896703325212,
+                "min": 27.89896703325212
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:5",
+              "rank": 5,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.898177038878202,
+                "median": 27.898177038878202,
+                "min": 27.898177038878202
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:6",
+              "rank": 6,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.893856866285205,
+                "median": 27.893856866285205,
+                "min": 27.893856866285205
+              },
+              "world_size": 8
+            },
+            {
+              "correctness": {
+                "ep_recv_counts_prefix_max_abs_diff": 0,
+                "expand_idx_max_abs_diff": 0,
+                "expand_x_max_abs_diff": 0.0,
+                "expert_token_nums_max_abs_diff": 0,
+                "max_abs_diff": 0.0
+              },
+              "device": "npu:7",
+              "rank": 7,
+              "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+              "status": "ok",
+              "timings_ms": {
+                "max": 27.903876965865493,
+                "median": 27.903876965865493,
+                "min": 27.903876965865493
+              },
+              "world_size": 8
+            }
+          ],
+          "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
+          "shape_summary": {
+            "ep_recv_counts_prefix": [
+              8
+            ],
+            "expand_idx": [
+              8
+            ],
+            "expand_x": [
+              64,
+              7168
+            ],
+            "expert_ids_local": [
+              8,
+              1
+            ],
+            "expert_token_nums": [
+              1
+            ],
+            "send_buffer_local": [
+              8,
+              7168
+            ],
+            "world_size": 8,
+            "x_local": [
+              8,
+              7168
+            ]
+          },
+          "status": "ok",
+          "timings_ms": {
+            "max": 27.90528698824346,
+            "median": 27.90528698824346,
+            "min": 27.783306082710624,
+            "per_rank_median": [
+              27.896276907995343,
+              27.783306082710624,
+              27.90528698824346,
+              27.877296786755323,
+              27.89896703325212,
+              27.898177038878202,
+              27.893856866285205,
+              27.903876965865493
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 8,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          },
+          "world_size": 8
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expected_world_size": 8,
+          "hidden_size": 7168,
+          "input_scale": 0.125,
+          "quant_mode": 0,
+          "seed": 0,
+          "tokens": 8,
+          "topk": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/pack_send_buffer/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/pack_send_buffer/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/pack_send_buffer/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/pack_send_buffer/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_dispatch/kernel.py",
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_dispatch/kernel.py",
+    "meta": {
+      "archetype": "mc2-routing",
+      "blockers": [
+        "ptodsl-multicore-collective-primitives",
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives",
+        "ptoas-memory-plan-sync-pipeline"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "mc2",
+      "name": "moe_distribute_dispatch",
+      "ops_transformer_path": "mc2/moe_distribute_dispatch",
+      "seed_variant": {
+        "limits": [
+          "world_size fixed to 8 for the first seed contract because the A2 baseline requires epWorldSize % 8 == 0",
+          "EP-only path only; TP group remains empty",
+          "top-1 routing only",
+          "float16 only",
+          "hidden size fixed to 7168 for the A2/910B baseline contract",
+          "quant_mode fixed to 0",
+          "local expert count fixed to 1 per rank",
+          "PTO seed uses a host-precomputed destination-major flattened gather map plus host HCCL all_to_all_single",
+          "validated shape currently targets 8x7168"
+        ],
+        "name": "ep_only_top1_fp16_dispatch",
+        "shape": [
+          8,
+          7168
+        ],
+        "tiling": {
+          "block_dim_env": "PTO_MC2_MOE_DISPATCH_BLOCK_DIM",
+          "strategy": "destination-major local send packing with contiguous per-core token-row ownership via a flattened gather map stopgap"
+        }
+      },
+      "status": "planned",
+      "wave": "wave5"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/moe_distribute_dispatch/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/report.json",
+  "status": "prototype",
+  "wave": "wave5"
+}

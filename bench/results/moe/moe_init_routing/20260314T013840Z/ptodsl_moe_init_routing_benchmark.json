@@ -1,0 +1,308 @@
+{
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage1_gather/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage1_gather/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage1_gather/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage1_gather/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage2_copy_rows/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage2_copy_rows/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage2_copy_rows/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage2_copy_rows/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage3_copy_experts/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage3_copy_experts/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage3_copy_experts/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t16_h16_e4/stage3_copy_experts/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage1_gather/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage1_gather/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage1_gather/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage1_gather/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage2_copy_rows/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage2_copy_rows/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage2_copy_rows/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage2_copy_rows/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage3_copy_experts/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage3_copy_experts/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage3_copy_experts/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t256_h64_e8/stage3_copy_experts/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage1_gather/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage1_gather/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage1_gather/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage1_gather/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage2_copy_rows/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage2_copy_rows/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage2_copy_rows/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage2_copy_rows/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage3_copy_experts/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage3_copy_experts/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage3_copy_experts/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing/20260314T013840Z/t128_h128_e8/stage3_copy_experts/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 189.0,
+    "passes": false,
+    "rtol": 0.001
+  },
+  "reference_contract": "top1_grouped_expert_idx_init_routing",
+  "shape_summaries": [
+    {
+      "expanded_expert_idx": [
+        16
+      ],
+      "expanded_row_idx": [
+        16
+      ],
+      "expanded_x": [
+        16,
+        16
+      ],
+      "expert_idx": [
+        16,
+        1
+      ],
+      "gather_indices": [
+        256
+      ],
+      "row_idx": [
+        16,
+        1
+      ],
+      "x": [
+        16,
+        16
+      ]
+    },
+    {
+      "expanded_expert_idx": [
+        256
+      ],
+      "expanded_row_idx": [
+        256
+      ],
+      "expanded_x": [
+        256,
+        64
+      ],
+      "expert_idx": [
+        256,
+        1
+      ],
+      "gather_indices": [
+        16384
+      ],
+      "row_idx": [
+        256,
+        1
+      ],
+      "x": [
+        256,
+        64
+      ]
+    },
+    {
+      "expanded_expert_idx": [
+        128
+      ],
+      "expanded_row_idx": [
+        128
+      ],
+      "expanded_x": [
+        128,
+        128
+      ],
+      "expert_idx": [
+        128,
+        1
+      ],
+      "gather_indices": [
+        16384
+      ],
+      "row_idx": [
+        128,
+        1
+      ],
+      "x": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.6783639546483755,
+    "median": 0.6401289720088243,
+    "min": 0.6072239484637976
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "expanded_expert_idx_max_abs_diff": 0,
+        "expanded_row_idx_max_abs_diff": 0,
+        "expanded_x_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "expanded_expert_idx": [
+          16
+        ],
+        "expanded_row_idx": [
+          16
+        ],
+        "expanded_x": [
+          16,
+          16
+        ],
+        "expert_idx": [
+          16,
+          1
+        ],
+        "gather_indices": [
+          256
+        ],
+        "row_idx": [
+          16,
+          1
+        ],
+        "x": [
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.6578939501196146,
+        "median": 0.6222535157576203,
+        "min": 0.6072239484637976
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expanded_expert_idx_max_abs_diff": 0,
+        "expanded_row_idx_max_abs_diff": 189,
+        "expanded_x_max_abs_diff": 0.0,
+        "max_abs_diff": 189.0
+      },
+      "shape_summary": {
+        "expanded_expert_idx": [
+          256
+        ],
+        "expanded_row_idx": [
+          256
+        ],
+        "expanded_x": [
+          256,
+          64
+        ],
+        "expert_idx": [
+          256,
+          1
+        ],
+        "gather_indices": [
+          16384
+        ],
+        "row_idx": [
+          256,
+          1
+        ],
+        "x": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.6697739008814096,
+        "median": 0.6361240521073341,
+        "min": 0.6242739036679268
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 64,
+        "seed": 1,
+        "tokens": 256,
+        "top_k": 1
+      }
+    },
+    {
+      "correctness": {
+        "expanded_expert_idx_max_abs_diff": 0,
+        "expanded_row_idx_max_abs_diff": 63,
+        "expanded_x_max_abs_diff": 0.0,
+        "max_abs_diff": 63.0
+      },
+      "shape_summary": {
+        "expanded_expert_idx": [
+          128
+        ],
+        "expanded_row_idx": [
+          128
+        ],
+        "expanded_x": [
+          128,
+          128
+        ],
+        "expert_idx": [
+          128,
+          1
+        ],
+        "gather_indices": [
+          16384
+        ],
+        "row_idx": [
+          128,
+          1
+        ],
+        "x": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.6783639546483755,
+        "median": 0.6401289720088243,
+        "min": 0.6246729753911495
+      },
+      "variant": {
+        "dtype": "float16",
+        "experts": 8,
+        "hidden_size": 128,
+        "seed": 2,
+        "tokens": 128,
+        "top_k": 1
+      }
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 8,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1
+    }
+  ]
+}

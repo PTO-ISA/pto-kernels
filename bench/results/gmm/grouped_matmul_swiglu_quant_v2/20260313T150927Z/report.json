@@ -1,0 +1,250 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul_swiglu_quant_v2.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant_v2",
+      "reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/ops_transformer_grouped_matmul_swiglu_quant_v2_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            8
+          ],
+          "output": [
+            2048,
+            2048
+          ],
+          "output_scale": [
+            2048,
+            32,
+            2
+          ],
+          "weight_list_item": [
+            8,
+            7168,
+            4096
+          ],
+          "weight_scale_list_item": [
+            8,
+            112,
+            4096,
+            2
+          ],
+          "x": [
+            2048,
+            7168
+          ],
+          "x_scale": [
+            2048,
+            112,
+            2
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 8,
+          "k": 7168,
+          "m": 2048,
+          "n": 4096,
+          "seed": 0
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant_v2",
+      "reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+      "shape_summaries": [
+        {
+          "group_list": [
+            8
+          ],
+          "output": [
+            2048,
+            2048
+          ],
+          "output_scale": [
+            2048,
+            32,
+            2
+          ],
+          "weight_list_item": [
+            8,
+            7168,
+            4096
+          ],
+          "weight_scale_list_item": [
+            8,
+            112,
+            4096,
+            2
+          ],
+          "x": [
+            2048,
+            7168
+          ],
+          "x_scale": [
+            2048,
+            112,
+            2
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 8,
+          "k": 7168,
+          "m": 2048,
+          "n": 4096,
+          "seed": 0
+        }
+      ]
+    },
+    "family": "gmm",
+    "name": "grouped_matmul_swiglu_quant_v2",
+    "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant_v2",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant_v2",
+    "seed_variant": {
+      "default": {
+        "e": 8,
+        "k": 7168,
+        "m": 2048,
+        "n": 4096,
+        "seed": 0
+      },
+      "variants": [
+        {
+          "e": 8,
+          "k": 7168,
+          "m": 2048,
+          "n": 4096,
+          "seed": 0
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/grouped_matmul_swiglu_quant_v2",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant_v2",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant_v2/report.json",
+  "name": "grouped_matmul_swiglu_quant_v2",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul_swiglu_quant_v2.py",
+    "benchmark": {
+      "reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/ptodsl_grouped_matmul_swiglu_quant_v2_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 8,
+          "k": 7168,
+          "m": 2048,
+          "n": 4096,
+          "seed": 0
+        }
+      ]
+    },
+    "compile": {
+      "reason": "grouped_matmul_swiglu_quant_v2 PTO port is deferred until the FP8/list-valued baseline contract is reproducible on this host.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant_v2/kernel.py",
+    "meta": {
+      "archetype": "grouped-matmul-swiglu-quant-v2",
+      "blockers": [
+        "ops-transformer-grouped-swiglu-quant-v2-contract",
+        "ptodsl-group-routing-primitives",
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "grouped_matmul_swiglu_quant_v2",
+      "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant_v2",
+      "seed_variant": {
+        "limits": [
+          "baseline contract probe only",
+          "requires list-valued low-precision weights and scales",
+          "requires FP8-style x/weight/scale contracts from the upstream ACLNN example",
+          "PTO kernel implementation is deferred until a stable host baseline slice is reproduced"
+        ],
+        "name": "fp8_list_weight_swiglu_quant_v2_contract_probe",
+        "shape": {
+          "variant_0": {
+            "group_list": [
+              8
+            ],
+            "output": [
+              2048,
+              2048
+            ],
+            "output_scale": [
+              2048,
+              32,
+              2
+            ],
+            "weight_list_item": [
+              8,
+              7168,
+              4096
+            ],
+            "weight_scale_list_item": [
+              8,
+              112,
+              4096,
+              2
+            ],
+            "x": [
+              2048,
+              7168
+            ],
+            "x_scale": [
+              2048,
+              112,
+              2
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant_v2/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

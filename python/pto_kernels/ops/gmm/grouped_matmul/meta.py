@@ -12,6 +12,7 @@ META = planned_meta(
         "ptodsl-cube-preload-pipeline-surface",
     ],
 )
+META["status"] = "prototype"
 
 META["seed_variant"] = {
     "name": "dense_single_weight_bf16_to_bf16",

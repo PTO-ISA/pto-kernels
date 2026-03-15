@@ -1,0 +1,16 @@
+{
+  "correctness": {
+    "max_abs_diff": 1.349609375,
+    "norm_max_abs_diff": 0.623046875,
+    "residual_y_max_abs_diff": 1.349609375
+  },
+  "device": "npu:1",
+  "rank": 1,
+  "status": "ok",
+  "timings_ms": {
+    "max": 1.13317696377635,
+    "median": 0.9035250404849648,
+    "min": 0.8493650238960981
+  },
+  "world_size": 2
+}

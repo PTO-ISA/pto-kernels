@@ -1,0 +1,34 @@
+{
+  "entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+  "environment": {
+    "device_index": 0,
+    "dist_backend": null,
+    "distributed_available": true,
+    "distributed_initialized": false,
+    "parsed_world_size": null,
+    "resolved_world_size": 2,
+    "runtime_entrypoint": "torch_npu.npu_mm_reduce_scatter_base",
+    "supported_world_sizes": [
+      2,
+      4,
+      8
+    ],
+    "symbol_available": true,
+    "variant": {
+      "bias": false,
+      "comm_turn": 0,
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "input_scale": 0.125,
+      "k": 256,
+      "m": 128,
+      "n": 128,
+      "reduce_op": "sum",
+      "seed": 0,
+      "stream_mode": 1
+    },
+    "world_size_env": null
+  },
+  "reason": "Distributed MC2 baseline launch failed: process 0 terminated with exit code 1",
+  "status": "blocked"
+}

@@ -1,0 +1,186 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
+  "reference_contract": "fp16_half_rope_tnd_and_bsnd",
+  "shape_summaries": [
+    {
+      "cos": [
+        64,
+        1,
+        128
+      ],
+      "key": [
+        64,
+        1,
+        128
+      ],
+      "query": [
+        64,
+        1,
+        128
+      ],
+      "sin": [
+        64,
+        1,
+        128
+      ]
+    },
+    {
+      "cos": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "key": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "query": [
+        2,
+        32,
+        1,
+        128
+      ],
+      "sin": [
+        2,
+        32,
+        1,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.12168101966381073,
+    "median": 0.10027550160884857,
+    "min": 0.09631109423935413
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          64,
+          1,
+          128
+        ],
+        "key": [
+          64,
+          1,
+          128
+        ],
+        "query": [
+          64,
+          1,
+          128
+        ],
+        "sin": [
+          64,
+          1,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12168101966381073,
+        "median": 0.09931495878845453,
+        "min": 0.09631109423935413
+      },
+      "variant": {
+        "batch": 1,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "TND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 64,
+        "tokens": 64
+      }
+    },
+    {
+      "correctness": {
+        "key_max_abs_diff": 0.0,
+        "max_abs_diff": 0.0,
+        "query_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "key": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "query": [
+          2,
+          32,
+          1,
+          128
+        ],
+        "sin": [
+          2,
+          32,
+          1,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.12056995183229446,
+        "median": 0.10027550160884857,
+        "min": 0.09775091893970966
+      },
+      "variant": {
+        "batch": 2,
+        "dtype": "float16",
+        "head_dim": 128,
+        "heads": 1,
+        "layout": "BSND",
+        "rotary_mode": "half",
+        "seed": 0,
+        "seq_len": 32,
+        "tokens": 64
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "TND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 64,
+      "tokens": 64
+    },
+    {
+      "batch": 2,
+      "dtype": "float16",
+      "head_dim": 128,
+      "heads": 1,
+      "layout": "BSND",
+      "rotary_mode": "half",
+      "seed": 0,
+      "seq_len": 32,
+      "tokens": 64
+    }
+  ]
+}

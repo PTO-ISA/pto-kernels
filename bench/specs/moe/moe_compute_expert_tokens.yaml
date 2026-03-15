@@ -1,0 +1,14 @@
+name: moe_compute_expert_tokens
+family: moe
+wave: wave2
+inventory_ref: moe/moe_compute_expert_tokens
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_compute_expert_tokens.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_compute_expert_tokens.py
+  kernel: python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_compute_expert_tokens/meta.py
+notes:
+  - Sorted-int32 910B slice of moe_compute_expert_tokens.
+  - PTO port computes direct upper-bound positions per expert in PTODSL.

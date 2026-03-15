@@ -1,0 +1,429 @@
+{
+  "best": {
+    "env": {
+      "PTO_GROUPED_MATMUL_BASE_M": 32,
+      "PTO_GROUPED_MATMUL_BASE_N": 128,
+      "PTO_GROUPED_MATMUL_BASE_K": 64,
+      "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+    },
+    "baseline_ms": 0.10408589150756598,
+    "pto_ms": 0.2579769352450967,
+    "baseline_over_pto_percent": 40.3469757514085,
+    "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095622Z/report.json",
+    "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+    "pto_status": "ok",
+    "baseline_status": "ok",
+    "pto_passes": true,
+    "baseline_passes": true
+  },
+  "results": [
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.11542614083737135,
+      "pto_ms": 0.26441109366714954,
+      "baseline_over_pto_percent": 43.65404614326585,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095230Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10783097241073847,
+      "pto_ms": 0.25975098833441734,
+      "baseline_over_pto_percent": 41.513209671376146,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095242Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10603549890220165,
+      "pto_ms": 0.260636443272233,
+      "baseline_over_pto_percent": 40.68329722848784,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095253Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10541093070060015,
+      "pto_ms": 0.2640365855768323,
+      "baseline_over_pto_percent": 39.922850263463395,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095303Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10729057248681784,
+      "pto_ms": 0.26911706663668156,
+      "baseline_over_pto_percent": 39.86762111659914,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095313Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10585098061710596,
+      "pto_ms": 0.26363192591816187,
+      "baseline_over_pto_percent": 40.151047809727274,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095323Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10659603867679834,
+      "pto_ms": 0.2631319221109152,
+      "baseline_over_pto_percent": 40.51049291992253,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095333Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10709557682275772,
+      "pto_ms": 0.2634769771248102,
+      "baseline_over_pto_percent": 40.647034132331825,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095343Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10486599057912827,
+      "pto_ms": 0.25821663439273834,
+      "baseline_over_pto_percent": 40.611632486709134,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095353Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10519044008105993,
+      "pto_ms": 0.2632464747875929,
+      "baseline_over_pto_percent": 39.958916891835116,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095403Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10757101699709892,
+      "pto_ms": 0.26339199393987656,
+      "baseline_over_pto_percent": 40.84065555221611,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095413Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 16,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.1077550696209073,
+      "pto_ms": 0.26583648286759853,
+      "baseline_over_pto_percent": 40.534342186048015,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095423Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.1059462083503604,
+      "pto_ms": 0.26271201204508543,
+      "baseline_over_pto_percent": 40.327888902232,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095433Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10519055649638176,
+      "pto_ms": 0.2648466033861041,
+      "baseline_over_pto_percent": 39.71754032390995,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095443Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10648008901625872,
+      "pto_ms": 0.2635710407048464,
+      "baseline_over_pto_percent": 40.39900921266151,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095452Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10657589882612228,
+      "pto_ms": 0.26318151503801346,
+      "baseline_over_pto_percent": 40.49520681979836,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095502Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10633550118654966,
+      "pto_ms": 0.2639669692143798,
+      "baseline_over_pto_percent": 40.28363908674864,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095512Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 64,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10570045560598373,
+      "pto_ms": 0.266115996055305,
+      "baseline_over_pto_percent": 39.71969260503106,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095522Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10792096145451069,
+      "pto_ms": 0.2649015514180064,
+      "baseline_over_pto_percent": 40.74002620098467,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095532Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10316551197320223,
+      "pto_ms": 0.2612069947645068,
+      "baseline_over_pto_percent": 39.495692703869544,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095542Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 32,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10653550270944834,
+      "pto_ms": 0.2639060840010643,
+      "baseline_over_pto_percent": 40.36871795233743,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095552Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 4
+      },
+      "baseline_ms": 0.10674598161131144,
+      "pto_ms": 0.2632464747875929,
+      "baseline_over_pto_percent": 40.549823771597374,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095602Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 8
+      },
+      "baseline_ms": 0.10426598601043224,
+      "pto_ms": 0.2582165179774165,
+      "baseline_over_pto_percent": 40.37928589043683,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095612Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    },
+    {
+      "env": {
+        "PTO_GROUPED_MATMUL_BASE_M": 32,
+        "PTO_GROUPED_MATMUL_BASE_N": 128,
+        "PTO_GROUPED_MATMUL_BASE_K": 64,
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": 16
+      },
+      "baseline_ms": 0.10408589150756598,
+      "pto_ms": 0.2579769352450967,
+      "baseline_over_pto_percent": 40.3469757514085,
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T095622Z/report.json",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "pto_status": "ok",
+      "baseline_status": "ok",
+      "pto_passes": true,
+      "baseline_passes": true
+    }
+  ]
+}

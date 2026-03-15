@@ -1,0 +1,97 @@
+module {
+  func.func @dense_attention_qk_stage(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<f16>, %arg2: !pto.ptr<f16>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c16 = arith.constant 16 : index
+    %c64 = arith.constant 64 : index
+    %c128 = arith.constant 128 : index
+    %c16_0 = arith.constant 16 : index
+    %c16_1 = arith.constant 16 : index
+    %c64_2 = arith.constant 64 : index
+    %c1_3 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %0 = pto.make_tensor_view %arg1, shape = [%c16, %c64] strides = [%c64, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg2, shape = [%c64, %c128] strides = [%c128, %c1] : !pto.tensor_view<?x?xf16>
+    %2 = pto.make_tensor_view %arg0, shape = [%c16, %c128] strides = [%c128, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.cube {
+      %3 = pto.get_block_idx
+      %4 = arith.index_cast %3 : i64 to index
+      %5 = pto.get_block_num
+      %6 = arith.index_cast %5 : i64 to index
+      %7 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %8 = pto.alloc_tile : !pto.tile_buf<loc=mat, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=col_major, slayout=row_major, fractal=512, pad=0>
+      %9 = pto.alloc_tile : !pto.tile_buf<loc=left, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=row_major, slayout=row_major, fractal=512, pad=0>
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=right, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=row_major, slayout=col_major, fractal=512, pad=0>
+      %11 = pto.alloc_tile : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=16, v_row=16, v_col=16, blayout=col_major, slayout=row_major, fractal=1024, pad=0>
+      scf.for %arg3 = %4 to %c8 step %6 {
+        %c0_4 = arith.constant 0 : index
+        %c0_5 = arith.constant 0 : index
+        %c1_6 = arith.constant 1 : index
+        %12 = arith.cmpi eq, %arg3, %c1_6 : index
+        %c0_7 = arith.constant 0 : index
+        %13 = arith.select %12, %c0_7, %c0_4 : index
+        %c1_8 = arith.constant 1 : index
+        %14 = arith.select %12, %c1_8, %c0_5 : index
+        %c2 = arith.constant 2 : index
+        %15 = arith.cmpi eq, %arg3, %c2 : index
+        %c0_9 = arith.constant 0 : index
+        %16 = arith.select %15, %c0_9, %13 : index
+        %c2_10 = arith.constant 2 : index
+        %17 = arith.select %15, %c2_10, %14 : index
+        %c3 = arith.constant 3 : index
+        %18 = arith.cmpi eq, %arg3, %c3 : index
+        %c0_11 = arith.constant 0 : index
+        %19 = arith.select %18, %c0_11, %16 : index
+        %c3_12 = arith.constant 3 : index
+        %20 = arith.select %18, %c3_12, %17 : index
+        %c4 = arith.constant 4 : index
+        %21 = arith.cmpi eq, %arg3, %c4 : index
+        %c0_13 = arith.constant 0 : index
+        %22 = arith.select %21, %c0_13, %19 : index
+        %c4_14 = arith.constant 4 : index
+        %23 = arith.select %21, %c4_14, %20 : index
+        %c5 = arith.constant 5 : index
+        %24 = arith.cmpi eq, %arg3, %c5 : index
+        %c0_15 = arith.constant 0 : index
+        %25 = arith.select %24, %c0_15, %22 : index
+        %c5_16 = arith.constant 5 : index
+        %26 = arith.select %24, %c5_16, %23 : index
+        %c6 = arith.constant 6 : index
+        %27 = arith.cmpi eq, %arg3, %c6 : index
+        %c0_17 = arith.constant 0 : index
+        %28 = arith.select %27, %c0_17, %25 : index
+        %c6_18 = arith.constant 6 : index
+        %29 = arith.select %27, %c6_18, %26 : index
+        %c7 = arith.constant 7 : index
+        %30 = arith.cmpi eq, %arg3, %c7 : index
+        %c0_19 = arith.constant 0 : index
+        %31 = arith.select %30, %c0_19, %28 : index
+        %c7_20 = arith.constant 7 : index
+        %32 = arith.select %30, %c7_20, %29 : index
+        %33 = arith.muli %31, %c16_0 : index
+        %34 = arith.muli %32, %c16_1 : index
+        %35 = pto.partition_view %0, offsets = [%33, %c0], sizes = [%c16_0, %c64_2] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<16x64xf16>
+        %36 = pto.partition_view %1, offsets = [%c0, %34], sizes = [%c64_2, %c16_1] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<64x16xf16>
+        pto.tload ins(%35 : !pto.partition_tensor_view<16x64xf16>) outs(%7 : !pto.tile_buf<loc=mat, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+        pto.tload ins(%36 : !pto.partition_tensor_view<64x16xf16>) outs(%8 : !pto.tile_buf<loc=mat, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+        pto.tmov ins(%7 : !pto.tile_buf<loc=mat, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%9 : !pto.tile_buf<loc=left, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=row_major, slayout=row_major, fractal=512, pad=0>)
+        pto.tmov ins(%8 : !pto.tile_buf<loc=mat, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%10 : !pto.tile_buf<loc=right, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=row_major, slayout=col_major, fractal=512, pad=0>)
+        pto.tmatmul ins(%9, %10 : !pto.tile_buf<loc=left, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=16, v_row=16, v_col=16, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+        scf.for %arg4 = %c1 to %c1_3 step %c1 {
+          %38 = arith.muli %arg4, %c64_2 : index
+          %39 = pto.partition_view %0, offsets = [%33, %38], sizes = [%c16_0, %c64_2] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<16x64xf16>
+          %40 = pto.partition_view %1, offsets = [%38, %34], sizes = [%c64_2, %c16_1] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<64x16xf16>
+          pto.tload ins(%39 : !pto.partition_tensor_view<16x64xf16>) outs(%7 : !pto.tile_buf<loc=mat, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tload ins(%40 : !pto.partition_tensor_view<64x16xf16>) outs(%8 : !pto.tile_buf<loc=mat, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=col_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tmov ins(%7 : !pto.tile_buf<loc=mat, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%9 : !pto.tile_buf<loc=left, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=row_major, slayout=row_major, fractal=512, pad=0>)
+          pto.tmov ins(%8 : !pto.tile_buf<loc=mat, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=col_major, slayout=row_major, fractal=512, pad=0>) outs(%10 : !pto.tile_buf<loc=right, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=row_major, slayout=col_major, fractal=512, pad=0>)
+          pto.tmatmul.acc ins(%11, %9, %10 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=16, v_row=16, v_col=16, blayout=col_major, slayout=row_major, fractal=1024, pad=0>, !pto.tile_buf<loc=left, dtype=f16, rows=16, cols=64, v_row=16, v_col=64, blayout=row_major, slayout=row_major, fractal=512, pad=0>, !pto.tile_buf<loc=right, dtype=f16, rows=64, cols=16, v_row=64, v_col=16, blayout=row_major, slayout=col_major, fractal=512, pad=0>) outs(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=16, v_row=16, v_col=16, blayout=col_major, slayout=row_major, fractal=1024, pad=0>)
+        }
+        %37 = pto.partition_view %2, offsets = [%33, %34], sizes = [%c16_0, %c16_1] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<16x16xf16>
+        pto.tstore ins(%11 : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=16, v_row=16, v_col=16, blayout=col_major, slayout=row_major, fractal=1024, pad=0>) outs(%37 : !pto.partition_tensor_view<16x16xf16>)
+      }
+    }
+    return
+  }
+}
+

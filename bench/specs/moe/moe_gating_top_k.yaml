@@ -1,0 +1,27 @@
+name: moe_gating_top_k
+family: moe
+wave: wave2
+inventory_ref: moe/moe_gating_top_k
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_gating_top_k.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_gating_top_k.py
+  kernel: python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_gating_top_k/meta.py
+notes:
+  - Seed kernel for top-1 sigmoid gating without grouping or bias in the MOE wave.
+device:
+  id: 0
+bench:
+  warmup: 20
+  repeat: 100
+  statistic: median
+  parity_threshold: 0.10
+correctness:
+  atol: 1.0e-3
+  rtol: 1.0e-3
+  shape_sets:
+    - smoke
+    - nominal
+    - boundary

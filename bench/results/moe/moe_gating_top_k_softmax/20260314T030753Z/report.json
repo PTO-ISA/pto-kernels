@@ -1,0 +1,378 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_gating_top_k_softmax.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.00019812583923339844,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "entrypoint": "torch_npu.npu_moe_gating_top_k_softmax",
+      "reference_contract": "top1_softmax_no_finished_2d",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/ops_transformer_moe_gating_top_k_softmax_benchmark.json",
+      "shape_summaries": [
+        {
+          "expert_idx_out": [
+            8,
+            1
+          ],
+          "row_idx_out": [
+            8,
+            1
+          ],
+          "x": [
+            8,
+            16
+          ],
+          "y_out": [
+            8,
+            1
+          ]
+        },
+        {
+          "expert_idx_out": [
+            256,
+            1
+          ],
+          "row_idx_out": [
+            256,
+            1
+          ],
+          "x": [
+            256,
+            64
+          ],
+          "y_out": [
+            256,
+            1
+          ]
+        },
+        {
+          "expert_idx_out": [
+            128,
+            1
+          ],
+          "row_idx_out": [
+            128,
+            1
+          ],
+          "x": [
+            128,
+            128
+          ],
+          "y_out": [
+            128,
+            1
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.3189421258866787,
+        "median": 0.10524096433073282,
+        "min": 0.0998801551759243
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "expert_idx_max_abs_diff": 0.0,
+            "max_abs_diff": 0.00019812583923339844,
+            "passes": true,
+            "row_idx_max_abs_diff": 0.0,
+            "y_max_abs_diff": 0.00019812583923339844
+          },
+          "shape_summary": {
+            "expert_idx_out": [
+              8,
+              1
+            ],
+            "row_idx_out": [
+              8,
+              1
+            ],
+            "x": [
+              8,
+              16
+            ],
+            "y_out": [
+              8,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.152861000970006,
+            "median": 0.10318600106984377,
+            "min": 0.0998801551759243
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 16,
+            "finished": false,
+            "rows": 8,
+            "seed": 0,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "expert_idx_max_abs_diff": 0.0,
+            "max_abs_diff": 0.00011986494064331055,
+            "passes": true,
+            "row_idx_max_abs_diff": 0.0,
+            "y_max_abs_diff": 0.00011986494064331055
+          },
+          "shape_summary": {
+            "expert_idx_out": [
+              256,
+              1
+            ],
+            "row_idx_out": [
+              256,
+              1
+            ],
+            "x": [
+              256,
+              64
+            ],
+            "y_out": [
+              256,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.12678001075983047,
+            "median": 0.10524096433073282,
+            "min": 0.10208110325038433
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 64,
+            "finished": false,
+            "rows": 256,
+            "seed": 1,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "expert_idx_max_abs_diff": 0.0,
+            "max_abs_diff": 3.17692756652832e-05,
+            "passes": true,
+            "row_idx_max_abs_diff": 0.0,
+            "y_max_abs_diff": 3.17692756652832e-05
+          },
+          "shape_summary": {
+            "expert_idx_out": [
+              128,
+              1
+            ],
+            "row_idx_out": [
+              128,
+              1
+            ],
+            "x": [
+              128,
+              128
+            ],
+            "y_out": [
+              128,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3189421258866787,
+            "median": 0.10359601583331823,
+            "min": 0.10025105439126492
+          },
+          "variant": {
+            "dtype": "float16",
+            "experts": 128,
+            "finished": false,
+            "rows": 128,
+            "seed": 2,
+            "top_k": 1
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "finished": false,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "finished": false,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "finished": false,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch_npu.npu_moe_gating_top_k_softmax",
+      "note": "Baseline execution uses the installed custom ops runtime package. The constrained slice fixes topK=1, finishedOptional=None, and 2D input.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_gating_top_k_softmax",
+    "ops_transformer_path": "moe/moe_gating_top_k_softmax",
+    "runtime_entrypoint": "torch_npu.npu_moe_gating_top_k_softmax",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "experts": 16,
+        "finished": false,
+        "rows": 8,
+        "seed": 0,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "finished": false,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "finished": false,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "finished": false,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_gating_top_k_softmax",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax/report.json",
+  "name": "moe_gating_top_k_softmax",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_gating_top_k_softmax.py",
+    "benchmark": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/r8_e16/stage2_select/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/r8_e16/stage2_select/kernel.cpp']' returned non-zero exit status 1.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/ptodsl_moe_gating_top_k_softmax_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "dtype": "float16",
+          "experts": 16,
+          "finished": false,
+          "rows": 8,
+          "seed": 0,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 64,
+          "finished": false,
+          "rows": 256,
+          "seed": 1,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "experts": 128,
+          "finished": false,
+          "rows": 128,
+          "seed": 2,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/stage2_select/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/stage2_select/kernel.cpp']' returned non-zero exit status 1.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k_softmax/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_gating_top_k_softmax",
+      "ops_transformer_path": "moe/moe_gating_top_k_softmax",
+      "seed_variant": {
+        "limits": [
+          "top-k fixed to 1",
+          "2D x only",
+          "finishedOptional fixed to none",
+          "rowIdxOut uses the Python-visible no-finished contract",
+          "validated shapes currently cover 8x16, 256x64, and 128x128",
+          "generalized top-k and finished masking remain open"
+        ],
+        "name": "top1_fp16_2d_softmax",
+        "shape": [
+          8,
+          16
+        ]
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k_softmax/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax/20260314T030753Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

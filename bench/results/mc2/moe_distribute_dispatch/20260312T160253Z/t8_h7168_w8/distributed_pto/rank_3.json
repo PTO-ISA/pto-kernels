@@ -1,0 +1,6 @@
+{
+  "rank": 3,
+  "reason": "Split sizes dosen't match total dim 0 size\n[ERROR] 2026-03-13-00:04:16 (PID:3196430, Device:3, RankID:3) ERR02002 DIST invalid type",
+  "status": "blocked",
+  "world_size": 8
+}

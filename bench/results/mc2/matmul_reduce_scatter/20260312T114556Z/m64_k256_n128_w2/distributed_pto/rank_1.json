@@ -1,0 +1,15 @@
+{
+  "correctness": {
+    "max_abs_diff": 1.282891035079956
+  },
+  "device": "npu:1",
+  "rank": 1,
+  "reference_contract": "host_orchestrated_all_reduce_then_chunk",
+  "status": "ok",
+  "timings_ms": {
+    "max": 1.02896592579782,
+    "median": 0.7774899713695049,
+    "min": 0.71560381911695
+  },
+  "world_size": 2
+}

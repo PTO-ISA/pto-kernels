@@ -1,0 +1,2303 @@
+{
+  "generated_at": "20260312T172408Z",
+  "kernels": [
+    {
+      "family": "gmm",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "name": "grouped_matmul",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260312T172408Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.10871095582842827,
+              "baseline_over_pto_pct": 41.612320334032205,
+              "pto_correct": false,
+              "pto_median_ms": 0.2612470416352153,
+              "shape_summary": {
+                "output": [
+                  1,
+                  128,
+                  128
+                ],
+                "weight": [
+                  128,
+                  128
+                ],
+                "weight_v5": [
+                  1,
+                  128,
+                  128
+                ],
+                "x": [
+                  128,
+                  128
+                ]
+              },
+              "variant": {
+                "baseline_weight_layout": "single_3d_weight_for_v5",
+                "batch": 1,
+                "input_dtype": "bfloat16",
+                "k": 128,
+                "m": 128,
+                "n": 128,
+                "output_dtype": "bfloat16",
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.1101209782063961,
+              "baseline_over_pto_pct": 42.02257743083213,
+              "pto_correct": false,
+              "pto_median_ms": 0.2620519371703267,
+              "shape_summary": {
+                "output": [
+                  1,
+                  64,
+                  128
+                ],
+                "weight": [
+                  64,
+                  128
+                ],
+                "weight_v5": [
+                  1,
+                  64,
+                  128
+                ],
+                "x": [
+                  64,
+                  64
+                ]
+              },
+              "variant": {
+                "baseline_weight_layout": "single_3d_weight_for_v5",
+                "batch": 1,
+                "input_dtype": "bfloat16",
+                "k": 64,
+                "m": 64,
+                "n": 128,
+                "output_dtype": "bfloat16",
+                "seed": 1
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.10958104394376278,
+              "baseline_over_pto_pct": 41.62290109888166,
+              "pto_correct": false,
+              "pto_median_ms": 0.26327103842049837,
+              "shape_summary": {
+                "output": [
+                  1,
+                  128,
+                  256
+                ],
+                "weight": [
+                  128,
+                  256
+                ],
+                "weight_v5": [
+                  1,
+                  128,
+                  256
+                ],
+                "x": [
+                  128,
+                  128
+                ]
+              },
+              "variant": {
+                "baseline_weight_layout": "single_3d_weight_for_v5",
+                "batch": 1,
+                "input_dtype": "bfloat16",
+                "k": 128,
+                "m": 128,
+                "n": 256,
+                "output_dtype": "bfloat16",
+                "seed": 2
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/gmm/grouped_matmul.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.10871095582842827,
+          "baseline_over_pto_pct": 41.612320334032205,
+          "pto_median_ms": 0.2612470416352153,
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              128
+            ],
+            "weight": [
+              128,
+              128
+            ],
+            "weight_v5": [
+              1,
+              128,
+              128
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.10958104394376278,
+          "baseline_over_pto_pct": 41.62290109888166,
+          "pto_median_ms": 0.26327103842049837,
+          "shape_summary": {
+            "output": [
+              1,
+              128,
+              256
+            ],
+            "weight": [
+              128,
+              256
+            ],
+            "weight_v5": [
+              1,
+              128,
+              256
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 128,
+            "m": 128,
+            "n": 256,
+            "output_dtype": "bfloat16",
+            "seed": 2
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.1101209782063961,
+          "baseline_over_pto_pct": 42.02257743083213,
+          "pto_median_ms": 0.2620519371703267,
+          "shape_summary": {
+            "output": [
+              1,
+              64,
+              128
+            ],
+            "weight": [
+              64,
+              128
+            ],
+            "weight_v5": [
+              1,
+              64,
+              128
+            ],
+            "x": [
+              64,
+              64
+            ]
+          },
+          "variant": {
+            "baseline_weight_layout": "single_3d_weight_for_v5",
+            "batch": 1,
+            "input_dtype": "bfloat16",
+            "k": 64,
+            "m": 64,
+            "n": 128,
+            "output_dtype": "bfloat16",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "posembedding",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb/report.json",
+      "name": "apply_rotary_pos_emb",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T172420Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.09931495878845453,
+              "baseline_over_pto_pct": 47.668269002430044,
+              "pto_correct": false,
+              "pto_median_ms": 0.20834605675190687,
+              "shape_summary": {
+                "cos": [
+                  64,
+                  1,
+                  128
+                ],
+                "key": [
+                  64,
+                  1,
+                  128
+                ],
+                "query": [
+                  64,
+                  1,
+                  128
+                ],
+                "sin": [
+                  64,
+                  1,
+                  128
+                ]
+              },
+              "variant": {
+                "batch": 1,
+                "dtype": "float16",
+                "head_dim": 128,
+                "heads": 1,
+                "layout": "TND",
+                "rotary_mode": "half",
+                "seed": 0,
+                "seq_len": 64,
+                "tokens": 64
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.10027550160884857,
+              "baseline_over_pto_pct": 48.34847544239169,
+              "pto_correct": false,
+              "pto_median_ms": 0.20740157924592495,
+              "shape_summary": {
+                "cos": [
+                  2,
+                  32,
+                  1,
+                  128
+                ],
+                "key": [
+                  2,
+                  32,
+                  1,
+                  128
+                ],
+                "query": [
+                  2,
+                  32,
+                  1,
+                  128
+                ],
+                "sin": [
+                  2,
+                  32,
+                  1,
+                  128
+                ]
+              },
+              "variant": {
+                "batch": 2,
+                "dtype": "float16",
+                "head_dim": 128,
+                "heads": 1,
+                "layout": "BSND",
+                "rotary_mode": "half",
+                "seed": 0,
+                "seq_len": 32,
+                "tokens": 64
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/posembedding/apply_rotary_pos_emb.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.09931495878845453,
+          "baseline_over_pto_pct": 47.668269002430044,
+          "pto_median_ms": 0.20834605675190687,
+          "shape_summary": {
+            "cos": [
+              64,
+              1,
+              128
+            ],
+            "key": [
+              64,
+              1,
+              128
+            ],
+            "query": [
+              64,
+              1,
+              128
+            ],
+            "sin": [
+              64,
+              1,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "TND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 64,
+            "tokens": 64
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.10027550160884857,
+          "baseline_over_pto_pct": 48.34847544239169,
+          "pto_median_ms": 0.20740157924592495,
+          "shape_summary": {
+            "cos": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "key": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "query": [
+              2,
+              32,
+              1,
+              128
+            ],
+            "sin": [
+              2,
+              32,
+              1,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 2,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "layout": "BSND",
+            "rotary_mode": "half",
+            "seed": 0,
+            "seq_len": 32,
+            "tokens": 64
+          }
+        }
+      ]
+    },
+    {
+      "family": "ffn",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn/report.json",
+      "name": "ffn",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.08752592839300632,
+              "baseline_over_pto_pct": 19.467160905040362,
+              "pto_correct": false,
+              "pto_median_ms": 0.44960808008909225,
+              "shape_summary": {
+                "hidden": [
+                  32,
+                  256
+                ],
+                "output": [
+                  32,
+                  128
+                ],
+                "weight1": [
+                  128,
+                  256
+                ],
+                "weight2": [
+                  256,
+                  128
+                ],
+                "x": [
+                  32,
+                  128
+                ]
+              },
+              "variant": {
+                "activation": "relu",
+                "bias": false,
+                "dtype": "float16",
+                "hidden_size": 128,
+                "input_scale": 0.125,
+                "intermediate_size": 256,
+                "output_size": 128,
+                "seed": 0,
+                "tokens": 32
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.0895005650818348,
+              "baseline_over_pto_pct": 19.711265308968887,
+              "pto_correct": false,
+              "pto_median_ms": 0.454057939350605,
+              "shape_summary": {
+                "hidden": [
+                  64,
+                  256
+                ],
+                "output": [
+                  64,
+                  128
+                ],
+                "weight1": [
+                  128,
+                  256
+                ],
+                "weight2": [
+                  256,
+                  128
+                ],
+                "x": [
+                  64,
+                  128
+                ]
+              },
+              "variant": {
+                "activation": "relu",
+                "bias": false,
+                "dtype": "float16",
+                "hidden_size": 128,
+                "input_scale": 0.125,
+                "intermediate_size": 256,
+                "output_size": 128,
+                "seed": 1,
+                "tokens": 64
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.0953056151047349,
+              "baseline_over_pto_pct": 20.56535128341745,
+              "pto_correct": false,
+              "pto_median_ms": 0.46342809218913317,
+              "shape_summary": {
+                "hidden": [
+                  32,
+                  512
+                ],
+                "output": [
+                  32,
+                  128
+                ],
+                "weight1": [
+                  128,
+                  512
+                ],
+                "weight2": [
+                  512,
+                  128
+                ],
+                "x": [
+                  32,
+                  128
+                ]
+              },
+              "variant": {
+                "activation": "relu",
+                "bias": false,
+                "dtype": "float16",
+                "hidden_size": 128,
+                "input_scale": 0.125,
+                "intermediate_size": 512,
+                "output_size": 128,
+                "seed": 2,
+                "tokens": 32
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/ffn/ffn.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.08752592839300632,
+          "baseline_over_pto_pct": 19.467160905040362,
+          "pto_median_ms": 0.44960808008909225,
+          "shape_summary": {
+            "hidden": [
+              32,
+              256
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 0,
+            "tokens": 32
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.0895005650818348,
+          "baseline_over_pto_pct": 19.711265308968887,
+          "pto_median_ms": 0.454057939350605,
+          "shape_summary": {
+            "hidden": [
+              64,
+              256
+            ],
+            "output": [
+              64,
+              128
+            ],
+            "weight1": [
+              128,
+              256
+            ],
+            "weight2": [
+              256,
+              128
+            ],
+            "x": [
+              64,
+              128
+            ]
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 256,
+            "output_size": 128,
+            "seed": 1,
+            "tokens": 64
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.0953056151047349,
+          "baseline_over_pto_pct": 20.56535128341745,
+          "pto_median_ms": 0.46342809218913317,
+          "shape_summary": {
+            "hidden": [
+              32,
+              512
+            ],
+            "output": [
+              32,
+              128
+            ],
+            "weight1": [
+              128,
+              512
+            ],
+            "weight2": [
+              512,
+              128
+            ],
+            "x": [
+              32,
+              128
+            ]
+          },
+          "variant": {
+            "activation": "relu",
+            "bias": false,
+            "dtype": "float16",
+            "hidden_size": 128,
+            "input_scale": 0.125,
+            "intermediate_size": 512,
+            "output_size": 128,
+            "seed": 2,
+            "tokens": 32
+          }
+        }
+      ]
+    },
+    {
+      "family": "moe",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute/report.json",
+      "name": "moe_token_permute",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute/20260312T172455Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.1075860345736146,
+              "baseline_over_pto_pct": 30.53975127549545,
+              "pto_correct": false,
+              "pto_median_ms": 0.3522819606587291,
+              "shape_summary": {
+                "gather_indices": [
+                  128
+                ],
+                "indices": [
+                  8
+                ],
+                "tokens": [
+                  8,
+                  16
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "hidden_size": 16,
+                "index_dtype": "int32",
+                "num_out_tokens": 0,
+                "padded_mode": false,
+                "seed": 0,
+                "tokens": 8
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.10740489233285189,
+              "baseline_over_pto_pct": 30.480112458476427,
+              "pto_correct": false,
+              "pto_median_ms": 0.35237695556133986,
+              "shape_summary": {
+                "gather_indices": [
+                  256
+                ],
+                "indices": [
+                  16
+                ],
+                "tokens": [
+                  16,
+                  16
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "hidden_size": 16,
+                "index_dtype": "int32",
+                "num_out_tokens": 0,
+                "padded_mode": false,
+                "seed": 1,
+                "tokens": 16
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.10840059258043766,
+              "baseline_over_pto_pct": 30.783639697252806,
+              "pto_correct": false,
+              "pto_median_ms": 0.35213702358305454,
+              "shape_summary": {
+                "gather_indices": [
+                  512
+                ],
+                "indices": [
+                  16
+                ],
+                "tokens": [
+                  16,
+                  32
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "hidden_size": 32,
+                "index_dtype": "int32",
+                "num_out_tokens": 0,
+                "padded_mode": false,
+                "seed": 2,
+                "tokens": 16
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/moe/moe_token_permute.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.1075860345736146,
+          "baseline_over_pto_pct": 30.53975127549545,
+          "pto_median_ms": 0.3522819606587291,
+          "shape_summary": {
+            "gather_indices": [
+              128
+            ],
+            "indices": [
+              8
+            ],
+            "tokens": [
+              8,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 0,
+            "tokens": 8
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.10740489233285189,
+          "baseline_over_pto_pct": 30.480112458476427,
+          "pto_median_ms": 0.35237695556133986,
+          "shape_summary": {
+            "gather_indices": [
+              256
+            ],
+            "indices": [
+              16
+            ],
+            "tokens": [
+              16,
+              16
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 16,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 1,
+            "tokens": 16
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.10840059258043766,
+          "baseline_over_pto_pct": 30.783639697252806,
+          "pto_median_ms": 0.35213702358305454,
+          "shape_summary": {
+            "gather_indices": [
+              512
+            ],
+            "indices": [
+              16
+            ],
+            "tokens": [
+              16,
+              32
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "hidden_size": 32,
+            "index_dtype": "int32",
+            "num_out_tokens": 0,
+            "padded_mode": false,
+            "seed": 2,
+            "tokens": 16
+          }
+        }
+      ]
+    },
+    {
+      "family": "attention",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
+      "name": "flash_attention_score",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260312T172515Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.16292603686451912,
+              "baseline_over_pto_pct": 36.19593107295624,
+              "pto_correct": false,
+              "pto_median_ms": 0.4501225193962455,
+              "shape_summary": {
+                "key": [
+                  1,
+                  1,
+                  32,
+                  64
+                ],
+                "output": [
+                  1,
+                  1,
+                  32,
+                  64
+                ],
+                "query": [
+                  1,
+                  1,
+                  32,
+                  64
+                ],
+                "scores": [
+                  32,
+                  32
+                ],
+                "value": [
+                  1,
+                  1,
+                  32,
+                  64
+                ]
+              },
+              "variant": {
+                "batch": 1,
+                "dtype": "float16",
+                "head_dim": 64,
+                "heads": 1,
+                "input_layout": "BNSD",
+                "input_scale": 0.125,
+                "keep_prob": 1.0,
+                "seed": 0,
+                "seq_len": 32,
+                "sparse_mode": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.1633909996598959,
+              "baseline_over_pto_pct": 36.77633306274405,
+              "pto_correct": false,
+              "pto_median_ms": 0.4442830104380846,
+              "shape_summary": {
+                "key": [
+                  1,
+                  1,
+                  64,
+                  64
+                ],
+                "output": [
+                  1,
+                  1,
+                  64,
+                  64
+                ],
+                "query": [
+                  1,
+                  1,
+                  64,
+                  64
+                ],
+                "scores": [
+                  64,
+                  64
+                ],
+                "value": [
+                  1,
+                  1,
+                  64,
+                  64
+                ]
+              },
+              "variant": {
+                "batch": 1,
+                "dtype": "float16",
+                "head_dim": 64,
+                "heads": 1,
+                "input_layout": "BNSD",
+                "input_scale": 0.125,
+                "keep_prob": 1.0,
+                "seed": 1,
+                "seq_len": 64,
+                "sparse_mode": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.15763100236654282,
+              "baseline_over_pto_pct": 35.66454195859453,
+              "pto_correct": false,
+              "pto_median_ms": 0.4419824108481407,
+              "shape_summary": {
+                "key": [
+                  1,
+                  1,
+                  32,
+                  128
+                ],
+                "output": [
+                  1,
+                  1,
+                  32,
+                  128
+                ],
+                "query": [
+                  1,
+                  1,
+                  32,
+                  128
+                ],
+                "scores": [
+                  32,
+                  32
+                ],
+                "value": [
+                  1,
+                  1,
+                  32,
+                  128
+                ]
+              },
+              "variant": {
+                "batch": 1,
+                "dtype": "float16",
+                "head_dim": 128,
+                "heads": 1,
+                "input_layout": "BNSD",
+                "input_scale": 0.125,
+                "keep_prob": 1.0,
+                "seed": 2,
+                "seq_len": 32,
+                "sparse_mode": 0
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/attention/flash_attention_score.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.15763100236654282,
+          "baseline_over_pto_pct": 35.66454195859453,
+          "pto_median_ms": 0.4419824108481407,
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              128
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              128
+            ]
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 128,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 2,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.16292603686451912,
+          "baseline_over_pto_pct": 36.19593107295624,
+          "pto_median_ms": 0.4501225193962455,
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              32,
+              64
+            ],
+            "scores": [
+              32,
+              32
+            ],
+            "value": [
+              1,
+              1,
+              32,
+              64
+            ]
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 0,
+            "seq_len": 32,
+            "sparse_mode": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.1633909996598959,
+          "baseline_over_pto_pct": 36.77633306274405,
+          "pto_median_ms": 0.4442830104380846,
+          "shape_summary": {
+            "key": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "output": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "query": [
+              1,
+              1,
+              64,
+              64
+            ],
+            "scores": [
+              64,
+              64
+            ],
+            "value": [
+              1,
+              1,
+              64,
+              64
+            ]
+          },
+          "variant": {
+            "batch": 1,
+            "dtype": "float16",
+            "head_dim": 64,
+            "heads": 1,
+            "input_layout": "BNSD",
+            "input_scale": 0.125,
+            "keep_prob": 1.0,
+            "seed": 1,
+            "seq_len": 64,
+            "sparse_mode": 0
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter/report.json",
+      "name": "matmul_reduce_scatter",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_reduce_scatter/20260312T172545Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.5995885003358126,
+              "baseline_over_pto_pct": 80.06901844901884,
+              "pto_correct": true,
+              "pto_median_ms": 0.7488395785912871,
+              "shape_summary": {
+                "local_mm": [
+                  128,
+                  128
+                ],
+                "reduce_scatter_output_per_rank": [
+                  64,
+                  128
+                ],
+                "world_size": 2,
+                "x1": [
+                  128,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "bias": false,
+                "comm_turn": 0,
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 128,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 0,
+                "stream_mode": 1
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.5245929351076484,
+              "baseline_over_pto_pct": 69.4034519531517,
+              "pto_correct": true,
+              "pto_median_ms": 0.7558600045740604,
+              "shape_summary": {
+                "local_mm": [
+                  64,
+                  128
+                ],
+                "reduce_scatter_output_per_rank": [
+                  32,
+                  128
+                ],
+                "world_size": 2,
+                "x1": [
+                  64,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "bias": false,
+                "comm_turn": 0,
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 64,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 1,
+                "stream_mode": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/matmul_reduce_scatter.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.5995885003358126,
+          "baseline_over_pto_pct": 80.06901844901884,
+          "pto_median_ms": 0.7488395785912871,
+          "shape_summary": {
+            "local_mm": [
+              128,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              64,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0,
+            "stream_mode": 1
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.5245929351076484,
+          "baseline_over_pto_pct": 69.4034519531517,
+          "pto_median_ms": 0.7558600045740604,
+          "shape_summary": {
+            "local_mm": [
+              64,
+              128
+            ],
+            "reduce_scatter_output_per_rank": [
+              32,
+              128
+            ],
+            "world_size": 2,
+            "x1": [
+              64,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "bias": false,
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 64,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1,
+            "stream_mode": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/all_gather_matmul/report.json",
+      "name": "all_gather_matmul",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/all_gather_matmul/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/all_gather_matmul/20260312T172709Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.5492280470207334,
+              "baseline_over_pto_pct": 57.017580116282275,
+              "pto_correct": true,
+              "pto_median_ms": 0.9632608853280544,
+              "shape_summary": {
+                "gather_out": [
+                  128,
+                  256
+                ],
+                "output": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  64,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "comm_turn": 0,
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "gather_index": 0,
+                "gather_output": true,
+                "global_m": 128,
+                "input_scale": 0.125,
+                "k": 256,
+                "n": 128,
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.559683539904654,
+              "baseline_over_pto_pct": 57.3636680044954,
+              "pto_correct": true,
+              "pto_median_ms": 0.9756759973242879,
+              "shape_summary": {
+                "gather_out": [
+                  256,
+                  256
+                ],
+                "output": [
+                  256,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  128,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "comm_turn": 0,
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "gather_index": 0,
+                "gather_output": true,
+                "global_m": 256,
+                "input_scale": 0.125,
+                "k": 256,
+                "n": 128,
+                "seed": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/all_gather_matmul.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.5492280470207334,
+          "baseline_over_pto_pct": 57.017580116282275,
+          "pto_median_ms": 0.9632608853280544,
+          "shape_summary": {
+            "gather_out": [
+              128,
+              256
+            ],
+            "output": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              64,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "gather_index": 0,
+            "gather_output": true,
+            "global_m": 128,
+            "input_scale": 0.125,
+            "k": 256,
+            "n": 128,
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.559683539904654,
+          "baseline_over_pto_pct": 57.3636680044954,
+          "pto_median_ms": 0.9756759973242879,
+          "shape_summary": {
+            "gather_out": [
+              256,
+              256
+            ],
+            "output": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "comm_turn": 0,
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "gather_index": 0,
+            "gather_output": true,
+            "global_m": 256,
+            "input_scale": 0.125,
+            "k": 256,
+            "n": 128,
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce/report.json",
+      "name": "grouped_mat_mul_all_reduce",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.6198635092005134,
+              "baseline_over_pto_pct": 75.66696902643234,
+              "pto_correct": true,
+              "pto_median_ms": 0.8191996021196246,
+              "shape_summary": {
+                "group_list": [
+                  128
+                ],
+                "groups": 1,
+                "output": [
+                  128,
+                  128
+                ],
+                "weight_local": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x_local": [
+                  128,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "groups": 1,
+                "input_scale": 0.125,
+                "k_total": 256,
+                "m": 128,
+                "n": 128,
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.6979240570217371,
+              "baseline_over_pto_pct": 98.50672107785685,
+              "pto_correct": true,
+              "pto_median_ms": 0.7085039978846908,
+              "shape_summary": {
+                "group_list": [
+                  256
+                ],
+                "groups": 1,
+                "output": [
+                  256,
+                  128
+                ],
+                "weight_local": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x_local": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "groups": 1,
+                "input_scale": 0.125,
+                "k_total": 256,
+                "m": 256,
+                "n": 128,
+                "seed": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/grouped_mat_mul_all_reduce.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.6198635092005134,
+          "baseline_over_pto_pct": 75.66696902643234,
+          "pto_median_ms": 0.8191996021196246,
+          "shape_summary": {
+            "group_list": [
+              128
+            ],
+            "groups": 1,
+            "output": [
+              128,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 128,
+            "n": 128,
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.6979240570217371,
+          "baseline_over_pto_pct": 98.50672107785685,
+          "pto_median_ms": 0.7085039978846908,
+          "shape_summary": {
+            "group_list": [
+              256
+            ],
+            "groups": 1,
+            "output": [
+              256,
+              128
+            ],
+            "weight_local": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x_local": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "groups": 1,
+            "input_scale": 0.125,
+            "k_total": 256,
+            "m": 256,
+            "n": 128,
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce/report.json",
+      "name": "matmul_all_reduce",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.6053539691492915,
+              "baseline_over_pto_pct": 85.9982313966294,
+              "pto_correct": true,
+              "pto_median_ms": 0.7039144402369857,
+              "shape_summary": {
+                "output": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  128,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 128,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.5381930386647582,
+              "baseline_over_pto_pct": 75.9249271551196,
+              "pto_correct": true,
+              "pto_median_ms": 0.708848936483264,
+              "shape_summary": {
+                "output": [
+                  256,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  256,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 256,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/matmul_all_reduce.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.6053539691492915,
+          "baseline_over_pto_pct": 85.9982313966294,
+          "pto_median_ms": 0.7039144402369857,
+          "shape_summary": {
+            "output": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.5381930386647582,
+          "baseline_over_pto_pct": 75.9249271551196,
+          "pto_median_ms": 0.708848936483264,
+          "shape_summary": {
+            "output": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm/report.json",
+      "name": "matmul_all_reduce_add_rms_norm",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce_add_rms_norm/20260312T173110Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.6203589728102088,
+              "baseline_over_pto_pct": 71.59735599256892,
+              "pto_correct": true,
+              "pto_median_ms": 0.8664551423862576,
+              "shape_summary": {
+                "gamma": [
+                  128
+                ],
+                "norm_out": [
+                  128,
+                  128
+                ],
+                "residual": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  128,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ],
+                "y": [
+                  128,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "epsilon": 0.001,
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 128,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.5624284967780113,
+              "baseline_over_pto_pct": 58.191056313226085,
+              "pto_correct": true,
+              "pto_median_ms": 0.9665205143392086,
+              "shape_summary": {
+                "gamma": [
+                  128
+                ],
+                "norm_out": [
+                  256,
+                  128
+                ],
+                "residual": [
+                  256,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  256,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ],
+                "y": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "epsilon": 0.001,
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 256,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/matmul_all_reduce_add_rms_norm.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.6203589728102088,
+          "baseline_over_pto_pct": 71.59735599256892,
+          "pto_median_ms": 0.8664551423862576,
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              128,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.5624284967780113,
+          "baseline_over_pto_pct": 58.191056313226085,
+          "pto_median_ms": 0.9665205143392086,
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ],
+            "y": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm/report.json",
+      "name": "inplace_matmul_all_reduce_add_rms_norm",
+      "rounds": [
+        {
+          "baseline_status": "ok",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/inplace_matmul_all_reduce_add_rms_norm/20260312T173247Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.553588499315083,
+              "baseline_over_pto_pct": 52.62894081590596,
+              "pto_correct": true,
+              "pto_median_ms": 1.0518708731979132,
+              "shape_summary": {
+                "gamma": [
+                  128
+                ],
+                "norm_out": [
+                  128,
+                  128
+                ],
+                "residual_inout": [
+                  128,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  128,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "epsilon": 0.001,
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 128,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 0
+              }
+            },
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": 0.674733892083168,
+              "baseline_over_pto_pct": 59.314033355700914,
+              "pto_correct": true,
+              "pto_median_ms": 1.1375619797036052,
+              "shape_summary": {
+                "gamma": [
+                  128
+                ],
+                "norm_out": [
+                  256,
+                  128
+                ],
+                "residual_inout": [
+                  256,
+                  128
+                ],
+                "world_size": 2,
+                "x1_local": [
+                  256,
+                  256
+                ],
+                "x2": [
+                  256,
+                  128
+                ]
+              },
+              "variant": {
+                "dtype": "float16",
+                "epsilon": 0.001,
+                "expected_world_size": 2,
+                "input_scale": 0.125,
+                "k": 256,
+                "m": 256,
+                "n": 128,
+                "reduce_op": "sum",
+                "seed": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/inplace_matmul_all_reduce_add_rms_norm.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.553588499315083,
+          "baseline_over_pto_pct": 52.62894081590596,
+          "pto_median_ms": 1.0518708731979132,
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              128,
+              128
+            ],
+            "residual_inout": [
+              128,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              128,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 128,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 0
+          }
+        },
+        {
+          "all_correct": false,
+          "baseline_median_ms": 0.674733892083168,
+          "baseline_over_pto_pct": 59.314033355700914,
+          "pto_median_ms": 1.1375619797036052,
+          "shape_summary": {
+            "gamma": [
+              128
+            ],
+            "norm_out": [
+              256,
+              128
+            ],
+            "residual_inout": [
+              256,
+              128
+            ],
+            "world_size": 2,
+            "x1_local": [
+              256,
+              256
+            ],
+            "x2": [
+              256,
+              128
+            ]
+          },
+          "variant": {
+            "dtype": "float16",
+            "epsilon": 0.001,
+            "expected_world_size": 2,
+            "input_scale": 0.125,
+            "k": 256,
+            "m": 256,
+            "n": 128,
+            "reduce_op": "sum",
+            "seed": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
+      "name": "moe_distribute_dispatch",
+      "rounds": [
+        {
+          "baseline_status": "blocked",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_dispatch/20260312T173422Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": null,
+              "baseline_over_pto_pct": null,
+              "pto_correct": true,
+              "pto_median_ms": 27.90528698824346,
+              "shape_summary": null,
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 8,
+                "hidden_size": 7168,
+                "input_scale": 0.125,
+                "quant_mode": 0,
+                "seed": 0,
+                "tokens": 8,
+                "topk": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/moe_distribute_dispatch.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "pto_median_ms": 27.90528698824346,
+          "shape_summary": null,
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 8,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "quant_mode": 0,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          }
+        }
+      ]
+    },
+    {
+      "family": "mc2",
+      "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine/report.json",
+      "name": "moe_distribute_combine",
+      "rounds": [
+        {
+          "baseline_status": "blocked",
+          "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine/report.json",
+          "pto_status": "ok",
+          "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/moe_distribute_combine/20260312T173951Z/report.json",
+          "round": 1,
+          "variant_rows": [
+            {
+              "baseline_correct": false,
+              "baseline_median_ms": null,
+              "baseline_over_pto_pct": null,
+              "pto_correct": false,
+              "pto_median_ms": null,
+              "shape_summary": null,
+              "variant": {
+                "dtype": "float16",
+                "expected_world_size": 8,
+                "hidden_size": 7168,
+                "input_scale": 0.125,
+                "seed": 0,
+                "tokens": 8,
+                "topk": 1
+              }
+            }
+          ]
+        }
+      ],
+      "spec": "bench/specs/mc2/moe_distribute_combine.yaml",
+      "variants": [
+        {
+          "all_correct": false,
+          "baseline_median_ms": null,
+          "baseline_over_pto_pct": null,
+          "pto_median_ms": null,
+          "shape_summary": null,
+          "variant": {
+            "dtype": "float16",
+            "expected_world_size": 8,
+            "hidden_size": 7168,
+            "input_scale": 0.125,
+            "seed": 0,
+            "tokens": 8,
+            "topk": 1
+          }
+        }
+      ]
+    }
+  ],
+  "rounds": 1
+}

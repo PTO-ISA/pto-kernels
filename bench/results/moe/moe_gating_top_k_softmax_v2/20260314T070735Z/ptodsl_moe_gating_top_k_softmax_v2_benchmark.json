@@ -1,0 +1,33 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/r8_e16/stage2_select/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T070735Z/r8_e16/stage2_select/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

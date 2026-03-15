@@ -1,0 +1,13 @@
+name: moe_token_unpermute_with_routing_map
+family: moe
+wave: wave2
+inventory_ref: moe/moe_token_unpermute_with_routing_map
+status: prototype
+baseline:
+  adapter: bench/adapters/ops_transformer/moe/moe_token_unpermute_with_routing_map.py
+pto:
+  adapter: bench/adapters/ptodsl/moe/moe_token_unpermute_with_routing_map.py
+  kernel: python/pto_kernels/ops/moe/moe_token_unpermute_with_routing_map/kernel.py
+  meta: python/pto_kernels/ops/moe/moe_token_unpermute_with_routing_map/meta.py
+notes:
+  - Seed kernel for routing-map based token unpermute in the MOE wave.

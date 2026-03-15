@@ -1,0 +1,24 @@
+{
+  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/r64_e8/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260313T174858Z/r64_e8/kernel.cpp']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "int32",
+      "num_experts": 8,
+      "rows": 64,
+      "seed": 0
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 64,
+      "rows": 4096,
+      "seed": 1
+    },
+    {
+      "dtype": "int32",
+      "num_experts": 128,
+      "rows": 8192,
+      "seed": 2
+    }
+  ]
+}
