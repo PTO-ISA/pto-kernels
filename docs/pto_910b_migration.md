@@ -64,8 +64,8 @@ pipeline on the current `910B1` host before the full grouped semantics land.
 
 Current verified state on this host:
 
-- baseline median latency: about `0.115 ms`
-- PTO median latency: about `0.261 ms` on the first upstream-shaped tiling rewrite
+- baseline median latency: about `0.108 ms`
+- PTO median latency: about `0.255 ms`
 - correctness: both paths pass at `atol=1e-3` with current max abs diff
   about `4.88e-4`
 - the PTO seed now stores the ACC tile directly to a BF16 GM tensor view, so
@@ -76,6 +76,10 @@ Current verified state on this host:
   closely by splitting into `baseM x baseN` basic blocks and using the same
   diagonal-vs-row-major block traversal policy as the AscendC grouped-matmul
   kernel for the current compile-time shape
+- the local PTODSL matmul-guide swizzle patterns are now available through
+  tuning envs, but the current checked A3 default stays on linear traversal
+  because it benchmarked better than the `zn2` / `nz2` swizzled variants on
+  the current seed shapes
 
 Current known bring-up blockers:
 
@@ -106,8 +110,8 @@ paths for a constrained dense BF16 -> F32 add epilogue slice:
 
 Current benchmark on this host:
 
-- baseline median latency: about `0.249 ms`
-- PTO median latency: about `0.354 ms`
+- baseline median latency: about `0.240 ms`
+- PTO median latency: about `0.383 ms`
 - correctness: both paths pass at `atol=rtol=2e-2` with current
   `max_abs_diff` about `1.14e-5`
 
@@ -118,6 +122,10 @@ staged PTO kernels:
    buffer with the same upstream-shaped block traversal used in the current
    grouped-matmul slice
 2. a vector add stage that fuses the seeded `y_init` residual into the final
+
+The local PTODSL matmul-guide swizzle traversal is also available on the
+matmul stage, but the current checked A3 default stays on linear traversal
+because it benchmarked better than the `zn2` variant on this seed.
    F32 output
 
 The active remaining gap is the same cube-family performance gap already shared
@@ -1353,10 +1361,10 @@ Validated shapes:
 
 Current benchmark on this host:
 
-- baseline median latency: about `0.166 ms`
-- PTO median latency: about `0.447 ms`
-- `baseline / PTO * 100`: about `37.1%`
-- correctness: both paths pass, current PTO `max_abs_diff` about `1.33e-3`
+- baseline median latency: about `0.153 ms`
+- PTO median latency: about `0.414 ms`
+- `baseline / PTO * 100`: about `36.9%`
+- correctness: both paths pass, current PTO `max_abs_diff` about `1.25e-3`
 
 The PTO seed remains the staged dense path from the shared helper:
 tiled `QK`, row-wise softmax, and tiled `PV`. The current remaining work is no
@@ -1509,9 +1517,9 @@ Validated shapes:
 
 Current benchmark on this host:
 
-- baseline median latency: about `0.398 ms`
-- PTO median latency: about `0.530 ms`
-- `baseline / PTO * 100`: about `75.1%`
+- baseline median latency: about `0.419 ms`
+- PTO median latency: about `0.508 ms`
+- `baseline / PTO * 100`: about `82.4%`
 - baseline correctness: pass
 - PTO correctness: pass, `max_abs_diff` about `6.54e-4`
 
@@ -1607,14 +1615,29 @@ The baseline uses `torch_npu.npu_recurrent_gated_delta_rule_functional` so both
 validates `out` against the CPU reference. `final_state` remains a host-contract
 gap for this first slice.
 
-The PTO stop is deliberate and stack-level rather than a missing harness.
-PTODSL now exposes the PTOAS `tgemv` surface, and the PTO stack now also
-exposes column-broadcast binops (`pto.col_expand_mul/sub/div`) needed to
-compose a tile-first rank-1 update alongside the existing row-broadcast ops.
-The remaining blocker is the integration after that: a checked tile-first
-outer-product update path in the kernel plus ragged token-to-state
-mapping/writeback. The migration program is explicitly not using a
-scalar-loop fallback here.
+The PTO stop is now narrower than the earlier frontend-surface blocker.
+PTODSL and PTOAS already expose the reusable stack pieces needed by the
+checked slice, including `pto.gemv(...)` and the column-broadcast binops
+used by the rank-1 state-update composition. The current checked kernel has
+been rewritten into row-specialized tile-first state-update stages to avoid
+the earlier dynamic-`textract` compile blocker, and those stages now build
+through PTOAS/Bisheng on this A3 host.
+
+The live blocker is runtime execution of the generated kernel itself:
+
+- the prebuilt stage artifacts exist under `/tmp/recurrent_row_specialized`
+- `stage_proj`, `stage_out`, `stage_scale`, and all `16`
+  `stage_state_update_row_*` kernels build successfully
+- bypassing PTODSL JIT rebuild and loading the prebuilt `kernel.so`
+  artifacts directly proves `stage_proj` executes in about `1.19 ms`
+- the first row-specialized state-update kernel,
+  `stage_state_update_row_000`, still hangs at runtime on A3
+- that hang reproduces even with `block_dim = 1`, so it is not just a
+  multiblock launch issue
+
+So this kernel is no longer blocked by missing PTODSL surface area. It is
+currently blocked by the A3 backend/runtime behavior of the generated
+recurrent state-update kernel.
 - dtype: `float16`
 - no masks, prefix, rope, or dropout
 - `sparse_mode = 0`

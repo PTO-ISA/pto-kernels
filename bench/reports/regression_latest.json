@@ -1,5 +1,5 @@
 {
-  "generated_at": "20260314T170132Z",
+  "generated_at": "20260316T040742Z",
   "kernels": [
     {
       "baseline_reason": null,
@@ -14,11 +14,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1250660279765725,
-          "baseline_over_pto_pct": 48.74707499581413,
+          "baseline_median_ms": 0.10586553253233433,
+          "baseline_over_pto_pct": 42.31463980501478,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2565610921010375,
+          "pto_median_ms": 0.25018653832376003,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -54,11 +54,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1147654838860035,
-          "baseline_over_pto_pct": 44.903763464369526,
+          "baseline_median_ms": 0.10842049960047007,
+          "baseline_over_pto_pct": 42.45772235227612,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.25558099150657654,
+          "pto_median_ms": 0.25536108296364546,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -94,11 +94,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11600099969655275,
-          "baseline_over_pto_pct": 45.35336069412729,
+          "baseline_median_ms": 0.10603608097881079,
+          "baseline_over_pto_pct": 42.441263933245295,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.25577156338840723,
+          "pto_median_ms": 0.2498419489711523,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -146,11 +146,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.24264154490083456,
-          "baseline_over_pto_pct": 68.72199882093358,
+          "baseline_median_ms": 0.24040613789111376,
+          "baseline_over_pto_pct": 67.37226148778794,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3530769608914852,
+          "pto_median_ms": 0.35683251917362213,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -186,11 +186,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.24947605561465025,
-          "baseline_over_pto_pct": 70.44806706788084,
+          "baseline_median_ms": 0.24046096950769424,
+          "baseline_over_pto_pct": 62.78237790447798,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3541276091709733,
+          "pto_median_ms": 0.3830071073025465,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -226,7 +226,7 @@
       ]
     },
     {
-      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and the NZ-format path is still gated until local TBE-side format tooling is fully healthy.",
       "baseline_status": "blocked",
       "family": "gmm",
       "name": "grouped_matmul_finalize_routing",
@@ -240,7 +240,7 @@
           "baseline_limitations": [],
           "baseline_median_ms": null,
           "baseline_over_pto_pct": null,
-          "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+          "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and the NZ-format path is still gated until local TBE-side format tooling is fully healthy.",
           "baseline_status": "blocked",
           "pto_correct": false,
           "pto_median_ms": null,
@@ -252,7 +252,7 @@
       ]
     },
     {
-      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "baseline_reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: Run:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:135 NPU function error: AclSetCompileopt(aclCompileOpt::ACL_OP_JIT_COMPILE, val->c_str()), error code is 500001\n[ERROR] 2026-03-16-11:11:18 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n",
       "baseline_status": "blocked",
       "family": "gmm",
       "name": "grouped_matmul_swiglu_quant",
@@ -266,7 +266,7 @@
           "baseline_limitations": [],
           "baseline_median_ms": null,
           "baseline_over_pto_pct": null,
-          "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+          "baseline_reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: Run:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:135 NPU function error: AclSetCompileopt(aclCompileOpt::ACL_OP_JIT_COMPILE, val->c_str()), error code is 500001\n[ERROR] 2026-03-16-11:11:18 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n",
           "baseline_status": "blocked",
           "pto_correct": false,
           "pto_median_ms": null,
@@ -342,11 +342,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09931495878845453,
-          "baseline_over_pto_pct": 47.668269002430044,
+          "baseline_median_ms": 0.09949109517037868,
+          "baseline_over_pto_pct": 46.4636909140433,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.20834605675190687,
+          "pto_median_ms": 0.2141265431419015,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -385,11 +385,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10027550160884857,
-          "baseline_over_pto_pct": 48.34847544239169,
+          "baseline_median_ms": 0.09974604472517967,
+          "baseline_over_pto_pct": 46.760841945328565,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.20740157924592495,
+          "pto_median_ms": 0.21331105381250381,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -444,11 +444,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.14484103303402662,
-          "baseline_over_pto_pct": 17.951320960687664,
+          "baseline_median_ms": 0.14102039858698845,
+          "baseline_over_pto_pct": 17.017576195544308,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.8068544557318091,
+          "pto_median_ms": 0.8286749944090843,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -504,11 +504,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.15132047701627016,
-          "baseline_over_pto_pct": 18.778123853303786,
+          "baseline_median_ms": 0.14042598195374012,
+          "baseline_over_pto_pct": 17.991464923616256,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.8058338426053524,
+          "pto_median_ms": 0.7805144414305687,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -576,11 +576,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09735545609146357,
-          "baseline_over_pto_pct": 29.89370516982651,
+          "baseline_median_ms": 0.09361549746245146,
+          "baseline_over_pto_pct": 29.14264239342283,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3256720956414938,
+          "pto_median_ms": 0.3212320152670145,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -620,11 +620,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09922042954713106,
-          "baseline_over_pto_pct": 30.671250396751997,
+          "baseline_median_ms": 0.09362050332129002,
+          "baseline_over_pto_pct": 29.240696138832167,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.32349652610719204,
+          "pto_median_ms": 0.32017193734645844,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -676,11 +676,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1299309078603983,
-          "baseline_over_pto_pct": 16.697433025011485,
+          "baseline_median_ms": 0.1380059402436018,
+          "baseline_over_pto_pct": 17.93544123507513,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7781489985063672,
+          "pto_median_ms": 0.7694594096392393,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -733,11 +733,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1329559599980712,
-          "baseline_over_pto_pct": 17.027089442525597,
+          "baseline_median_ms": 0.13793096877634525,
+          "baseline_over_pto_pct": 18.031972783214325,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7808496011421084,
+          "pto_median_ms": 0.7649244507774711,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -802,11 +802,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09902555029839277,
-          "baseline_over_pto_pct": 56.02373930236326,
+          "baseline_median_ms": 0.09646103717386723,
+          "baseline_over_pto_pct": 52.69485982913158,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.17675640992820263,
+          "pto_median_ms": 0.18305587582290173,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -848,11 +848,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09962101466953754,
-          "baseline_over_pto_pct": 56.08314906300669,
+          "baseline_median_ms": 0.09691598825156689,
+          "baseline_over_pto_pct": 53.463185948688306,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.17763092182576656,
+          "pto_median_ms": 0.18127611838281155,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -909,11 +909,11 @@
             "On this host torch_npu.npu_rotary_mul_backward returns zero-filled dcos/dsin outputs.",
             "Baseline correctness and parity are therefore validated on dx only; PTO still validates dx/dcos/dsin against the PTO reference."
           ],
-          "baseline_median_ms": 0.11236045975238085,
-          "baseline_over_pto_pct": 39.26469493419535,
+          "baseline_median_ms": 0.10825041681528091,
+          "baseline_over_pto_pct": 39.46905088941446,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2861615503206849,
+          "pto_median_ms": 0.2742665819823742,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -976,11 +976,11 @@
             "On this host torch_npu.npu_rotary_mul_backward returns zero-filled dcos/dsin outputs.",
             "Baseline correctness and parity are therefore validated on dx only; PTO still validates dx/dcos/dsin against the PTO reference."
           ],
-          "baseline_median_ms": 0.11306593660265207,
-          "baseline_over_pto_pct": 40.74059936223067,
+          "baseline_median_ms": 0.12065598275512457,
+          "baseline_over_pto_pct": 43.528734348081365,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.277526443824172,
+          "pto_median_ms": 0.2771869767457247,
           "pto_status": "ok",
           "shape_summary": {
             "cos": [
@@ -1044,8 +1044,8 @@
       "baseline_status": "blocked",
       "family": "posembedding",
       "name": "qkv_rms_norm_rope_cache",
-      "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
+      "pto_reason": null,
+      "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
       "spec": "bench/specs/posembedding/qkv_rms_norm_rope_cache.yaml",
       "variants": [
@@ -1056,10 +1056,10 @@
           "baseline_over_pto_pct": null,
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.7740890141576529,
+          "pto_reason": null,
+          "pto_status": "ok",
           "shape_summary": null,
           "variant": {}
         }
@@ -1078,11 +1078,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.08752592839300632,
-          "baseline_over_pto_pct": 19.467160905040362,
+          "baseline_median_ms": 0.0847760820761323,
+          "baseline_over_pto_pct": 19.698754621242717,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.44960808008909225,
+          "pto_median_ms": 0.43036264833062887,
           "pto_status": "ok",
           "shape_summary": {
             "hidden": [
@@ -1121,11 +1121,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.0895005650818348,
-          "baseline_over_pto_pct": 19.711265308968887,
+          "baseline_median_ms": 0.08912058547139168,
+          "baseline_over_pto_pct": 20.74414337125795,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.454057939350605,
+          "pto_median_ms": 0.4296180559322238,
           "pto_status": "ok",
           "shape_summary": {
             "hidden": [
@@ -1164,11 +1164,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.0953056151047349,
-          "baseline_over_pto_pct": 20.56535128341745,
+          "baseline_median_ms": 0.0879904255270958,
+          "baseline_over_pto_pct": 18.919094134653292,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.46342809218913317,
+          "pto_median_ms": 0.4650879418477416,
           "pto_status": "ok",
           "shape_summary": {
             "hidden": [
@@ -1224,7 +1224,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.36869198083877563,
+          "pto_median_ms": 0.3649669233709574,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1250,7 +1250,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.739214476197958,
+          "pto_median_ms": 0.7423094939440489,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1300,11 +1300,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1075860345736146,
-          "baseline_over_pto_pct": 30.53975127549545,
+          "baseline_median_ms": 0.1086108386516571,
+          "baseline_over_pto_pct": 31.240352076785584,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3522819606587291,
+          "pto_median_ms": 0.34766201861202717,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -1331,11 +1331,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10740489233285189,
-          "baseline_over_pto_pct": 30.480112458476427,
+          "baseline_median_ms": 0.10779011063277721,
+          "baseline_over_pto_pct": 31.280954601044602,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.35237695556133986,
+          "pto_median_ms": 0.3445870243012905,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -1362,11 +1362,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10840059258043766,
-          "baseline_over_pto_pct": 30.783639697252806,
+          "baseline_median_ms": 0.1077459892258048,
+          "baseline_over_pto_pct": 31.214705461766556,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.35213702358305454,
+          "pto_median_ms": 0.3451770171523094,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -1405,11 +1405,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10234559886157513,
-          "baseline_over_pto_pct": 34.319230498973326,
+          "baseline_median_ms": 0.1029354752972722,
+          "baseline_over_pto_pct": 35.49965191263368,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.29821647331118584,
+          "pto_median_ms": 0.2899619285017252,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1454,11 +1454,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10703550651669502,
-          "baseline_over_pto_pct": 35.783219605524785,
+          "baseline_median_ms": 0.1017105532810092,
+          "baseline_over_pto_pct": 34.92543506538673,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.29912206809967756,
+          "pto_median_ms": 0.29122200794517994,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1503,11 +1503,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10469555854797363,
-          "baseline_over_pto_pct": 34.21961130197515,
+          "baseline_median_ms": 0.10114605538547039,
+          "baseline_over_pto_pct": 34.908527826962846,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3059519222006202,
+          "pto_median_ms": 0.28974597807973623,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1569,7 +1569,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.31449703965336084,
+          "pto_median_ms": 0.30656205490231514,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1582,7 +1582,7 @@
       "baseline_status": "blocked",
       "family": "moe",
       "name": "moe_finalize_routing_v2_grad",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
       "spec": "bench/specs/moe/moe_finalize_routing_v2_grad.yaml",
@@ -1596,7 +1596,7 @@
           "baseline_status": "blocked",
           "pto_correct": false,
           "pto_median_ms": null,
-          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
           "pto_status": "blocked",
           "shape_summary": null,
           "variant": {}
@@ -1614,13 +1614,13 @@
       "spec": "bench/specs/moe/moe_gating_top_k.yaml",
       "variants": [
         {
-          "baseline_correct": true,
+          "baseline_correct": false,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.12773112393915653,
-          "baseline_over_pto_pct": 54.135736774094234,
+          "baseline_median_ms": 0.12839597184211016,
+          "baseline_over_pto_pct": 54.473985755633045,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.23594603408128023,
+          "pto_median_ms": 0.23570144549012184,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1655,13 +1655,13 @@
           }
         },
         {
-          "baseline_correct": true,
+          "baseline_correct": false,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.12994545977562666,
-          "baseline_over_pto_pct": 54.94848624027087,
+          "baseline_median_ms": 0.12690597213804722,
+          "baseline_over_pto_pct": 54.07826539035464,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.23648596834391356,
+          "pto_median_ms": 0.23467093706130981,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1696,13 +1696,13 @@
           }
         },
         {
-          "baseline_correct": true,
+          "baseline_correct": false,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1326949568465352,
-          "baseline_over_pto_pct": 55.747978120268094,
+          "baseline_median_ms": 0.1283654710277915,
+          "baseline_over_pto_pct": 54.90362931756043,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.23802649229764938,
+          "pto_median_ms": 0.23380143102258444,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1751,11 +1751,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10959606152027845,
-          "baseline_over_pto_pct": 30.105247471623926,
+          "baseline_median_ms": 0.1009105471894145,
+          "baseline_over_pto_pct": 26.751675114120093,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3640430513769388,
+          "pto_median_ms": 0.3772120689973235,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1787,11 +1787,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10833586566150188,
-          "baseline_over_pto_pct": 28.613535036743226,
+          "baseline_median_ms": 0.10123499669134617,
+          "baseline_over_pto_pct": 26.75891125699512,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3786175511777401,
+          "pto_median_ms": 0.37832255475223064,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1823,11 +1823,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10936101898550987,
-          "baseline_over_pto_pct": 29.890062058046418,
+          "baseline_median_ms": 0.10022101923823357,
+          "baseline_over_pto_pct": 26.425271253678822,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.36587752401828766,
+          "pto_median_ms": 0.379262026399374,
           "pto_status": "ok",
           "shape_summary": {
             "expert_idx_out": [
@@ -1876,7 +1876,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.36233686842024326,
+          "pto_median_ms": 0.3726324066519737,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1889,20 +1889,20 @@
       "baseline_status": "ok",
       "family": "moe",
       "name": "moe_compute_expert_tokens",
-      "pto_reason": null,
-      "pto_status": "ok",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260316T031557Z/r64_e8/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260316T031557Z/r64_e8/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
       "spec": "bench/specs/moe/moe_compute_expert_tokens.yaml",
       "variants": [
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10221998672932386,
-          "baseline_over_pto_pct": 44.00969747759325,
+          "baseline_median_ms": 0.0945358769968152,
+          "baseline_over_pto_pct": null,
           "baseline_status": "ok",
-          "pto_correct": true,
-          "pto_median_ms": 0.2322669606655836,
-          "pto_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
           "shape_summary": {
             "out": [
               8
@@ -1921,12 +1921,12 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10194594506174326,
-          "baseline_over_pto_pct": 30.638125023397322,
+          "baseline_median_ms": 0.09318056982010603,
+          "baseline_over_pto_pct": null,
           "baseline_status": "ok",
-          "pto_correct": true,
-          "pto_median_ms": 0.3327421145513654,
-          "pto_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
           "shape_summary": {
             "out": [
               64
@@ -1945,12 +1945,12 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10146608110517263,
-          "baseline_over_pto_pct": 13.077295984162973,
+          "baseline_median_ms": 0.09462540037930012,
+          "baseline_over_pto_pct": null,
           "baseline_status": "ok",
-          "pto_correct": true,
-          "pto_median_ms": 0.7758949650451541,
-          "pto_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_status": "blocked",
           "shape_summary": {
             "out": [
               128
@@ -1981,11 +1981,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1074555329978466,
-          "baseline_over_pto_pct": 17.268770730369422,
+          "baseline_median_ms": 0.1109858276322484,
+          "baseline_over_pto_pct": 16.652684058201885,
           "baseline_status": "ok",
           "pto_correct": false,
-          "pto_median_ms": 0.6222535157576203,
+          "pto_median_ms": 0.6664741085842252,
           "pto_status": "ok",
           "shape_summary": {
             "expanded_expert_idx": [
@@ -2026,11 +2026,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11366500984877348,
-          "baseline_over_pto_pct": 17.86837165993444,
+          "baseline_median_ms": 0.11007511056959629,
+          "baseline_over_pto_pct": 16.242720916605784,
           "baseline_status": "ok",
           "pto_correct": false,
-          "pto_median_ms": 0.6361240521073341,
+          "pto_median_ms": 0.6776888621971011,
           "pto_status": "ok",
           "shape_summary": {
             "expanded_expert_idx": [
@@ -2071,11 +2071,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11320051271468401,
-          "baseline_over_pto_pct": 17.684016450535456,
+          "baseline_median_ms": 0.11068605817854404,
+          "baseline_over_pto_pct": 16.463447681637806,
           "baseline_status": "ok",
           "pto_correct": false,
-          "pto_median_ms": 0.6401289720088243,
+          "pto_median_ms": 0.6723139667883515,
           "pto_status": "ok",
           "shape_summary": {
             "expanded_expert_idx": [
@@ -2120,7 +2120,7 @@
       "baseline_status": "blocked",
       "family": "moe",
       "name": "moe_init_routing_v2",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
       "spec": "bench/specs/moe/moe_init_routing_v2.yaml",
@@ -2134,7 +2134,7 @@
           "baseline_status": "blocked",
           "pto_correct": false,
           "pto_median_ms": null,
-          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
           "pto_status": "blocked",
           "shape_summary": null,
           "variant": {}
@@ -2154,11 +2154,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09608559776097536,
-          "baseline_over_pto_pct": 42.76439116742779,
+          "baseline_median_ms": 0.0955208670347929,
+          "baseline_over_pto_pct": 43.236586676783965,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22468599490821362,
+          "pto_median_ms": 0.22092601284384727,
           "pto_status": "ok",
           "shape_summary": {
             "grad_permuted_tokens": [
@@ -2193,11 +2193,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09993044659495354,
-          "baseline_over_pto_pct": 44.20401504508995,
+          "baseline_median_ms": 0.0949010718613863,
+          "baseline_over_pto_pct": 43.0554374526965,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2260664477944374,
+          "pto_median_ms": 0.22041599731892347,
           "pto_status": "ok",
           "shape_summary": {
             "grad_permuted_tokens": [
@@ -2232,11 +2232,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09972043335437775,
-          "baseline_over_pto_pct": 44.13452551592948,
+          "baseline_median_ms": 0.09665603283792734,
+          "baseline_over_pto_pct": 43.17971190260981,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22594654001295567,
+          "pto_median_ms": 0.22384594194591045,
           "pto_status": "ok",
           "shape_summary": {
             "grad_permuted_tokens": [
@@ -2283,11 +2283,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10177993681281805,
-          "baseline_over_pto_pct": 30.15416760221247,
+          "baseline_median_ms": 0.09868049528449774,
+          "baseline_over_pto_pct": 28.14392510704306,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3375319065526128,
+          "pto_median_ms": 0.3506280481815338,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2319,11 +2319,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11042109690606594,
-          "baseline_over_pto_pct": 32.611834894054766,
+          "baseline_median_ms": 0.10078097693622112,
+          "baseline_over_pto_pct": 28.712777040179553,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3385921008884907,
+          "pto_median_ms": 0.35099696833640337,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2355,11 +2355,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10806589853018522,
-          "baseline_over_pto_pct": 31.856052546688723,
+          "baseline_median_ms": 0.10134547483175993,
+          "baseline_over_pto_pct": 28.998357799784813,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.3392319194972515,
+          "pto_median_ms": 0.3494869451969862,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2407,11 +2407,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
           ],
-          "baseline_median_ms": 0.08572603110224009,
-          "baseline_over_pto_pct": 33.345272855052094,
+          "baseline_median_ms": 0.082825543358922,
+          "baseline_over_pto_pct": 31.580092094878854,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.25708600878715515,
+          "pto_median_ms": 0.2622713800519705,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens_grad": [
@@ -2448,11 +2448,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
           ],
-          "baseline_median_ms": 0.08277548477053642,
-          "baseline_over_pto_pct": 31.862275899895682,
+          "baseline_median_ms": 0.08344545494765043,
+          "baseline_over_pto_pct": 32.01609221893779,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2597915008664131,
+          "pto_median_ms": 0.2606359776109457,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens_grad": [
@@ -2489,11 +2489,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on token_grad only."
           ],
-          "baseline_median_ms": 0.09242550004273653,
-          "baseline_over_pto_pct": 36.598783834429625,
+          "baseline_median_ms": 0.08236058056354523,
+          "baseline_over_pto_pct": 31.17982059104295,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2525370800867677,
+          "pto_median_ms": 0.26414706371724606,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens_grad": [
@@ -2530,7 +2530,7 @@
       "baseline_status": "ok",
       "family": "moe",
       "name": "moe_re_routing",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
       "spec": "bench/specs/moe/moe_re_routing.yaml",
@@ -2538,7 +2538,7 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11407549027353525,
+          "baseline_median_ms": 0.12065551709383726,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -2592,7 +2592,7 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1169105526059866,
+          "baseline_median_ms": 0.12123060878366232,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -2662,7 +2662,7 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11934107169508934,
+          "baseline_median_ms": 0.11956552043557167,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -2744,11 +2744,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10396039579063654,
-          "baseline_over_pto_pct": 45.92478729881842,
+          "baseline_median_ms": 0.10427553206682205,
+          "baseline_over_pto_pct": 46.28273744627509,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22637099027633667,
+          "pto_median_ms": 0.22530113346874714,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2779,11 +2779,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10769593063741922,
-          "baseline_over_pto_pct": 46.98844565985908,
+          "baseline_median_ms": 0.10661105625331402,
+          "baseline_over_pto_pct": 47.79972367688255,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22919662296772003,
+          "pto_median_ms": 0.22303697187453508,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2814,11 +2814,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10714039672166109,
-          "baseline_over_pto_pct": 47.30764110242915,
+          "baseline_median_ms": 0.11623557657003403,
+          "baseline_over_pto_pct": 51.64153351856488,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22647588048130274,
+          "pto_median_ms": 0.22508157417178154,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -2861,13 +2861,14 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [
+            "t8_h16: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only.",
             "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.10613538324832916,
-          "baseline_over_pto_pct": 40.15001382818872,
+          "baseline_median_ms": 0.10620604734867811,
+          "baseline_over_pto_pct": 40.767488001715954,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.26434706524014473,
+          "pto_median_ms": 0.26051653549075127,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens": [
@@ -2899,13 +2900,14 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [
+            "t8_h16: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only.",
             "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.1732311211526394,
-          "baseline_over_pto_pct": 66.77592224784085,
+          "baseline_median_ms": 0.10618043597787619,
+          "baseline_over_pto_pct": 37.73406852909272,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2594215329736471,
+          "pto_median_ms": 0.28139143250882626,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens": [
@@ -2937,13 +2939,14 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [
+            "t8_h16: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only.",
             "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.17374102026224136,
-          "baseline_over_pto_pct": 62.12213354711928,
+          "baseline_median_ms": 0.10456051677465439,
+          "baseline_over_pto_pct": 40.170545291421256,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2796765184029937,
+          "pto_median_ms": 0.2602915046736598,
           "pto_status": "ok",
           "shape_summary": {
             "permuted_tokens": [
@@ -2987,11 +2990,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10210054460912943,
-          "baseline_over_pto_pct": 45.49902858224886,
+          "baseline_median_ms": 0.09905046317726374,
+          "baseline_over_pto_pct": 44.030066238873935,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2244015922769904,
+          "pto_median_ms": 0.22496096789836884,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -3027,11 +3030,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10308087803423405,
-          "baseline_over_pto_pct": 45.691577799083746,
+          "baseline_median_ms": 0.09984604548662901,
+          "baseline_over_pto_pct": 44.292951723853,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22560148499906063,
+          "pto_median_ms": 0.2254219725728035,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -3067,11 +3070,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1044559758156538,
-          "baseline_over_pto_pct": 46.60060754723448,
+          "baseline_median_ms": 0.09950040839612484,
+          "baseline_over_pto_pct": 44.41258556300758,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.22415153216570616,
+          "pto_median_ms": 0.22403651382774115,
           "pto_status": "ok",
           "shape_summary": {
             "gather_indices": [
@@ -3123,11 +3126,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.10955601464956999,
-          "baseline_over_pto_pct": 41.830195220823555,
+          "baseline_median_ms": 0.10884052608162165,
+          "baseline_over_pto_pct": 41.53487469118718,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.26190653443336487,
+          "pto_median_ms": 0.26204611640423536,
           "pto_status": "ok",
           "shape_summary": {
             "out_index": [
@@ -3171,11 +3174,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.11040107347071171,
-          "baseline_over_pto_pct": 41.94702846206142,
+          "baseline_median_ms": 0.10703608859330416,
+          "baseline_over_pto_pct": 41.1905588570635,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2631916431710124,
+          "pto_median_ms": 0.2598558785393834,
           "pto_status": "ok",
           "shape_summary": {
             "out_index": [
@@ -3219,11 +3222,11 @@
             "t256_h64_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only.",
             "t128_h128_e8: probsOptional=None returns no probs_grad; baseline parity is validated on permuted_tokens_grad only."
           ],
-          "baseline_median_ms": 0.1106759300455451,
-          "baseline_over_pto_pct": 42.27468927603796,
+          "baseline_median_ms": 0.10766042396426201,
+          "baseline_over_pto_pct": 41.21974972978394,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.26180187705904245,
+          "pto_median_ms": 0.2611865056678653,
           "pto_status": "ok",
           "shape_summary": {
             "out_index": [
@@ -3275,11 +3278,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.08879054803401232,
-          "baseline_over_pto_pct": 37.62525843454891,
+          "baseline_median_ms": 0.08714059367775917,
+          "baseline_over_pto_pct": 35.966002649406285,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.235986546613276,
+          "pto_median_ms": 0.2422860125079751,
           "pto_status": "ok",
           "shape_summary": {
             "local_out0": [
@@ -3313,11 +3316,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.08999044075608253,
-          "baseline_over_pto_pct": 38.01693374828361,
+          "baseline_median_ms": 0.08668052032589912,
+          "baseline_over_pto_pct": 35.78938969424389,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.23671146482229233,
+          "pto_median_ms": 0.2421961398795247,
           "pto_status": "ok",
           "shape_summary": {
             "local_out0": [
@@ -3351,11 +3354,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.09064050391316414,
-          "baseline_over_pto_pct": 38.25849727751999,
+          "baseline_median_ms": 0.08583592716604471,
+          "baseline_over_pto_pct": 35.09575680840785,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.23691600654274225,
+          "pto_median_ms": 0.24457636754959822,
           "pto_status": "ok",
           "shape_summary": {
             "local_out0": [
@@ -3401,11 +3404,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.17698609735816717,
-          "baseline_over_pto_pct": 37.38829676435963,
+          "baseline_median_ms": 0.18709106370806694,
+          "baseline_over_pto_pct": 34.15579129921013,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4733729874715209,
+          "pto_median_ms": 0.5477579543367028,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3450,11 +3453,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1778160221874714,
-          "baseline_over_pto_pct": 37.537447058031326,
+          "baseline_median_ms": 0.18859095871448517,
+          "baseline_over_pto_pct": 37.960533777241636,
           "baseline_status": "ok",
-          "pto_correct": true,
-          "pto_median_ms": 0.47370302490890026,
+          "pto_correct": false,
+          "pto_median_ms": 0.496807973831892,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3499,11 +3502,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.17520610708743334,
-          "baseline_over_pto_pct": 36.169867099965465,
+          "baseline_median_ms": 0.19816600251942873,
+          "baseline_over_pto_pct": 38.05630444274484,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.48439798410981894,
+          "pto_median_ms": 0.520717934705317,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3560,11 +3563,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.13072113506495953,
-          "baseline_over_pto_pct": 26.40868042440683,
+          "baseline_median_ms": 0.1343559706583619,
+          "baseline_over_pto_pct": 24.569839559624025,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4949930589646101,
+          "pto_median_ms": 0.546832918189466,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3608,11 +3611,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.13523048255592585,
-          "baseline_over_pto_pct": 24.06863664288371,
+          "baseline_median_ms": 0.12919551227241755,
+          "baseline_over_pto_pct": 24.84036913357825,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.5618535215035081,
+          "pto_median_ms": 0.5201030289754272,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3656,11 +3659,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.13546098489314318,
-          "baseline_over_pto_pct": 27.82408479021481,
+          "baseline_median_ms": 0.12851099018007517,
+          "baseline_over_pto_pct": 24.0002008892611,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4868479445576668,
+          "pto_median_ms": 0.5354579770937562,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3716,11 +3719,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.36827195435762405,
-          "baseline_over_pto_pct": 73.4351147873435,
+          "baseline_median_ms": 0.35026692785322666,
+          "baseline_over_pto_pct": 73.44077155562326,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.5014929920434952,
+          "pto_median_ms": 0.4769379738718271,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3764,11 +3767,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.3771125338971615,
-          "baseline_over_pto_pct": 71.22069107137125,
+          "baseline_median_ms": 0.3607620019465685,
+          "baseline_over_pto_pct": 70.96611380100087,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.5294985603541136,
+          "pto_median_ms": 0.5083581199869514,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3812,11 +3815,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.3976174630224705,
-          "baseline_over_pto_pct": 75.08683715768572,
+          "baseline_median_ms": 0.4190379986539483,
+          "baseline_over_pto_pct": 87.39372626542134,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.5295434966683388,
+          "pto_median_ms": 0.47948292922228575,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3864,7 +3867,7 @@
       "baseline_status": "ok",
       "family": "attention",
       "name": "recurrent_gated_delta_rule",
-      "pto_reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
+      "pto_reason": "PTO compile or execution failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507014\n[ERROR] 2026-03-16-11:31:13 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution times out. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 667120] 2026-03-16-11:31:13.313.461 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1996, there is an exception of fftsplus aivector error, core id is 10, error code = 0x10, dump info: pc start: 0x124000a830b0, current: 0x124000a8353c, vec error info: 0x7000000fc, mte error info: 0x60600005c, ifu error info: 0x217ffbe018080, ccu error info: 0x40c0058006800046, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100001080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x10, 0, 0) errorStr: Illegal instruction, which is usually caused by unaligned UUB addresses. fixp_error0 info: 0x600005c, fixp_error1 info: 0x6, fsmId:0, tslot:4, thread:0, ctxid:0, blk:0, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x25, [aicore timeout].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore timeout[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507014.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/recurrent_gated_delta_rule/report.json",
       "spec": "bench/specs/attention/recurrent_gated_delta_rule.yaml",
@@ -3875,7 +3878,7 @@
             "baseline timing uses the functional entrypoint to observe both output and final_state",
             "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
           ],
-          "baseline_median_ms": 0.14757609460502863,
+          "baseline_median_ms": 0.16243592835962772,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -3939,7 +3942,7 @@
             "baseline timing uses the functional entrypoint to observe both output and final_state",
             "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
           ],
-          "baseline_median_ms": 0.13442093040794134,
+          "baseline_median_ms": 0.13374059926718473,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -4003,7 +4006,7 @@
             "baseline timing uses the functional entrypoint to observe both output and final_state",
             "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
           ],
-          "baseline_median_ms": 0.12065551709383726,
+          "baseline_median_ms": 0.13467599637806416,
           "baseline_over_pto_pct": null,
           "baseline_status": "ok",
           "pto_correct": false,
@@ -4068,8 +4071,8 @@
       "baseline_status": "blocked",
       "family": "attention",
       "name": "ring_attention_update",
-      "pto_reason": null,
-      "pto_status": "ok",
+      "pto_reason": "PTO compile failed: ACL stream synchronize failed, error code:507014",
+      "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
       "spec": "bench/specs/attention/ring_attention_update.yaml",
       "variants": [
@@ -4080,10 +4083,10 @@
           "baseline_over_pto_pct": null,
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
-          "pto_correct": true,
-          "pto_median_ms": 0.2813219325616956,
-          "pto_reason": null,
-          "pto_status": "ok",
+          "pto_correct": false,
+          "pto_median_ms": null,
+          "pto_reason": "PTO compile failed: ACL stream synchronize failed, error code:507014",
+          "pto_status": "blocked",
           "shape_summary": null,
           "variant": {}
         }
@@ -4102,11 +4105,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.15970098320394754,
-          "baseline_over_pto_pct": 35.75469185181864,
+          "baseline_median_ms": 0.1413659192621708,
+          "baseline_over_pto_pct": 34.36403594413344,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.44665741734206676,
+          "pto_median_ms": 0.4113775212317705,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -4154,11 +4157,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.16570102889090776,
-          "baseline_over_pto_pct": 39.01804188427711,
+          "baseline_median_ms": 0.15212595462799072,
+          "baseline_over_pto_pct": 36.7847153724547,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4246779717504978,
+          "pto_median_ms": 0.4135575145483017,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -4206,11 +4209,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.16397598665207624,
-          "baseline_over_pto_pct": 38.5026756970931,
+          "baseline_median_ms": 0.15269091818481684,
+          "baseline_over_pto_pct": 37.393359767452736,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4258820554241538,
+          "pto_median_ms": 0.40833698585629463,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -4270,11 +4273,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.5995885003358126,
-          "baseline_over_pto_pct": 80.06901844901884,
+          "baseline_median_ms": 0.6007589399814606,
+          "baseline_over_pto_pct": 82.66445693302063,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7488395785912871,
+          "pto_median_ms": 0.7267439505085349,
           "pto_status": "ok",
           "shape_summary": {
             "local_mm": [
@@ -4312,11 +4315,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.5245929351076484,
-          "baseline_over_pto_pct": 69.4034519531517,
+          "baseline_median_ms": 0.5567035404965281,
+          "baseline_over_pto_pct": 76.56344312442381,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7558600045740604,
+          "pto_median_ms": 0.7271140348166227,
           "pto_status": "ok",
           "shape_summary": {
             "local_mm": [
@@ -4366,11 +4369,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.5492280470207334,
-          "baseline_over_pto_pct": 57.017580116282275,
+          "baseline_median_ms": 0.5995185347273946,
+          "baseline_over_pto_pct": 59.35733302935199,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.9632608853280544,
+          "pto_median_ms": 1.0100159561261535,
           "pto_status": "ok",
           "shape_summary": {
             "gather_out": [
@@ -4407,11 +4410,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.559683539904654,
-          "baseline_over_pto_pct": 57.3636680044954,
+          "baseline_median_ms": 0.5835985066369176,
+          "baseline_over_pto_pct": 58.360377827011554,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.9756759973242879,
+          "pto_median_ms": 0.9999909671023488,
           "pto_status": "ok",
           "shape_summary": {
             "gather_out": [
@@ -4460,11 +4463,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.6198635092005134,
-          "baseline_over_pto_pct": 75.66696902643234,
+          "baseline_median_ms": 0.7192851044237614,
+          "baseline_over_pto_pct": 89.36772594104889,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.8191996021196246,
+          "pto_median_ms": 0.8048600284382701,
           "pto_status": "ok",
           "shape_summary": {
             "group_list": [
@@ -4499,11 +4502,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.6979240570217371,
-          "baseline_over_pto_pct": 98.50672107785685,
+          "baseline_median_ms": 0.6988040404394269,
+          "baseline_over_pto_pct": 94.54930442004866,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7085039978846908,
+          "pto_median_ms": 0.7390895625576377,
           "pto_status": "ok",
           "shape_summary": {
             "group_list": [
@@ -4550,11 +4553,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.6053539691492915,
-          "baseline_over_pto_pct": 85.9982313966294,
+          "baseline_median_ms": 0.5263431230559945,
+          "baseline_over_pto_pct": 64.50837977029967,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.7039144402369857,
+          "pto_median_ms": 0.8159298449754715,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -4585,11 +4588,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.5381930386647582,
-          "baseline_over_pto_pct": 75.9249271551196,
+          "baseline_median_ms": 0.5738829495385289,
+          "baseline_over_pto_pct": 75.71569175267643,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.708848936483264,
+          "pto_median_ms": 0.7579445373266935,
           "pto_status": "ok",
           "shape_summary": {
             "output": [
@@ -4632,11 +4635,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.6203589728102088,
-          "baseline_over_pto_pct": 71.59735599256892,
+          "baseline_median_ms": 0.5882688565179706,
+          "baseline_over_pto_pct": 63.58696985754314,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.8664551423862576,
+          "pto_median_ms": 0.9251405717805028,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -4679,11 +4682,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.5624284967780113,
-          "baseline_over_pto_pct": 58.191056313226085,
+          "baseline_median_ms": 0.5970490165054798,
+          "baseline_over_pto_pct": 63.95024446702497,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.9665205143392086,
+          "pto_median_ms": 0.9336149087175727,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -4738,11 +4741,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.553588499315083,
-          "baseline_over_pto_pct": 52.62894081590596,
+          "baseline_median_ms": 0.5340136121958494,
+          "baseline_over_pto_pct": 53.075157163900435,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 1.0518708731979132,
+          "pto_median_ms": 1.0061460779979825,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [
@@ -4781,11 +4784,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.674733892083168,
-          "baseline_over_pto_pct": 59.314033355700914,
+          "baseline_median_ms": 0.5977341206744313,
+          "baseline_over_pto_pct": 59.52039367294773,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 1.1375619797036052,
+          "pto_median_ms": 1.0042509529739618,
           "pto_status": "ok",
           "shape_summary": {
             "gamma": [

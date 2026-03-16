@@ -48,6 +48,7 @@ PRIMARY_CLASS_ORDER = (
     "blocked by PTOAS lowering",
     "blocked by PTODSL surface",
     "blocked by pto-isa/backend capability",
+    "blocked by PTO correctness gap",
     "blocked by host baseline/runtime gap",
     "green but scalar-heavy",
     "green + tile-first",
@@ -141,6 +142,7 @@ def _pick_primary_class(
     *,
     baseline_status: str,
     pto_status: str,
+    pto_correctness_passes: bool | None,
     scalar_matches: list[str],
     kernel_gaps: list[dict[str, Any]],
 ) -> str:
@@ -155,6 +157,8 @@ def _pick_primary_class(
         if gap_components & {"runtime", "ops-transformer"}:
             return "blocked by host baseline/runtime gap"
         return "blocked by PTOAS lowering"
+    if pto_status == "ok" and pto_correctness_passes is False:
+        return "blocked by PTO correctness gap"
     if baseline_status == "blocked":
         return "blocked by host baseline/runtime gap"
     if scalar_matches:
@@ -176,6 +180,15 @@ def _ratio_range(variants: list[dict[str, Any]]) -> str:
 def _block_usage(report_path: Path) -> dict[str, Any] | None:
     report = json.loads(report_path.read_text(encoding="utf-8"))
     return report.get("pto", {}).get("benchmark", {}).get("block_utilization")
+
+
+def _benchmark_correctness(report_path: Path, side: str) -> bool | None:
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    benchmark = report.get(side, {}).get("benchmark", {})
+    correctness = benchmark.get("correctness")
+    if isinstance(correctness, dict) and "passes" in correctness:
+        return bool(correctness["passes"])
+    return None
 
 
 def _write_markdown(path: Path, payload: dict[str, Any]) -> None:
@@ -246,9 +259,11 @@ def main() -> int:
                 "gap_components": [str(gap.get("component")) for gap in gaps],
                 "baseline_over_pto_range": _ratio_range(kernel.get("variants", [])),
                 "block_utilization": _block_usage(report_path),
+                "pto_correctness_passes": _benchmark_correctness(report_path, "pto"),
                 "primary_class": _pick_primary_class(
                     baseline_status=kernel["baseline_status"],
                     pto_status=kernel["pto_status"],
+                    pto_correctness_passes=_benchmark_correctness(report_path, "pto"),
                     scalar_matches=scalar_matches,
                     kernel_gaps=gaps,
                 ),

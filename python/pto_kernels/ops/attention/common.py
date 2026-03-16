@@ -54,20 +54,8 @@ def _launch_block_dim(total_tiles: int, requested: int) -> int:
     return max(1, min(total_tiles, requested))
 
 
-def _tile_schedule(total_m_tiles: int, total_n_tiles: int):
-    return tuple(
-        (m_idx, n_idx) for m_idx in range(total_m_tiles) for n_idx in range(total_n_tiles)
-    )
-
-
-def _schedule_lookup(logical_block, schedule):
-    m_idx = const(schedule[0][0])
-    n_idx = const(schedule[0][1])
-    for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
-        is_current = logical_block == const(block_id)
-        m_idx = pto.select(is_current, const(tile_m), m_idx)
-        n_idx = pto.select(is_current, const(tile_n), n_idx)
-    return m_idx, n_idx
+def _row_major_tile_indices(logical_block, total_n_tiles):
+    return logical_block // total_n_tiles, logical_block % total_n_tiles
 
 
 def _qk_meta_data(*, base_m: int, base_k: int, base_n: int):
@@ -174,8 +162,9 @@ def _pv_meta_data(*, base_m: int, base_k: int, base_n: int):
 
 
 def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
-    schedule = _tile_schedule(config.seq_len // config.qk_base_m, config.scores_dim // config.qk_base_n)
-
+    total_m_tiles = config.seq_len // config.qk_base_m
+    total_n_tiles = config.scores_dim // config.qk_base_n
+    total_tiles = total_m_tiles * total_n_tiles
     @jit(
         meta_data=lambda: _qk_meta_data(
             base_m=config.qk_base_m,
@@ -183,7 +172,7 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
             base_n=config.qk_base_n,
         ),
         output_dir=output_dir,
-        block_dim=_launch_block_dim(len(schedule), config.qk_block_dim),
+        block_dim=_launch_block_dim(total_tiles, config.qk_block_dim),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -201,7 +190,8 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
         cBaseN = const(config.qk_base_n)
         cBaseK = const(config.qk_base_k)
         cIter = const(config.qk_iters)
-        cTotalTiles = const(len(schedule))
+        cTotalTiles = const(total_tiles)
+        cNTiles = const(total_n_tiles)
 
         tv_query = pto.as_tensor(tensor, ptr=query_ptr, shape=[cSeq, cHead], strides=[cHead, c1])
         tv_key_t = pto.as_tensor(tensor, ptr=key_t_ptr, shape=[cHead, cScores], strides=[cScores, c1])
@@ -217,7 +207,7 @@ def build_qk_stage(*, config: DenseAttentionConfig, output_dir):
             scores_acc_tile = pto.alloc_tile(scores_acc)
 
             for logical_block in range(bid, cTotalTiles, num_blocks):
-                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_idx, n_idx = _row_major_tile_indices(logical_block, cNTiles)
                 m_off = m_idx * cBaseM
                 n_off = n_idx * cBaseN
 
@@ -327,8 +317,9 @@ def build_row_softmax_stage(*, config: DenseAttentionConfig, output_dir):
 
 
 def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
-    schedule = _tile_schedule(config.seq_len // config.pv_base_m, config.head_dim // config.pv_base_n)
-
+    total_m_tiles = config.seq_len // config.pv_base_m
+    total_n_tiles = config.head_dim // config.pv_base_n
+    total_tiles = total_m_tiles * total_n_tiles
     @jit(
         meta_data=lambda: _pv_meta_data(
             base_m=config.pv_base_m,
@@ -336,7 +327,7 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
             base_n=config.pv_base_n,
         ),
         output_dir=output_dir,
-        block_dim=_launch_block_dim(len(schedule), config.pv_block_dim),
+        block_dim=_launch_block_dim(total_tiles, config.pv_block_dim),
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
@@ -354,7 +345,8 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
         cBaseN = const(config.pv_base_n)
         cBaseK = const(config.pv_base_k)
         cIter = const(config.pv_iters)
-        cTotalTiles = const(len(schedule))
+        cTotalTiles = const(total_tiles)
+        cNTiles = const(total_n_tiles)
 
         tv_scores = pto.as_tensor(tensor, ptr=scores_ptr, shape=[cSeq, cScores], strides=[cScores, c1])
         tv_value = pto.as_tensor(tensor, ptr=value_ptr, shape=[cScores, cHead], strides=[cHead, c1])
@@ -370,7 +362,7 @@ def build_pv_stage(*, config: DenseAttentionConfig, output_dir):
             out_acc_tile = pto.alloc_tile(out_acc)
 
             for logical_block in range(bid, cTotalTiles, num_blocks):
-                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_idx, n_idx = _row_major_tile_indices(logical_block, cNTiles)
                 m_off = m_idx * cBaseM
                 n_off = n_idx * cBaseN
 

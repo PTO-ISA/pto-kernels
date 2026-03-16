@@ -1,38 +1,29 @@
 {
-  "generated_at": "20260314T170132Z",
+  "generated_at": "20260316T040742Z",
   "kernels": [
     {
       "baseline_over_pto_range": "n/a",
-      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "baseline_status": "blocked",
+      "baseline_reason": null,
+      "baseline_status": "ok",
       "block_utilization": null,
-      "family": "posembedding",
-      "gap_components": [
-        "ptodsl",
-        "ptodsl",
-        "ptodsl",
-        "pto-isa",
-        "ops-transformer",
-        "PTOAS"
-      ],
-      "gap_ids": [
-        "ptodsl-rope-generalization",
-        "ptodsl-vector-interleave-surface",
-        "ptodsl-cache-update-primitives",
-        "ptoisa-a2a3-vec-quant-store",
-        "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap",
-        "ptoas-section-local-scf-parent-terminator"
-      ],
-      "inventory_status": "blocked",
-      "name": "qkv_rms_norm_rope_cache",
+      "family": "moe",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "moe_compute_expert_tokens",
       "phase": "phase3",
       "primary_class": "blocked by PTOAS lowering",
-      "pto_reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260316T031557Z/r64_e8/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_compute_expert_tokens/20260316T031557Z/r64_e8/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
-      "scalar_hot_path": false,
-      "scalar_matches": [],
-      "wave": "wave1"
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:load_scalarx1",
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:store_scalarx1",
+        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:scalar_selectx1"
+      ],
+      "wave": "wave2"
     },
     {
       "baseline_over_pto_range": "n/a",
@@ -52,7 +43,8 @@
       "name": "moe_finalize_routing_v2_grad",
       "phase": "phase3",
       "primary_class": "blocked by PTOAS lowering",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260314T073307Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
       "scalar_hot_path": true,
@@ -82,7 +74,8 @@
       "name": "moe_init_routing_v2",
       "phase": "phase3",
       "primary_class": "blocked by PTOAS lowering",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260314T021142Z/t16_h16_e4/stage_copy/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
       "scalar_hot_path": true,
@@ -111,7 +104,8 @@
       "name": "moe_re_routing",
       "phase": "phase3",
       "primary_class": "blocked by PTOAS lowering",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
       "scalar_hot_path": true,
@@ -142,6 +136,7 @@
       "name": "swin_transformer_ln_qkv_quant",
       "phase": "phase3",
       "primary_class": "blocked by PTODSL surface",
+      "pto_correctness_passes": null,
       "pto_reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv_quant/report.json",
@@ -151,7 +146,7 @@
     },
     {
       "baseline_over_pto_range": "n/a",
-      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+      "baseline_reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and the NZ-format path is still gated until local TBE-side format tooling is fully healthy.",
       "baseline_status": "blocked",
       "block_utilization": null,
       "family": "gmm",
@@ -167,6 +162,7 @@
       "name": "grouped_matmul_finalize_routing",
       "phase": "phase3",
       "primary_class": "blocked by PTODSL surface",
+      "pto_correctness_passes": null,
       "pto_reason": "PTO port is intentionally deferred until the baseline routed quantized contract and weight storage layout are reproducible on this host.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_finalize_routing/report.json",
@@ -176,23 +172,94 @@
     },
     {
       "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [
+        "runtime",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "host-ring-attention-update-python-entrypoint",
+        "ptodsl-ring-attention-update-list-surface"
+      ],
+      "inventory_status": "prototype",
+      "name": "ring_attention_update",
+      "phase": "phase3",
+      "primary_class": "blocked by PTODSL surface",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile failed: ACL stream synchronize failed, error code:507014",
+      "pto_status": "blocked",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
       "family": "attention",
       "gap_components": [
-        "ptodsl"
+        "pto-isa"
       ],
       "gap_ids": [
-        "ptodsl-recurrent-state-update-primitives"
+        "ptoisa-a3-recurrent-state-update-runtime-hang"
       ],
       "inventory_status": "prototype",
       "name": "recurrent_gated_delta_rule",
       "phase": "phase3",
-      "primary_class": "blocked by PTODSL surface",
-      "pto_reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
+      "primary_class": "blocked by pto-isa/backend capability",
+      "pto_correctness_passes": null,
+      "pto_reason": "PTO compile or execution failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507014\n[ERROR] 2026-03-16-11:31:13 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution times out. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 667120] 2026-03-16-11:31:13.313.461 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1996, there is an exception of fftsplus aivector error, core id is 10, error code = 0x10, dump info: pc start: 0x124000a830b0, current: 0x124000a8353c, vec error info: 0x7000000fc, mte error info: 0x60600005c, ifu error info: 0x217ffbe018080, ccu error info: 0x40c0058006800046, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100001080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x10, 0, 0) errorStr: Illegal instruction, which is usually caused by unaligned UUB addresses. fixp_error0 info: 0x600005c, fixp_error1 info: 0x6, fsmId:0, tslot:4, thread:0, ctxid:0, blk:0, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x25, [aicore timeout].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore timeout[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507014.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/recurrent_gated_delta_rule/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "16.2%..16.7%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "moe_init_routing",
+      "phase": "phase3",
+      "primary_class": "blocked by PTO correctness gap",
+      "pto_correctness_passes": false,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "34.2%..38.1%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "fused_infer_attention_score",
+      "phase": "phase3",
+      "primary_class": "blocked by PTO correctness gap",
+      "pto_correctness_passes": false,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
       "scalar_hot_path": false,
       "scalar_matches": [],
       "wave": "wave3"
@@ -225,6 +292,7 @@
       "name": "swin_attention_ffn",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_attention_ffn/report.json",
@@ -258,6 +326,7 @@
       "name": "swin_transformer_ln_qkv",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/swin_transformer_ln_qkv/report.json",
@@ -267,7 +336,7 @@
     },
     {
       "baseline_over_pto_range": "n/a",
-      "baseline_reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+      "baseline_reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: Run:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:135 NPU function error: AclSetCompileopt(aclCompileOpt::ACL_OP_JIT_COMPILE, val->c_str()), error code is 500001\n[ERROR] 2026-03-16-11:11:18 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n",
       "baseline_status": "blocked",
       "block_utilization": null,
       "family": "gmm",
@@ -281,6 +350,7 @@
       "name": "grouped_matmul_swiglu_quant",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": null,
       "pto_reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant/report.json",
@@ -304,6 +374,7 @@
       "name": "grouped_matmul_swiglu_quant_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": null,
       "pto_reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant_v2/report.json",
@@ -327,9 +398,44 @@
       "name": "quant_grouped_matmul_inplace_add",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": null,
       "pto_reason": "PTO port is deferred until a reproducible baseline host contract exists.",
       "pto_status": "blocked",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/quant_grouped_matmul_inplace_add/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "posembedding",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl",
+        "ptodsl",
+        "pto-isa",
+        "ops-transformer",
+        "PTOAS"
+      ],
+      "gap_ids": [
+        "ptodsl-rope-generalization",
+        "ptodsl-vector-interleave-surface",
+        "ptodsl-cache-update-primitives",
+        "ptoisa-a2a3-vec-quant-store",
+        "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap",
+        "ptoas-section-local-scf-parent-terminator"
+      ],
+      "inventory_status": "blocked",
+      "name": "qkv_rms_norm_rope_cache",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/qkv_rms_norm_rope_cache/report.json",
       "scalar_hot_path": false,
       "scalar_matches": [],
       "wave": "wave1"
@@ -354,6 +460,7 @@
       "name": "moe_finalize_routing_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2/report.json",
@@ -383,6 +490,7 @@
       "name": "moe_gating_top_k_softmax_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax_v2/report.json",
@@ -393,31 +501,6 @@
         "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:scalar_selectx2"
       ],
       "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "n/a",
-      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "baseline_status": "blocked",
-      "block_utilization": null,
-      "family": "attention",
-      "gap_components": [
-        "runtime",
-        "ptodsl"
-      ],
-      "gap_ids": [
-        "host-ring-attention-update-python-entrypoint",
-        "ptodsl-ring-attention-update-list-surface"
-      ],
-      "inventory_status": "prototype",
-      "name": "ring_attention_update",
-      "phase": "phase3",
-      "primary_class": "blocked by host baseline/runtime gap",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/ring_attention_update/report.json",
-      "scalar_hot_path": false,
-      "scalar_matches": [],
-      "wave": "wave3"
     },
     {
       "baseline_over_pto_range": "n/a",
@@ -439,6 +522,7 @@
       "name": "moe_distribute_combine",
       "phase": "phase2",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": null,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_combine/report.json",
@@ -464,6 +548,7 @@
       "name": "moe_distribute_dispatch",
       "phase": "phase2",
       "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/moe_distribute_dispatch/report.json",
@@ -472,7 +557,7 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "19.5%..20.6%",
+      "baseline_over_pto_range": "18.9%..20.7%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -483,6 +568,7 @@
       "name": "ffn",
       "phase": "phase1",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/ffn/ffn/report.json",
@@ -493,57 +579,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "44.9%..48.7%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "gmm",
-      "gap_components": [
-        "ptodsl",
-        "ptodsl"
-      ],
-      "gap_ids": [
-        "ptodsl-cube-preload-pipeline-surface",
-        "ptodsl-group-routing-primitives"
-      ],
-      "inventory_status": "prototype",
-      "name": "grouped_matmul",
-      "phase": "phase1",
-      "primary_class": "green but scalar-heavy",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/gmm/grouped_matmul/kernel.py:scalar_selectx2"
-      ],
-      "wave": "wave1"
-    },
-    {
-      "baseline_over_pto_range": "13.1%..44.0%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "moe",
-      "gap_components": [],
-      "gap_ids": [],
-      "inventory_status": "prototype",
-      "name": "moe_compute_expert_tokens",
-      "phase": "phase3",
-      "primary_class": "green but scalar-heavy",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_compute_expert_tokens/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:load_scalarx1",
-        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:store_scalarx1",
-        "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:scalar_selectx1"
-      ],
-      "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "34.2%..35.8%",
+      "baseline_over_pto_range": "34.9%..35.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -558,6 +594,7 @@
       "name": "moe_finalize_routing",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing/report.json",
@@ -568,7 +605,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "54.1%..55.7%",
+      "baseline_over_pto_range": "54.1%..54.9%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -579,6 +616,7 @@
       "name": "moe_gating_top_k",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k/report.json",
@@ -591,7 +629,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "28.6%..30.1%",
+      "baseline_over_pto_range": "26.4%..26.8%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -602,6 +640,7 @@
       "name": "moe_gating_top_k_softmax",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_gating_top_k_softmax/report.json",
@@ -614,7 +653,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "42.8%..44.2%",
+      "baseline_over_pto_range": "43.1%..43.2%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -629,6 +668,7 @@
       "name": "moe_token_permute_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_grad/report.json",
@@ -639,7 +679,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "31.9%..36.6%",
+      "baseline_over_pto_range": "31.2%..32.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -654,6 +694,7 @@
       "name": "moe_token_permute_with_routing_map_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map_grad/report.json",
@@ -665,7 +706,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "40.2%..66.8%",
+      "baseline_over_pto_range": "37.7%..40.8%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -676,6 +717,7 @@
       "name": "moe_token_unpermute_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_grad/report.json",
@@ -687,7 +729,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "41.8%..42.3%",
+      "baseline_over_pto_range": "41.2%..41.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -702,6 +744,7 @@
       "name": "moe_token_unpermute_with_routing_map_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map_grad/report.json",
@@ -713,49 +756,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "35.8%..39.0%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "attention",
-      "gap_components": [],
-      "gap_ids": [],
-      "inventory_status": "prototype",
-      "name": "flash_attention_score",
-      "phase": "phase1",
-      "primary_class": "green but scalar-heavy",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/attention/common.py:scalar_selectx2"
-      ],
-      "wave": "wave3"
-    },
-    {
-      "baseline_over_pto_range": "36.2%..37.5%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "attention",
-      "gap_components": [],
-      "gap_ids": [],
-      "inventory_status": "prototype",
-      "name": "fused_infer_attention_score",
-      "phase": "phase3",
-      "primary_class": "green but scalar-heavy",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/attention/common.py:scalar_selectx2"
-      ],
-      "wave": "wave3"
-    },
-    {
-      "baseline_over_pto_range": "57.0%..57.4%",
+      "baseline_over_pto_range": "58.4%..59.4%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -776,6 +777,7 @@
       "name": "all_gather_matmul",
       "phase": "phase2",
       "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/all_gather_matmul/report.json",
@@ -786,7 +788,33 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "68.7%..70.4%",
+      "baseline_over_pto_range": "42.3%..42.5%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "gmm",
+      "gap_components": [
+        "ptodsl",
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-cube-preload-pipeline-surface",
+        "ptodsl-group-routing-primitives"
+      ],
+      "inventory_status": "prototype",
+      "name": "grouped_matmul",
+      "phase": "phase1",
+      "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave1"
+    },
+    {
+      "baseline_over_pto_range": "62.8%..67.4%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -801,6 +829,7 @@
       "name": "grouped_matmul_add",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_add/report.json",
@@ -809,7 +838,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "47.7%..48.3%",
+      "baseline_over_pto_range": "46.5%..46.8%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -824,6 +853,7 @@
       "name": "apply_rotary_pos_emb",
       "phase": "phase1",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/apply_rotary_pos_emb/report.json",
@@ -832,7 +862,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "18.0%..18.8%",
+      "baseline_over_pto_range": "17.0%..18.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -849,6 +879,7 @@
       "name": "dequant_rope_quant_kvcache",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/dequant_rope_quant_kvcache/report.json",
@@ -857,7 +888,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "29.9%..30.7%",
+      "baseline_over_pto_range": "29.1%..29.2%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -874,6 +905,7 @@
       "name": "interleave_rope",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/interleave_rope/report.json",
@@ -882,7 +914,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "16.7%..17.0%",
+      "baseline_over_pto_range": "17.9%..18.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -899,6 +931,7 @@
       "name": "rope_quant_kvcache",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rope_quant_kvcache/report.json",
@@ -907,7 +940,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "56.0%..56.1%",
+      "baseline_over_pto_range": "52.7%..53.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -924,6 +957,7 @@
       "name": "rotary_position_embedding",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding/report.json",
@@ -932,7 +966,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "39.3%..40.7%",
+      "baseline_over_pto_range": "39.5%..43.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -949,6 +983,7 @@
       "name": "rotary_position_embedding_grad",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/posembedding/rotary_position_embedding_grad/report.json",
@@ -957,30 +992,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "17.3%..17.9%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "moe",
-      "gap_components": [
-        "ptodsl"
-      ],
-      "gap_ids": [
-        "ptodsl-routing-sort-primitives"
-      ],
-      "inventory_status": "prototype",
-      "name": "moe_init_routing",
-      "phase": "phase3",
-      "primary_class": "green + tile-first",
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing/report.json",
-      "scalar_hot_path": false,
-      "scalar_matches": [],
-      "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "30.5%..30.8%",
+      "baseline_over_pto_range": "31.2%..31.3%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -995,6 +1007,7 @@
       "name": "moe_token_permute",
       "phase": "phase1",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute/report.json",
@@ -1003,7 +1016,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "30.2%..32.6%",
+      "baseline_over_pto_range": "28.1%..29.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1018,6 +1031,7 @@
       "name": "moe_token_permute_with_routing_map",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_permute_with_routing_map/report.json",
@@ -1026,7 +1040,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "45.9%..47.3%",
+      "baseline_over_pto_range": "46.3%..51.6%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1041,6 +1055,7 @@
       "name": "moe_token_unpermute",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute/report.json",
@@ -1049,7 +1064,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "45.5%..46.6%",
+      "baseline_over_pto_range": "44.0%..44.4%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1064,6 +1079,7 @@
       "name": "moe_token_unpermute_with_routing_map",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_token_unpermute_with_routing_map/report.json",
@@ -1072,7 +1088,7 @@
       "wave": "wave2"
     },
     {
-      "baseline_over_pto_range": "37.6%..38.3%",
+      "baseline_over_pto_range": "35.1%..36.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1083,6 +1099,7 @@
       "name": "attention_update",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/attention_update/report.json",
@@ -1091,7 +1108,27 @@
       "wave": "wave3"
     },
     {
-      "baseline_over_pto_range": "24.1%..27.8%",
+      "baseline_over_pto_range": "35.7%..42.3%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "prototype",
+      "name": "flash_attention_score",
+      "phase": "phase1",
+      "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/flash_attention_score/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave3"
+    },
+    {
+      "baseline_over_pto_range": "24.0%..24.8%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1102,6 +1139,7 @@
       "name": "incre_flash_attention",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/incre_flash_attention/report.json",
@@ -1110,7 +1148,7 @@
       "wave": "wave3"
     },
     {
-      "baseline_over_pto_range": "71.2%..75.1%",
+      "baseline_over_pto_range": "69.3%..84.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1121,6 +1159,7 @@
       "name": "prompt_flash_attention",
       "phase": "phase3",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/prompt_flash_attention/report.json",
@@ -1129,7 +1168,7 @@
       "wave": "wave3"
     },
     {
-      "baseline_over_pto_range": "75.7%..98.5%",
+      "baseline_over_pto_range": "89.4%..94.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1146,6 +1185,7 @@
       "name": "grouped_mat_mul_all_reduce",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/grouped_mat_mul_all_reduce/report.json",
@@ -1154,7 +1194,7 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "52.6%..59.3%",
+      "baseline_over_pto_range": "53.1%..59.5%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1177,6 +1217,7 @@
       "name": "inplace_matmul_all_reduce_add_rms_norm",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/inplace_matmul_all_reduce_add_rms_norm/report.json",
@@ -1185,7 +1226,7 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "75.9%..86.0%",
+      "baseline_over_pto_range": "64.5%..75.7%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1204,6 +1245,7 @@
       "name": "matmul_all_reduce",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce/report.json",
@@ -1212,7 +1254,7 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "58.2%..71.6%",
+      "baseline_over_pto_range": "63.6%..64.0%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1233,6 +1275,7 @@
       "name": "matmul_all_reduce_add_rms_norm",
       "phase": "phase2",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_all_reduce_add_rms_norm/report.json",
@@ -1241,7 +1284,7 @@
       "wave": "wave5"
     },
     {
-      "baseline_over_pto_range": "69.4%..80.1%",
+      "baseline_over_pto_range": "76.6%..82.7%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -1252,6 +1295,7 @@
       "name": "matmul_reduce_scatter",
       "phase": "phase1",
       "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
       "pto_reason": null,
       "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/mc2/matmul_reduce_scatter/report.json",
