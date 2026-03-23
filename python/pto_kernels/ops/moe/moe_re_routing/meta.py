@@ -7,13 +7,10 @@ META = planned_meta(
     wave="wave2",
     archetype="moe-routing",
     ops_transformer_path="moe/moe_re_routing",
-    blockers=[
-        "ptodsl-group-routing-primitives",
-        "ptoas-scf-routing-emit",
-    ],
+    blockers=[],
 )
 
-META["status"] = "blocked"
+META["status"] = "prototype"
 META["seed_variant"] = {
     "name": "fp16_moe_re_routing_with_scales",
     "shape": {
@@ -27,6 +24,7 @@ META["seed_variant"] = {
         "idx_type fixed to 0 (gather indices) because Atlas A2/910B does not support idx_type=1",
         "PTO seed computes expert-major destination order directly from expert_token_num_per_rank with scalar prefix scans",
         "phase-2 rewrite follows contiguous per-core destination-row ownership",
+        "the checked rewrite uses compile-time-unrolled small routing tables for the validated `2x2` and `4x4` count matrices, avoiding the old section-local loop-carried SCF blocker",
         "nominal shape uses all requested block ids",
     ],
 }

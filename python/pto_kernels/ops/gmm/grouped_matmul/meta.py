@@ -23,6 +23,8 @@ META["seed_variant"] = {
         "base_n_env": "PTO_GROUPED_MATMUL_BASE_N",
         "base_k_env": "PTO_GROUPED_MATMUL_BASE_K",
         "block_dim_env": "PTO_GROUPED_MATMUL_BLOCK_DIM",
+        "swizzle_direction_env": "PTO_GROUPED_MATMUL_SWIZZLE_DIRECTION",
+        "swizzle_count_env": "PTO_GROUPED_MATMUL_SWIZZLE_COUNT",
     },
     "limits": [
         "single batch only",
@@ -30,6 +32,6 @@ META["seed_variant"] = {
         "baseline path uses a single 3D weight tensor to satisfy aclnnGroupedMatmulV5",
         "no bias/quantization/activation",
         "pto path stores ACC output directly to bf16 GM for parity with the baseline contract",
-        "pto path mirrors ops-transformer basic-block scheduling but does not yet model the upstream async preload callback pipeline",
+        "pto path now supports local PTODSL matmul-guide MN swizzle tuning, but the current A3 default remains linear traversal because it benchmarks better on the checked seed shapes",
     ],
 }

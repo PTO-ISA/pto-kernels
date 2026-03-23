@@ -34,7 +34,7 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_MOE_INIT_ROUTING_V2_TOKENS": str(variant.tokens),
         "PTO_MOE_INIT_ROUTING_V2_HIDDEN": str(variant.hidden_size),
         "PTO_MOE_INIT_ROUTING_V2_EXPERTS": str(variant.experts),
-        "PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM": os.environ.get("PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM", "20"),
+        "PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM": os.environ.get("PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM", "8"),
     }
 
 

@@ -1,41 +1,41 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage1/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage2_relu/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage2_relu/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage2_relu/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage2_relu/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage3/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage3/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage3/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i256_o128/stage3/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage1/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage2_relu/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage2_relu/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage2_relu/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage2_relu/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage3/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage3/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage3/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t64_h128_i256_o128/stage3/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage1/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage2_relu/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage2_relu/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage2_relu/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage2_relu/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage3/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage3/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage3/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260312T172426Z/t32_h128_i512_o128/stage3/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage2_relu/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage2_relu/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage2_relu/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage2_relu/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage3/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage3/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage3/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i256_o128/stage3/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage2_relu/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage2_relu/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage2_relu/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage2_relu/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage3/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage3/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage3/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t64_h128_i256_o128/stage3/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage2_relu/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage2_relu/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage2_relu/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage2_relu/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage3/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage3/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage3/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/ffn/20260316T031242Z/t32_h128_i512_o128/stage3/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -113,9 +113,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.7192941848188639,
-    "median": 0.46342809218913317,
-    "min": 0.4359318409115076
+    "max": 0.5016231443732977,
+    "median": 0.4650879418477416,
+    "min": 0.4194830544292927
   },
   "variant_reports": [
     {
@@ -145,9 +145,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.4962231032550335,
-        "median": 0.44960808008909225,
-        "min": 0.4359318409115076
+        "max": 0.4565829876810312,
+        "median": 0.43036264833062887,
+        "min": 0.42126188054680824
       },
       "variant": {
         "activation": "relu",
@@ -188,9 +188,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.7192941848188639,
-        "median": 0.454057939350605,
-        "min": 0.43853302486240864
+        "max": 0.46640285290777683,
+        "median": 0.4296180559322238,
+        "min": 0.4194830544292927
       },
       "variant": {
         "activation": "relu",
@@ -231,9 +231,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.5266931839287281,
-        "median": 0.46342809218913317,
-        "min": 0.4494830500334501
+        "max": 0.5016231443732977,
+        "median": 0.4650879418477416,
+        "min": 0.45098294503986835
       },
       "variant": {
         "activation": "relu",

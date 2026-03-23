@@ -59,6 +59,48 @@ def _meta_data(config: MoeReRoutingConfig):
     }
 
 
+def _load_count_matrix(*, counts_ptr, i32_dtype, ranks: int, experts: int):
+    return tuple(
+        tuple(
+            pto.index_cast(pto.load_scalar(i32_dtype, counts_ptr, const(rank * experts + expert)))
+            for expert in range(experts)
+        )
+        for rank in range(ranks)
+    )
+
+
+def _select_by_index(index_value, values):
+    selected = values[0]
+    for idx, value in enumerate(values[1:], start=1):
+        selected = pto.select(index_value == const(idx), value, selected)
+    return selected
+
+
+def _sum_expert_counts(counts_by_rank, expert: int):
+    total = const(0)
+    for row in counts_by_rank:
+        total = total + row[expert]
+    return total
+
+
+def _build_expert_totals(counts_by_rank):
+    experts = len(counts_by_rank[0])
+    return tuple(_sum_expert_counts(counts_by_rank, expert) for expert in range(experts))
+
+
+def _build_rank_counts(expert_idx, counts_by_rank):
+    return tuple(_select_by_index(expert_idx, row) for row in counts_by_rank)
+
+
+def _prefix_before(rank_idx, expert_idx, counts_by_rank):
+    total = const(0)
+    for rank, row in enumerate(counts_by_rank):
+        for expert, count in enumerate(row):
+            add_count = (const(rank) < rank_idx) | ((const(rank) == rank_idx) & (const(expert) < expert_idx))
+            total = total + pto.select(add_count, count, const(0))
+    return total
+
+
 def _build_kernel(*, config: MoeReRoutingConfig, output_dir):
     @jit(
         meta_data=lambda: _meta_data(config),
@@ -99,6 +141,13 @@ def _build_kernel(*, config: MoeReRoutingConfig, output_dir):
         )
 
         with pto.section.vector():
+            counts_by_rank = _load_count_matrix(
+                counts_ptr=counts_ptr,
+                i32_dtype=i32,
+                ranks=config.ranks,
+                experts=config.experts,
+            )
+
             bid = pto.index_cast(pto.get_block_idx())
             num_blocks = pto.index_cast(pto.get_block_num())
             rows_per_core = pto.ceil_div(cTokens, num_blocks)
@@ -106,49 +155,35 @@ def _build_kernel(*, config: MoeReRoutingConfig, output_dir):
             row_end = pto.min_u(row_start + rows_per_core, cTokens)
             token_row = pto.alloc_tile(tile_row)
 
-            if bid == c0:
-                for expert in range(c0, cExperts, c1):
-                    expert_total = c0
-                    for rank in range(c0, cRanks, c1):
-                        count_off = rank * cExperts + expert
-                        count = pto.index_cast(pto.load_scalar(i32, counts_ptr, count_off))
-                        expert_total = expert_total + count
-                    pto.store_scalar(out_expert_token_num_ptr, expert, pto.index_cast(expert_total, pto.int32))
+            expert_totals = _build_expert_totals(counts_by_rank)
+            for expert in range(config.experts):
+                expert_total = expert_totals[expert]
+                pto.store_scalar(out_expert_token_num_ptr, const(expert), pto.index_cast(expert_total, pto.int32))
 
             for dst_row in range(row_start, row_end, c1):
+                expert_prefix = c0
                 expert_idx = c0
                 local_in_expert = c0
-                expert_prefix = c0
+                for expert in range(config.experts):
+                    expert_total_row = expert_totals[expert]
+                    take = (dst_row >= expert_prefix) & (dst_row < expert_prefix + expert_total_row)
+                    expert_idx = pto.select(take, const(expert), expert_idx)
+                    local_in_expert = pto.select(take, dst_row - expert_prefix, local_in_expert)
+                    expert_prefix = expert_prefix + expert_total_row
 
-                for expert in range(c0, cExperts, c1):
-                    expert_total = c0
-                    for rank in range(c0, cRanks, c1):
-                        count_off = rank * cExperts + expert
-                        count = pto.index_cast(pto.load_scalar(i32, counts_ptr, count_off))
-                        expert_total = expert_total + count
-                    expert_take = (dst_row >= expert_prefix) & (dst_row < expert_prefix + expert_total)
-                    expert_idx = pto.select(expert_take, expert, expert_idx)
-                    local_in_expert = pto.select(expert_take, dst_row - expert_prefix, local_in_expert)
-                    expert_prefix = expert_prefix + expert_total
+                rank_counts = _build_rank_counts(expert_idx, counts_by_rank)
 
                 rank_idx = c0
                 local_offset = c0
                 rank_prefix = c0
-                for rank in range(c0, cRanks, c1):
-                    count_off = rank * cExperts + expert_idx
-                    count = pto.index_cast(pto.load_scalar(i32, counts_ptr, count_off))
+                for rank in range(config.ranks):
+                    count = rank_counts[rank]
                     rank_take = (local_in_expert >= rank_prefix) & (local_in_expert < rank_prefix + count)
-                    rank_idx = pto.select(rank_take, rank, rank_idx)
+                    rank_idx = pto.select(rank_take, const(rank), rank_idx)
                     local_offset = pto.select(rank_take, local_in_expert - rank_prefix, local_offset)
                     rank_prefix = rank_prefix + count
 
-                src_prefix = c0
-                for rank in range(c0, cRanks, c1):
-                    for expert in range(c0, cExperts, c1):
-                        count_off = rank * cExperts + expert
-                        count = pto.index_cast(pto.load_scalar(i32, counts_ptr, count_off))
-                        add_count = (rank < rank_idx) | ((rank == rank_idx) & (expert < expert_idx))
-                        src_prefix = src_prefix + pto.select(add_count, count, c0)
+                src_prefix = _prefix_before(rank_idx, expert_idx, counts_by_rank)
 
                 src_idx = src_prefix + local_offset
                 src_view = pto.slice_view(sub_row, source=tv_tokens, offsets=[src_idx, c0], sizes=[c1, cHidden])

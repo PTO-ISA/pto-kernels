@@ -1,5 +1,5 @@
 {
-  "generated_at": "20260316T040742Z",
+  "generated_at": "20260321T032615Z",
   "kernels": [
     {
       "baseline_over_pto_range": "n/a",
@@ -9,7 +9,7 @@
       "family": "moe",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "moe_compute_expert_tokens",
       "phase": "phase3",
       "primary_class": "blocked by PTOAS lowering",
@@ -22,97 +22,6 @@
         "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:load_scalarx1",
         "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:store_scalarx1",
         "python/pto_kernels/ops/moe/moe_compute_expert_tokens/kernel.py:scalar_selectx1"
-      ],
-      "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "n/a",
-      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "baseline_status": "blocked",
-      "block_utilization": null,
-      "family": "moe",
-      "gap_components": [
-        "ptodsl",
-        "PTOAS"
-      ],
-      "gap_ids": [
-        "ptodsl-routing-sort-primitives",
-        "ptoas-scalar-f16-routing-reduction-store"
-      ],
-      "inventory_status": "blocked",
-      "name": "moe_finalize_routing_v2_grad",
-      "phase": "phase3",
-      "primary_class": "blocked by PTOAS lowering",
-      "pto_correctness_passes": null,
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py:load_scalarx6",
-        "python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py:store_scalarx1"
-      ],
-      "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "n/a",
-      "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
-      "baseline_status": "blocked",
-      "block_utilization": null,
-      "family": "moe",
-      "gap_components": [
-        "PTOAS",
-        "ops-transformer",
-        "ptodsl"
-      ],
-      "gap_ids": [
-        "ptoas-scf-routing-emit",
-        "ops-transformer-moe-init-routing-v2-host-crash",
-        "ptodsl-routing-sort-primitives"
-      ],
-      "inventory_status": "prototype",
-      "name": "moe_init_routing_v2",
-      "phase": "phase3",
-      "primary_class": "blocked by PTOAS lowering",
-      "pto_correctness_passes": null,
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:load_scalarx1",
-        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:store_scalarx3",
-        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:scalar_selectx1"
-      ],
-      "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "n/a",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "moe",
-      "gap_components": [
-        "ptodsl",
-        "PTOAS"
-      ],
-      "gap_ids": [
-        "ptodsl-group-routing-primitives",
-        "ptoas-scf-routing-emit"
-      ],
-      "inventory_status": "blocked",
-      "name": "moe_re_routing",
-      "phase": "phase3",
-      "primary_class": "blocked by PTOAS lowering",
-      "pto_correctness_passes": null,
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
-      "scalar_hot_path": true,
-      "scalar_matches": [
-        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:load_scalarx5",
-        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:store_scalarx3",
-        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:scalar_selectx5"
       ],
       "wave": "wave2"
     },
@@ -158,7 +67,7 @@
         "ptodsl-group-routing-primitives",
         "ops-transformer-grouped-finalize-routing-format-contract"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "grouped_matmul_finalize_routing",
       "phase": "phase3",
       "primary_class": "blocked by PTODSL surface",
@@ -184,7 +93,7 @@
         "host-ring-attention-update-python-entrypoint",
         "ptodsl-ring-attention-update-list-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "ring_attention_update",
       "phase": "phase3",
       "primary_class": "blocked by PTODSL surface",
@@ -208,7 +117,7 @@
       "gap_ids": [
         "ptoisa-a3-recurrent-state-update-runtime-hang"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "recurrent_gated_delta_rule",
       "phase": "phase3",
       "primary_class": "blocked by pto-isa/backend capability",
@@ -232,7 +141,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "moe_init_routing",
       "phase": "phase3",
       "primary_class": "blocked by PTO correctness gap",
@@ -243,26 +152,6 @@
       "scalar_hot_path": false,
       "scalar_matches": [],
       "wave": "wave2"
-    },
-    {
-      "baseline_over_pto_range": "34.2%..38.1%",
-      "baseline_reason": null,
-      "baseline_status": "ok",
-      "block_utilization": null,
-      "family": "attention",
-      "gap_components": [],
-      "gap_ids": [],
-      "inventory_status": "prototype",
-      "name": "fused_infer_attention_score",
-      "phase": "phase3",
-      "primary_class": "blocked by PTO correctness gap",
-      "pto_correctness_passes": false,
-      "pto_reason": null,
-      "pto_status": "ok",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
-      "scalar_hot_path": false,
-      "scalar_matches": [],
-      "wave": "wave3"
     },
     {
       "baseline_over_pto_range": "n/a",
@@ -288,7 +177,7 @@
         "ops-transformer-swin-ffn-python-entrypoint-gap",
         "ptodsl-swin-layout-shift-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "swin_attention_ffn",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -322,7 +211,7 @@
         "ptodsl-ffn-interstage-cast-path",
         "ops-transformer-swin-ln-qkv-python-entrypoint-gap"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "external-blocked",
       "name": "swin_transformer_ln_qkv",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -346,7 +235,7 @@
       "gap_ids": [
         "ops-transformer-grouped-swiglu-quant-format-contract"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "grouped_matmul_swiglu_quant",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -370,7 +259,7 @@
       "gap_ids": [
         "ops-transformer-grouped-swiglu-quant-format-contract"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "grouped_matmul_swiglu_quant_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -394,7 +283,7 @@
       "gap_ids": [
         "ops-transformer-quant-grouped-matmul-inplace-add-entrypoint-gap"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "blocked",
       "name": "quant_grouped_matmul_inplace_add",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -417,18 +306,16 @@
         "ptodsl",
         "ptodsl",
         "pto-isa",
-        "ops-transformer",
-        "PTOAS"
+        "ops-transformer"
       ],
       "gap_ids": [
         "ptodsl-rope-generalization",
         "ptodsl-vector-interleave-surface",
         "ptodsl-cache-update-primitives",
         "ptoisa-a2a3-vec-quant-store",
-        "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap",
-        "ptoas-section-local-scf-parent-terminator"
+        "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap"
       ],
-      "inventory_status": "blocked",
+      "inventory_status": "external-blocked",
       "name": "qkv_rms_norm_rope_cache",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -456,7 +343,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_finalize_routing_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -467,6 +354,36 @@
       "scalar_hot_path": true,
       "scalar_matches": [
         "python/pto_kernels/ops/moe/moe_finalize_routing_v2/kernel.py:load_scalarx3"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "baseline_status": "blocked",
+      "block_utilization": {
+        "nominal_tokens": 256,
+        "requested_block_dim": 8,
+        "uses_all_blocks": true
+      },
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-routing-sort-primitives"
+      ],
+      "inventory_status": "scalar-heavy",
+      "name": "moe_finalize_routing_v2_grad",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py:load_scalarx3"
       ],
       "wave": "wave2"
     },
@@ -486,7 +403,7 @@
       "gap_ids": [
         "ops-transformer-moe-gating-top-k-softmax-v2-python-entrypoint-gap"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_gating_top_k_softmax_v2",
       "phase": "phase3",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -499,6 +416,34 @@
         "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:load_scalarx3",
         "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:store_scalarx3",
         "python/pto_kernels/ops/moe/moe_gating_top_k_softmax_v2/kernel.py:scalar_selectx2"
+      ],
+      "wave": "wave2"
+    },
+    {
+      "baseline_over_pto_range": "n/a",
+      "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+      "baseline_status": "blocked",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ops-transformer"
+      ],
+      "gap_ids": [
+        "ops-transformer-moe-init-routing-v2-host-crash"
+      ],
+      "inventory_status": "scalar-heavy",
+      "name": "moe_init_routing_v2",
+      "phase": "phase3",
+      "primary_class": "blocked by host baseline/runtime gap",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:load_scalarx3",
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:store_scalarx4",
+        "python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py:scalar_selectx1"
       ],
       "wave": "wave2"
     },
@@ -518,7 +463,7 @@
         "ptodsl-routing-sort-primitives",
         "ops-transformer-mc2-hccl-multirank-bringup"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "external-blocked",
       "name": "moe_distribute_combine",
       "phase": "phase2",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -544,7 +489,7 @@
         "ptodsl-multicore-collective-primitives",
         "ops-transformer-mc2-hccl-multirank-bringup"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "external-blocked",
       "name": "moe_distribute_dispatch",
       "phase": "phase2",
       "primary_class": "blocked by host baseline/runtime gap",
@@ -564,7 +509,7 @@
       "family": "ffn",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "planned",
+      "inventory_status": "scalar-heavy",
       "name": "ffn",
       "phase": "phase1",
       "primary_class": "green but scalar-heavy",
@@ -579,7 +524,7 @@
       "wave": "wave1"
     },
     {
-      "baseline_over_pto_range": "34.9%..35.5%",
+      "baseline_over_pto_range": "33.3%..34.3%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
@@ -590,7 +535,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_finalize_routing",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -612,7 +557,7 @@
       "family": "moe",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_gating_top_k",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -636,7 +581,7 @@
       "family": "moe",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_gating_top_k_softmax",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -653,6 +598,34 @@
       "wave": "wave2"
     },
     {
+      "baseline_over_pto_range": "28.7%..29.0%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "moe",
+      "gap_components": [
+        "ptodsl"
+      ],
+      "gap_ids": [
+        "ptodsl-group-routing-primitives"
+      ],
+      "inventory_status": "scalar-heavy",
+      "name": "moe_re_routing",
+      "phase": "phase3",
+      "primary_class": "green but scalar-heavy",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
+      "scalar_hot_path": true,
+      "scalar_matches": [
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:load_scalarx2",
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:store_scalarx3",
+        "python/pto_kernels/ops/moe/moe_re_routing/kernel.py:scalar_selectx6"
+      ],
+      "wave": "wave2"
+    },
+    {
       "baseline_over_pto_range": "43.1%..43.2%",
       "baseline_reason": null,
       "baseline_status": "ok",
@@ -664,7 +637,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_token_permute_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -690,7 +663,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_token_permute_with_routing_map_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -713,7 +686,7 @@
       "family": "moe",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_token_unpermute_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -740,7 +713,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "moe_token_unpermute_with_routing_map_grad",
       "phase": "phase3",
       "primary_class": "green but scalar-heavy",
@@ -773,7 +746,7 @@
         "ptoas-memory-plan-sync-pipeline",
         "ops-transformer-mc2-hccl-multirank-bringup"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "scalar-heavy",
       "name": "all_gather_matmul",
       "phase": "phase2",
       "primary_class": "green but scalar-heavy",
@@ -801,7 +774,7 @@
         "ptodsl-cube-preload-pipeline-surface",
         "ptodsl-group-routing-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "grouped_matmul",
       "phase": "phase1",
       "primary_class": "green + tile-first",
@@ -825,7 +798,7 @@
       "gap_ids": [
         "ptodsl-cube-preload-pipeline-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "grouped_matmul_add",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -849,7 +822,7 @@
       "gap_ids": [
         "ptodsl-vector-queue-pipeline-surface"
       ],
-      "inventory_status": "planned",
+      "inventory_status": "green",
       "name": "apply_rotary_pos_emb",
       "phase": "phase1",
       "primary_class": "green + tile-first",
@@ -875,7 +848,7 @@
         "ptodsl-cache-update-primitives",
         "ptoisa-a2a3-vec-quant-store"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "dequant_rope_quant_kvcache",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -901,7 +874,7 @@
         "ptodsl-vector-queue-pipeline-surface",
         "ptodsl-vector-interleave-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "interleave_rope",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -927,7 +900,7 @@
         "ptodsl-cache-update-primitives",
         "ptoisa-a2a3-vec-quant-store"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "rope_quant_kvcache",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -953,7 +926,7 @@
         "ptodsl-rope-generalization",
         "ptodsl-vector-queue-pipeline-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "rotary_position_embedding",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -979,7 +952,7 @@
         "ptodsl-rope-generalization",
         "ptodsl-vector-queue-pipeline-surface"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "rotary_position_embedding_grad",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1003,7 +976,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "planned",
+      "inventory_status": "green",
       "name": "moe_token_permute",
       "phase": "phase1",
       "primary_class": "green + tile-first",
@@ -1027,7 +1000,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "moe_token_permute_with_routing_map",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1051,7 +1024,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "moe_token_unpermute",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1075,7 +1048,7 @@
       "gap_ids": [
         "ptodsl-routing-sort-primitives"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "moe_token_unpermute_with_routing_map",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1095,7 +1068,7 @@
       "family": "attention",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "attention_update",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1108,14 +1081,14 @@
       "wave": "wave3"
     },
     {
-      "baseline_over_pto_range": "35.7%..42.3%",
+      "baseline_over_pto_range": "36.2%..37.3%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
       "family": "attention",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "flash_attention_score",
       "phase": "phase1",
       "primary_class": "green + tile-first",
@@ -1128,6 +1101,26 @@
       "wave": "wave3"
     },
     {
+      "baseline_over_pto_range": "33.0%..41.1%",
+      "baseline_reason": null,
+      "baseline_status": "ok",
+      "block_utilization": null,
+      "family": "attention",
+      "gap_components": [],
+      "gap_ids": [],
+      "inventory_status": "green",
+      "name": "fused_infer_attention_score",
+      "phase": "phase3",
+      "primary_class": "green + tile-first",
+      "pto_correctness_passes": true,
+      "pto_reason": null,
+      "pto_status": "ok",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/attention/fused_infer_attention_score/report.json",
+      "scalar_hot_path": false,
+      "scalar_matches": [],
+      "wave": "wave3"
+    },
+    {
       "baseline_over_pto_range": "24.0%..24.8%",
       "baseline_reason": null,
       "baseline_status": "ok",
@@ -1135,7 +1128,7 @@
       "family": "attention",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "incre_flash_attention",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1148,14 +1141,14 @@
       "wave": "wave3"
     },
     {
-      "baseline_over_pto_range": "69.3%..84.5%",
+      "baseline_over_pto_range": "71.0%..87.4%",
       "baseline_reason": null,
       "baseline_status": "ok",
       "block_utilization": null,
       "family": "attention",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "prompt_flash_attention",
       "phase": "phase3",
       "primary_class": "green + tile-first",
@@ -1181,7 +1174,7 @@
         "ptodsl-multicore-collective-primitives",
         "ops-transformer-mc2-hccl-multirank-bringup"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "grouped_mat_mul_all_reduce",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -1213,7 +1206,7 @@
         "ptoisa-a2a3-vector-cast-io",
         "ptodsl-inplace-buffer-alias-contract"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "inplace_matmul_all_reduce_add_rms_norm",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -1241,7 +1234,7 @@
         "ptodsl-cube-preload-pipeline-surface",
         "ops-transformer-mc2-hccl-multirank-bringup"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "matmul_all_reduce",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -1271,7 +1264,7 @@
         "ptodsl-vector-rms-norm-generalization",
         "ptoisa-a2a3-vector-cast-io"
       ],
-      "inventory_status": "prototype",
+      "inventory_status": "green",
       "name": "matmul_all_reduce_add_rms_norm",
       "phase": "phase2",
       "primary_class": "green + tile-first",
@@ -1291,7 +1284,7 @@
       "family": "mc2",
       "gap_components": [],
       "gap_ids": [],
-      "inventory_status": "planned",
+      "inventory_status": "green",
       "name": "matmul_reduce_scatter",
       "phase": "phase1",
       "primary_class": "green + tile-first",

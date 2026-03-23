@@ -1,17 +1,17 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -84,9 +84,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.2527208998799324,
-    "median": 0.2260664477944374,
-    "min": 0.2194708213210106
+    "max": 0.43325196020305157,
+    "median": 0.22384594194591045,
+    "min": 0.21560117602348328
   },
   "variant_reports": [
     {
@@ -115,9 +115,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2518219407647848,
-        "median": 0.22468599490821362,
-        "min": 0.22073090076446533
+        "max": 0.2566410694271326,
+        "median": 0.22092601284384727,
+        "min": 0.21614087745547295
       },
       "variant": {
         "dtype": "float16",
@@ -155,9 +155,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2513208892196417,
-        "median": 0.2260664477944374,
-        "min": 0.22025196813046932
+        "max": 0.2602010499686003,
+        "median": 0.22041599731892347,
+        "min": 0.21560117602348328
       },
       "variant": {
         "dtype": "float16",
@@ -195,9 +195,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2527208998799324,
-        "median": 0.22594654001295567,
-        "min": 0.2194708213210106
+        "max": 0.43325196020305157,
+        "median": 0.22384594194591045,
+        "min": 0.2187408972531557
       },
       "variant": {
         "dtype": "float16",

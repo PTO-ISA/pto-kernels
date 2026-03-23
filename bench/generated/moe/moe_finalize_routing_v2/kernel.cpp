@@ -8,13 +8,13 @@ __global__ AICORE void moe_finalize_routing_v2_seed(__gm__ half* v1, __gm__ half
   int32_t v13 = 4;
   int32_t v14 = 16;
   int32_t v15 = 1;
-  int64_t v16 = 96;
-  int64_t v17 = 64;
-  int64_t v18 = 160;
-  int64_t v19 = 32;
-  int64_t v20 = 192;
+  int64_t v16 = 192;
+  int64_t v17 = 128;
+  int64_t v18 = 64;
+  int64_t v19 = 160;
+  int64_t v20 = 32;
   int64_t v21 = 0;
-  int64_t v22 = 128;
+  int64_t v22 = 96;
   using T = float;
 
   #if defined(__DAV_VEC__)

@@ -7,10 +7,7 @@ META = planned_meta(
     wave="wave2",
     archetype="moe-routing",
     ops_transformer_path="moe/moe_init_routing_v2",
-    blockers=[
-        "ptodsl-routing-sort-primitives",
-        "ptodsl-group-routing-primitives",
-    ],
+    blockers=[],
 )
 
 META["status"] = "prototype"
@@ -26,6 +23,8 @@ META["seed_variant"] = {
         "dropless mode only",
         "expert_idx is pre-grouped by expert on input",
         "PTO seed covers copy plus expert count/cumsum and does not sort on-device yet",
+        "routing count/cumsum path is still scalar-heavy in the checked slice",
         "nominal shape uses all requested block ids for the expanded_x copy path",
+        "this host exposes a crashing Python-visible baseline entrypoint for v2",
     ],
 }

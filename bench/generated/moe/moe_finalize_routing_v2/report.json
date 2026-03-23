@@ -1,12 +1,12 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/moe/moe_finalize_routing_v2.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
     "benchmark": {
       "entrypoint": "torch_npu.npu_moe_finalize_routing_v2 | torch.ops.npu.npu_moe_finalize_routing_v2",
       "reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/ops_transformer_moe_finalize_routing_v2_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/ops_transformer_moe_finalize_routing_v2_benchmark.json",
       "status": "blocked",
       "variants": [
         {
@@ -116,18 +116,18 @@
     "adapter": "bench/adapters/ptodsl/moe/moe_finalize_routing_v2.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t16_h16/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t16_h16/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t16_h16/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t16_h16/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t256_h64/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t256_h64/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t256_h64/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t256_h64/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t128_h128/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t128_h128/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t128_h128/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/t128_h128/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t16_h16/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t16_h16/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t16_h16/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t16_h16/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t256_h64/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t256_h64/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t256_h64/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t256_h64/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t128_h128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t128_h128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t128_h128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/t128_h128/kernel.so"
       ],
       "block_utilization": {
         "nominal_tokens": 256,
@@ -141,7 +141,7 @@
         "rtol": 0.001
       },
       "reference_contract": "top1_finalize_routing_v2_x1_x2_bias_scales",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/ptodsl_moe_finalize_routing_v2_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/ptodsl_moe_finalize_routing_v2_benchmark.json",
       "shape_summaries": [
         {
           "bias": [
@@ -245,9 +245,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.3428820054978132,
-        "median": 0.31449703965336084,
-        "min": 0.299741979688406
+        "max": 0.6043738685548306,
+        "median": 0.3180769272148609,
+        "min": 0.27747219428420067
       },
       "variant_reports": [
         {
@@ -289,9 +289,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.33563212491571903,
-            "median": 0.31449703965336084,
-            "min": 0.30662096105515957
+            "max": 0.3118617460131645,
+            "median": 0.2838016953319311,
+            "min": 0.27747219428420067
           },
           "variant": {
             "drop_pad_mode": 0,
@@ -342,9 +342,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.32885209657251835,
-            "median": 0.3080720780417323,
-            "min": 0.299741979688406
+            "max": 0.405722763389349,
+            "median": 0.28642709366977215,
+            "min": 0.2808119170367718
           },
           "variant": {
             "drop_pad_mode": 0,
@@ -395,9 +395,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.3428820054978132,
-            "median": 0.3082819748669863,
-            "min": 0.30004209838807583
+            "max": 0.6043738685548306,
+            "median": 0.3180769272148609,
+            "min": 0.2825511619448662
           },
           "variant": {
             "drop_pad_mode": 0,
@@ -442,14 +442,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2/kernel.py",
@@ -502,7 +502,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260314T072352Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2/20260320T165925Z/report.json",
   "status": "prototype",
   "wave": "wave2"
 }

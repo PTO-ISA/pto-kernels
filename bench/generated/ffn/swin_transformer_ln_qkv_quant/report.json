@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260313T161423Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260316T031411Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/ffn/swin_transformer_ln_qkv_quant.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -15,7 +15,7 @@
         "python_entrypoint_available": false
       },
       "reason": "This host does not expose a Python baseline entrypoint for SwinTransformerLnQkvQuant, and the public ACLNN documentation marks the operator unsupported on Atlas A2 / 910B.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260313T161423Z/ops_transformer_swin_transformer_ln_qkv_quant_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260316T031411Z/ops_transformer_swin_transformer_ln_qkv_quant_benchmark.json",
       "shape_summaries": [
         {
           "beta": [
@@ -518,7 +518,7 @@
     "adapter": "bench/adapters/ptodsl/ffn/swin_transformer_ln_qkv_quant.py",
     "benchmark": {
       "reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260313T161423Z/ptodsl_swin_transformer_ln_qkv_quant_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260316T031411Z/ptodsl_swin_transformer_ln_qkv_quant_benchmark.json",
       "required_stack_features": [
         "ptodsl quantized layernorm and per-channel quant surface",
         "ptoas legality/emission for quantized Swin LN-QKV IR",
@@ -1121,7 +1121,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv_quant/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260313T161423Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv_quant/20260316T031411Z/report.json",
   "status": "blocked",
   "wave": "wave1"
 }

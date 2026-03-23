@@ -23,7 +23,7 @@ def _config() -> MoeInitRoutingV2Config:
         tokens=tuned_int("PTO_MOE_INIT_ROUTING_V2_TOKENS", 16, valid_values=(16, 128, 256)),
         hidden=tuned_int("PTO_MOE_INIT_ROUTING_V2_HIDDEN", 16, valid_values=(16, 64, 128)),
         experts=tuned_int("PTO_MOE_INIT_ROUTING_V2_EXPERTS", 4, valid_values=(4, 8)),
-        block_dim=tuned_int("PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM", 20, valid_values=(1, 2, 4, 8, 16, 20)),
+        block_dim=tuned_int("PTO_MOE_INIT_ROUTING_V2_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16, 20)),
     )
 
 
@@ -74,8 +74,8 @@ def _build_kernel(*, config: MoeInitRoutingV2Config, output_dir):
         c1 = const(1)
         cTokens = const(config.tokens)
         cHidden = const(config.hidden)
-        cExperts = const(config.experts)
         i32 = pto.int32
+        c0_i32 = const(0, i32)
 
         tv_x = pto.as_tensor(
             tensor,
@@ -106,17 +106,34 @@ def _build_kernel(*, config: MoeInitRoutingV2Config, output_dir):
                 pto.store_scalar(expanded_row_idx_out_ptr, row_idx, pto.index_cast(row_idx, i32))
 
             if bid == c0:
+                for expert in range(config.experts):
+                    pto.store_scalar(
+                        expert_tokens_before_capacity_out_ptr,
+                        const(expert),
+                        c0_i32,
+                    )
+                for row_idx in range(c0, cTokens, c1):
+                    expert_val = pto.index_cast(pto.load_scalar(i32, expert_idx_ptr, row_idx))
+                    for expert in range(config.experts):
+                        count = pto.index_cast(
+                            pto.load_scalar(i32, expert_tokens_before_capacity_out_ptr, const(expert))
+                        )
+                        updated_count = pto.select(expert_val == const(expert), count + c1, count)
+                        pto.store_scalar(
+                            expert_tokens_before_capacity_out_ptr,
+                            const(expert),
+                            pto.index_cast(updated_count, i32),
+                        )
+
                 running = c0
-                for expert in range(c0, cExperts, c1):
-                    count = c0
-                    for row_idx in range(c0, cTokens, c1):
-                        expert_val = pto.index_cast(pto.load_scalar(i32, expert_idx_ptr, row_idx))
-                        count = pto.select(expert_val == expert, count + c1, count)
+                for expert in range(config.experts):
+                    count = pto.index_cast(
+                        pto.load_scalar(i32, expert_tokens_before_capacity_out_ptr, const(expert))
+                    )
                     running = running + count
-                    pto.store_scalar(expert_tokens_before_capacity_out_ptr, expert, pto.index_cast(count, i32))
                     pto.store_scalar(
                         expert_tokens_count_or_cumsum_out_ptr,
-                        expert,
+                        const(expert),
                         pto.index_cast(running, i32),
                     )
 

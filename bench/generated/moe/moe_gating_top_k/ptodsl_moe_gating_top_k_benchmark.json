@@ -1,17 +1,17 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -78,9 +78,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.40787295438349247,
-    "median": 0.23802649229764938,
-    "min": 0.23021199740469456
+    "max": 0.2745608799159527,
+    "median": 0.23570144549012184,
+    "min": 0.22902106866240501
   },
   "variant_reports": [
     {
@@ -109,9 +109,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.25781220756471157,
-        "median": 0.23594603408128023,
-        "min": 0.23034191690385342
+        "max": 0.2745608799159527,
+        "median": 0.23570144549012184,
+        "min": 0.23079197853803635
       },
       "variant": {
         "dtype": "float16",
@@ -153,9 +153,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.40787295438349247,
-        "median": 0.23648596834391356,
-        "min": 0.23021199740469456
+        "max": 0.25377189740538597,
+        "median": 0.23467093706130981,
+        "min": 0.22902106866240501
       },
       "variant": {
         "dtype": "float16",
@@ -197,9 +197,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.256852013990283,
-        "median": 0.23802649229764938,
-        "min": 0.23241201415657997
+        "max": 0.26607210747897625,
+        "median": 0.23380143102258444,
+        "min": 0.2301910426467657
       },
       "variant": {
         "dtype": "float16",

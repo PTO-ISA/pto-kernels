@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/posembedding/rotary_position_embedding_grad.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -16,7 +16,7 @@
       },
       "entrypoint": "torch_npu.npu_rotary_mul_backward",
       "reference_contract": "fp16_half_rotary_grad_bsnd_bnsd_d128_dx_only_baseline",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/ops_transformer_rotary_position_embedding_grad_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/ops_transformer_rotary_position_embedding_grad_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -109,24 +109,21 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.17078081145882607,
-        "median": 0.11306593660265207,
-        "min": 0.1085200347006321
+        "max": 0.1413810532540083,
+        "median": 0.12065598275512457,
+        "min": 0.10480103082954884
       },
       "variant_reports": [
         {
           "correctness": {
-            "dcos_max_abs_diff": 12.3687744140625,
-            "dsin_max_abs_diff": 10.0904541015625,
+            "dcos_max_abs_diff": 515.7578125,
+            "dsin_max_abs_diff": 9.4093017578125,
             "dx_max_abs_diff": 0.003520965576171875,
             "passes": true,
             "supported_outputs": [
               "dx"
             ],
-            "unsupported_outputs": [
-              "dcos",
-              "dsin"
-            ]
+            "unsupported_outputs": []
           },
           "shape_summary": {
             "cos": [
@@ -173,9 +170,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.17078081145882607,
-            "median": 0.11236045975238085,
-            "min": 0.1085200347006321
+            "max": 0.1304310280829668,
+            "median": 0.10825041681528091,
+            "min": 0.10480103082954884
           },
           "variant": {
             "batch": 2,
@@ -190,17 +187,14 @@
         },
         {
           "correctness": {
-            "dcos_max_abs_diff": 7.809539794921875,
-            "dsin_max_abs_diff": 6.89697265625,
+            "dcos_max_abs_diff": 13.008432388305664,
+            "dsin_max_abs_diff": NaN,
             "dx_max_abs_diff": 0.00228118896484375,
             "passes": true,
             "supported_outputs": [
               "dx"
             ],
-            "unsupported_outputs": [
-              "dcos",
-              "dsin"
-            ]
+            "unsupported_outputs": []
           },
           "shape_summary": {
             "cos": [
@@ -247,9 +241,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.1352510880678892,
-            "median": 0.11306593660265207,
-            "min": 0.10946090333163738
+            "max": 0.1413810532540083,
+            "median": 0.12065598275512457,
+            "min": 0.11654989793896675
           },
           "variant": {
             "batch": 2,
@@ -352,14 +346,14 @@
     "adapter": "bench/adapters/ptodsl/posembedding/rotary_position_embedding_grad.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bsnd_b2_s32_n1_d128/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bsnd_b2_s32_n1_d128/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bsnd_b2_s32_n1_d128/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bsnd_b2_s32_n1_d128/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bnsd_b2_s32_n1_d128/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bnsd_b2_s32_n1_d128/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bnsd_b2_s32_n1_d128/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/bnsd_b2_s32_n1_d128/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bsnd_b2_s32_n1_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bsnd_b2_s32_n1_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bsnd_b2_s32_n1_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bsnd_b2_s32_n1_d128/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bnsd_b2_s32_n1_d128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bnsd_b2_s32_n1_d128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bnsd_b2_s32_n1_d128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/bnsd_b2_s32_n1_d128/kernel.so"
       ],
       "correctness": {
         "atol": 0.02,
@@ -368,7 +362,7 @@
         "rtol": 0.02
       },
       "reference_contract": "fp16_half_rotary_grad_bsnd_bnsd_d128_no_reduce",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/ptodsl_rotary_position_embedding_grad_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/ptodsl_rotary_position_embedding_grad_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -461,9 +455,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.3251219168305397,
-        "median": 0.2861615503206849,
-        "min": 0.2687119413167238
+        "max": 0.30015199445188046,
+        "median": 0.2771869767457247,
+        "min": 0.2684521023184061
       },
       "variant_reports": [
         {
@@ -517,9 +511,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.3251219168305397,
-            "median": 0.2861615503206849,
-            "min": 0.2797008492052555
+            "max": 0.29599200934171677,
+            "median": 0.2742665819823742,
+            "min": 0.2684521023184061
           },
           "variant": {
             "batch": 2,
@@ -583,9 +577,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.29910216107964516,
-            "median": 0.277526443824172,
-            "min": 0.2687119413167238
+            "max": 0.30015199445188046,
+            "median": 0.2771869767457247,
+            "min": 0.27007213793694973
           },
           "variant": {
             "batch": 2,
@@ -624,14 +618,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding_grad/kernel.py",
       "library_path": null,
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding_grad/kernel.py",
@@ -761,7 +755,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/rotary_position_embedding_grad/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260313T090411Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/rotary_position_embedding_grad/20260316T031215Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

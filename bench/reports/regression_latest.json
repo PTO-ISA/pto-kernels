@@ -1,5 +1,5 @@
 {
-  "generated_at": "20260316T040742Z",
+  "generated_at": "20260321T024111Z",
   "kernels": [
     {
       "baseline_reason": null,
@@ -1057,7 +1057,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.7740890141576529,
+          "pto_median_ms": 0.7782650645822287,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1405,11 +1405,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1029354752972722,
-          "baseline_over_pto_pct": 35.49965191263368,
+          "baseline_median_ms": 0.0943655613809824,
+          "baseline_over_pto_pct": 33.301070029718936,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.2899619285017252,
+          "pto_median_ms": 0.28337095864117146,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1454,11 +1454,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1017105532810092,
-          "baseline_over_pto_pct": 34.92543506538673,
+          "baseline_median_ms": 0.09724032133817673,
+          "baseline_over_pto_pct": 34.22904654774637,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.29122200794517994,
+          "pto_median_ms": 0.28408714570105076,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1503,11 +1503,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.10114605538547039,
-          "baseline_over_pto_pct": 34.908527826962846,
+          "baseline_median_ms": 0.0963900238275528,
+          "baseline_over_pto_pct": 34.321263179536835,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.28974597807973623,
+          "pto_median_ms": 0.28084637597203255,
           "pto_status": "ok",
           "shape_summary": {
             "bias": [
@@ -1569,7 +1569,7 @@
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
           "pto_correct": true,
-          "pto_median_ms": 0.30656205490231514,
+          "pto_median_ms": 0.3180769272148609,
           "pto_reason": null,
           "pto_status": "ok",
           "shape_summary": null,
@@ -1582,8 +1582,8 @@
       "baseline_status": "blocked",
       "family": "moe",
       "name": "moe_finalize_routing_v2_grad",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
+      "pto_reason": null,
+      "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
       "spec": "bench/specs/moe/moe_finalize_routing_v2_grad.yaml",
       "variants": [
@@ -1594,10 +1594,10 @@
           "baseline_over_pto_pct": null,
           "baseline_reason": "Baseline runtime entrypoint is unavailable on this host.",
           "baseline_status": "blocked",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260316T031454Z/t16_h16/kernel.cpp']' returned non-zero exit status 1.",
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.3149618860334158,
+          "pto_reason": null,
+          "pto_status": "ok",
           "shape_summary": null,
           "variant": {}
         }
@@ -2120,8 +2120,8 @@
       "baseline_status": "blocked",
       "family": "moe",
       "name": "moe_init_routing_v2",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
+      "pto_reason": null,
+      "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
       "spec": "bench/specs/moe/moe_init_routing_v2.yaml",
       "variants": [
@@ -2132,10 +2132,10 @@
           "baseline_over_pto_pct": null,
           "baseline_reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
           "baseline_status": "blocked",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260316T031630Z/t16_h16_e4/kernel.cpp']' returned non-zero exit status 1.",
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.5275281146168709,
+          "pto_reason": null,
+          "pto_status": "ok",
           "shape_summary": null,
           "variant": {}
         }
@@ -2530,20 +2530,20 @@
       "baseline_status": "ok",
       "family": "moe",
       "name": "moe_re_routing",
-      "pto_reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260316T031729Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
-      "pto_status": "blocked",
+      "pto_reason": null,
+      "pto_status": "ok",
       "report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_re_routing/report.json",
       "spec": "bench/specs/moe/moe_re_routing.yaml",
       "variants": [
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.12065551709383726,
-          "baseline_over_pto_pct": null,
+          "baseline_median_ms": 0.11037010699510574,
+          "baseline_over_pto_pct": 28.773556560327922,
           "baseline_status": "ok",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.38358173333108425,
+          "pto_status": "ok",
           "shape_summary": {
             "expert_token_num": [
               2
@@ -2592,12 +2592,12 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.12123060878366232,
-          "baseline_over_pto_pct": null,
+          "baseline_median_ms": 0.11032610200345516,
+          "baseline_over_pto_pct": 28.672367492705547,
           "baseline_status": "ok",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.38478197529911995,
+          "pto_status": "ok",
           "shape_summary": {
             "expert_token_num": [
               4
@@ -2662,12 +2662,12 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.11956552043557167,
-          "baseline_over_pto_pct": null,
+          "baseline_median_ms": 0.11152052320539951,
+          "baseline_over_pto_pct": 28.977522284724177,
           "baseline_status": "ok",
-          "pto_correct": false,
-          "pto_median_ms": null,
-          "pto_status": "blocked",
+          "pto_correct": true,
+          "pto_median_ms": 0.3848518244922161,
+          "pto_status": "ok",
           "shape_summary": {
             "expert_token_num": [
               4
@@ -3404,11 +3404,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.18709106370806694,
-          "baseline_over_pto_pct": 34.15579129921013,
+          "baseline_median_ms": 0.19498076289892197,
+          "baseline_over_pto_pct": 41.0586941503927,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.5477579543367028,
+          "pto_median_ms": 0.47488301061093807,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3453,11 +3453,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.18859095871448517,
-          "baseline_over_pto_pct": 37.960533777241636,
+          "baseline_median_ms": 0.17091096378862858,
+          "baseline_over_pto_pct": 33.0263857632237,
           "baseline_status": "ok",
-          "pto_correct": false,
-          "pto_median_ms": 0.496807973831892,
+          "pto_correct": true,
+          "pto_median_ms": 0.5174982361495495,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -3502,11 +3502,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.19816600251942873,
-          "baseline_over_pto_pct": 38.05630444274484,
+          "baseline_median_ms": 0.19989581778645515,
+          "baseline_over_pto_pct": 40.419492780198944,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.520717934705317,
+          "pto_median_ms": 0.4945530090481043,
           "pto_status": "ok",
           "shape_summary": {
             "attention_out": [
@@ -4105,11 +4105,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.1413659192621708,
-          "baseline_over_pto_pct": 34.36403594413344,
+          "baseline_median_ms": 0.1519209472462535,
+          "baseline_over_pto_pct": 36.22879767867583,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4113775212317705,
+          "pto_median_ms": 0.419337535277009,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -4157,11 +4157,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.15212595462799072,
-          "baseline_over_pto_pct": 36.7847153724547,
+          "baseline_median_ms": 0.15735591296106577,
+          "baseline_over_pto_pct": 37.05128992325919,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.4135575145483017,
+          "pto_median_ms": 0.42469752952456474,
           "pto_status": "ok",
           "shape_summary": {
             "key": [
@@ -4209,11 +4209,11 @@
         {
           "baseline_correct": true,
           "baseline_limitations": [],
-          "baseline_median_ms": 0.15269091818481684,
-          "baseline_over_pto_pct": 37.393359767452736,
+          "baseline_median_ms": 0.15668105334043503,
+          "baseline_over_pto_pct": 37.27372402965436,
           "baseline_status": "ok",
           "pto_correct": true,
-          "pto_median_ms": 0.40833698585629463,
+          "pto_median_ms": 0.42035256046801805,
           "pto_status": "ok",
           "shape_summary": {
             "key": [

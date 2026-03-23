@@ -470,8 +470,8 @@ cache-index path still needs broader PTO surface area.
 
 ### `qkv_rms_norm_rope_cache`
 
-The `qkv_rms_norm_rope_cache` seed is now tracked as a bounded blocked slice
-for a constrained 2D fp16 contract:
+The `qkv_rms_norm_rope_cache` seed is now a real bounded PTO slice for a
+constrained 2D fp16 contract:
 
 - shape variants:
   - `qkv = [2, 192]`, `q_gamma = [64]`, `k_gamma = [64]`,
@@ -487,9 +487,9 @@ Current verified state on this host:
 
 - baseline path is blocked because the local `torch_npu` runtime does not
   expose `npu_qkv_rms_norm_rope_cache`
-- PTO path is blocked in `ptoas` during `stage_rotary` lowering on the
-  section-local `scf.if` / `scf.for` form emitted inside `pto.section.vector`
-- the current PTO staged slice still emits:
+- PTO path is correctness-green on the validated shapes with median about
+  `0.7741 ms` and worst `max_abs_diff = 0.005847`
+- the current PTO staged slice emits:
   1. a PTODSL rotary stage with row-wise RMSNorm on `q` and `k`
   2. a PTODSL cache stage with explicit `tcvt + tstore` int8 cache writeback
 
@@ -498,9 +498,8 @@ The active remaining gaps are:
 - cache-index and cache-update generalization: the validated slice still
   assumes identity row-to-cache lookup and the constrained contiguous cache
   contract
-- PTOAS support for the current section-local SCF rotary-stage shape, as
-  reproduced in
-  `bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/stage_rotary/kernel.pto`
+- rope/cache PTODSL surface generalization for broader rotary, interleave, and
+  cache-update contracts beyond the current contiguous identity-index seed
 
 ### `rope_with_sin_cos_cache`
 
@@ -738,7 +737,7 @@ Tracked slice:
 
 ### `moe_finalize_routing_v2_grad`
 
-The `moe_finalize_routing_v2_grad` slice is now a bounded blocked slice for the
+The `moe_finalize_routing_v2_grad` slice now runs end-to-end in PTO for the
 constrained top-1 backward contract on this 910B host:
 
 - token shapes: `16 x 16`, `256 x 64`, `128 x 128`
@@ -757,17 +756,20 @@ Reference contract for this slice:
 Current implementation notes on this host:
 
 - the PTO seed is written in PTODSL with a vector `gradExpandedXOut` path and
-  scalar `gradScalesOut` reduction path
+  an fp32 tile reduction path for `gradScalesOut`
 - the nominal `256 x 64` variant is chosen so the kernel uses all requested
   block ids
 - the PTO seed uses direct scalar routing indices for `expandedRowIdx`
   and `expertIdx`, with dynamic row scatter for `gradExpandedXOut`
-  and scalar inner-loop accumulation for `gradScalesOut`
+  and a tile reduction path for `gradScalesOut`
 - the current host environment does not expose a Python-visible
   `moe_finalize_routing_v2_grad` baseline entrypoint, so the baseline side
   remains an explicit blocked report instead of a fake parity result
-- the live PTO blocker is now PTOAS pass execution on this scalar-heavy `f16`
-  reduction/store shape, not missing PTODSL surface or host-side shims
+- the old PTOAS lowering blocker is closed on the default local toolchain:
+  `moe_finalize_routing_v2_grad` now compiles and benchmarks through PTOAS,
+  Bisheng, and runtime launch
+- PTO correctness is now green on the checked fp16 output contract for all
+  three validated shapes
 
 Tracked slice:
 
@@ -847,8 +849,8 @@ Tracked slice:
 
 ### `moe_re_routing`
 
-The first `moe_re_routing` slice now has a fully verified baseline contract on
-this 910B host and a direct PTODSL port that is blocked in PTOAS lowering:
+The first `moe_re_routing` slice now runs end-to-end in both baseline and PTO
+paths on this 910B host:
 
 - token shapes: `8 x 16`, `256 x 64`, `128 x 128`
 - count matrices: `2 x 2` and `4 x 4`
@@ -871,11 +873,14 @@ Current implementation notes on this host:
 - the PTO seed computes the expert-major remap directly from
   `expert_token_num_per_rank` with scalar prefix scans and row-at-a-time GM
   loads and stores
+- the checked rewrite uses compile-time-unrolled `2x2` and `4x4` routing tables
+  for the validated slices, which removes the old PTOAS section-local
+  loop-carried SCF blocker
 - the nominal `256 x 64` variant is chosen so the kernel uses all requested
   block ids
-- the active blocker is now in PTOAS EmitC, not the runtime contract: the
-  current scalar-control-heavy SCF routing loop lowers to valid PTO IR but is
-  rejected during C++ emission
+- both baseline and PTO are correctness-green on the validated variants
+- the kernel is still scalar-heavy rather than tile-first because the routing
+  hot path still uses direct scalar loads/selects
 
 Tracked slice:
 
@@ -1337,11 +1342,10 @@ Current bounded blockers on this host:
 
 - baseline: `torch.ops.npu.npu_moe_init_routing_v2` segfaults for the validated
   dropless top-1 grouped-expert probe
-- PTO: preserved traces with the rebuilt local `ptoas` show the failure is now
-  narrower than a generic scalar-SCF issue. The current backend still rejects
-  section-local `scf.for` emission for this kernel shape, including the staged
-  row-copy form that carries `partition_view` plus `tload` / `tstore` over a
-  dynamic row range inside `pto.section.vector`.
+- PTO: the checked slice is now correctness-green on all three validated
+  variants. The remaining PTO limitation is not legality; the current
+  count/cumsum path is still scalar-heavy and the slice still relies on
+  pre-grouped `expert_idx` instead of on-device routing sort.
 
 ### `flash_attention_score`
 
@@ -1470,6 +1474,12 @@ Latest reevaluation on the rebuilt local PTOAS toolchain shows the shared
 backend legality blocker is fixed: the current constrained PTO slice now
 compiles and benchmarks through Bisheng on this host after moving off the
 illegal `8x16` cube tiles and onto legal `16x*` cube tiling.
+
+The remaining parity issue on the nominal `64x64` infer variant turned out to
+be launch-policy-specific on A3 rather than a math or lowering bug. Keeping the
+softmax stage at `block_dim=1` for `q_seq <= 64` restores correctness across
+all three checked variants; the larger multiblock softmax setting still
+compiles, but drifts numerically on this host.
 
 Current benchmark on this host:
 
@@ -1629,15 +1639,44 @@ The live blocker is runtime execution of the generated kernel itself:
 - `stage_proj`, `stage_out`, `stage_scale`, and all `16`
   `stage_state_update_row_*` kernels build successfully
 - bypassing PTODSL JIT rebuild and loading the prebuilt `kernel.so`
-  artifacts directly proves `stage_proj` executes in about `1.19 ms`
+  artifacts directly through
+  [scripts/repro_recurrent_stage_runtime.py](/home/zhouruoyu/github/pto-kernels/scripts/repro_recurrent_stage_runtime.py)
+  proves `stage_proj` executes in about `2.27 ms` on the smoke slice and writes
+  [repro_proj.json](/tmp/recurrent_row_specialized/repro_proj.json)
 - the first row-specialized state-update kernel,
   `stage_state_update_row_000`, still hangs at runtime on A3
 - that hang reproduces even with `block_dim = 1`, so it is not just a
   multiblock launch issue
+- the direct bounded repro is now:
+  `timeout 20s python3 scripts/repro_recurrent_stage_runtime.py --stage state_update_row_000 --block-dim 1`
+- the bisect helper
+  [scripts/bisect_recurrent_state_update_runtime.py](/home/zhouruoyu/github/pto-kernels/scripts/bisect_recurrent_state_update_runtime.py)
+  now rebuilds patched `stage_state_update_row_000` variants with the same
+  `bisheng` path used by PTODSL
+- patched `no_exp` and `no_extract_term` variants still time out, so the live
+  fault is not explained by `TEXP` or the late `TEXTRACT` addend path alone
+- `minimal_state_store` (`state load -> state store`) and
+  `minimal_state_roundtrip` (`state load -> f32 -> bf16 -> store`) also still
+  time out, so the live fault survives even after removing the recurrent
+  update arithmetic entirely
+- the hand-written backend repro
+  [scripts/repro_recurrent_manual_state_store.py](/home/zhouruoyu/github/pto-kernels/scripts/repro_recurrent_manual_state_store.py)
+  now splits the runtime path directly:
+  `single_row_store_only` succeeds for both `bf16` and `fp16`, while
+  both `single_row_load_only` and `single_row_roundtrip`
+  (`load -> tcvt -> tcvt -> store`) still time out
+- that timeout reproduces even when the source is a fresh standalone source
+  buffer rather than the recurrent state tensor, so the issue is not specific
+  to the recurrent wrapper inputs or to `bf16` alone
+- a direct `copy_state` store-only variant no longer times out; it fails with
+  an A3 AI Core illegal-instruction fault (`507015`, reported as unaligned UUB
+  / illegal instruction in the vector kernel), which is a stronger backend
+  signal than the old generic timeout
 
 So this kernel is no longer blocked by missing PTODSL surface area. It is
-currently blocked by the A3 backend/runtime behavior of the generated
-recurrent state-update kernel.
+currently blocked by the A3 backend/runtime behavior of the minimal vector GM
+load or load-consumer pipeline for the emitted `1x16` VEC row shape used by
+the row-specialized state-update stage.
 - dtype: `float16`
 - no masks, prefix, rope, or dropout
 - `sparse_mode = 0`

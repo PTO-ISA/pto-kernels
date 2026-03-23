@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163142Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/attention/recurrent_gated_delta_rule.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -16,7 +16,7 @@
       },
       "entrypoint": "torch_npu.npu_recurrent_gated_delta_rule_functional",
       "reference_contract": "nd_recurrent_no_gk",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163142Z/ops_transformer_recurrent_gated_delta_rule_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/ops_transformer_recurrent_gated_delta_rule_benchmark.json",
       "shape_summaries": [
         {
           "attention_out": [
@@ -147,9 +147,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.4951430018991232,
-        "median": 0.14757609460502863,
-        "min": 0.1116609200835228
+        "max": 0.2599409781396389,
+        "median": 0.16243592835962772,
+        "min": 0.12484099715948105
       },
       "variant_reports": [
         {
@@ -202,9 +202,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.18278113566339016,
-            "median": 0.14757609460502863,
-            "min": 0.14122086577117443
+            "max": 0.2599409781396389,
+            "median": 0.16243592835962772,
+            "min": 0.15676114708185196
           },
           "variant": {
             "batch_size": 1,
@@ -266,9 +266,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.26312191039323807,
-            "median": 0.13442093040794134,
-            "min": 0.12390105985105038
+            "max": 0.16547087579965591,
+            "median": 0.13374059926718473,
+            "min": 0.12731109745800495
           },
           "variant": {
             "batch_size": 1,
@@ -330,9 +330,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.4951430018991232,
-            "median": 0.12065551709383726,
-            "min": 0.1116609200835228
+            "max": 0.16362103633582592,
+            "median": 0.13467599637806416,
+            "min": 0.12484099715948105
           },
           "variant": {
             "batch_size": 1,
@@ -452,10 +452,8 @@
   "pto": {
     "adapter": "bench/adapters/ptodsl/attention/recurrent_gated_delta_rule.py",
     "benchmark": {
-      "blocker_id": "ptodsl-recurrent-state-update-primitives",
-      "reason": "PTO path is intentionally blocked: the current PTODSL/PTOAS stack does not expose a tile-first recurrent state update surface for BF16 state matvec + outer-product update + ragged token/state mapping, and the scalar-loop fallback is intentionally not used in the migration program.",
-      "reference_contract": "nd_recurrent_no_gk",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163142Z/ptodsl_recurrent_gated_delta_rule_benchmark.json",
+      "reason": "PTO compile or execution failed: npuSynchronizeDevice:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:575 NPU function error: AclrtSynchronizeDeviceWithTimeout, error code is 507014\n[ERROR] 2026-03-16-11:31:13 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The aicore execution times out. \n        Rectify the fault based on the error information in the ascend log.\nEZ9999: Inner Error!\nEZ9999[PID: 667120] 2026-03-16-11:31:13.313.461 (EZ9999):  The error from device(chipId:0, dieId:0), serial number is 1996, there is an exception of fftsplus aivector error, core id is 10, error code = 0x10, dump info: pc start: 0x124000a830b0, current: 0x124000a8353c, vec error info: 0x7000000fc, mte error info: 0x60600005c, ifu error info: 0x217ffbe018080, ccu error info: 0x40c0058006800046, cube error info: 0, biu error info: 0, aic error mask: 0x6500020bd00028c, para base: 0x12c100001080.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:645]\n        TraceBack (most recent call last):\n       The extend info: errcode:(0x10, 0, 0) errorStr: Illegal instruction, which is usually caused by unaligned UUB addresses. fixp_error0 info: 0x600005c, fixp_error1 info: 0x6, fsmId:0, tslot:4, thread:0, ctxid:0, blk:0, sublk:0, subErrType:4.[FUNC:PrintCoreInfo][FILE:device_error_core_proc.cc][LINE:658]\n       Kernel task happen error, retCode=0x25, [aicore timeout].[FUNC:PreCheckTaskErr][FILE:davinci_kernel_task.cc][LINE:1728]\n       rtDeviceSynchronizeWithTimeout execution failed, reason=aicore timeout[FUNC:FuncErrorReason][FILE:error_message_manage.cc][LINE:65]\n       wait for compute device to finish failed, runtime result = 507014.[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/ptodsl_recurrent_gated_delta_rule_benchmark.json",
       "status": "blocked",
       "variants": [
         {
@@ -488,17 +486,94 @@
       ]
     },
     "compile": {
-      "blocker_id": "ptodsl-recurrent-state-update-primitives",
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_proj/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_proj/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_proj/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_proj/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_000/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_000/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_000/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_000/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_001/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_001/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_001/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_001/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_002/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_002/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_002/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_002/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_003/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_003/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_003/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_003/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_004/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_004/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_004/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_004/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_005/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_005/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_005/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_005/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_006/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_006/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_006/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_006/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_007/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_007/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_007/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_007/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_008/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_008/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_008/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_008/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_009/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_009/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_009/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_009/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_010/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_010/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_010/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_010/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_011/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_011/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_011/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_011/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_012/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_012/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_012/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_012/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_013/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_013/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_013/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_013/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_014/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_014/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_014/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_014/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_015/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_015/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_015/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_state_update_row_015/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_out/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_out/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_out/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_out/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_scale/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_scale/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_scale/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/stage_scale/kernel.so"
+      ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/kernel.py",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163142Z",
-      "reason": "Tile-first PTODSL/PTOAS recurrent state update surface is not available for recurrent_gated_delta_rule.",
-      "status": "blocked"
+      "library_path": null,
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z",
+      "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/kernel.py",
     "meta": {
       "archetype": "attention-recurrent",
       "blockers": [
-        "ptodsl-recurrent-state-update-primitives"
+        "ptoisa-a3-recurrent-state-update-runtime-hang"
       ],
       "checklist": [
         "baseline_adapter",
@@ -653,7 +728,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/recurrent_gated_delta_rule/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260314T163142Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260316T032007Z/report.json",
   "status": "prototype",
   "wave": "wave3"
 }

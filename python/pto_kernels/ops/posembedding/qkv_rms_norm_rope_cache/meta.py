@@ -9,7 +9,6 @@ META = planned_meta(
     ops_transformer_path="posembedding/qkv_rms_norm_rope_cache",
     blockers=[
         "ops-transformer-qkv-rms-norm-rope-cache-python-entrypoint-gap",
-        "ptoas-section-local-scf-parent-terminator",
         "ptodsl-rope-generalization",
         "ptodsl-vector-queue-pipeline-surface",
         "ptodsl-cache-update-primitives",
@@ -18,7 +17,7 @@ META = planned_meta(
     ],
 )
 
-META["status"] = "blocked"
+META["status"] = "prototype"
 META["seed_variant"] = {
     "name": "bsnd_2d_fp16_qkv_rms_norm_rope_cache_d64",
     "shape": {
@@ -42,7 +41,7 @@ META["seed_variant"] = {
         },
     },
     "limits": [
-        "bounded blocked slice on 910B",
+        "bounded PTO-vs-reference slice on 910B",
         "2D token-major slice only",
         "float16 input only",
         "single q-head and single k/v-head only",
@@ -51,7 +50,7 @@ META["seed_variant"] = {
         "unit quant scales only",
         "cache_mode fixed to contiguous",
         "baseline runtime entrypoint is unavailable on this host",
-        "current PTO rotary stage is blocked in PTOAS on section-local SCF inside pto.section.vector during stage_rotary lowering",
+        "current PTO staged slice is correctness-green on the validated shapes",
         "validated only for indices[row] == row in the current constrained seed",
     ],
 }

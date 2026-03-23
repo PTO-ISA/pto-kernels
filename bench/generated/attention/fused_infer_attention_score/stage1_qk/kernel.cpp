@@ -54,16 +54,17 @@ __global__ AICORE void dense_attention_qk_stage(__gm__ half* v1, __gm__ half* v2
   set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID6);
   set_flag(PIPE_M, PIPE_MTE1, EVENT_ID2);
   for (int32_t v34 = (int32_t) v12; v34 < v9; v34 += (int32_t) v13) {
-    pto::Shape<1, 1, 1, 16, 16> v35 = pto::Shape<1, 1, 1, 16, 16>();
-    pto::Stride<256, 256, 256, 16, 1> v36 = pto::Stride<256, 256, 256, 16, 1>();
-    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v37 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v2 + (v7 + v7 * (unsigned) v8 + v7 * (unsigned) v9), v35, v36);
-    pto::Shape<1, 1, 1, 16, 16> v38 = pto::Shape<1, 1, 1, 16, 16>();
-    pto::Stride<256, 256, 256, 16, 1> v39 = pto::Stride<256, 256, 256, 16, 1>();
-    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v40 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v3 + (v7 + v7 * (unsigned) v8 + v7 * (unsigned) v9), v38, v39);
+    int32_t v35 = (int32_t) ((uint32_t) v34 * (uint32_t) v8);
+    pto::Shape<1, 1, 1, 16, 16> v36 = pto::Shape<1, 1, 1, 16, 16>();
+    pto::Stride<256, 256, 256, 16, 1> v37 = pto::Stride<256, 256, 256, 16, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v38 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v2 + (v7 + (unsigned) v35 * (unsigned) v8 + v7 * (unsigned) v9), v36, v37);
+    pto::Shape<1, 1, 1, 16, 16> v39 = pto::Shape<1, 1, 1, 16, 16>();
+    pto::Stride<256, 256, 256, 16, 1> v40 = pto::Stride<256, 256, 256, 16, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v41 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v3 + (v7 + v7 * (unsigned) v8 + v7 * (unsigned) v9), v39, v40);
     wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
-    TLOAD(v15, v37);
+    TLOAD(v15, v38);
     set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
-    TLOAD(v19, v40);
+    TLOAD(v19, v41);
     set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID1);
     wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
     wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
@@ -78,19 +79,19 @@ __global__ AICORE void dense_attention_qk_stage(__gm__ half* v1, __gm__ half* v2
     set_flag(PIPE_M, PIPE_MTE1, EVENT_ID1);
     wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
     wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID1);
-    for (int32_t v41 = v9; v41 < v9; v41 += v9) {
-      int32_t v42 = (int32_t) ((uint32_t) v41 * (uint32_t) v8);
-      pto::Shape<1, 1, 1, 16, 16> v43 = pto::Shape<1, 1, 1, 16, 16>();
-      pto::Stride<256, 256, 256, 16, 1> v44 = pto::Stride<256, 256, 256, 16, 1>();
-      GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v45 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v2 + (v7 + v7 * (unsigned) v8 + (unsigned) v42 * (unsigned) v9), v43, v44);
-      pto::Shape<1, 1, 1, 16, 16> v46 = pto::Shape<1, 1, 1, 16, 16>();
-      pto::Stride<256, 256, 256, 16, 1> v47 = pto::Stride<256, 256, 256, 16, 1>();
-      GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v48 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v3 + (v7 + (unsigned) v42 * (unsigned) v8 + v7 * (unsigned) v9), v46, v47);
+    for (int32_t v42 = v9; v42 < v9; v42 += v9) {
+      int32_t v43 = (int32_t) ((uint32_t) v42 * (uint32_t) v8);
+      pto::Shape<1, 1, 1, 16, 16> v44 = pto::Shape<1, 1, 1, 16, 16>();
+      pto::Stride<256, 256, 256, 16, 1> v45 = pto::Stride<256, 256, 256, 16, 1>();
+      GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v46 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v2 + (v7 + (unsigned) v35 * (unsigned) v8 + (unsigned) v43 * (unsigned) v9), v44, v45);
+      pto::Shape<1, 1, 1, 16, 16> v47 = pto::Shape<1, 1, 1, 16, 16>();
+      pto::Stride<256, 256, 256, 16, 1> v48 = pto::Stride<256, 256, 256, 16, 1>();
+      GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v49 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v3 + (v7 + (unsigned) v43 * (unsigned) v8 + v7 * (unsigned) v9), v47, v48);
       wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID3);
-      TLOAD(v15, v45);
+      TLOAD(v15, v46);
       set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID2);
       wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID5);
-      TLOAD(v19, v48);
+      TLOAD(v19, v49);
       set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID3);
       wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID2);
       wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID2);
@@ -107,11 +108,11 @@ __global__ AICORE void dense_attention_qk_stage(__gm__ half* v1, __gm__ half* v2
     set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
     set_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
     set_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
-    pto::Shape<1, 1, 1, 16, 16> v49 = pto::Shape<1, 1, 1, 16, 16>();
-    pto::Stride<256, 256, 256, 16, 1> v50 = pto::Stride<256, 256, 256, 16, 1>();
-    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v51 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v1 + (v7 + v7 * (unsigned) v8 + v7 * (unsigned) v9), v49, v50);
+    pto::Shape<1, 1, 1, 16, 16> v50 = pto::Shape<1, 1, 1, 16, 16>();
+    pto::Stride<256, 256, 256, 16, 1> v51 = pto::Stride<256, 256, 256, 16, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND> v52 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 16>, pto::Stride<256, 256, 256, 16, 1>, pto::Layout::ND>(v1 + (v7 + (unsigned) v35 * (unsigned) v8 + v7 * (unsigned) v9), v50, v51);
     wait_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
-    TSTORE(v51, v31);
+    TSTORE(v52, v31);
     set_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
   }
   pipe_barrier(PIPE_ALL);

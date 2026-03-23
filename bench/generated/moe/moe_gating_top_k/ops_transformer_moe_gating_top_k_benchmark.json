@@ -1,8 +1,8 @@
 {
   "correctness": {
     "atol": 0.001,
-    "max_abs_diff": 0.0,
-    "passes": true,
+    "max_abs_diff": 1288225.625,
+    "passes": false,
     "rtol": 0.001
   },
   "entrypoint": "torch_npu.npu_moe_gating_top_k",
@@ -65,17 +65,17 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.21541118621826172,
-    "median": 0.1326949568465352,
-    "min": 0.12342003174126148
+    "max": 0.17533102072775364,
+    "median": 0.12839597184211016,
+    "min": 0.1237611286342144
   },
   "variant_reports": [
     {
       "correctness": {
         "expert_idx_max_abs_diff": 0.0,
-        "max_abs_diff": 0.0,
-        "norm_out_max_abs_diff": 0.0,
-        "passes": true,
+        "max_abs_diff": 6.5078125,
+        "norm_out_max_abs_diff": 6.5078125,
+        "passes": false,
         "y_max_abs_diff": 0.0
       },
       "shape_summary": {
@@ -97,9 +97,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.21541118621826172,
-        "median": 0.12773112393915653,
-        "min": 0.12342003174126148
+        "max": 0.17533102072775364,
+        "median": 0.12839597184211016,
+        "min": 0.1237611286342144
       },
       "variant": {
         "dtype": "float16",
@@ -118,9 +118,9 @@
     {
       "correctness": {
         "expert_idx_max_abs_diff": 0.0,
-        "max_abs_diff": 0.0,
-        "norm_out_max_abs_diff": 0.0,
-        "passes": true,
+        "max_abs_diff": 71.85350799560547,
+        "norm_out_max_abs_diff": 71.85350799560547,
+        "passes": false,
         "y_max_abs_diff": 0.0
       },
       "shape_summary": {
@@ -142,9 +142,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.15154085122048855,
-        "median": 0.12994545977562666,
-        "min": 0.12479000724852085
+        "max": 0.15760096721351147,
+        "median": 0.12690597213804722,
+        "min": 0.12452108785510063
       },
       "variant": {
         "dtype": "float16",
@@ -163,9 +163,9 @@
     {
       "correctness": {
         "expert_idx_max_abs_diff": 0.0,
-        "max_abs_diff": 0.0,
-        "norm_out_max_abs_diff": 0.0,
-        "passes": true,
+        "max_abs_diff": 1288225.625,
+        "norm_out_max_abs_diff": 1288225.625,
+        "passes": false,
         "y_max_abs_diff": 0.0
       },
       "shape_summary": {
@@ -187,9 +187,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.1473810989409685,
-        "median": 0.1326949568465352,
-        "min": 0.12789107859134674
+        "max": 0.1562607940286398,
+        "median": 0.1283654710277915,
+        "min": 0.12417114339768887
       },
       "variant": {
         "dtype": "float16",

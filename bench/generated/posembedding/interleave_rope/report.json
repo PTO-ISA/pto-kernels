@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/posembedding/interleave_rope.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -12,7 +12,7 @@
       },
       "entrypoint": "torch_npu.npu_interleave_rope",
       "reference_contract": "fp16_interleave_rope_bnsd_d64",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/ops_transformer_interleave_rope_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/ops_transformer_interleave_rope_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -69,9 +69,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.14980998821556568,
-        "median": 0.09922042954713106,
-        "min": 0.09452016092836857
+        "max": 0.11690100654959679,
+        "median": 0.09362050332129002,
+        "min": 0.09022117592394352
       },
       "variant_reports": [
         {
@@ -105,9 +105,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.14980998821556568,
-            "median": 0.09735545609146357,
-            "min": 0.09452016092836857
+            "max": 0.11690100654959679,
+            "median": 0.09361549746245146,
+            "min": 0.0906710047274828
           },
           "variant": {
             "batch": 1,
@@ -149,9 +149,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.11841091327369213,
-            "median": 0.09922042954713106,
-            "min": 0.0949010718613863
+            "max": 0.11644093319773674,
+            "median": 0.09362050332129002,
+            "min": 0.09022117592394352
           },
           "variant": {
             "batch": 2,
@@ -244,14 +244,14 @@
     "adapter": "bench/adapters/ptodsl/posembedding/interleave_rope.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.so"
       ],
       "correctness": {
         "atol": 0.01,
@@ -260,7 +260,7 @@
         "rtol": 0.01
       },
       "reference_contract": "fp16_interleave_rope_bnsd_d64",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/ptodsl_interleave_rope_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/ptodsl_interleave_rope_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -317,9 +317,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.3618728369474411,
-        "median": 0.3256720956414938,
-        "min": 0.3182319924235344
+        "max": 0.3455020487308502,
+        "median": 0.3212320152670145,
+        "min": 0.31475187279284
       },
       "variant_reports": [
         {
@@ -353,9 +353,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.3618728369474411,
-            "median": 0.3256720956414938,
-            "min": 0.3185220994055271
+            "max": 0.3452119417488575,
+            "median": 0.3212320152670145,
+            "min": 0.3150119446218014
           },
           "variant": {
             "batch": 1,
@@ -397,9 +397,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.34493301063776016,
-            "median": 0.32349652610719204,
-            "min": 0.3182319924235344
+            "max": 0.3455020487308502,
+            "median": 0.32017193734645844,
+            "min": 0.31475187279284
           },
           "variant": {
             "batch": 2,
@@ -432,14 +432,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/stage2_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/stage2_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/stage2_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/stage2_rotary/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/stage2_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/stage2_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/stage2_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/stage2_rotary/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/stage2_rotary/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/stage2_rotary/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/kernel.py",
@@ -447,7 +447,8 @@
       "archetype": "rope-pos",
       "blockers": [
         "ptodsl-rope-generalization",
-        "ptodsl-vector-queue-pipeline-surface"
+        "ptodsl-vector-queue-pipeline-surface",
+        "ptodsl-vector-interleave-surface"
       ],
       "checklist": [
         "baseline_adapter",
@@ -467,7 +468,7 @@
           "head_dim fixed to 64",
           "heads fixed to 1",
           "cos and sin use the same sequence length as x",
-          "PTO path uses a fixed even-odd gather map before the rotary half transform",
+          "PTO path currently performs the interleave stage with NPU reshape+transpose preprocessing before the PTODSL rotary-half stage",
           "current PTO rewrite does not yet model the upstream vector queue and double-buffer pipeline"
         ],
         "name": "bnsd_fp16_d64",
@@ -491,7 +492,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/interleave_rope/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

@@ -7,7 +7,7 @@ META = planned_meta(
     wave="wave3",
     archetype="attention-recurrent",
     ops_transformer_path="attention/recurrent_gated_delta_rule",
-    blockers=["ptodsl-recurrent-state-update-primitives"],
+    blockers=["ptoisa-a3-recurrent-state-update-runtime-hang"],
 )
 
 META["status"] = "prototype"

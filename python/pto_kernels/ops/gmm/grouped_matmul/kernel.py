@@ -4,6 +4,8 @@ This keeps the current dense single-weight seed contract, but the kernel now
 follows the upstream grouped_matmul block strategy more closely:
 - split the output into baseM x baseN basic blocks
 - distribute blocks over cores with the same diagonal-vs-row-major policy
+- use the PTODSL matmul guide's swizzled MN traversal instead of a large
+  select-chain schedule lookup
 - keep the cube pipeline shape as GM -> MAT -> L0 -> ACC -> GM
 
 The remaining gap to the upstream AscendC kernel is the async preload /
@@ -12,10 +14,9 @@ PTOAS autosync insertion.
 """
 
 from dataclasses import dataclass
-from math import gcd
-
 from mlir.ir import BF16Type, F32Type, IntegerType
 from ptodsl import jit, pto
+from pto_kernels.ops.gmm.common import swizzle_nz, swizzle_zn
 from pto_kernels.utils.tuning import tuned_int
 
 
@@ -31,6 +32,8 @@ class GroupedMatmulConfig:
     base_n: int
     base_k: int
     max_block_dim: int
+    swizzle_direction: int
+    swizzle_count: int
 
     @property
     def k_iters(self) -> int:
@@ -64,71 +67,6 @@ class GroupedMatmulConfig:
             raise ValueError("grouped_matmul seed requires a positive launch_block_dim")
 
 
-THRESHOLD_BLOCK_NUM = 8
-THRESHOLD_DIM_M = 5
-
-
-def _align_down(value: int, alignment: int) -> int:
-    return value - (value % alignment)
-
-
-def _lcm(lhs: int, rhs: int) -> int:
-    return lhs * rhs // gcd(lhs, rhs)
-
-
-def _build_tile_schedule(config: GroupedMatmulConfig) -> tuple[tuple[int, int], ...]:
-    schedule: list[tuple[int, int]] = []
-    total_tiles = config.total_tiles
-    threshold_m_dim_n = THRESHOLD_BLOCK_NUM * config.n_tiles
-
-    for relative_block in range(total_tiles):
-        if config.m_tiles <= THRESHOLD_DIM_M or THRESHOLD_DIM_M == 1:
-            m_idx = relative_block // config.n_tiles
-            n_idx = relative_block % config.n_tiles
-        else:
-            tail_m = config.m_tiles % THRESHOLD_BLOCK_NUM
-            cur_threshold_m = (
-                tail_m if relative_block >= _align_down(total_tiles, threshold_m_dim_n) else THRESHOLD_BLOCK_NUM
-            )
-            cur_threshold_m = cur_threshold_m or THRESHOLD_BLOCK_NUM
-
-            cur_threshold_m_threshold_n = cur_threshold_m * THRESHOLD_BLOCK_NUM
-            tail_n = config.n_tiles % THRESHOLD_BLOCK_NUM
-            cur_threshold_n = (
-                tail_n
-                if relative_block % threshold_m_dim_n
-                >= _align_down(cur_threshold_m * config.n_tiles, cur_threshold_m_threshold_n)
-                else THRESHOLD_BLOCK_NUM
-            )
-            cur_threshold_n = cur_threshold_n or THRESHOLD_BLOCK_NUM
-
-            local_relative_block = relative_block % threshold_m_dim_n % cur_threshold_m_threshold_n
-            m_idx = local_relative_block % cur_threshold_m + relative_block // threshold_m_dim_n * THRESHOLD_BLOCK_NUM
-            n_idx = (
-                (local_relative_block + local_relative_block // _lcm(cur_threshold_m, cur_threshold_n))
-                % cur_threshold_n
-                + relative_block % threshold_m_dim_n // cur_threshold_m_threshold_n * THRESHOLD_BLOCK_NUM
-            )
-
-        if not (0 <= m_idx < config.m_tiles and 0 <= n_idx < config.n_tiles):
-            raise ValueError(
-                f"ops-transformer schedule mapped logical block {relative_block} to invalid tile ({m_idx}, {n_idx})"
-            )
-        schedule.append((m_idx, n_idx))
-
-    return tuple(schedule)
-
-
-def _schedule_lookup(logical_block, schedule: tuple[tuple[int, int], ...]):
-    m_idx = const(schedule[0][0])
-    n_idx = const(schedule[0][1])
-    for block_id, (tile_m, tile_n) in enumerate(schedule[1:], start=1):
-        is_current = logical_block == const(block_id)
-        m_idx = pto.select(is_current, const(tile_m), m_idx)
-        n_idx = pto.select(is_current, const(tile_n), n_idx)
-    return m_idx, n_idx
-
-
 def _config() -> GroupedMatmulConfig:
     config = GroupedMatmulConfig(
         m=tuned_int("PTO_GROUPED_MATMUL_M", 128, valid_values=(64, 128)),
@@ -138,6 +76,13 @@ def _config() -> GroupedMatmulConfig:
         base_n=tuned_int("PTO_GROUPED_MATMUL_BASE_N", 64, valid_values=(64, 128)),
         base_k=tuned_int("PTO_GROUPED_MATMUL_BASE_K", 64, valid_values=(32, 64)),
         max_block_dim=tuned_int("PTO_GROUPED_MATMUL_BLOCK_DIM", 16, valid_values=(1, 2, 4, 8, 16, 20)),
+        swizzle_direction=tuned_int(
+            "PTO_GROUPED_MATMUL_SWIZZLE_DIRECTION",
+            2,
+            minimum=0,
+            valid_values=(0, 1, 2),
+        ),
+        swizzle_count=tuned_int("PTO_GROUPED_MATMUL_SWIZZLE_COUNT", 2, valid_values=(1, 2, 4, 8)),
     )
     config.validate()
     return config
@@ -182,7 +127,6 @@ def _meta_data(config: GroupedMatmulConfig):
 
 def build_jit_wrapper(*, output_dir):
     config = _config()
-    schedule = _build_tile_schedule(config)
 
     @jit(
         meta_data=lambda: _meta_data(config),
@@ -209,6 +153,9 @@ def build_jit_wrapper(*, output_dir):
             cBaseK = const(config.base_k)
             cIter = const(config.k_iters)
             cTotalTiles = const(config.total_tiles)
+            cMTiles = const(config.m_tiles)
+            cNTiles = const(config.n_tiles)
+            cSwizzleCount = const(config.swizzle_count)
 
             bid = pto.index_cast(pto.get_block_idx())
             num_blocks = pto.index_cast(pto.get_block_num())
@@ -234,7 +181,12 @@ def build_jit_wrapper(*, output_dir):
             c_tile = pto.alloc_tile(tile_c)
 
             for logical_block in range(bid, cTotalTiles, num_blocks):
-                m_idx, n_idx = _schedule_lookup(logical_block, schedule)
+                m_idx = logical_block // cNTiles
+                n_idx = logical_block % cNTiles
+                if config.swizzle_direction == 0:
+                    m_idx, n_idx = swizzle_zn(logical_block, cMTiles, cNTiles, cSwizzleCount)
+                elif config.swizzle_direction == 1:
+                    m_idx, n_idx = swizzle_nz(logical_block, cMTiles, cNTiles, cSwizzleCount)
                 m_off = m_idx * cTileM
                 n_off = n_idx * cTileN
 

@@ -1,12 +1,12 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/ffn/swin_attention_ffn.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
     "benchmark": {
       "entrypoint": "torch_npu.npu_swin_attention_ffn",
       "reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/ops_transformer_swin_attention_ffn_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/ops_transformer_swin_attention_ffn_benchmark.json",
       "status": "blocked",
       "variants": [
         {
@@ -113,30 +113,30 @@
     "adapter": "bench/adapters/ptodsl/ffn/swin_attention_ffn.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage2_add/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage2_add/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage2_add/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b2_s64_h128/stage2_add/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage2_add/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage2_add/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage2_add/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b48_s64_h128/stage2_add/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage2_add/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage2_add/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage2_add/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/b8_s64_h128/stage2_add/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage2_add/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage2_add/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage2_add/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b2_s64_h128/stage2_add/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage2_add/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage2_add/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage2_add/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b48_s64_h128/stage2_add/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage2_add/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage2_add/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage2_add/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/b8_s64_h128/stage2_add/kernel.so"
       ],
       "block_utilization": {
         "nominal_base_m": 128,
@@ -152,7 +152,7 @@
         "rtol": 0.0
       },
       "reference_contract": "fp16_zero_shift_swin_attention_ffn",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/ptodsl_swin_attention_ffn_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/ptodsl_swin_attention_ffn_benchmark.json",
       "shape_summaries": [
         {
           "bias": [
@@ -232,9 +232,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.4125919658690691,
-        "median": 0.36869198083877563,
-        "min": 0.3543419297784567
+        "max": 0.39792293682694435,
+        "median": 0.3649669233709574,
+        "min": 0.3451418597251177
       },
       "variant_reports": [
         {
@@ -267,9 +267,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.39729196578264236,
-            "median": 0.36148703657090664,
-            "min": 0.3549021203070879
+            "max": 0.39472291246056557,
+            "median": 0.3575619775801897,
+            "min": 0.35052187740802765
           },
           "variant": {
             "batch": 2,
@@ -312,9 +312,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.4125919658690691,
-            "median": 0.35941251553595066,
-            "min": 0.3543419297784567
+            "max": 0.39792293682694435,
+            "median": 0.3649669233709574,
+            "min": 0.35914196632802486
           },
           "variant": {
             "batch": 48,
@@ -357,9 +357,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.4066720139235258,
-            "median": 0.36869198083877563,
-            "min": 0.3606821410357952
+            "max": 0.3859919961541891,
+            "median": 0.35590201150625944,
+            "min": 0.3451418597251177
           },
           "variant": {
             "batch": 8,
@@ -408,18 +408,18 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage2_add/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage2_add/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage2_add/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage2_add/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage2_add/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage2_add/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage2_add/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage2_add/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_attention_ffn/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/stage2_add/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/stage2_add/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_attention_ffn/kernel.py",
@@ -509,7 +509,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_attention_ffn/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260313T153630Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_attention_ffn/20260316T031315Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

@@ -1,13 +1,13 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b1_n1_s32_d64/stage2_rotary/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260312T175517Z/b2_n1_s32_d64/stage2_rotary/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b1_n1_s32_d64/stage2_rotary/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/interleave_rope/20260316T031142Z/b2_n1_s32_d64/stage2_rotary/kernel.so"
   ],
   "correctness": {
     "atol": 0.01,
@@ -72,9 +72,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.3618728369474411,
-    "median": 0.3256720956414938,
-    "min": 0.3182319924235344
+    "max": 0.3455020487308502,
+    "median": 0.3212320152670145,
+    "min": 0.31475187279284
   },
   "variant_reports": [
     {
@@ -108,9 +108,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.3618728369474411,
-        "median": 0.3256720956414938,
-        "min": 0.3185220994055271
+        "max": 0.3452119417488575,
+        "median": 0.3212320152670145,
+        "min": 0.3150119446218014
       },
       "variant": {
         "batch": 1,
@@ -152,9 +152,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.34493301063776016,
-        "median": 0.32349652610719204,
-        "min": 0.3182319924235344
+        "max": 0.3455020487308502,
+        "median": 0.32017193734645844,
+        "min": 0.31475187279284
       },
       "variant": {
         "batch": 2,

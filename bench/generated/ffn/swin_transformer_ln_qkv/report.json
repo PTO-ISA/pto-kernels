@@ -1,12 +1,12 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/ffn/swin_transformer_ln_qkv.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
     "benchmark": {
       "entrypoint": "torch_npu.npu_swin_transformer_ln_qkv",
       "reason": "Baseline runtime entrypoint is unavailable on this host.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/ops_transformer_swin_transformer_ln_qkv_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/ops_transformer_swin_transformer_ln_qkv_benchmark.json",
       "status": "blocked",
       "variants": [
         {
@@ -119,42 +119,42 @@
     "adapter": "bench/adapters/ptodsl/ffn/swin_transformer_ln_qkv.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage1_layernorm/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage2_matmul/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b1_s64_h128/stage3_split/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage1_layernorm/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage2_matmul/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b8_s256_h128/stage3_split/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage1_layernorm/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage2_matmul/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/b4_s256_h128/stage3_split/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage1_layernorm/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage1_layernorm/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage1_layernorm/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage1_layernorm/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage2_matmul/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage2_matmul/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage2_matmul/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage2_matmul/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage3_split/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage3_split/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage3_split/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b1_s64_h128/stage3_split/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage1_layernorm/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage1_layernorm/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage1_layernorm/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage1_layernorm/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage2_matmul/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage2_matmul/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage2_matmul/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage2_matmul/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage3_split/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage3_split/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage3_split/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b8_s256_h128/stage3_split/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage1_layernorm/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage1_layernorm/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage1_layernorm/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage1_layernorm/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage2_matmul/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage2_matmul/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage2_matmul/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage2_matmul/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage3_split/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage3_split/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage3_split/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/b4_s256_h128/stage3_split/kernel.so"
       ],
       "block_utilization": {
         "nominal_base_m": 128,
@@ -170,7 +170,7 @@
         "rtol": 0.0
       },
       "reference_contract": "fp16_layernorm_qkv_split_bnsd",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/ptodsl_swin_transformer_ln_qkv_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/ptodsl_swin_transformer_ln_qkv_benchmark.json",
       "shape_summaries": [
         {
           "beta": [
@@ -292,9 +292,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 3.8164029829204082,
-        "median": 0.739214476197958,
-        "min": 0.6965140346437693
+        "max": 1.0193160269409418,
+        "median": 0.7423094939440489,
+        "min": 0.6882741581648588
       },
       "variant_reports": [
         {
@@ -344,9 +344,9 @@
             ]
           },
           "timings_ms": {
-            "max": 3.8164029829204082,
-            "median": 0.724273850210011,
-            "min": 0.7088349666446447
+            "max": 0.7333939429372549,
+            "median": 0.7013139547780156,
+            "min": 0.6882741581648588
           },
           "variant": {
             "base_m": 64,
@@ -407,9 +407,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.8901760447770357,
-            "median": 0.7379790768027306,
-            "min": 0.6965140346437693
+            "max": 0.7780140731483698,
+            "median": 0.7423094939440489,
+            "min": 0.7312940433621407
           },
           "variant": {
             "base_m": 128,
@@ -470,9 +470,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.9859660640358925,
-            "median": 0.739214476197958,
-            "min": 0.7057539187371731
+            "max": 1.0193160269409418,
+            "median": 0.719064031727612,
+            "min": 0.7052738219499588
           },
           "variant": {
             "base_m": 128,
@@ -525,22 +525,22 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage1_layernorm/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage1_layernorm/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage1_layernorm/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage1_layernorm/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage2_matmul/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage2_matmul/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage2_matmul/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage2_matmul/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage3_split/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage3_split/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage3_split/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage3_split/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage1_layernorm/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage1_layernorm/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage1_layernorm/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage1_layernorm/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage2_matmul/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage2_matmul/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage2_matmul/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage2_matmul/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage3_split/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage3_split/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage3_split/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage3_split/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/stage3_split/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/stage3_split/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/kernel.py",
@@ -691,7 +691,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/ffn/swin_transformer_ln_qkv/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260313T155254Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/ffn/swin_transformer_ln_qkv/20260316T031336Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

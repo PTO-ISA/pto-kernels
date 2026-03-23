@@ -1,18 +1,18 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/moe/moe_gating_top_k.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
     "benchmark": {
       "correctness": {
         "atol": 0.001,
-        "max_abs_diff": 0.0,
-        "passes": true,
+        "max_abs_diff": 1288225.625,
+        "passes": false,
         "rtol": 0.001
       },
       "entrypoint": "torch_npu.npu_moe_gating_top_k",
       "reference_contract": "top1_sigmoid_no_group_no_bias_outflag_false",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/ops_transformer_moe_gating_top_k_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/ops_transformer_moe_gating_top_k_benchmark.json",
       "shape_summaries": [
         {
           "expert_idx_out": [
@@ -71,17 +71,17 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.21541118621826172,
-        "median": 0.1326949568465352,
-        "min": 0.12342003174126148
+        "max": 0.17533102072775364,
+        "median": 0.12839597184211016,
+        "min": 0.1237611286342144
       },
       "variant_reports": [
         {
           "correctness": {
             "expert_idx_max_abs_diff": 0.0,
-            "max_abs_diff": 0.0,
-            "norm_out_max_abs_diff": 0.0,
-            "passes": true,
+            "max_abs_diff": 6.5078125,
+            "norm_out_max_abs_diff": 6.5078125,
+            "passes": false,
             "y_max_abs_diff": 0.0
           },
           "shape_summary": {
@@ -103,9 +103,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.21541118621826172,
-            "median": 0.12773112393915653,
-            "min": 0.12342003174126148
+            "max": 0.17533102072775364,
+            "median": 0.12839597184211016,
+            "min": 0.1237611286342144
           },
           "variant": {
             "dtype": "float16",
@@ -124,9 +124,9 @@
         {
           "correctness": {
             "expert_idx_max_abs_diff": 0.0,
-            "max_abs_diff": 0.0,
-            "norm_out_max_abs_diff": 0.0,
-            "passes": true,
+            "max_abs_diff": 71.85350799560547,
+            "norm_out_max_abs_diff": 71.85350799560547,
+            "passes": false,
             "y_max_abs_diff": 0.0
           },
           "shape_summary": {
@@ -148,9 +148,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.15154085122048855,
-            "median": 0.12994545977562666,
-            "min": 0.12479000724852085
+            "max": 0.15760096721351147,
+            "median": 0.12690597213804722,
+            "min": 0.12452108785510063
           },
           "variant": {
             "dtype": "float16",
@@ -169,9 +169,9 @@
         {
           "correctness": {
             "expert_idx_max_abs_diff": 0.0,
-            "max_abs_diff": 0.0,
-            "norm_out_max_abs_diff": 0.0,
-            "passes": true,
+            "max_abs_diff": 1288225.625,
+            "norm_out_max_abs_diff": 1288225.625,
+            "passes": false,
             "y_max_abs_diff": 0.0
           },
           "shape_summary": {
@@ -193,9 +193,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.1473810989409685,
-            "median": 0.1326949568465352,
-            "min": 0.12789107859134674
+            "max": 0.1562607940286398,
+            "median": 0.1283654710277915,
+            "min": 0.12417114339768887
           },
           "variant": {
             "dtype": "float16",
@@ -349,18 +349,18 @@
     "adapter": "bench/adapters/ptodsl/moe/moe_gating_top_k.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r8_e16/stage_select/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r256_e64/stage_select/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/r128_e128/stage_select/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r8_e16/stage_select/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r256_e64/stage_select/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/r128_e128/stage_select/kernel.so"
       ],
       "correctness": {
         "atol": 0.001,
@@ -369,7 +369,7 @@
         "rtol": 0.001
       },
       "reference_contract": "top1_sigmoid_no_group_no_bias_outflag_false",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/ptodsl_moe_gating_top_k_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/ptodsl_moe_gating_top_k_benchmark.json",
       "shape_summaries": [
         {
           "expert_idx_out": [
@@ -428,9 +428,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.40787295438349247,
-        "median": 0.23802649229764938,
-        "min": 0.23021199740469456
+        "max": 0.2745608799159527,
+        "median": 0.23570144549012184,
+        "min": 0.22902106866240501
       },
       "variant_reports": [
         {
@@ -459,9 +459,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.25781220756471157,
-            "median": 0.23594603408128023,
-            "min": 0.23034191690385342
+            "max": 0.2745608799159527,
+            "median": 0.23570144549012184,
+            "min": 0.23079197853803635
           },
           "variant": {
             "dtype": "float16",
@@ -503,9 +503,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.40787295438349247,
-            "median": 0.23648596834391356,
-            "min": 0.23021199740469456
+            "max": 0.25377189740538597,
+            "median": 0.23467093706130981,
+            "min": 0.22902106866240501
           },
           "variant": {
             "dtype": "float16",
@@ -547,9 +547,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.256852013990283,
-            "median": 0.23802649229764938,
-            "min": 0.23241201415657997
+            "max": 0.26607210747897625,
+            "median": 0.23380143102258444,
+            "min": 0.2301910426467657
           },
           "variant": {
             "dtype": "float16",
@@ -610,14 +610,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/stage_select/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/stage_select/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/stage_select/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/stage_select/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/stage_select/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/stage_select/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/stage_select/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/stage_select/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py",
       "library_path": null,
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k/kernel.py",
@@ -659,7 +659,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_gating_top_k/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260314T064425Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k/20260316T031456Z/report.json",
   "status": "prototype",
   "wave": "wave2"
 }

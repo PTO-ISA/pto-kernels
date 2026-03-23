@@ -210,3 +210,19 @@ def run_torch_npu_recurrent_gated_delta_rule_functional(inputs: dict[str, object
         g=inputs["g"],
         gk=None,
     )
+
+
+def run_pto_recurrent_gated_delta_rule_variant(wrapper, inputs: dict[str, object]):
+    out = torch.empty_like(inputs["reference_out"], device=inputs["query"].device)
+    final_state = torch.empty_like(inputs["state"])
+    wrapper(
+        out,
+        final_state,
+        inputs["query"],
+        inputs["key"],
+        inputs["value"],
+        inputs["state"],
+        inputs["beta"],
+        inputs["g"],
+    )
+    return out, final_state

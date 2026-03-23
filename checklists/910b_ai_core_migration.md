@@ -1,24 +1,126 @@
 # 910B AI Core Migration Checklist
 
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
+Legend:
+- `[x]` baseline and PTO both stable, or PTO is stable and the remaining blocker is external to PTO
+- `[~]` PTO-owned blocker still open, or the kernel is still scalar-heavy
+- `[ ]` not started
+
+
 ## Wave 1
 
-- [ ] `posembedding/apply_rotary_pos_emb`
-- [~] `posembedding/dequant_rope_quant_kvcache`
-- [~] `posembedding/interleave_rope`
-- [~] `posembedding/qkv_rms_norm_rope_cache`
-- [~] `posembedding/rope_quant_kvcache`
+- [x] `posembedding/apply_rotary_pos_emb`
+- [x] `posembedding/dequant_rope_quant_kvcache`
+- [x] `posembedding/interleave_rope`
+- [x] `posembedding/qkv_rms_norm_rope_cache`
+- [x] `posembedding/rope_quant_kvcache`
 - [~] `posembedding/rope_with_sin_cos_cache`
-- [~] `posembedding/rotary_position_embedding`
-- [~] `posembedding/rotary_position_embedding_grad`
-- [~] `gmm/grouped_matmul`
-- [~] `gmm/grouped_matmul_add`
+- [x] `posembedding/rotary_position_embedding`
+- [x] `posembedding/rotary_position_embedding_grad`
+- [x] `gmm/grouped_matmul`
+- [x] `gmm/grouped_matmul_add`
 - [~] `gmm/grouped_matmul_finalize_routing`
 - [~] `gmm/grouped_matmul_swiglu_quant`
 - [~] `gmm/grouped_matmul_swiglu_quant_v2`
 - [~] `gmm/quant_grouped_matmul_inplace_add`
-- [ ] `ffn/ffn`
+- [~] `ffn/ffn`
 - [~] `ffn/swin_attention_ffn`
-- [~] `ffn/swin_transformer_ln_qkv`
+- [x] `ffn/swin_transformer_ln_qkv`
 - [~] `ffn/swin_transformer_ln_qkv_quant`
 
 ## Wave 2
@@ -37,27 +139,27 @@
 - [ ] `moe/moe_init_routing_v2_grad`
 - [ ] `moe/moe_init_routing_v3`
 - [~] `moe/moe_re_routing`
-- [ ] `moe/moe_token_permute`
+- [x] `moe/moe_token_permute`
 - [~] `moe/moe_token_permute_grad`
 - [ ] `moe/moe_token_permute_with_ep`
 - [ ] `moe/moe_token_permute_with_ep_grad`
-- [~] `moe/moe_token_permute_with_routing_map`
+- [x] `moe/moe_token_permute_with_routing_map`
 - [~] `moe/moe_token_permute_with_routing_map_grad`
-- [~] `moe/moe_token_unpermute`
+- [x] `moe/moe_token_unpermute`
 - [~] `moe/moe_token_unpermute_grad`
 - [ ] `moe/moe_token_unpermute_with_ep`
 - [ ] `moe/moe_token_unpermute_with_ep_grad`
-- [~] `moe/moe_token_unpermute_with_routing_map`
+- [x] `moe/moe_token_unpermute_with_routing_map`
 - [~] `moe/moe_token_unpermute_with_routing_map_grad`
 
 ## Wave 3
 
-- [~] `attention/attention_update`
-- [~] `attention/flash_attention_score`
+- [x] `attention/attention_update`
+- [x] `attention/flash_attention_score`
 - [ ] `attention/flash_attention_score_grad`
-- [~] `attention/fused_infer_attention_score`
-- [~] `attention/incre_flash_attention`
-- [~] `attention/prompt_flash_attention`
+- [x] `attention/fused_infer_attention_score`
+- [x] `attention/incre_flash_attention`
+- [x] `attention/prompt_flash_attention`
 - [~] `attention/recurrent_gated_delta_rule`
 - [~] `attention/ring_attention_update`
 - [ ] `attention/scatter_pa_cache`
@@ -84,14 +186,14 @@
 
 ## Wave 5
 
-- [ ] `mc2/all_gather_matmul`
-- [ ] `mc2/grouped_mat_mul_all_reduce`
-- [ ] `mc2/inplace_matmul_all_reduce_add_rms_norm`
-- [ ] `mc2/matmul_all_reduce`
-- [ ] `mc2/matmul_all_reduce_add_rms_norm`
-- [ ] `mc2/matmul_reduce_scatter`
-- [ ] `mc2/moe_distribute_combine`
+- [~] `mc2/all_gather_matmul`
+- [x] `mc2/grouped_mat_mul_all_reduce`
+- [x] `mc2/inplace_matmul_all_reduce_add_rms_norm`
+- [x] `mc2/matmul_all_reduce`
+- [x] `mc2/matmul_all_reduce_add_rms_norm`
+- [x] `mc2/matmul_reduce_scatter`
+- [x] `mc2/moe_distribute_combine`
 - [ ] `mc2/moe_distribute_combine_v2`
-- [ ] `mc2/moe_distribute_dispatch`
+- [x] `mc2/moe_distribute_dispatch`
 - [ ] `mc2/moe_distribute_dispatch_v2`
 - [ ] `mc2/moe_distribute_dispatch_v3`

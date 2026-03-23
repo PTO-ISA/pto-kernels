@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/mc2/matmul_all_reduce.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -12,7 +12,7 @@
       },
       "entrypoint": "torch_npu.npu_mm_all_reduce_base",
       "reference_contract": "all_reduce(sum_i(x1_local_i @ x2))",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/ops_transformer_matmul_all_reduce_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/ops_transformer_matmul_all_reduce_benchmark.json",
       "shape_summaries": [
         {
           "output": [
@@ -47,9 +47,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.7581349927932024,
-        "median": 0.6053539691492915,
-        "min": 0.49464311450719833
+        "max": 0.7826448418200016,
+        "median": 0.5738829495385289,
+        "min": 0.4971229936927557
       },
       "variant_reports": [
         {
@@ -71,9 +71,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 0.6495439447462559,
-                "median": 0.5737134488299489,
-                "min": 0.5021030083298683
+                "max": 0.6680639926344156,
+                "median": 0.5263431230559945,
+                "min": 0.4971229936927557
               },
               "world_size": 2
             },
@@ -86,9 +86,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 0.7459239568561316,
-                "median": 0.6053539691492915,
-                "min": 0.5049228202551603
+                "max": 0.6333240307867527,
+                "median": 0.5240379832684994,
+                "min": 0.5008929874747992
               },
               "world_size": 2
             }
@@ -111,12 +111,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 0.7459239568561316,
-            "median": 0.6053539691492915,
-            "min": 0.5021030083298683,
+            "max": 0.6680639926344156,
+            "median": 0.5263431230559945,
+            "min": 0.4971229936927557,
             "per_rank_median": [
-              0.5737134488299489,
-              0.6053539691492915
+              0.5263431230559945,
+              0.5240379832684994
             ]
           },
           "variant": {
@@ -150,9 +150,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 0.7334148976951838,
-                "median": 0.5360778886824846,
-                "min": 0.5077130626887083
+                "max": 0.6973638664931059,
+                "median": 0.5734785227105021,
+                "min": 0.5401340313255787
               },
               "world_size": 2
             },
@@ -165,9 +165,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 0.7581349927932024,
-                "median": 0.5381930386647582,
-                "min": 0.49464311450719833
+                "max": 0.7826448418200016,
+                "median": 0.5738829495385289,
+                "min": 0.5459829699248075
               },
               "world_size": 2
             }
@@ -190,12 +190,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 0.7581349927932024,
-            "median": 0.5381930386647582,
-            "min": 0.49464311450719833,
+            "max": 0.7826448418200016,
+            "median": 0.5738829495385289,
+            "min": 0.5401340313255787,
             "per_rank_median": [
-              0.5360778886824846,
-              0.5381930386647582
+              0.5734785227105021,
+              0.5738829495385289
             ]
           },
           "variant": {
@@ -312,14 +312,14 @@
     "adapter": "bench/adapters/ptodsl/mc2/matmul_all_reduce.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m128_k256_n128_w2/compile_probe/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/m256_k256_n128_w2/compile_probe/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m128_k256_n128_w2/compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m256_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m256_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/m256_k256_n128_w2/compile_probe/kernel.so"
       ],
       "correctness": {
         "atol": 0.001,
@@ -328,7 +328,7 @@
         "rtol": 0.001
       },
       "reference_contract": "pto_local_matmul_then_all_reduce",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/ptodsl_matmul_all_reduce_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/ptodsl_matmul_all_reduce_benchmark.json",
       "shape_summaries": [
         {
           "output": [
@@ -363,9 +363,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 4.4906469993293285,
-        "median": 0.708848936483264,
-        "min": 0.6717238575220108
+        "max": 4.3274259660393,
+        "median": 0.8159298449754715,
+        "min": 0.7207340095192194
       },
       "variant_reports": [
         {
@@ -388,9 +388,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 3.3094401005655527,
-                "median": 0.7033939473330975,
-                "min": 0.6717238575220108
+                "max": 4.3274259660393,
+                "median": 0.8159298449754715,
+                "min": 0.7208050228655338
               },
               "world_size": 2
             },
@@ -402,9 +402,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 3.2774000428617,
-                "median": 0.7039144402369857,
-                "min": 0.671743880957365
+                "max": 3.073448082432151,
+                "median": 0.8104699663817883,
+                "min": 0.7755050901323557
               },
               "world_size": 2
             }
@@ -427,12 +427,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 3.3094401005655527,
-            "median": 0.7039144402369857,
-            "min": 0.6717238575220108,
+            "max": 4.3274259660393,
+            "median": 0.8159298449754715,
+            "min": 0.7208050228655338,
             "per_rank_median": [
-              0.7033939473330975,
-              0.7039144402369857
+              0.8159298449754715,
+              0.8104699663817883
             ]
           },
           "variant": {
@@ -467,9 +467,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 4.462156910449266,
-                "median": 0.708848936483264,
-                "min": 0.6829039193689823
+                "max": 0.9303060360252857,
+                "median": 0.7579445373266935,
+                "min": 0.7256451062858105
               },
               "world_size": 2
             },
@@ -481,9 +481,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 4.4906469993293285,
-                "median": 0.7054944289848208,
-                "min": 0.6792140193283558
+                "max": 0.9979859460145235,
+                "median": 0.7573495386168361,
+                "min": 0.7207340095192194
               },
               "world_size": 2
             }
@@ -506,12 +506,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 4.4906469993293285,
-            "median": 0.708848936483264,
-            "min": 0.6792140193283558,
+            "max": 0.9979859460145235,
+            "median": 0.7579445373266935,
+            "min": 0.7207340095192194,
             "per_rank_median": [
-              0.708848936483264,
-              0.7054944289848208
+              0.7579445373266935,
+              0.7573495386168361
             ]
           },
           "variant": {
@@ -552,14 +552,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce/kernel.py",
@@ -610,7 +610,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/matmul_all_reduce/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260312T172948Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/matmul_all_reduce/20260316T033544Z/report.json",
   "status": "prototype",
   "wave": "wave5"
 }

@@ -35,16 +35,35 @@ def _meta_data(config: MoeFinalizeRoutingV2GradConfig):
     ptr_i32 = pto.PtrType(i32)
     tensor = pto.TensorType(rank=2, dtype=fp16)
     sub_row = pto.SubTensorType(shape=[1, config.hidden], dtype=fp16)
+    scalar_view = pto.SubTensorType(shape=[1, 1], dtype=fp16)
 
     cfg = pto.TileConfig()
     row_tile = pto.TileType(shape=[1, config.hidden], dtype=fp16, memory_space="VEC", config=cfg)
-
+    row_tile_f32 = pto.TileType(shape=[1, config.hidden], dtype=pto.float32, memory_space="VEC", config=cfg)
+    scalar_tile = pto.TileType(
+        shape=[1, config.hidden],
+        valid_shape=[1, 1],
+        dtype=fp16,
+        memory_space="VEC",
+        config=cfg,
+    )
+    scalar_tile_f32 = pto.TileType(
+        shape=[1, config.hidden],
+        valid_shape=[1, 1],
+        dtype=pto.float32,
+        memory_space="VEC",
+        config=cfg,
+    )
     return {
         "ptr": ptr,
         "ptr_i32": ptr_i32,
         "tensor": tensor,
         "sub_row": sub_row,
+        "scalar_view": scalar_view,
         "row_tile": row_tile,
+        "row_tile_f32": row_tile_f32,
+        "scalar_tile": scalar_tile,
+        "scalar_tile_f32": scalar_tile_f32,
     }
 
 
@@ -80,6 +99,7 @@ def _build_finalize_v2_grad_kernel(*, config: MoeFinalizeRoutingV2GradConfig, ou
         tv_grad_expanded_x_out = pto.as_tensor(
             tensor, ptr=grad_expanded_x_out_ptr, shape=[cTokens, cHidden], strides=[cHidden, c1]
         )
+        tv_grad_scales_out = pto.as_tensor(tensor, ptr=grad_scales_out_ptr, shape=[cTokens, c1], strides=[c1, c1])
         with pto.section.vector():
             bid = pto.index_cast(pto.get_block_idx())
             num_blocks = pto.index_cast(pto.get_block_num())
@@ -92,6 +112,13 @@ def _build_finalize_v2_grad_kernel(*, config: MoeFinalizeRoutingV2GradConfig, ou
             bias_row = pto.alloc_tile(row_tile)
             scale_row = pto.alloc_tile(row_tile)
             grad_expanded_x_row = pto.alloc_tile(row_tile)
+            grad_y_row_f32 = pto.alloc_tile(row_tile_f32)
+            expanded_x_row_f32 = pto.alloc_tile(row_tile_f32)
+            bias_row_f32 = pto.alloc_tile(row_tile_f32)
+            reduce_tmp_row_f32 = pto.alloc_tile(row_tile_f32)
+            row_sum_tmp_f32 = pto.alloc_tile(row_tile_f32)
+            grad_scale_scalar = pto.alloc_tile(scalar_tile)
+            grad_scale_scalar_f32 = pto.alloc_tile(scalar_tile_f32)
 
             for row_idx in range(row_start, row_end, c1):
                 expanded_row_idx = pto.index_cast(pto.load_scalar(i32, expanded_row_idx_ptr, row_idx))
@@ -106,7 +133,6 @@ def _build_finalize_v2_grad_kernel(*, config: MoeFinalizeRoutingV2GradConfig, ou
                 grad_expanded_x_out_view = pto.slice_view(
                     sub_row, source=tv_grad_expanded_x_out, offsets=[expanded_row_idx, c0], sizes=[c1, cHidden]
                 )
-
                 pto.load(grad_y_view, grad_y_row)
                 pto.load(expanded_x_view, expanded_x_row)
                 pto.load(bias_view, bias_row)
@@ -115,17 +141,15 @@ def _build_finalize_v2_grad_kernel(*, config: MoeFinalizeRoutingV2GradConfig, ou
                 pto.mul(grad_y_row, scale_row, grad_expanded_x_row)
                 pto.store(grad_expanded_x_row, grad_expanded_x_out_view)
 
-                grad_scale = const(0.0, dtype=fp16)
-                grad_y_base = row_idx * cHidden
-                expanded_x_base = expanded_row_idx * cHidden
-                bias_base = expert_idx * cHidden
-                for col_idx_int in range(config.hidden):
-                    col_idx = col_idx_int
-                    grad_y_scalar = pto.wrap_value(pto.load_scalar(fp16, grad_y_ptr, grad_y_base + col_idx))
-                    expanded_x_scalar = pto.wrap_value(pto.load_scalar(fp16, expanded_x_ptr, expanded_x_base + col_idx))
-                    bias_scalar = pto.wrap_value(pto.load_scalar(fp16, bias_ptr, bias_base + col_idx))
-                    grad_scale = grad_scale + (expanded_x_scalar + bias_scalar) * grad_y_scalar
-                pto.store_scalar(grad_scales_out_ptr, row_idx, grad_scale)
+                pto.cvt(grad_y_row, grad_y_row_f32)
+                pto.cvt(expanded_x_row, expanded_x_row_f32)
+                pto.cvt(bias_row, bias_row_f32)
+                pto.add(expanded_x_row_f32, bias_row_f32, reduce_tmp_row_f32)
+                pto.mul(reduce_tmp_row_f32, grad_y_row_f32, reduce_tmp_row_f32)
+                pto.row_sum(reduce_tmp_row_f32, row_sum_tmp_f32, grad_scale_scalar_f32)
+                pto.cvt(grad_scale_scalar_f32, grad_scale_scalar)
+                grad_scales_out_view = pto.slice_view(scalar_view, source=tv_grad_scales_out, offsets=[row_idx, c0], sizes=[c1, c1])
+                pto.store(grad_scale_scalar, grad_scales_out_view)
 
     return moe_finalize_routing_v2_grad_seed
 

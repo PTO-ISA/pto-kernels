@@ -1,6 +1,267 @@
 {
-  "reason": "PTO execution failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260314T084610Z/b2_cache8/stage_rotary/kernel.cpp']' returned non-zero exit status 1.",
-  "status": "blocked",
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_rotary/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_rotary/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_rotary/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_rotary/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_cache/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_cache/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_cache/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b2_cache8/stage_cache/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_rotary/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_rotary/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_rotary/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_rotary/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_cache/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_cache/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_cache/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/qkv_rms_norm_rope_cache/20260321T024023Z/b4_cache8/stage_cache/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.02,
+    "max_abs_diff": 0.005846977233886719,
+    "passes": true,
+    "rtol": 0.02
+  },
+  "reference_contract": "fp16_qkv_rms_norm_half_rope_quant_kvcache_bsnd_2d",
+  "shape_summaries": [
+    {
+      "cos": [
+        2,
+        64
+      ],
+      "k": [
+        2,
+        1,
+        64
+      ],
+      "k_cache": [
+        2,
+        8,
+        1,
+        64
+      ],
+      "k_gamma": [
+        64
+      ],
+      "q": [
+        2,
+        1,
+        64
+      ],
+      "q_gamma": [
+        64
+      ],
+      "qkv": [
+        2,
+        192
+      ],
+      "sin": [
+        2,
+        64
+      ],
+      "v": [
+        2,
+        1,
+        64
+      ],
+      "v_cache": [
+        2,
+        8,
+        1,
+        64
+      ]
+    },
+    {
+      "cos": [
+        4,
+        64
+      ],
+      "k": [
+        4,
+        1,
+        64
+      ],
+      "k_cache": [
+        4,
+        8,
+        1,
+        64
+      ],
+      "k_gamma": [
+        64
+      ],
+      "q": [
+        4,
+        1,
+        64
+      ],
+      "q_gamma": [
+        64
+      ],
+      "qkv": [
+        4,
+        192
+      ],
+      "sin": [
+        4,
+        64
+      ],
+      "v": [
+        4,
+        1,
+        64
+      ],
+      "v_cache": [
+        4,
+        8,
+        1,
+        64
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.8134348317980766,
+    "median": 0.7782650645822287,
+    "min": 0.7379739545285702
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.005846977233886719,
+        "q_max_abs_diff": 0.0030851364135742188,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          2,
+          64
+        ],
+        "k": [
+          2,
+          1,
+          64
+        ],
+        "k_cache": [
+          2,
+          8,
+          1,
+          64
+        ],
+        "k_gamma": [
+          64
+        ],
+        "q": [
+          2,
+          1,
+          64
+        ],
+        "q_gamma": [
+          64
+        ],
+        "qkv": [
+          2,
+          192
+        ],
+        "sin": [
+          2,
+          64
+        ],
+        "v": [
+          2,
+          1,
+          64
+        ],
+        "v_cache": [
+          2,
+          8,
+          1,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.8134348317980766,
+        "median": 0.7782650645822287,
+        "min": 0.763364601880312
+      },
+      "variant": {
+        "batch": 2,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 0
+      }
+    },
+    {
+      "correctness": {
+        "k_cache_max_abs_diff": 0.0,
+        "k_max_abs_diff": 0.0027856826782226562,
+        "q_max_abs_diff": 0.0035810470581054688,
+        "v_cache_max_abs_diff": 0.0,
+        "v_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "cos": [
+          4,
+          64
+        ],
+        "k": [
+          4,
+          1,
+          64
+        ],
+        "k_cache": [
+          4,
+          8,
+          1,
+          64
+        ],
+        "k_gamma": [
+          64
+        ],
+        "q": [
+          4,
+          1,
+          64
+        ],
+        "q_gamma": [
+          64
+        ],
+        "qkv": [
+          4,
+          192
+        ],
+        "sin": [
+          4,
+          64
+        ],
+        "v": [
+          4,
+          1,
+          64
+        ],
+        "v_cache": [
+          4,
+          8,
+          1,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.7901852950453758,
+        "median": 0.7550348527729511,
+        "min": 0.7379739545285702
+      },
+      "variant": {
+        "batch": 4,
+        "cache_len": 8,
+        "dtype": "float16",
+        "seed": 1
+      }
+    }
+  ],
   "variants": [
     {
       "batch": 2,

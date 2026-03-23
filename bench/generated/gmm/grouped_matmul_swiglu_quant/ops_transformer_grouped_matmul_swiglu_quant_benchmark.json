@@ -1,6 +1,13 @@
 {
+  "attempted_weight_storage_shape": [
+    16,
+    128,
+    16,
+    16,
+    32
+  ],
   "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
-  "reason": "torch_npu.npu_grouped_matmul_swiglu_quant requires FRACTAL_NZ-formatted int8 weight storage metadata. Plain contiguous PyTorch tensors fail with a storageShape-dimnum error, so the host baseline remains blocked until NZ-format materialization is reproducible on this machine.",
+  "reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: Run:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:135 NPU function error: AclSetCompileopt(aclCompileOpt::ACL_OP_JIT_COMPILE, val->c_str()), error code is 500001\n[ERROR] 2026-03-16-11:11:18 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n",
   "shape_summaries": [
     {
       "group_list": [

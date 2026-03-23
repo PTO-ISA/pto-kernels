@@ -1,17 +1,17 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n128/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n128/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n128/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n128/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m64_k64_n128/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m64_k64_n128/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m64_k64_n128/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m64_k64_n128/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n256/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n256/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n256/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260314T143158Z/b1_m128_k128_n256/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n128/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n128/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n128/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n128/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m64_k64_n128/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m64_k64_n128/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m64_k64_n128/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m64_k64_n128/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n256/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n256/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n256/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul/20260316T033516Z/b1_m128_k128_n256/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -83,9 +83,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.296751968562603,
-    "median": 0.2565610921010375,
-    "min": 0.2491308841854334
+    "max": 0.35945186391472816,
+    "median": 0.25536108296364546,
+    "min": 0.24353200569748878
   },
   "variant_reports": [
     {
@@ -113,9 +113,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.28017093427479267,
-        "median": 0.2565610921010375,
-        "min": 0.2501518465578556
+        "max": 0.3043320029973984,
+        "median": 0.25018653832376003,
+        "min": 0.2440810203552246
       },
       "variant": {
         "baseline_weight_layout": "single_3d_weight_for_v5",
@@ -153,9 +153,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2905121073126793,
-        "median": 0.25558099150657654,
-        "min": 0.2491308841854334
+        "max": 0.35945186391472816,
+        "median": 0.25536108296364546,
+        "min": 0.24695205502212048
       },
       "variant": {
         "baseline_weight_layout": "single_3d_weight_for_v5",
@@ -193,9 +193,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.296751968562603,
-        "median": 0.25577156338840723,
-        "min": 0.25147106498479843
+        "max": 0.30454201623797417,
+        "median": 0.2498419489711523,
+        "min": 0.24353200569748878
       },
       "variant": {
         "baseline_weight_layout": "single_3d_weight_for_v5",

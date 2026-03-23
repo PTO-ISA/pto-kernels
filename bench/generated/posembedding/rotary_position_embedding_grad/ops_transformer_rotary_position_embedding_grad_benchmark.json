@@ -103,24 +103,21 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.17078081145882607,
-    "median": 0.11306593660265207,
-    "min": 0.1085200347006321
+    "max": 0.1413810532540083,
+    "median": 0.12065598275512457,
+    "min": 0.10480103082954884
   },
   "variant_reports": [
     {
       "correctness": {
-        "dcos_max_abs_diff": 12.3687744140625,
-        "dsin_max_abs_diff": 10.0904541015625,
+        "dcos_max_abs_diff": 515.7578125,
+        "dsin_max_abs_diff": 9.4093017578125,
         "dx_max_abs_diff": 0.003520965576171875,
         "passes": true,
         "supported_outputs": [
           "dx"
         ],
-        "unsupported_outputs": [
-          "dcos",
-          "dsin"
-        ]
+        "unsupported_outputs": []
       },
       "shape_summary": {
         "cos": [
@@ -167,9 +164,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.17078081145882607,
-        "median": 0.11236045975238085,
-        "min": 0.1085200347006321
+        "max": 0.1304310280829668,
+        "median": 0.10825041681528091,
+        "min": 0.10480103082954884
       },
       "variant": {
         "batch": 2,
@@ -184,17 +181,14 @@
     },
     {
       "correctness": {
-        "dcos_max_abs_diff": 7.809539794921875,
-        "dsin_max_abs_diff": 6.89697265625,
+        "dcos_max_abs_diff": 13.008432388305664,
+        "dsin_max_abs_diff": NaN,
         "dx_max_abs_diff": 0.00228118896484375,
         "passes": true,
         "supported_outputs": [
           "dx"
         ],
-        "unsupported_outputs": [
-          "dcos",
-          "dsin"
-        ]
+        "unsupported_outputs": []
       },
       "shape_summary": {
         "cos": [
@@ -241,9 +235,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.1352510880678892,
-        "median": 0.11306593660265207,
-        "min": 0.10946090333163738
+        "max": 0.1413810532540083,
+        "median": 0.12065598275512457,
+        "min": 0.11654989793896675
       },
       "variant": {
         "batch": 2,

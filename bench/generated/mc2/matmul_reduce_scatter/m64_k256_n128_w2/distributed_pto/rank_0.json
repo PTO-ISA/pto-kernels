@@ -7,9 +7,9 @@
   "reference_contract": "host_orchestrated_all_reduce_then_chunk",
   "status": "ok",
   "timings_ms": {
-    "max": 1.0725168976932764,
-    "median": 0.7558600045740604,
-    "min": 0.7048938423395157
+    "max": 5.586224142462015,
+    "median": 0.7249340415000916,
+    "min": 0.7036840543150902
   },
   "world_size": 2
 }

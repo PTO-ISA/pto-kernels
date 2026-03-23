@@ -1,6 +1,319 @@
 {
-  "reason": "PTO compile failed: Command '['ptoas', '--enable-insert-sync', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.pto', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260314T015610Z/t8_h16_r2_e2/kernel.cpp']' returned non-zero exit status 1.",
-  "status": "blocked",
+  "artifact_paths": [
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t8_h16_r2_e2/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t8_h16_r2_e2/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t8_h16_r2_e2/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t8_h16_r2_e2/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t256_h64_r4_e4/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t256_h64_r4_e4/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t256_h64_r4_e4/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t256_h64_r4_e4/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t128_h128_r4_e4/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t128_h128_r4_e4/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t128_h128_r4_e4/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_re_routing/20260320T175943Z/t128_h128_r4_e4/kernel.so"
+  ],
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.0,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "reference_contract": "fp16_moe_re_routing_idx0_with_scales",
+  "shape_summaries": [
+    {
+      "expert_token_num": [
+        2
+      ],
+      "expert_token_num_per_rank": [
+        2,
+        2
+      ],
+      "per_token_scales": [
+        8
+      ],
+      "permute_per_token_scales": [
+        8
+      ],
+      "permute_token_idx": [
+        8
+      ],
+      "permute_tokens": [
+        8,
+        16
+      ],
+      "tokens": [
+        8,
+        16
+      ]
+    },
+    {
+      "expert_token_num": [
+        4
+      ],
+      "expert_token_num_per_rank": [
+        4,
+        4
+      ],
+      "per_token_scales": [
+        256
+      ],
+      "permute_per_token_scales": [
+        256
+      ],
+      "permute_token_idx": [
+        256
+      ],
+      "permute_tokens": [
+        256,
+        64
+      ],
+      "tokens": [
+        256,
+        64
+      ]
+    },
+    {
+      "expert_token_num": [
+        4
+      ],
+      "expert_token_num_per_rank": [
+        4,
+        4
+      ],
+      "per_token_scales": [
+        128
+      ],
+      "permute_per_token_scales": [
+        128
+      ],
+      "permute_token_idx": [
+        128
+      ],
+      "permute_tokens": [
+        128,
+        128
+      ],
+      "tokens": [
+        128,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.42011309415102005,
+    "median": 0.3848518244922161,
+    "min": 0.3761318512260914
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "expert_token_num_max_abs_diff": 0,
+        "idx_max_abs_diff": 0,
+        "max_abs_diff": 0.0,
+        "scale_max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "expert_token_num": [
+          2
+        ],
+        "expert_token_num_per_rank": [
+          2,
+          2
+        ],
+        "per_token_scales": [
+          8
+        ],
+        "permute_per_token_scales": [
+          8
+        ],
+        "permute_token_idx": [
+          8
+        ],
+        "permute_tokens": [
+          8,
+          16
+        ],
+        "tokens": [
+          8,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.42011309415102005,
+        "median": 0.38358173333108425,
+        "min": 0.37907203659415245
+      },
+      "variant": {
+        "counts": [
+          [
+            2,
+            1
+          ],
+          [
+            3,
+            2
+          ]
+        ],
+        "dtype": "float16",
+        "expert_token_num_type": 1,
+        "hidden_size": 16,
+        "idx_type": 0,
+        "seed": 0,
+        "use_scales": true
+      }
+    },
+    {
+      "correctness": {
+        "expert_token_num_max_abs_diff": 0,
+        "idx_max_abs_diff": 0,
+        "max_abs_diff": 0.0,
+        "scale_max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "expert_token_num": [
+          4
+        ],
+        "expert_token_num_per_rank": [
+          4,
+          4
+        ],
+        "per_token_scales": [
+          256
+        ],
+        "permute_per_token_scales": [
+          256
+        ],
+        "permute_token_idx": [
+          256
+        ],
+        "permute_tokens": [
+          256,
+          64
+        ],
+        "tokens": [
+          256,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.4139021039009094,
+        "median": 0.38478197529911995,
+        "min": 0.378522090613842
+      },
+      "variant": {
+        "counts": [
+          [
+            20,
+            12,
+            16,
+            16
+          ],
+          [
+            18,
+            14,
+            10,
+            22
+          ],
+          [
+            12,
+            20,
+            18,
+            14
+          ],
+          [
+            14,
+            18,
+            12,
+            20
+          ]
+        ],
+        "dtype": "float16",
+        "expert_token_num_type": 1,
+        "hidden_size": 64,
+        "idx_type": 0,
+        "seed": 1,
+        "use_scales": true
+      }
+    },
+    {
+      "correctness": {
+        "expert_token_num_max_abs_diff": 0,
+        "idx_max_abs_diff": 0,
+        "max_abs_diff": 0.0,
+        "scale_max_abs_diff": 0.0,
+        "token_max_abs_diff": 0.0
+      },
+      "shape_summary": {
+        "expert_token_num": [
+          4
+        ],
+        "expert_token_num_per_rank": [
+          4,
+          4
+        ],
+        "per_token_scales": [
+          128
+        ],
+        "permute_per_token_scales": [
+          128
+        ],
+        "permute_token_idx": [
+          128
+        ],
+        "permute_tokens": [
+          128,
+          128
+        ],
+        "tokens": [
+          128,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.41232164949178696,
+        "median": 0.3848518244922161,
+        "min": 0.3761318512260914
+      },
+      "variant": {
+        "counts": [
+          [
+            16,
+            0,
+            8,
+            8
+          ],
+          [
+            0,
+            20,
+            4,
+            8
+          ],
+          [
+            12,
+            4,
+            24,
+            0
+          ],
+          [
+            8,
+            4,
+            0,
+            12
+          ]
+        ],
+        "dtype": "float16",
+        "expert_token_num_type": 1,
+        "hidden_size": 128,
+        "idx_type": 0,
+        "seed": 2,
+        "use_scales": true
+      }
+    }
+  ],
   "variants": [
     {
       "counts": [

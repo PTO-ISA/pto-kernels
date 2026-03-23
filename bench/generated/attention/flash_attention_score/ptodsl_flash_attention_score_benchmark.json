@@ -1,45 +1,45 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage1_qk/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage1_qk/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage1_qk/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage1_qk/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage2_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage2_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage2_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage2_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage3_pv/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage3_pv/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage3_pv/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d64/stage3_pv/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage1_qk/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage1_qk/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage1_qk/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage1_qk/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage2_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage2_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage2_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage2_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage3_pv/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage3_pv/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage3_pv/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s64_d64/stage3_pv/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage1_qk/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage1_qk/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage1_qk/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage1_qk/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage2_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage2_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage2_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage2_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage3_pv/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage3_pv/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage3_pv/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260314T152305Z/b1_n1_s32_d128/stage3_pv/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d64/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s64_d64/stage3_pv/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage1_qk/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage1_qk/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage1_qk/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage1_qk/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage2_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage2_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage2_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage2_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage3_pv/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage3_pv/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage3_pv/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/attention/flash_attention_score/20260316T063047Z/b1_n1_s32_d128/stage3_pv/kernel.so"
   ],
   "correctness": {
     "atol": 0.002,
-    "max_abs_diff": 0.0013275146484375,
+    "max_abs_diff": 0.00116729736328125,
     "passes": true,
     "rtol": 0.001
   },
@@ -138,14 +138,14 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 1.9564121030271053,
-    "median": 0.44665741734206676,
-    "min": 0.4151731263846159
+    "max": 0.6266329437494278,
+    "median": 0.42469752952456474,
+    "min": 0.40662195533514023
   },
   "variant_reports": [
     {
       "correctness": {
-        "max_abs_diff": 0.0013275146484375
+        "max_abs_diff": 0.00116729736328125
       },
       "shape_summary": {
         "key": [
@@ -178,9 +178,9 @@
         ]
       },
       "timings_ms": {
-        "max": 1.9564121030271053,
-        "median": 0.44665741734206676,
-        "min": 0.4151731263846159
+        "max": 0.6266329437494278,
+        "median": 0.419337535277009,
+        "min": 0.40662195533514023
       },
       "variant": {
         "batch": 1,
@@ -197,7 +197,7 @@
     },
     {
       "correctness": {
-        "max_abs_diff": 0.0007772445678710938
+        "max_abs_diff": 3.0517578125e-05
       },
       "shape_summary": {
         "key": [
@@ -230,9 +230,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.4553329199552536,
-        "median": 0.4246779717504978,
-        "min": 0.4165130667388439
+        "max": 0.46463310718536377,
+        "median": 0.42469752952456474,
+        "min": 0.41437195613980293
       },
       "variant": {
         "batch": 1,
@@ -249,7 +249,7 @@
     },
     {
       "correctness": {
-        "max_abs_diff": 6.103515625e-05
+        "max_abs_diff": 0.00092315673828125
       },
       "shape_summary": {
         "key": [
@@ -282,9 +282,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.48790290020406246,
-        "median": 0.4258820554241538,
-        "min": 0.41605206206440926
+        "max": 0.45476295053958893,
+        "median": 0.42035256046801805,
+        "min": 0.412162858992815
       },
       "variant": {
         "batch": 1,

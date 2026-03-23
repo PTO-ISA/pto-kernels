@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/attention/incre_flash_attention.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -12,7 +12,7 @@
       },
       "entrypoint": "torch_npu.npu_incre_flash_attention",
       "reference_contract": "bnsd_decode_no_mask_no_quant",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/ops_transformer_incre_flash_attention_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/ops_transformer_incre_flash_attention_benchmark.json",
       "shape_summaries": [
         {
           "attention_out": [
@@ -95,9 +95,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.18367101438343525,
-        "median": 0.13546098489314318,
-        "min": 0.12408103793859482
+        "max": 0.19094115123152733,
+        "median": 0.1343559706583619,
+        "min": 0.12431107461452484
       },
       "variant_reports": [
         {
@@ -133,9 +133,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.18367101438343525,
-            "median": 0.13072113506495953,
-            "min": 0.12408103793859482
+            "max": 0.19094115123152733,
+            "median": 0.1343559706583619,
+            "min": 0.1312608364969492
           },
           "variant": {
             "batch_size": 1,
@@ -183,9 +183,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.16242102719843388,
-            "median": 0.13523048255592585,
-            "min": 0.1287609338760376
+            "max": 0.18326099961996078,
+            "median": 0.12919551227241755,
+            "min": 0.1261110883206129
           },
           "variant": {
             "batch_size": 1,
@@ -233,9 +233,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.1671810168772936,
-            "median": 0.13546098489314318,
-            "min": 0.12906105257570744
+            "max": 0.1679309643805027,
+            "median": 0.12851099018007517,
+            "min": 0.12431107461452484
           },
           "variant": {
             "batch_size": 1,
@@ -380,42 +380,42 @@
     "adapter": "bench/adapters/ptodsl/attention/incre_flash_attention.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k16_d16/stage3_pv/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d64/stage3_pv/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/h16_k128_d128/stage3_pv/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k16_d16/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d64/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/h16_k128_d128/stage3_pv/kernel.so"
       ],
       "correctness": {
         "atol": 0.002,
@@ -424,7 +424,7 @@
         "rtol": 0.002
       },
       "reference_contract": "bnsd_decode_no_mask_no_quant",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/ptodsl_incre_flash_attention_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/ptodsl_incre_flash_attention_benchmark.json",
       "shape_summaries": [
         {
           "attention_out": [
@@ -507,9 +507,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.6227139383554459,
-        "median": 0.5618535215035081,
-        "min": 0.4749919753521681
+        "max": 0.622832914814353,
+        "median": 0.546832918189466,
+        "min": 0.5024829879403114
       },
       "variant_reports": [
         {
@@ -545,9 +545,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.5564831662923098,
-            "median": 0.4949930589646101,
-            "min": 0.4830930847674608
+            "max": 0.5971638020128012,
+            "median": 0.546832918189466,
+            "min": 0.5299339536577463
           },
           "variant": {
             "batch_size": 1,
@@ -564,8 +564,8 @@
         },
         {
           "correctness": {
-            "max_abs_diff": 0.00048065185546875,
-            "out_max_abs_diff": 0.00048065185546875,
+            "max_abs_diff": 0.0004857182502746582,
+            "out_max_abs_diff": 0.0004857182502746582,
             "passes": true
           },
           "shape_summary": {
@@ -595,9 +595,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.6227139383554459,
-            "median": 0.5618535215035081,
-            "min": 0.5454639904201031
+            "max": 0.5643139593303204,
+            "median": 0.5201030289754272,
+            "min": 0.5024829879403114
           },
           "variant": {
             "batch_size": 1,
@@ -645,9 +645,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.5495829973369837,
-            "median": 0.4868479445576668,
-            "min": 0.4749919753521681
+            "max": 0.622832914814353,
+            "median": 0.5354579770937562,
+            "min": 0.5223429761826992
           },
           "variant": {
             "batch_size": 1,
@@ -704,22 +704,22 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/stage3_pv/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/stage3_pv/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/incre_flash_attention/kernel.py",
       "library_path": null,
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/incre_flash_attention/kernel.py",
@@ -832,7 +832,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/incre_flash_attention/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260314T161750Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/incre_flash_attention/20260316T035131Z/report.json",
   "status": "prototype",
   "wave": "wave3"
 }

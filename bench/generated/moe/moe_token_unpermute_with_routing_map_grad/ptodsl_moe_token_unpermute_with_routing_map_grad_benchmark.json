@@ -1,17 +1,17 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t8_h16_e4/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t8_h16_e4/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t8_h16_e4/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t8_h16_e4/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t256_h64_e8/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t256_h64_e8/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t256_h64_e8/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t256_h64_e8/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t128_h128_e8/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t128_h128_e8/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t128_h128_e8/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260314T024932Z/t128_h128_e8/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t8_h16_e4/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t8_h16_e4/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t8_h16_e4/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t8_h16_e4/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t256_h64_e8/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t256_h64_e8/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t256_h64_e8/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t256_h64_e8/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t128_h128_e8/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t128_h128_e8/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t128_h128_e8/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_unpermute_with_routing_map_grad/20260316T031803Z/t128_h128_e8/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -96,9 +96,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.47235284000635147,
-    "median": 0.2631916431710124,
-    "min": 0.255142105743289
+    "max": 0.303981127217412,
+    "median": 0.26204611640423536,
+    "min": 0.2537621185183525
   },
   "variant_reports": [
     {
@@ -138,9 +138,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.30913203954696655,
-        "median": 0.26190653443336487,
-        "min": 0.2563812304288149
+        "max": 0.2890520263463259,
+        "median": 0.26204611640423536,
+        "min": 0.25603105314075947
       },
       "variant": {
         "drop_and_pad": false,
@@ -190,9 +190,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.47235284000635147,
-        "median": 0.2631916431710124,
-        "min": 0.2555721439421177
+        "max": 0.303981127217412,
+        "median": 0.2598558785393834,
+        "min": 0.2537621185183525
       },
       "variant": {
         "drop_and_pad": false,
@@ -242,9 +242,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2884319983422756,
-        "median": 0.26180187705904245,
-        "min": 0.255142105743289
+        "max": 0.29586185701191425,
+        "median": 0.2611865056678653,
+        "min": 0.25455188006162643
       },
       "variant": {
         "drop_and_pad": false,

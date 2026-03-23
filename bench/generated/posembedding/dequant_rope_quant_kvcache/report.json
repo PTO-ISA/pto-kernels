@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/posembedding/dequant_rope_quant_kvcache.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -12,7 +12,7 @@
       },
       "entrypoint": "torch_npu.npu_dequant_rope_quant_kvcache",
       "reference_contract": "int32_weight_scale_half_rope_quant_kvcache_bsnd_2d",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/ops_transformer_dequant_rope_quant_kvcache_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/ops_transformer_dequant_rope_quant_kvcache_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -105,9 +105,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.19506202079355717,
-        "median": 0.15132047701627016,
-        "min": 0.1387610100209713
+        "max": 0.18359092064201832,
+        "median": 0.14102039858698845,
+        "min": 0.13675098307430744
       },
       "variant_reports": [
         {
@@ -163,9 +163,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.19506202079355717,
-            "median": 0.14484103303402662,
-            "min": 0.1387610100209713
+            "max": 0.18359092064201832,
+            "median": 0.14102039858698845,
+            "min": 0.13733096420764923
           },
           "variant": {
             "batch": 2,
@@ -227,9 +227,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.16991118900477886,
-            "median": 0.15132047701627016,
-            "min": 0.14508096501231194
+            "max": 0.16823108308017254,
+            "median": 0.14042598195374012,
+            "min": 0.13675098307430744
           },
           "variant": {
             "batch": 4,
@@ -311,22 +311,22 @@
     "adapter": "bench/adapters/ptodsl/posembedding/dequant_rope_quant_kvcache.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_rotary/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_cache/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_cache/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_cache/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b2_cache8/stage_cache/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_rotary/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_cache/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_cache/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_cache/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/b4_cache8/stage_cache/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_rotary/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_cache/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_cache/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_cache/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b2_cache8/stage_cache/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_rotary/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_cache/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_cache/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_cache/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/b4_cache8/stage_cache/kernel.so"
       ],
       "correctness": {
         "atol": 0.02,
@@ -335,7 +335,7 @@
         "rtol": 0.02
       },
       "reference_contract": "int32_weight_scale_half_rope_quant_kvcache_bsnd_2d",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/ptodsl_dequant_rope_quant_kvcache_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/ptodsl_dequant_rope_quant_kvcache_benchmark.json",
       "shape_summaries": [
         {
           "cos": [
@@ -428,9 +428,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 1.8285298720002174,
-        "median": 0.8068544557318091,
-        "min": 0.784924952313304
+        "max": 6.040965905413032,
+        "median": 0.8286749944090843,
+        "min": 0.7685949094593525
       },
       "variant_reports": [
         {
@@ -486,9 +486,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.8392150048166513,
-            "median": 0.8068544557318091,
-            "min": 0.784924952313304
+            "max": 6.040965905413032,
+            "median": 0.8286749944090843,
+            "min": 0.8047150913625956
           },
           "variant": {
             "batch": 2,
@@ -550,9 +550,9 @@
             ]
           },
           "timings_ms": {
-            "max": 1.8285298720002174,
-            "median": 0.8058338426053524,
-            "min": 0.7862849161028862
+            "max": 0.8123149164021015,
+            "median": 0.7805144414305687,
+            "min": 0.7685949094593525
           },
           "variant": {
             "batch": 4,
@@ -579,18 +579,18 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_rotary/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_rotary/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_rotary/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_rotary/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_cache/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_cache/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_cache/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_cache/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_rotary/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_rotary/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_rotary/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_rotary/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_cache/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_cache/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_cache/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_cache/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/dequant_rope_quant_kvcache/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/stage_cache/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/stage_cache/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/dequant_rope_quant_kvcache/kernel.py",
@@ -622,7 +622,7 @@
           "single q-head and single k/v-head only",
           "static unit quant scales only",
           "cache_mode fixed to contiguous",
-          "current PTO path keeps dequant, split, rope, explicit fp16->int8 tcvt, and contiguous cache writeback inside PTO kernels",
+          "current staged PTO path keeps dequant/split/rope in a rotary kernel and explicit fp16->int8 tcvt plus contiguous cache writeback in a cache kernel",
           "A2/A3 does not currently expose a fused vec quantized store path through PTO-ISA/PTOAS; cache writeback therefore uses legal tcvt + tstore",
           "validated only for indices[row] == row in the current constrained seed"
         ],
@@ -693,7 +693,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/posembedding/dequant_rope_quant_kvcache/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260313T082808Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/dequant_rope_quant_kvcache/20260316T031124Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

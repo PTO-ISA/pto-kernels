@@ -5,17 +5,13 @@
       "missing scale/pertokenScale/logit/rowIndex -> invalid parameter",
       "plain ND int8 weight -> weightNd weight type should be INT_32 or supported low-precision format",
       "W4A8-sized ND probe -> host runtime segmentation fault before stable benchmark",
-      "npu_format_cast NZ probe -> local TBE environment import failure"
+      "npu_format_cast NZ probe -> local TBE-side format materialization still not green"
     ],
-    "missing_tbe_python_modules": [
-      "decorator",
-      "attrs",
-      "scipy"
-    ],
+    "missing_tbe_python_modules": [],
     "quantized_route_required": true,
     "symbol_available": true
   },
-  "reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and NZ-format probing through npu_format_cast is currently gated by missing local TBE Python dependencies.",
+  "reason": "torch_npu.npu_grouped_matmul_finalize_routing on this host requires the routed quantized contract and either a valid ND quantized weight dtype or FRACTAL_NZ-style storage metadata. Measured probes show plain ND int8 weights are rejected, W4A8-sized ND probes can segfault, and the NZ-format path is still gated until local TBE-side format tooling is fully healthy.",
   "shape_summaries": [
     {
       "group_list": [

@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/attention/fused_infer_attention_score.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -12,7 +12,7 @@
       },
       "entrypoint": "torch_npu.npu_fused_infer_attention_score",
       "reference_contract": "single_block_bnsd_no_quant",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/ops_transformer_fused_infer_attention_score_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/ops_transformer_fused_infer_attention_score_benchmark.json",
       "shape_summaries": [
         {
           "attention_out": [
@@ -101,9 +101,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.24750083684921265,
-        "median": 0.1778160221874714,
-        "min": 0.1688511110842228
+        "max": 0.7470939308404922,
+        "median": 0.19989581778645515,
+        "min": 0.16585085541009903
       },
       "variant_reports": [
         {
@@ -144,9 +144,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.2226419746875763,
-            "median": 0.17698609735816717,
-            "min": 0.17104088328778744
+            "max": 0.2333107404410839,
+            "median": 0.19498076289892197,
+            "min": 0.1822211779654026
           },
           "variant": {
             "batch_size": 1,
@@ -198,9 +198,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.24750083684921265,
-            "median": 0.1778160221874714,
-            "min": 0.1742809545248747
+            "max": 0.2063908614218235,
+            "median": 0.17091096378862858,
+            "min": 0.16585085541009903
           },
           "variant": {
             "batch_size": 1,
@@ -252,9 +252,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.18978118896484375,
-            "median": 0.17520610708743334,
-            "min": 0.1688511110842228
+            "max": 0.7470939308404922,
+            "median": 0.19989581778645515,
+            "min": 0.1950608566403389
           },
           "variant": {
             "batch_size": 1,
@@ -392,42 +392,42 @@
     "adapter": "bench/adapters/ptodsl/attention/fused_infer_attention_score.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q16_k16_d16/stage3_pv/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q64_k64_d64/stage3_pv/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/q32_k128_d128/stage3_pv/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q16_k16_d16/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q64_k64_d64/stage3_pv/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/q32_k128_d128/stage3_pv/kernel.so"
       ],
       "correctness": {
         "atol": 0.002,
@@ -436,7 +436,7 @@
         "rtol": 0.002
       },
       "reference_contract": "single_block_bnsd_no_quant",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/ptodsl_fused_infer_attention_score_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/ptodsl_fused_infer_attention_score_benchmark.json",
       "shape_summaries": [
         {
           "attention_out": [
@@ -525,9 +525,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.5662741605192423,
-        "median": 0.48439798410981894,
-        "min": 0.44978316873311996
+        "max": 0.6978940218687057,
+        "median": 0.5174982361495495,
+        "min": 0.45828334987163544
       },
       "variant_reports": [
         {
@@ -565,9 +565,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.5662741605192423,
-            "median": 0.4733729874715209,
-            "min": 0.44978316873311996
+            "max": 0.6978940218687057,
+            "median": 0.47488301061093807,
+            "min": 0.45828334987163544
           },
           "variant": {
             "batch_size": 1,
@@ -616,9 +616,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.5222528707236052,
-            "median": 0.47370302490890026,
-            "min": 0.45004207640886307
+            "max": 0.5617332644760609,
+            "median": 0.5174982361495495,
+            "min": 0.49807317554950714
           },
           "variant": {
             "batch_size": 1,
@@ -667,9 +667,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.5375128239393234,
-            "median": 0.48439798410981894,
-            "min": 0.45768311247229576
+            "max": 0.5368026904761791,
+            "median": 0.4945530090481043,
+            "min": 0.47318311408162117
           },
           "variant": {
             "batch_size": 1,
@@ -722,30 +722,28 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage1_qk/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage1_qk/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage1_qk/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage1_qk/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage2_softmax/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage2_softmax/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage2_softmax/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage2_softmax/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage3_pv/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage3_pv/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage3_pv/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/stage3_pv/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage1_qk/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage1_qk/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage1_qk/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage1_qk/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage2_softmax/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage2_softmax/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage2_softmax/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage2_softmax/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage3_pv/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage3_pv/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage3_pv/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/stage3_pv/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/fused_infer_attention_score/kernel.py",
       "library_path": null,
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/fused_infer_attention_score/kernel.py",
     "meta": {
       "archetype": "attention-cache",
-      "blockers": [
-        "ptodsl-fused-infer-scaled-parity"
-      ],
+      "blockers": [],
       "checklist": [
         "baseline_adapter",
         "pto_dsl_source",
@@ -858,7 +856,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/attention/fused_infer_attention_score/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260314T154729Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/attention/fused_infer_attention_score/20260320T154925Z/report.json",
   "status": "prototype",
   "wave": "wave3"
 }

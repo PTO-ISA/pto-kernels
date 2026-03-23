@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/mc2/grouped_mat_mul_all_reduce.py",
     "baseline_note": "The installed custom package on this host does not expose aclnnGroupedMatMulAllReduce. The constrained seed baseline therefore uses the same local grouped-matmul runtime contract plus HCCL all_reduce(sum), matching the upstream distributed math for one dense group.",
@@ -13,7 +13,7 @@
       },
       "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
       "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/ops_transformer_grouped_mat_mul_all_reduce_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/ops_transformer_grouped_mat_mul_all_reduce_benchmark.json",
       "shape_summaries": [
         {
           "group_list": [
@@ -56,9 +56,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.9454560931771994,
-        "median": 0.6979240570217371,
-        "min": 0.5953230429440737
+        "max": 3.7205119151622057,
+        "median": 0.7192851044237614,
+        "min": 0.6117341108620167
       },
       "variant_reports": [
         {
@@ -79,9 +79,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 0.6811239290982485,
-                "median": 0.6198635092005134,
-                "min": 0.5969330668449402
+                "max": 0.8850551676005125,
+                "median": 0.713284476660192,
+                "min": 0.6170931737869978
               },
               "world_size": 2
             },
@@ -93,9 +93,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 0.6755439098924398,
-                "median": 0.6169190164655447,
-                "min": 0.5953230429440737
+                "max": 3.0564479529857635,
+                "median": 0.7192851044237614,
+                "min": 0.6117341108620167
               },
               "world_size": 2
             }
@@ -122,12 +122,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 0.6811239290982485,
-            "median": 0.6198635092005134,
-            "min": 0.5953230429440737,
+            "max": 3.0564479529857635,
+            "median": 0.7192851044237614,
+            "min": 0.6117341108620167,
             "per_rank_median": [
-              0.6198635092005134,
-              0.6169190164655447
+              0.713284476660192,
+              0.7192851044237614
             ]
           },
           "variant": {
@@ -160,9 +160,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 0.9454560931771994,
-                "median": 0.6979240570217371,
-                "min": 0.6360339466482401
+                "max": 3.606222104281187,
+                "median": 0.695478986017406,
+                "min": 0.6702339742332697
               },
               "world_size": 2
             },
@@ -174,9 +174,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 0.943545950576663,
-                "median": 0.6954295095056295,
-                "min": 0.6702139507979155
+                "max": 3.7205119151622057,
+                "median": 0.6988040404394269,
+                "min": 0.6741639226675034
               },
               "world_size": 2
             }
@@ -203,12 +203,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 0.9454560931771994,
-            "median": 0.6979240570217371,
-            "min": 0.6360339466482401,
+            "max": 3.7205119151622057,
+            "median": 0.6988040404394269,
+            "min": 0.6702339742332697,
             "per_rank_median": [
-              0.6979240570217371,
-              0.6954295095056295
+              0.695478986017406,
+              0.6988040404394269
             ]
           },
           "variant": {
@@ -329,14 +329,14 @@
     "adapter": "bench/adapters/ptodsl/mc2/grouped_mat_mul_all_reduce.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m128_k256_n128_w2/compile_probe/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/m256_k256_n128_w2/compile_probe/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m128_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m128_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m128_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m128_k256_n128_w2/compile_probe/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m256_k256_n128_w2/compile_probe/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m256_k256_n128_w2/compile_probe/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m256_k256_n128_w2/compile_probe/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/m256_k256_n128_w2/compile_probe/kernel.so"
       ],
       "correctness": {
         "atol": 0.001,
@@ -345,7 +345,7 @@
         "rtol": 0.001
       },
       "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/ptodsl_grouped_mat_mul_all_reduce_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/ptodsl_grouped_mat_mul_all_reduce_benchmark.json",
       "shape_summaries": [
         {
           "group_list": [
@@ -388,9 +388,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 8.262699004262686,
-        "median": 0.8191996021196246,
-        "min": 0.6756340153515339
+        "max": 6.576428888365626,
+        "median": 0.8048600284382701,
+        "min": 0.6958351004868746
       },
       "variant_reports": [
         {
@@ -413,9 +413,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 8.262699004262686,
-                "median": 0.8191996021196246,
-                "min": 0.7113849278539419
+                "max": 6.573459133505821,
+                "median": 0.8048600284382701,
+                "min": 0.7298339623957872
               },
               "world_size": 2
             },
@@ -427,9 +427,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 3.5514209885150194,
-                "median": 0.8177600102499127,
-                "min": 0.7348849903792143
+                "max": 6.576428888365626,
+                "median": 0.8043750422075391,
+                "min": 0.7313950918614864
               },
               "world_size": 2
             }
@@ -456,12 +456,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 8.262699004262686,
-            "median": 0.8191996021196246,
-            "min": 0.7113849278539419,
+            "max": 6.576428888365626,
+            "median": 0.8048600284382701,
+            "min": 0.7298339623957872,
             "per_rank_median": [
-              0.8191996021196246,
-              0.8177600102499127
+              0.8048600284382701,
+              0.8043750422075391
             ]
           },
           "variant": {
@@ -496,9 +496,9 @@
               "rank": 0,
               "status": "ok",
               "timings_ms": {
-                "max": 3.630442079156637,
-                "median": 0.7085039978846908,
-                "min": 0.6765939760953188
+                "max": 0.815065111964941,
+                "median": 0.7390895625576377,
+                "min": 0.6958351004868746
               },
               "world_size": 2
             },
@@ -510,9 +510,9 @@
               "rank": 1,
               "status": "ok",
               "timings_ms": {
-                "max": 3.6765120457857847,
-                "median": 0.7026639068499207,
-                "min": 0.6756340153515339
+                "max": 0.7833340205252171,
+                "median": 0.7371695246547461,
+                "min": 0.7078240159898996
               },
               "world_size": 2
             }
@@ -539,12 +539,12 @@
           },
           "status": "ok",
           "timings_ms": {
-            "max": 3.6765120457857847,
-            "median": 0.7085039978846908,
-            "min": 0.6756340153515339,
+            "max": 0.815065111964941,
+            "median": 0.7390895625576377,
+            "min": 0.6958351004868746,
             "per_rank_median": [
-              0.7085039978846908,
-              0.7026639068499207
+              0.7390895625576377,
+              0.7371695246547461
             ]
           },
           "variant": {
@@ -585,14 +585,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/kernel.py",
@@ -643,7 +643,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/mc2/grouped_mat_mul_all_reduce/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260312T172832Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/mc2/grouped_mat_mul_all_reduce/20260316T033427Z/report.json",
   "status": "prototype",
   "wave": "wave5"
 }

@@ -8,21 +8,21 @@ __global__ AICORE void attention_update(__gm__ half* v1, __gm__ float* v2, __gm_
   int32_t v10 = 0;
   int32_t v11 = 128;
   int32_t v12 = 1;
-  int64_t v13 = 0;
-  int64_t v14 = 4352;
-  int64_t v15 = 6656;
-  int64_t v16 = 3328;
-  int64_t v17 = 5120;
-  int64_t v18 = 1792;
-  int64_t v19 = 2304;
-  int64_t v20 = 3840;
-  int64_t v21 = 256;
-  int64_t v22 = 5632;
-  int64_t v23 = 6144;
-  int64_t v24 = 4608;
-  int64_t v25 = 1280;
-  int64_t v26 = 2816;
-  int64_t v27 = 768;
+  int64_t v13 = 5120;
+  int64_t v14 = 2304;
+  int64_t v15 = 2048;
+  int64_t v16 = 5888;
+  int64_t v17 = 512;
+  int64_t v18 = 4608;
+  int64_t v19 = 5376;
+  int64_t v20 = 2560;
+  int64_t v21 = 4096;
+  int64_t v22 = 1536;
+  int64_t v23 = 0;
+  int64_t v24 = 1024;
+  int64_t v25 = 6400;
+  int64_t v26 = 3072;
+  int64_t v27 = 3584;
   using T = float;
 
   #if defined(__DAV_VEC__)

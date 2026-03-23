@@ -1,5 +1,6 @@
 {
   "baseline_limitations": [
+    "t8_h16: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only.",
     "t256_h64: torch_npu returned drifted probs_grad for probsOptional=None; baseline parity is validated on permuted_tokens_grad only."
   ],
   "correctness": {
@@ -68,16 +69,16 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.5450339522212744,
-    "median": 0.17374102026224136,
-    "min": 0.10218983516097069
+    "max": 0.2091820351779461,
+    "median": 0.10620604734867811,
+    "min": 0.10047107934951782
   },
   "variant_reports": [
     {
       "correctness": {
         "max_abs_diff": 0.0,
         "passes": true,
-        "probs_max_abs_diff": 0.0,
+        "probs_max_abs_diff": 2.0,
         "supported_outputs": [
           "permuted_tokens_grad"
         ],
@@ -105,9 +106,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.21253200247883797,
-        "median": 0.10613538324832916,
-        "min": 0.10218983516097069
+        "max": 0.1761110033839941,
+        "median": 0.10620604734867811,
+        "min": 0.10047107934951782
       },
       "variant": {
         "dtype": "float16",
@@ -150,9 +151,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.20023086108267307,
-        "median": 0.1732311211526394,
-        "min": 0.16603083349764347
+        "max": 0.20733103156089783,
+        "median": 0.10618043597787619,
+        "min": 0.10156095959246159
       },
       "variant": {
         "dtype": "float16",
@@ -195,9 +196,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.5450339522212744,
-        "median": 0.17374102026224136,
-        "min": 0.1673509832471609
+        "max": 0.2091820351779461,
+        "median": 0.10456051677465439,
+        "min": 0.1010410487651825
       },
       "variant": {
         "dtype": "float16",

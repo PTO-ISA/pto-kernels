@@ -66,48 +66,14 @@ def _load_inventory() -> dict[str, dict[str, Any]]:
 
 
 def _load_gap_index() -> dict[str, list[dict[str, Any]]]:
-    gaps: list[dict[str, Any]] = []
-    current: dict[str, Any] | None = None
-    in_blocking = False
-
-    for raw_line in GAP_BOARD_PATH.read_text(encoding="utf-8").splitlines():
-        line = raw_line.rstrip()
-        stripped = line.strip()
-        if not stripped:
-            continue
-        if stripped.startswith("- id:"):
-            if current:
-                gaps.append(current)
-            current = {"id": stripped.split(":", 1)[1].strip(), "blocking_kernels": []}
-            in_blocking = False
-            continue
-        if current is None:
-            continue
-        if stripped.startswith("component:"):
-            current["component"] = stripped.split(":", 1)[1].strip()
-            in_blocking = False
-            continue
-        if stripped.startswith("status:"):
-            current["status"] = stripped.split(":", 1)[1].strip()
-            in_blocking = False
-            continue
-        if stripped.startswith("blocking_kernels:"):
-            in_blocking = True
-            continue
-        if in_blocking and stripped.startswith("- "):
-            current.setdefault("blocking_kernels", []).append(stripped[2:].strip())
-            continue
-        if not raw_line.startswith("      - "):
-            in_blocking = False
-
-    if current:
-        gaps.append(current)
+    board = _load_yaml(GAP_BOARD_PATH)
+    gaps = board.get("gaps", []) if isinstance(board, dict) else []
 
     by_kernel: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for gap in gaps:
         if not isinstance(gap, dict):
             continue
-        for kernel in gap.get("blocking_kernels", []):
+        for kernel in (gap.get("blocking_kernels") or []):
             by_kernel[str(kernel)].append(gap)
     return by_kernel
 

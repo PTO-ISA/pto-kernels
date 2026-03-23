@@ -1,29 +1,29 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage1_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage1_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage1_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage1_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage2_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage2_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage2_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r8_e16/stage2_select/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage1_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage1_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage1_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage1_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage2_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage2_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage2_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r256_e64/stage2_select/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage1_softmax/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage1_softmax/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage1_softmax/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage1_softmax/kernel.so",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage2_select/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage2_select/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage2_select/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260314T071320Z/r128_e128/stage2_select/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r8_e16/stage2_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r256_e64/stage2_select/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage1_softmax/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage1_softmax/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage1_softmax/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage1_softmax/kernel.so",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage2_select/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage2_select/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage2_select/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_gating_top_k_softmax_v2/20260316T031533Z/r128_e128/stage2_select/kernel.so"
   ],
   "block_utilization": {
     "nominal_rows": 256,
@@ -83,9 +83,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.41091302409768105,
-    "median": 0.36233686842024326,
-    "min": 0.3432519733905792
+    "max": 0.40818192064762115,
+    "median": 0.3726324066519737,
+    "min": 0.36151218228042126
   },
   "variant_reports": [
     {
@@ -109,9 +109,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.41091302409768105,
-        "median": 0.35057193599641323,
-        "min": 0.3432519733905792
+        "max": 0.40818192064762115,
+        "median": 0.36902190186083317,
+        "min": 0.36151218228042126
       },
       "variant": {
         "dtype": "float16",
@@ -144,9 +144,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.4056619945913553,
-        "median": 0.36233686842024326,
-        "min": 0.35182200372219086
+        "max": 0.3953520208597183,
+        "median": 0.36956684198230505,
+        "min": 0.36169192753732204
       },
       "variant": {
         "dtype": "float16",
@@ -179,9 +179,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.3855731338262558,
-        "median": 0.35392248537391424,
-        "min": 0.34412206150591373
+        "max": 0.4077230114489794,
+        "median": 0.3726324066519737,
+        "min": 0.36490196362137794
       },
       "variant": {
         "dtype": "float16",

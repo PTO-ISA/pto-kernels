@@ -9,21 +9,21 @@ __global__ AICORE void attention_update(__gm__ half* v1, __gm__ float* v2, __gm_
   int32_t v11 = 64;
   int32_t v12 = 256;
   int32_t v13 = 1;
-  int64_t v14 = 0;
-  int64_t v15 = 1920;
-  int64_t v16 = 3072;
-  int64_t v17 = 1152;
-  int64_t v18 = 640;
-  int64_t v19 = 1664;
-  int64_t v20 = 896;
-  int64_t v21 = 2816;
-  int64_t v22 = 2304;
-  int64_t v23 = 2048;
-  int64_t v24 = 1408;
-  int64_t v25 = 384;
-  int64_t v26 = 128;
-  int64_t v27 = 3200;
-  int64_t v28 = 2560;
+  int64_t v14 = 1024;
+  int64_t v15 = 2304;
+  int64_t v16 = 1920;
+  int64_t v17 = 512;
+  int64_t v18 = 2944;
+  int64_t v19 = 0;
+  int64_t v20 = 768;
+  int64_t v21 = 1664;
+  int64_t v22 = 2432;
+  int64_t v23 = 3200;
+  int64_t v24 = 256;
+  int64_t v25 = 1152;
+  int64_t v26 = 1408;
+  int64_t v27 = 2048;
+  int64_t v28 = 2688;
   using T = float;
 
   #if defined(__DAV_VEC__)

@@ -16,29 +16,33 @@ __global__ AICORE void moe_token_permute_grad_seed(__gm__ half* v1, __gm__ half*
   set_vector_mask(-1, -1);
   int64_t v12 = get_block_idx();
   int64_t v13 = get_block_num();
-  int32_t v14 = (int32_t) ((int64_t) v13);
+  int32_t v14 = (int32_t) v13;
   int32_t v15 = v9 / v14;
   int32_t v16 = v9 % v14 != v7 && v9 < v7 == v14 < v7 ? v15 + v10 : v15;
-  int32_t v17 = (int32_t) ((uint32_t) ((int32_t) (int64_t) v12) * (uint32_t) v16);
+  int32_t v17 = (int32_t) ((uint32_t) ((int32_t) v12) * (uint32_t) v16);
   int32_t v18 = (int32_t) ((uint32_t) v17 + (uint32_t) v16);
   Tile<TileType::Vec, half, 1, 64, BLayout::RowMajor, 1, 64, SLayout::NoneBox, 512, PadValue::Null> v19;
   TASSIGN(v19, v11);
+  Tile<TileType::Vec, half, 1, 64, BLayout::RowMajor, 1, 64, SLayout::NoneBox, 512, PadValue::Null> v20;
+  __ubuf__ half* v21 = v19.data();
+  uint64_t v22 = reinterpret_cast<uint64_t>(v21);
+  TASSIGN(v20, v22);
   set_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
   set_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID1);
-  for (size_t v20 = (size_t) v17; v20 < ((size_t) ((uint32_t) v18 < (uint32_t) v9 ? v18 : v9)); v20 += (size_t) v10) {
-    int32_t v21 = v3[v20];
-    pto::Shape<1, 1, 1, 1, 64> v22 = pto::Shape<1, 1, 1, 1, 64>();
-    pto::Stride<64, 64, 64, 64, 1> v23 = pto::Stride<64, 64, 64, 64, 1>();
-    GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND> v24 = GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND>(v2 + (v6 + (unsigned) v21 * (unsigned) v8 + v6 * (unsigned) v10), v22, v23);
+  for (int32_t v23 = v17; v23 < ((uint32_t) v18 < (uint32_t) v9 ? v18 : v9); v23 += v10) {
+    int32_t v24 = v3[v23];
     pto::Shape<1, 1, 1, 1, 64> v25 = pto::Shape<1, 1, 1, 1, 64>();
     pto::Stride<64, 64, 64, 64, 1> v26 = pto::Stride<64, 64, 64, 64, 1>();
-    GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND> v27 = GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND>(v1 + (v6 + (unsigned) ((int32_t) v20) * (unsigned) v8 + v6 * (unsigned) v10), v25, v26);
+    GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND> v27 = GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND>(v2 + (v6 + (unsigned) v24 * (unsigned) v8 + v6 * (unsigned) v10), v25, v26);
+    pto::Shape<1, 1, 1, 1, 64> v28 = pto::Shape<1, 1, 1, 1, 64>();
+    pto::Stride<64, 64, 64, 64, 1> v29 = pto::Stride<64, 64, 64, 64, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND> v30 = GlobalTensor<half, pto::Shape<1, 1, 1, 1, 64>, pto::Stride<64, 64, 64, 64, 1>, pto::Layout::ND>(v1 + (v6 + (unsigned) v23 * (unsigned) v8 + v6 * (unsigned) v10), v28, v29);
     wait_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
-    TLOAD(v19, v24);
+    TLOAD(v20, v27);
     set_flag(PIPE_MTE2, PIPE_MTE3, EVENT_ID0);
     wait_flag(PIPE_MTE2, PIPE_MTE3, EVENT_ID0);
     pipe_barrier(PIPE_MTE3);
-    TSTORE(v27, v19);
+    TSTORE(v30, v20);
     set_flag(PIPE_MTE3, PIPE_MTE2, EVENT_ID0);
   }
   pipe_barrier(PIPE_ALL);

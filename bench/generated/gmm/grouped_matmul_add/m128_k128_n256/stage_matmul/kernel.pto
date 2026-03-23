@@ -11,6 +11,9 @@ module {
       %c64_1 = arith.constant 64 : index
       %c2 = arith.constant 2 : index
       %c32 = arith.constant 32 : index
+      %c8 = arith.constant 8 : index
+      %c4 = arith.constant 4 : index
+      %c2_2 = arith.constant 2 : index
       %0 = pto.get_block_idx
       %1 = arith.index_cast %0 : i64 to index
       %2 = pto.get_block_num
@@ -24,10 +27,8 @@ module {
       %10 = pto.alloc_tile : !pto.tile_buf<loc=right, dtype=bf16, rows=64, cols=64, v_row=64, v_col=64, blayout=row_major, slayout=col_major, fractal=512, pad=0>
       %11 = pto.alloc_tile : !pto.tile_buf<loc=acc, dtype=f32, rows=16, cols=64, v_row=16, v_col=64, blayout=col_major, slayout=row_major, fractal=1024, pad=0>
       scf.for %arg4 = %1 to %c32 step %3 {
-        %c4 = arith.constant 4 : index
         %12 = arith.divsi %arg4, %c4 : index
-        %c4_2 = arith.constant 4 : index
-        %13 = arith.remsi %arg4, %c4_2 : index
+        %13 = arith.remsi %arg4, %c4 : index
         %14 = arith.muli %12, %c16 : index
         %15 = arith.muli %13, %c64 : index
         scf.for %arg5 = %c0 to %c2 step %c1 {

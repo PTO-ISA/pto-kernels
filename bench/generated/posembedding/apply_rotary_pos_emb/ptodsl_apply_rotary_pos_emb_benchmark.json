@@ -1,9 +1,9 @@
 {
   "artifact_paths": [
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T172420Z/kernel.pto",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T172420Z/kernel.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T172420Z/caller.cpp",
-    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260312T172420Z/kernel.so"
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260316T031118Z/kernel.pto",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260316T031118Z/kernel.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260316T031118Z/caller.cpp",
+    "/home/zhouruoyu/github/pto-kernels/bench/results/posembedding/apply_rotary_pos_emb/20260316T031118Z/kernel.so"
   ],
   "correctness": {
     "atol": 0.001,
@@ -64,9 +64,9 @@
   ],
   "status": "ok",
   "timings_ms": {
-    "max": 0.2422509714961052,
-    "median": 0.20834605675190687,
-    "min": 0.20335079170763493
+    "max": 0.2449220046401024,
+    "median": 0.2141265431419015,
+    "min": 0.20962092094123363
   },
   "variant_reports": [
     {
@@ -98,9 +98,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.2422509714961052,
-        "median": 0.20834605675190687,
-        "min": 0.2041009720414877
+        "max": 0.2449220046401024,
+        "median": 0.2141265431419015,
+        "min": 0.20962092094123363
       },
       "variant": {
         "batch": 1,
@@ -147,9 +147,9 @@
         ]
       },
       "timings_ms": {
-        "max": 0.22576097398996353,
-        "median": 0.20740157924592495,
-        "min": 0.20335079170763493
+        "max": 0.23556104861199856,
+        "median": 0.21331105381250381,
+        "min": 0.20964094437658787
       },
       "variant": {
         "batch": 2,

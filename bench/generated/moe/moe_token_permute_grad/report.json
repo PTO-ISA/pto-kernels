@@ -1,5 +1,5 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/moe/moe_token_permute_grad.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
@@ -13,7 +13,7 @@
       },
       "entrypoint": "torch_npu.npu_moe_token_permute_grad",
       "reference_contract": "top1_sorted_indices_gather_no_probs",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/ops_transformer_moe_token_permute_grad_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/ops_transformer_moe_token_permute_grad_benchmark.json",
       "shape_summaries": [
         {
           "grad_permuted_tokens": [
@@ -78,9 +78,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.1471010036766529,
-        "median": 0.09993044659495354,
-        "min": 0.09276997298002243
+        "max": 0.12051989324390888,
+        "median": 0.09665603283792734,
+        "min": 0.0901899766176939
       },
       "variant_reports": [
         {
@@ -110,9 +110,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.1471010036766529,
-            "median": 0.09608559776097536,
-            "min": 0.09276997298002243
+            "max": 0.1180209219455719,
+            "median": 0.0955208670347929,
+            "min": 0.0901899766176939
           },
           "variant": {
             "dtype": "float16",
@@ -151,9 +151,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.11675991117954254,
-            "median": 0.09993044659495354,
-            "min": 0.09585008956491947
+            "max": 0.12051989324390888,
+            "median": 0.0949010718613863,
+            "min": 0.09152106940746307
           },
           "variant": {
             "dtype": "float16",
@@ -192,9 +192,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.11221086606383324,
-            "median": 0.09972043335437775,
-            "min": 0.09597092866897583
+            "max": 0.11596991680562496,
+            "median": 0.09665603283792734,
+            "min": 0.09271991439163685
           },
           "variant": {
             "dtype": "float16",
@@ -319,18 +319,18 @@
     "adapter": "bench/adapters/ptodsl/moe/moe_token_permute_grad.py",
     "benchmark": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t8_h16_k1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t256_h64_k1/kernel.so",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/t128_h128_k1/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t8_h16_k1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t256_h64_k1/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/t128_h128_k1/kernel.so"
       ],
       "correctness": {
         "atol": 0.001,
@@ -339,7 +339,7 @@
         "rtol": 0.001
       },
       "reference_contract": "top1_sorted_indices_gather_no_probs",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/ptodsl_moe_token_permute_grad_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/ptodsl_moe_token_permute_grad_benchmark.json",
       "shape_summaries": [
         {
           "grad_permuted_tokens": [
@@ -404,9 +404,9 @@
       ],
       "status": "ok",
       "timings_ms": {
-        "max": 0.2527208998799324,
-        "median": 0.2260664477944374,
-        "min": 0.2194708213210106
+        "max": 0.43325196020305157,
+        "median": 0.22384594194591045,
+        "min": 0.21560117602348328
       },
       "variant_reports": [
         {
@@ -435,9 +435,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.2518219407647848,
-            "median": 0.22468599490821362,
-            "min": 0.22073090076446533
+            "max": 0.2566410694271326,
+            "median": 0.22092601284384727,
+            "min": 0.21614087745547295
           },
           "variant": {
             "dtype": "float16",
@@ -475,9 +475,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.2513208892196417,
-            "median": 0.2260664477944374,
-            "min": 0.22025196813046932
+            "max": 0.2602010499686003,
+            "median": 0.22041599731892347,
+            "min": 0.21560117602348328
           },
           "variant": {
             "dtype": "float16",
@@ -515,9 +515,9 @@
             ]
           },
           "timings_ms": {
-            "max": 0.2527208998799324,
-            "median": 0.22594654001295567,
-            "min": 0.2194708213210106
+            "max": 0.43325196020305157,
+            "median": 0.22384594194591045,
+            "min": 0.2187408972531557
           },
           "variant": {
             "dtype": "float16",
@@ -562,14 +562,14 @@
     },
     "compile": {
       "artifact_paths": [
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/kernel.pto",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/kernel.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/caller.cpp",
-        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/kernel.so"
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/kernel.so"
       ],
       "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute_grad/kernel.py",
-      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/kernel.so",
-      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z",
       "status": "ready"
     },
     "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute_grad/kernel.py",
@@ -624,7 +624,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_token_permute_grad/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260313T174152Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_token_permute_grad/20260316T031647Z/report.json",
   "status": "prototype",
   "wave": "wave2"
 }

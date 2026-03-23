@@ -15,58 +15,58 @@ seed_kernels:
   - flash_attention_score
   - matmul_reduce_scatter
 included:
-  - {name: apply_rotary_pos_emb, family: posembedding, wave: wave1, phase: phase1, status: planned, ops_transformer_path: posembedding/apply_rotary_pos_emb}
-  - {name: dequant_rope_quant_kvcache, family: posembedding, wave: wave1, phase: phase2, status: prototype, ops_transformer_path: posembedding/dequant_rope_quant_kvcache}
-  - {name: interleave_rope, family: posembedding, wave: wave1, phase: phase2, status: prototype, ops_transformer_path: posembedding/interleave_rope}
-  - {name: qkv_rms_norm_rope_cache, family: posembedding, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: posembedding/qkv_rms_norm_rope_cache}
-  - {name: rope_quant_kvcache, family: posembedding, wave: wave1, phase: phase2, status: prototype, ops_transformer_path: posembedding/rope_quant_kvcache}
+  - {name: apply_rotary_pos_emb, family: posembedding, wave: wave1, phase: phase1, status: green, ops_transformer_path: posembedding/apply_rotary_pos_emb}
+  - {name: dequant_rope_quant_kvcache, family: posembedding, wave: wave1, phase: phase2, status: green, ops_transformer_path: posembedding/dequant_rope_quant_kvcache}
+  - {name: interleave_rope, family: posembedding, wave: wave1, phase: phase2, status: green, ops_transformer_path: posembedding/interleave_rope}
+  - {name: qkv_rms_norm_rope_cache, family: posembedding, wave: wave1, phase: phase3, status: external-blocked, ops_transformer_path: posembedding/qkv_rms_norm_rope_cache}
+  - {name: rope_quant_kvcache, family: posembedding, wave: wave1, phase: phase2, status: green, ops_transformer_path: posembedding/rope_quant_kvcache}
   - {name: rope_with_sin_cos_cache, family: posembedding, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: posembedding/rope_with_sin_cos_cache}
-  - {name: rotary_position_embedding, family: posembedding, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: posembedding/rotary_position_embedding}
-  - {name: rotary_position_embedding_grad, family: posembedding, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: posembedding/rotary_position_embedding_grad}
-  - {name: grouped_matmul, family: gmm, wave: wave1, phase: phase1, status: prototype, ops_transformer_path: gmm/grouped_matmul}
-  - {name: grouped_matmul_add, family: gmm, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: gmm/grouped_matmul_add}
-  - {name: grouped_matmul_finalize_routing, family: gmm, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: gmm/grouped_matmul_finalize_routing}
-  - {name: grouped_matmul_swiglu_quant, family: gmm, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: gmm/grouped_matmul_swiglu_quant}
-  - {name: grouped_matmul_swiglu_quant_v2, family: gmm, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: gmm/grouped_matmul_swiglu_quant_v2}
-  - {name: quant_grouped_matmul_inplace_add, family: gmm, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: gmm/quant_grouped_matmul_inplace_add}
-  - {name: ffn, family: ffn, wave: wave1, phase: phase1, status: planned, ops_transformer_path: ffn/ffn}
-  - {name: swin_attention_ffn, family: ffn, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: ffn/swin_attention_ffn}
-  - {name: swin_transformer_ln_qkv, family: ffn, wave: wave1, phase: phase3, status: prototype, ops_transformer_path: ffn/swin_transformer_ln_qkv}
+  - {name: rotary_position_embedding, family: posembedding, wave: wave1, phase: phase3, status: green, ops_transformer_path: posembedding/rotary_position_embedding}
+  - {name: rotary_position_embedding_grad, family: posembedding, wave: wave1, phase: phase3, status: green, ops_transformer_path: posembedding/rotary_position_embedding_grad}
+  - {name: grouped_matmul, family: gmm, wave: wave1, phase: phase1, status: green, ops_transformer_path: gmm/grouped_matmul}
+  - {name: grouped_matmul_add, family: gmm, wave: wave1, phase: phase3, status: green, ops_transformer_path: gmm/grouped_matmul_add}
+  - {name: grouped_matmul_finalize_routing, family: gmm, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: gmm/grouped_matmul_finalize_routing}
+  - {name: grouped_matmul_swiglu_quant, family: gmm, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: gmm/grouped_matmul_swiglu_quant}
+  - {name: grouped_matmul_swiglu_quant_v2, family: gmm, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: gmm/grouped_matmul_swiglu_quant_v2}
+  - {name: quant_grouped_matmul_inplace_add, family: gmm, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: gmm/quant_grouped_matmul_inplace_add}
+  - {name: ffn, family: ffn, wave: wave1, phase: phase1, status: scalar-heavy, ops_transformer_path: ffn/ffn}
+  - {name: swin_attention_ffn, family: ffn, wave: wave1, phase: phase3, status: scalar-heavy, ops_transformer_path: ffn/swin_attention_ffn}
+  - {name: swin_transformer_ln_qkv, family: ffn, wave: wave1, phase: phase3, status: external-blocked, ops_transformer_path: ffn/swin_transformer_ln_qkv}
   - {name: swin_transformer_ln_qkv_quant, family: ffn, wave: wave1, phase: phase3, status: blocked, ops_transformer_path: ffn/swin_transformer_ln_qkv_quant}
-  - {name: moe_compute_expert_tokens, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_compute_expert_tokens}
-  - {name: moe_finalize_routing, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_finalize_routing}
-  - {name: moe_finalize_routing_v2, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_finalize_routing_v2}
-  - {name: moe_finalize_routing_v2_grad, family: moe, wave: wave2, phase: phase3, status: blocked, ops_transformer_path: moe/moe_finalize_routing_v2_grad}
-  - {name: moe_gating_top_k, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_gating_top_k}
-  - {name: moe_gating_top_k_softmax, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_gating_top_k_softmax}
-  - {name: moe_gating_top_k_softmax_v2, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_gating_top_k_softmax_v2}
-  - {name: moe_init_routing, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_init_routing}
+  - {name: moe_compute_expert_tokens, family: moe, wave: wave2, phase: phase3, status: blocked, ops_transformer_path: moe/moe_compute_expert_tokens}
+  - {name: moe_finalize_routing, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_finalize_routing}
+  - {name: moe_finalize_routing_v2, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_finalize_routing_v2}
+  - {name: moe_finalize_routing_v2_grad, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_finalize_routing_v2_grad}
+  - {name: moe_gating_top_k, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_gating_top_k}
+  - {name: moe_gating_top_k_softmax, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_gating_top_k_softmax}
+  - {name: moe_gating_top_k_softmax_v2, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_gating_top_k_softmax_v2}
+  - {name: moe_init_routing, family: moe, wave: wave2, phase: phase3, status: blocked, ops_transformer_path: moe/moe_init_routing}
   - {name: moe_init_routing_quant, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_init_routing_quant}
   - {name: moe_init_routing_quant_v2, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_init_routing_quant_v2}
-  - {name: moe_init_routing_v2, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_init_routing_v2}
+  - {name: moe_init_routing_v2, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_init_routing_v2}
   - {name: moe_init_routing_v2_grad, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_init_routing_v2_grad}
   - {name: moe_init_routing_v3, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_init_routing_v3}
-  - {name: moe_re_routing, family: moe, wave: wave2, phase: phase3, status: blocked, ops_transformer_path: moe/moe_re_routing}
-  - {name: moe_token_permute, family: moe, wave: wave2, phase: phase1, status: planned, ops_transformer_path: moe/moe_token_permute}
-  - {name: moe_token_permute_grad, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_permute_grad}
-  - {name: moe_token_permute_with_routing_map, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_permute_with_routing_map}
+  - {name: moe_re_routing, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_re_routing}
+  - {name: moe_token_permute, family: moe, wave: wave2, phase: phase1, status: green, ops_transformer_path: moe/moe_token_permute}
+  - {name: moe_token_permute_grad, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_token_permute_grad}
+  - {name: moe_token_permute_with_routing_map, family: moe, wave: wave2, phase: phase3, status: green, ops_transformer_path: moe/moe_token_permute_with_routing_map}
   - {name: moe_token_permute_with_ep, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_token_permute_with_ep}
   - {name: moe_token_permute_with_ep_grad, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_token_permute_with_ep_grad}
-  - {name: moe_token_permute_with_routing_map_grad, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_permute_with_routing_map_grad}
-  - {name: moe_token_unpermute, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_unpermute}
-  - {name: moe_token_unpermute_grad, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_unpermute_grad}
+  - {name: moe_token_permute_with_routing_map_grad, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_token_permute_with_routing_map_grad}
+  - {name: moe_token_unpermute, family: moe, wave: wave2, phase: phase3, status: green, ops_transformer_path: moe/moe_token_unpermute}
+  - {name: moe_token_unpermute_grad, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_token_unpermute_grad}
   - {name: moe_token_unpermute_with_ep, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_token_unpermute_with_ep}
   - {name: moe_token_unpermute_with_ep_grad, family: moe, wave: wave2, phase: phase3, status: planned, ops_transformer_path: moe/moe_token_unpermute_with_ep_grad}
-  - {name: moe_token_unpermute_with_routing_map, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_unpermute_with_routing_map}
-  - {name: moe_token_unpermute_with_routing_map_grad, family: moe, wave: wave2, phase: phase3, status: prototype, ops_transformer_path: moe/moe_token_unpermute_with_routing_map_grad}
-  - {name: attention_update, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/attention_update}
-  - {name: flash_attention_score, family: attention, wave: wave3, phase: phase1, status: prototype, ops_transformer_path: attention/flash_attention_score}
+  - {name: moe_token_unpermute_with_routing_map, family: moe, wave: wave2, phase: phase3, status: green, ops_transformer_path: moe/moe_token_unpermute_with_routing_map}
+  - {name: moe_token_unpermute_with_routing_map_grad, family: moe, wave: wave2, phase: phase3, status: scalar-heavy, ops_transformer_path: moe/moe_token_unpermute_with_routing_map_grad}
+  - {name: attention_update, family: attention, wave: wave3, phase: phase3, status: green, ops_transformer_path: attention/attention_update}
+  - {name: flash_attention_score, family: attention, wave: wave3, phase: phase1, status: green, ops_transformer_path: attention/flash_attention_score}
   - {name: flash_attention_score_grad, family: attention, wave: wave3, phase: phase3, status: planned, ops_transformer_path: attention/flash_attention_score_grad}
-  - {name: fused_infer_attention_score, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/fused_infer_attention_score}
-  - {name: incre_flash_attention, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/incre_flash_attention}
-  - {name: prompt_flash_attention, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/prompt_flash_attention}
-  - {name: recurrent_gated_delta_rule, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/recurrent_gated_delta_rule}
-  - {name: ring_attention_update, family: attention, wave: wave3, phase: phase3, status: prototype, ops_transformer_path: attention/ring_attention_update}
+  - {name: fused_infer_attention_score, family: attention, wave: wave3, phase: phase3, status: green, ops_transformer_path: attention/fused_infer_attention_score}
+  - {name: incre_flash_attention, family: attention, wave: wave3, phase: phase3, status: green, ops_transformer_path: attention/incre_flash_attention}
+  - {name: prompt_flash_attention, family: attention, wave: wave3, phase: phase3, status: green, ops_transformer_path: attention/prompt_flash_attention}
+  - {name: recurrent_gated_delta_rule, family: attention, wave: wave3, phase: phase3, status: blocked, ops_transformer_path: attention/recurrent_gated_delta_rule}
+  - {name: ring_attention_update, family: attention, wave: wave3, phase: phase3, status: blocked, ops_transformer_path: attention/ring_attention_update}
   - {name: scatter_pa_cache, family: attention, wave: wave3, phase: phase3, status: planned, ops_transformer_path: attention/scatter_pa_cache}
   - {name: gather_pa_kv_cache, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/gather_pa_kv_cache}
   - {name: kv_quant_sparse_flash_attention, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/kv_quant_sparse_flash_attention}
@@ -85,15 +85,15 @@ included:
   - {name: nsa_selected_attention_infer, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/nsa_selected_attention_infer}
   - {name: quant_lightning_indexer, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/quant_lightning_indexer}
   - {name: sparse_flash_attention, family: attention, wave: wave4, phase: phase3, status: planned, ops_transformer_path: attention/sparse_flash_attention}
-  - {name: all_gather_matmul, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/all_gather_matmul}
-  - {name: grouped_mat_mul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/grouped_mat_mul_all_reduce}
-  - {name: inplace_matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/inplace_matmul_all_reduce_add_rms_norm}
-  - {name: matmul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/matmul_all_reduce}
-  - {name: matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/matmul_all_reduce_add_rms_norm}
-  - {name: matmul_reduce_scatter, family: mc2, wave: wave5, phase: phase1, status: planned, ops_transformer_path: mc2/matmul_reduce_scatter}
-  - {name: moe_distribute_combine, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/moe_distribute_combine}
+  - {name: all_gather_matmul, family: mc2, wave: wave5, phase: phase2, status: scalar-heavy, ops_transformer_path: mc2/all_gather_matmul}
+  - {name: grouped_mat_mul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: green, ops_transformer_path: mc2/grouped_mat_mul_all_reduce}
+  - {name: inplace_matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: green, ops_transformer_path: mc2/inplace_matmul_all_reduce_add_rms_norm}
+  - {name: matmul_all_reduce, family: mc2, wave: wave5, phase: phase2, status: green, ops_transformer_path: mc2/matmul_all_reduce}
+  - {name: matmul_all_reduce_add_rms_norm, family: mc2, wave: wave5, phase: phase2, status: green, ops_transformer_path: mc2/matmul_all_reduce_add_rms_norm}
+  - {name: matmul_reduce_scatter, family: mc2, wave: wave5, phase: phase1, status: green, ops_transformer_path: mc2/matmul_reduce_scatter}
+  - {name: moe_distribute_combine, family: mc2, wave: wave5, phase: phase2, status: external-blocked, ops_transformer_path: mc2/moe_distribute_combine}
   - {name: moe_distribute_combine_v2, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_combine_v2}
-  - {name: moe_distribute_dispatch, family: mc2, wave: wave5, phase: phase2, status: prototype, ops_transformer_path: mc2/moe_distribute_dispatch}
+  - {name: moe_distribute_dispatch, family: mc2, wave: wave5, phase: phase2, status: external-blocked, ops_transformer_path: mc2/moe_distribute_dispatch}
   - {name: moe_distribute_dispatch_v2, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_dispatch_v2}
   - {name: moe_distribute_dispatch_v3, family: mc2, wave: wave5, phase: phase3, status: planned, ops_transformer_path: mc2/moe_distribute_dispatch_v3}
 excluded:

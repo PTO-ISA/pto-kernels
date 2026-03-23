@@ -1,12 +1,12 @@
 {
-  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z",
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260316T031118Z",
   "baseline": {
     "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul_swiglu_quant_v2.py",
     "baseline_root": "/home/zhouruoyu/github/ops-transformer",
     "benchmark": {
       "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant_v2",
       "reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/ops_transformer_grouped_matmul_swiglu_quant_v2_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260316T031118Z/ops_transformer_grouped_matmul_swiglu_quant_v2_benchmark.json",
       "shape_summaries": [
         {
           "group_list": [
@@ -159,7 +159,7 @@
     "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul_swiglu_quant_v2.py",
     "benchmark": {
       "reason": "PTO port is deferred until the host FP8/list-valued baseline contract is reproducible.",
-      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/ptodsl_grouped_matmul_swiglu_quant_v2_benchmark.json",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260316T031118Z/ptodsl_grouped_matmul_swiglu_quant_v2_benchmark.json",
       "status": "blocked",
       "variants": [
         {
@@ -244,7 +244,7 @@
     },
     "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant_v2/meta.py"
   },
-  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260313T150927Z/report.json",
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant_v2/20260316T031118Z/report.json",
   "status": "prototype",
   "wave": "wave1"
 }

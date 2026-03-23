@@ -39,5 +39,6 @@ META["seed_variant"] = {
         "transposeWeight fixed to false",
         "groupType fixed to 2 (K-axis grouping)",
         "PTO path currently materializes the baseline-format x_t into x_pto = x_t^T before entering the PTO kernel",
+        "PTO matmul-stage MN swizzle tuning is available, but the current A3 default remains linear traversal because it benchmarks better on the checked seed shapes",
     ],
 }

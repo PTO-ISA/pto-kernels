@@ -29,7 +29,10 @@ def compile_kernel(repo_root, spec, artifacts_dir):
 
 
 def _variant_env(variant) -> dict[str, str]:
-    softmax_block_dim = "1" if variant.q_seq <= 16 else os.environ.get(
+    # On A3, the 64x64 infer variant needs a single-block softmax stage for
+    # correctness; larger defaults drift numerically even though compile/legality
+    # is fine.
+    softmax_block_dim = "1" if variant.q_seq <= 64 else os.environ.get(
         "PTO_FUSED_INFER_ATTENTION_SCORE_SOFTMAX_BLOCK_DIM", "8"
     )
     return {

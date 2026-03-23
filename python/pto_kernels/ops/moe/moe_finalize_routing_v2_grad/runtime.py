@@ -113,6 +113,8 @@ def make_top1_finalize_routing_v2_grad_inputs(
         (expanded_x_cpu.index_select(0, row_ids).float() + bias_cpu.index_select(0, expert_ids).float())
         * grad_y_cpu.float()
     ).sum(dim=1, keepdim=True)
+    grad_expanded_x_ref = grad_expanded_x_ref.to(torch.float16).float()
+    grad_scales_ref = grad_scales_ref.to(torch.float16).float()
 
     return {
         "device": device,

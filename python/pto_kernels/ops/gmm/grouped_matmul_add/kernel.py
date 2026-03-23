@@ -7,6 +7,7 @@ import torch
 
 from mlir.ir import BF16Type, F32Type, IntegerType
 from ptodsl import jit, pto
+from pto_kernels.ops.gmm.common import swizzle_nz, swizzle_zn
 from pto_kernels.utils.tuning import tuned_int
 
 
@@ -22,6 +23,8 @@ class GroupedMatmulAddConfig:
     base_n: int
     base_k: int
     block_dim: int
+    swizzle_direction: int
+    swizzle_count: int
 
     @property
     def k_iters(self) -> int:
@@ -64,6 +67,13 @@ def _config() -> GroupedMatmulAddConfig:
         base_n=tuned_int("PTO_GROUPED_MATMUL_ADD_BASE_N", 64, valid_values=(64, 128)),
         base_k=tuned_int("PTO_GROUPED_MATMUL_ADD_BASE_K", 64, valid_values=(32, 64)),
         block_dim=tuned_int("PTO_GROUPED_MATMUL_ADD_BLOCK_DIM", 16, valid_values=(1, 2, 4, 8, 16)),
+        swizzle_direction=tuned_int(
+            "PTO_GROUPED_MATMUL_ADD_SWIZZLE_DIRECTION",
+            2,
+            minimum=0,
+            valid_values=(0, 1, 2),
+        ),
+        swizzle_count=tuned_int("PTO_GROUPED_MATMUL_ADD_SWIZZLE_COUNT", 2, valid_values=(1, 2, 4, 8)),
     )
     config.validate()
     return config
@@ -132,6 +142,9 @@ def _build_matmul_stage(config: GroupedMatmulAddConfig, *, output_dir):
             cBaseK = const(config.base_k)
             cIter = const(config.k_iters)
             cTotalTiles = const(config.total_tiles)
+            cMTiles = const(config.m_tiles)
+            cNTiles = const(config.n_tiles)
+            cSwizzleCount = const(config.swizzle_count)
 
             bid = pto.index_cast(pto.get_block_idx())
             num_blocks = pto.index_cast(pto.get_block_num())
@@ -147,8 +160,12 @@ def _build_matmul_stage(config: GroupedMatmulAddConfig, *, output_dir):
             c_tile = pto.alloc_tile(tile_c)
 
             for logical_block in range(bid, cTotalTiles, num_blocks):
-                m_idx = logical_block // const(config.n_tiles)
-                n_idx = logical_block % const(config.n_tiles)
+                m_idx = logical_block // cNTiles
+                n_idx = logical_block % cNTiles
+                if config.swizzle_direction == 0:
+                    m_idx, n_idx = swizzle_zn(logical_block, cMTiles, cNTiles, cSwizzleCount)
+                elif config.swizzle_direction == 1:
+                    m_idx, n_idx = swizzle_nz(logical_block, cMTiles, cNTiles, cSwizzleCount)
                 m_off = m_idx * cTileM
                 n_off = n_idx * cTileN
 

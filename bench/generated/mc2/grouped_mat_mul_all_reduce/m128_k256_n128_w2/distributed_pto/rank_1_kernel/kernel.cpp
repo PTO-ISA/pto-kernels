@@ -18,10 +18,8 @@ __global__ AICORE void grouped_mat_mul_all_reduce_local(__gm__ half* v1, __gm__ 
   int64_t v18 = 0;
   int64_t v19 = 4096;
   using T = float;
-  size_t v20 = (size_t) v17;
-  size_t v21 = (size_t) v16;
-  int64_t v22 = get_block_idx();
-  int32_t v23 = (int32_t) ((int64_t) v22);
+  int64_t v20 = get_block_idx();
+  int32_t v21 = (int32_t) v20;
 
   #if defined(__DAV_CUBE__)
   set_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
@@ -30,62 +28,81 @@ __global__ AICORE void grouped_mat_mul_all_reduce_local(__gm__ half* v1, __gm__ 
   set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
   set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID3);
   set_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
-  if (v23 < v11) {
-    Tile<TileType::Mat, half, 32, 64, BLayout::ColMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v24;
-    TASSIGN(v24, v18);
-    Tile<TileType::Mat, half, 64, 32, BLayout::ColMajor, 64, 32, SLayout::RowMajor, 512, PadValue::Null> v25;
-    TASSIGN(v25, v19);
-    Tile<TileType::Left, half, 32, 64, BLayout::RowMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v26;
-    TASSIGN(v26, v18);
-    Tile<TileType::Right, half, 64, 32, BLayout::RowMajor, 64, 32, SLayout::ColMajor, 512, PadValue::Null> v27;
-    TASSIGN(v27, v18);
-    Tile<TileType::Acc, float, 32, 32, BLayout::ColMajor, 32, 32, SLayout::RowMajor, 1024, PadValue::Null> v28;
-    TASSIGN(v28, v18);
-    for (size_t v29 = v20; v29 < ((size_t) v11); v29 += v21) {
-      int32_t v30 = (int32_t) ((uint32_t) ((int32_t) v29) + (uint32_t) (v23 / v11));
-      if (v30 < v11) {
-        int32_t v31 = (int32_t) ((uint32_t) v30 * (uint32_t) v14);
-        int32_t v32 = (int32_t) ((uint32_t) (v23 % v11) * (uint32_t) v14);
+  if (v21 < v11) {
+    Tile<TileType::Mat, half, 32, 64, BLayout::ColMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v22;
+    TASSIGN(v22, v18);
+    Tile<TileType::Mat, half, 32, 64, BLayout::ColMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v23;
+    __cbuf__ half* v24 = v22.data();
+    uint64_t v25 = reinterpret_cast<uint64_t>(v24);
+    TASSIGN(v23, v25);
+    Tile<TileType::Mat, half, 64, 32, BLayout::ColMajor, 64, 32, SLayout::RowMajor, 512, PadValue::Null> v26;
+    TASSIGN(v26, v19);
+    Tile<TileType::Mat, half, 64, 32, BLayout::ColMajor, 64, 32, SLayout::RowMajor, 512, PadValue::Null> v27;
+    __cbuf__ half* v28 = v26.data();
+    uint64_t v29 = reinterpret_cast<uint64_t>(v28);
+    TASSIGN(v27, v29);
+    Tile<TileType::Left, half, 32, 64, BLayout::RowMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v30;
+    TASSIGN(v30, v18);
+    Tile<TileType::Left, half, 32, 64, BLayout::RowMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v31;
+    __ca__ half* v32 = v30.data();
+    uint64_t v33 = reinterpret_cast<uint64_t>(v32);
+    TASSIGN(v31, v33);
+    Tile<TileType::Right, half, 64, 32, BLayout::RowMajor, 64, 32, SLayout::ColMajor, 512, PadValue::Null> v34;
+    TASSIGN(v34, v18);
+    Tile<TileType::Right, half, 64, 32, BLayout::RowMajor, 64, 32, SLayout::ColMajor, 512, PadValue::Null> v35;
+    __cb__ half* v36 = v34.data();
+    uint64_t v37 = reinterpret_cast<uint64_t>(v36);
+    TASSIGN(v35, v37);
+    Tile<TileType::Acc, float, 32, 32, BLayout::ColMajor, 32, 32, SLayout::RowMajor, 1024, PadValue::Null> v38;
+    TASSIGN(v38, v18);
+    Tile<TileType::Acc, float, 32, 32, BLayout::ColMajor, 32, 32, SLayout::RowMajor, 1024, PadValue::Null> v39;
+    __cc__ float* v40 = v38.data();
+    uint64_t v41 = reinterpret_cast<uint64_t>(v40);
+    TASSIGN(v39, v41);
+    for (int32_t v42 = v17; v42 < v11; v42 += v16) {
+      int32_t v43 = (int32_t) ((uint32_t) v42 + (uint32_t) (v21 / v11));
+      if (v43 < v11) {
+        int32_t v44 = (int32_t) ((uint32_t) v43 * (uint32_t) v14);
+        int32_t v45 = (int32_t) ((uint32_t) (v21 % v11) * (uint32_t) v14);
         wait_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
-        for (size_t v33 = v20; v33 < ((size_t) v12); v33 += v21) {
-          int32_t v34 = (int32_t) v33;
-          int32_t v35 = (int32_t) ((uint32_t) v34 * (uint32_t) v13);
-          pto::Shape<1, 1, 1, 32, 64> v36 = pto::Shape<1, 1, 1, 32, 64>();
-          pto::Stride<4096, 4096, 4096, 128, 1> v37 = pto::Stride<4096, 4096, 4096, 128, 1>();
-          GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND> v38 = GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND>(v2 + (v10 + (unsigned) v31 * (unsigned) v15 + (unsigned) v35 * (unsigned) v16), v36, v37);
-          pto::Shape<1, 1, 1, 64, 32> v39 = pto::Shape<1, 1, 1, 64, 32>();
-          pto::Stride<8192, 8192, 8192, 128, 1> v40 = pto::Stride<8192, 8192, 8192, 128, 1>();
-          GlobalTensor<half, pto::Shape<1, 1, 1, 64, 32>, pto::Stride<8192, 8192, 8192, 128, 1>, pto::Layout::ND> v41 = GlobalTensor<half, pto::Shape<1, 1, 1, 64, 32>, pto::Stride<8192, 8192, 8192, 128, 1>, pto::Layout::ND>(v3 + (v10 + (unsigned) v35 * (unsigned) v15 + (unsigned) v32 * (unsigned) v16), v39, v40);
+        for (int32_t v46 = v17; v46 < v12; v46 += v16) {
+          int32_t v47 = (int32_t) ((uint32_t) v46 * (uint32_t) v13);
+          pto::Shape<1, 1, 1, 32, 64> v48 = pto::Shape<1, 1, 1, 32, 64>();
+          pto::Stride<4096, 4096, 4096, 128, 1> v49 = pto::Stride<4096, 4096, 4096, 128, 1>();
+          GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND> v50 = GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND>(v2 + (v10 + (unsigned) v44 * (unsigned) v15 + (unsigned) v47 * (unsigned) v16), v48, v49);
+          pto::Shape<1, 1, 1, 64, 32> v51 = pto::Shape<1, 1, 1, 64, 32>();
+          pto::Stride<8192, 8192, 8192, 128, 1> v52 = pto::Stride<8192, 8192, 8192, 128, 1>();
+          GlobalTensor<half, pto::Shape<1, 1, 1, 64, 32>, pto::Stride<8192, 8192, 8192, 128, 1>, pto::Layout::ND> v53 = GlobalTensor<half, pto::Shape<1, 1, 1, 64, 32>, pto::Stride<8192, 8192, 8192, 128, 1>, pto::Layout::ND>(v3 + (v10 + (unsigned) v47 * (unsigned) v15 + (unsigned) v45 * (unsigned) v16), v51, v52);
           wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
-          TLOAD(v24, v38);
+          TLOAD(v23, v50);
           set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
           wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
-          TLOAD(v25, v41);
+          TLOAD(v27, v53);
           set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID1);
           wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
           wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
           pipe_barrier(PIPE_MTE1);
-          TMOV(v26, v24);
+          TMOV(v31, v23);
           set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
           wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID1);
-          TMOV(v27, v25);
+          TMOV(v35, v27);
           set_flag(PIPE_MTE1, PIPE_M, EVENT_ID0);
           set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
           wait_flag(PIPE_MTE1, PIPE_M, EVENT_ID0);
-          if (v34 == v17) {
-            TMATMUL(v28, v26, v27);
+          if (v46 == v17) {
+            TMATMUL(v39, v31, v35);
           } else {
-            TMATMUL_ACC(v28, v28, v26, v27);
+            TMATMUL_ACC(v39, v39, v31, v35);
           };
           set_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
         };
         set_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
-        pto::Shape<1, 1, 1, 32, 32> v42 = pto::Shape<1, 1, 1, 32, 32>();
-        pto::Stride<4096, 4096, 4096, 128, 1> v43 = pto::Stride<4096, 4096, 4096, 128, 1>();
-        GlobalTensor<half, pto::Shape<1, 1, 1, 32, 32>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND> v44 = GlobalTensor<half, pto::Shape<1, 1, 1, 32, 32>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND>(v1 + (v10 + (unsigned) v31 * (unsigned) v15 + (unsigned) v32 * (unsigned) v16), v42, v43);
+        pto::Shape<1, 1, 1, 32, 32> v54 = pto::Shape<1, 1, 1, 32, 32>();
+        pto::Stride<4096, 4096, 4096, 128, 1> v55 = pto::Stride<4096, 4096, 4096, 128, 1>();
+        GlobalTensor<half, pto::Shape<1, 1, 1, 32, 32>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND> v56 = GlobalTensor<half, pto::Shape<1, 1, 1, 32, 32>, pto::Stride<4096, 4096, 4096, 128, 1>, pto::Layout::ND>(v1 + (v10 + (unsigned) v44 * (unsigned) v15 + (unsigned) v45 * (unsigned) v16), v54, v55);
         wait_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
         pipe_barrier(PIPE_FIX);
-        TSTORE(v44, v28);
+        TSTORE(v56, v39);
         set_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
       };
     };
