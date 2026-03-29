@@ -1,10 +1,38 @@
-# pto-isa kernels
+# pto-kernels
 
-Ascend NPU kernels using [pto-isa](https://github.com/PTO-ISA/pto-isa/). Parallel Tile Operation (PTO) is a virtual instruction set architecture designed by Ascend CANN, focusing on tile-level operations.
+A collection of high-performance custom kernels for **Ascend NPUs**, built on top of
+[pto-isa](https://github.com/PTO-ISA/pto-isa) — the Parallel Tile Operation virtual
+instruction set architecture designed by Ascend CANN.
 
-This repository now also hosts the PTO 910B bring-up superproject for migrating
-`ops-transformer` AI Core kernels to the `PTO-DSL -> PTOAS -> pto-isa` flow on
-the current `910B1` environment.
+PTO focuses on tile-level operations, enabling efficient, composable kernel development
+targeting Huawei's Ascend AI processors.
+
+This repository also hosts the PTO 910B bring-up superproject for migrating
+`ops-transformer` AI Core kernels to the `PTO-DSL -> PTOAS -> pto-isa` flow on the
+current `910B1` environment.
+
+---
+
+## Prerequisites
+
+- A configured **torch-npu** environment
+- Ascend toolkit installed at `/usr/local/Ascend/ascend-toolkit`
+
+Run the one-time setup before building:
+
+```bash
+make setup_once
+```
+
+## Install repository using pip
+
+The repository is "pip installable", i.e.,
+
+```bash
+export CMAKE_GENERATOR="Unix Makefiles" && pip install -v git+https://github.com/huawei-csl/pto-kernels.git
+```
+
+---
 
 ## Build
 
@@ -14,17 +42,29 @@ pip3 install -r requirements.txt
 make build_wheel
 ```
 
-The above commands will generate a wheel (i.e., `pto_kernels-0.1.0-*.whl`) that is pip installable.
+This produces an installable Python wheel:
 
-### Installing
+```text
+pto_kernels-X.Y.Z-*.whl
+```
+
+---
+
+## Installation
 
 ```bash
-pip install --force-reinstall pto_isa_kernels-*.whl
+pip install --force-reinstall pto_kernels-*.whl
 ```
+
+---
+
+## Testing
 
 ```bash
 make test
 ```
+
+---
 
 ## PTO 910B Bring-Up
 
@@ -46,6 +86,19 @@ make bootstrap
 PYTHONPATH=python python3 scripts/check_env.py --json
 ```
 
+## Repository Structure
+
+```text
+pto-kernels/
+├── csrc/                  # C++ kernel source files
+├── python/pto_kernels/    # Python bindings and utilities
+├── examples/jit_cpp/      # JIT compilation examples
+├── tests/                 # Test suite
+├── scripts/               # Helper scripts
+├── doxygen/               # API documentation config
+└── CMakeLists.txt         # CMake build configuration
+```
+
 ## Tutorial
 
 If you are new to this repository, start with the Chinese tutorial under
@@ -54,3 +107,15 @@ If you are new to this repository, start with the Chinese tutorial under
 shows minimal PTODSL examples, and walks through real kernels such as
 `grouped_matmul`, `flash_attention_score`, and `moe_token_permute` with
 current performance data from `bench/reports/regression_latest.md`.
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+
+---
+
+## License
+
+BSD-3-Clause-Clear — see [LICENSE](LICENSE) for details.

@@ -1,14 +1,18 @@
 """Python entrypoints for PTO kernels and superproject tooling."""
 
-# Import torch when available to avoid
-# "libc10.so: cannot open shared object file: No such file or directory".
-# See https://github.com/facebookresearch/pytorch3d/issues/1531#issuecomment-1538198217
 try:
     import torch  # noqa: F401
 except ImportError:
     torch = None
 
+try:
+    from .benchmarking import do_bench  # noqa: F401
+except ImportError:
+    do_bench = None
+
 __all__ = ["HAS_EXTENSION"]
+if do_bench is not None:
+    __all__.append("do_bench")
 
 try:
     from .pto_kernels_ops import *  # type: ignore # noqa: F401,F403
