@@ -1,0 +1,40 @@
+{
+  "entrypoint": "torch_npu.npu_swin_transformer_ln_qkv",
+  "reason": "Baseline runtime entrypoint is unavailable on this host.",
+  "status": "blocked",
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 0,
+      "seq": 64
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 1,
+      "seq": 256
+    },
+    {
+      "base_m": 128,
+      "batch": 4,
+      "dtype": "float16",
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "input_scale": 0.125,
+      "seed": 2,
+      "seq": 256
+    }
+  ]
+}

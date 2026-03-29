@@ -1,0 +1,34 @@
+{
+  "entrypoint": "torch_npu.npu_moe_gating_top_k_softmax_v2 | torch.ops.npu.npu_moe_gating_top_k_softmax_v2",
+  "reason": "Baseline runtime entrypoint is unavailable on this host.",
+  "status": "blocked",
+  "variants": [
+    {
+      "dtype": "float16",
+      "experts": 16,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 8,
+      "seed": 0,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 64,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 256,
+      "seed": 1,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "experts": 128,
+      "output_softmax_result_flag": false,
+      "renorm": 0,
+      "rows": 128,
+      "seed": 2,
+      "top_k": 1
+    }
+  ]
+}

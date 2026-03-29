@@ -1,0 +1,33 @@
+{
+  "reason": "PTO compile or execution failed: Command '['bisheng', '-I/home/zhouruoyu/pto-isa/include', '-I/home/zhouruoyu/github/pto-kernels/../pto-isa/include', '-I/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/include', '-fPIC', '-shared', '-D_FORTIFY_SOURCE=2', '-O2', '-std=c++17', '-Wno-macro-redefined', '-Wno-ignored-attributes', '-fstack-protector-strong', '-xcce', '-Xhost-start', '-Xhost-end', '-mllvm', '-cce-aicore-stack-size=0x8000', '-mllvm', '-cce-aicore-function-stack-size=0x8000', '-mllvm', '-cce-aicore-record-overflow=true', '-mllvm', '-cce-aicore-addr-transform', '-mllvm', '-cce-aicore-dcci-insert-for-scalar=false', '--npu-arch=dav-2201', '-DMEMORY_BASE', '-std=gnu++17', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260315T145059Z/t2_h16_d16/stage_proj/caller.cpp', '-L/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-Wl,-rpath,/home/zhouruoyu/Ascend/cann-9.0.0-beta.1/lib64', '-lruntime', '-o', '/home/zhouruoyu/github/pto-kernels/bench/results/attention/recurrent_gated_delta_rule/20260315T145059Z/t2_h16_d16/stage_proj/kernel.so']' returned non-zero exit status 1.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch_size": 1,
+      "dim": 16,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 0,
+      "seq_len": 2
+    },
+    {
+      "batch_size": 1,
+      "dim": 64,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 1,
+      "seq_len": 4
+    },
+    {
+      "batch_size": 1,
+      "dim": 128,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 2,
+      "seq_len": 8
+    }
+  ]
+}

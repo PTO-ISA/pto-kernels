@@ -1,0 +1,514 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_finalize_routing_v2_grad.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch_npu.npu_moe_finalize_routing_v2_grad | torch.ops.npu.npu_moe_finalize_routing_v2_grad",
+      "reason": "Baseline runtime entrypoint is unavailable on this host.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/ops_transformer_moe_finalize_routing_v2_grad_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "reason": "This host does not expose torch_npu.npu_moe_finalize_routing_v2_grad or torch.ops.npu.npu_moe_finalize_routing_v2_grad.",
+      "status": "blocked"
+    },
+    "family": "moe",
+    "name": "moe_finalize_routing_v2_grad",
+    "ops_transformer_path": "moe/moe_finalize_routing_v2_grad",
+    "runtime_entrypoint": "torch_npu.npu_moe_finalize_routing_v2_grad | torch.ops.npu.npu_moe_finalize_routing_v2_grad",
+    "seed_variant": {
+      "default": {
+        "drop_pad_mode": 0,
+        "dtype": "float16",
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.01,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_finalize_routing_v2_grad",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_finalize_routing_v2_grad/report.json",
+  "name": "moe_finalize_routing_v2_grad",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_finalize_routing_v2_grad.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t16_h16/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t16_h16/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t16_h16/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t16_h16/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t256_h64/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t256_h64/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t256_h64/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t256_h64/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t128_h128/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t128_h128/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t128_h128/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/t128_h128/kernel.so"
+      ],
+      "block_utilization": {
+        "nominal_tokens": 256,
+        "requested_block_dim": 8,
+        "uses_all_blocks": true
+      },
+      "correctness": {
+        "atol": 0.01,
+        "max_abs_diff": 0.017547607421875,
+        "passes": false,
+        "rtol": 0.001
+      },
+      "reference_contract": "top1_finalize_routing_v2_grad_with_scale_and_bias",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/ptodsl_moe_finalize_routing_v2_grad_benchmark.json",
+      "shape_summaries": [
+        {
+          "bias": [
+            4,
+            16
+          ],
+          "expanded_row_idx": [
+            16
+          ],
+          "expanded_x": [
+            16,
+            16
+          ],
+          "expert_idx": [
+            16,
+            1
+          ],
+          "grad_expanded_x_out": [
+            16,
+            16
+          ],
+          "grad_scales_out": [
+            16,
+            1
+          ],
+          "grad_y": [
+            16,
+            16
+          ],
+          "scales": [
+            16,
+            1
+          ]
+        },
+        {
+          "bias": [
+            4,
+            64
+          ],
+          "expanded_row_idx": [
+            256
+          ],
+          "expanded_x": [
+            256,
+            64
+          ],
+          "expert_idx": [
+            256,
+            1
+          ],
+          "grad_expanded_x_out": [
+            256,
+            64
+          ],
+          "grad_scales_out": [
+            256,
+            1
+          ],
+          "grad_y": [
+            256,
+            64
+          ],
+          "scales": [
+            256,
+            1
+          ]
+        },
+        {
+          "bias": [
+            4,
+            128
+          ],
+          "expanded_row_idx": [
+            128
+          ],
+          "expanded_x": [
+            128,
+            128
+          ],
+          "expert_idx": [
+            128,
+            1
+          ],
+          "grad_expanded_x_out": [
+            128,
+            128
+          ],
+          "grad_scales_out": [
+            128,
+            1
+          ],
+          "grad_y": [
+            128,
+            128
+          ],
+          "scales": [
+            128,
+            1
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.3444119356572628,
+        "median": 0.31313695944845676,
+        "min": 0.30103186145424843
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "grad_expanded_x_max_abs_diff": 0.00121307373046875,
+            "grad_scales_max_abs_diff": 0.0031766891479492188,
+            "max_abs_diff": 0.0031766891479492188
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              16
+            ],
+            "expanded_row_idx": [
+              16
+            ],
+            "expanded_x": [
+              16,
+              16
+            ],
+            "expert_idx": [
+              16,
+              1
+            ],
+            "grad_expanded_x_out": [
+              16,
+              16
+            ],
+            "grad_scales_out": [
+              16,
+              1
+            ],
+            "grad_y": [
+              16,
+              16
+            ],
+            "scales": [
+              16,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.33478206023573875,
+            "median": 0.30823121778666973,
+            "min": 0.30103186145424843
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 16,
+            "seed": 0,
+            "tokens": 16,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "grad_expanded_x_max_abs_diff": 0.001953125,
+            "grad_scales_max_abs_diff": 0.01221466064453125,
+            "max_abs_diff": 0.01221466064453125
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              64
+            ],
+            "expanded_row_idx": [
+              256
+            ],
+            "expanded_x": [
+              256,
+              64
+            ],
+            "expert_idx": [
+              256,
+              1
+            ],
+            "grad_expanded_x_out": [
+              256,
+              64
+            ],
+            "grad_scales_out": [
+              256,
+              1
+            ],
+            "grad_y": [
+              256,
+              64
+            ],
+            "scales": [
+              256,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.3444119356572628,
+            "median": 0.31313695944845676,
+            "min": 0.305861234664917
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 64,
+            "seed": 1,
+            "tokens": 256,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "grad_expanded_x_max_abs_diff": 0.001934051513671875,
+            "grad_scales_max_abs_diff": 0.017547607421875,
+            "max_abs_diff": 0.017547607421875
+          },
+          "shape_summary": {
+            "bias": [
+              4,
+              128
+            ],
+            "expanded_row_idx": [
+              128
+            ],
+            "expanded_x": [
+              128,
+              128
+            ],
+            "expert_idx": [
+              128,
+              1
+            ],
+            "grad_expanded_x_out": [
+              128,
+              128
+            ],
+            "grad_scales_out": [
+              128,
+              1
+            ],
+            "grad_y": [
+              128,
+              128
+            ],
+            "scales": [
+              128,
+              1
+            ]
+          },
+          "timings_ms": {
+            "max": 0.343461986631155,
+            "median": 0.312926946207881,
+            "min": 0.30638230964541435
+          },
+          "variant": {
+            "drop_pad_mode": 0,
+            "dtype": "float16",
+            "experts": 4,
+            "hidden_size": 128,
+            "seed": 2,
+            "tokens": 128,
+            "top_k": 1
+          }
+        }
+      ],
+      "variants": [
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "drop_pad_mode": 0,
+          "dtype": "float16",
+          "experts": 4,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "pto-correctness-grad-scales-reduction"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_finalize_routing_v2_grad",
+      "ops_transformer_path": "moe/moe_finalize_routing_v2_grad",
+      "seed_variant": {
+        "limits": [
+          "top-k fixed to 1",
+          "scalesOptional and biasOptional both required in the validated slice",
+          "dropPadMode fixed to 0",
+          "activeNum fixed to full expanded row count",
+          "PTO seed now compiles on the default local PTOAS toolchain and uses direct scalar routing loads for top-1 indices/scales in the checked backward slice",
+          "phase-2 rewrite follows contiguous per-core token-row ownership on the gradient combine stage",
+          "gradExpandedXOut is correctness-green, but gradScalesOut is still parity-blocked on the current reduction path",
+          "nominal shape uses all requested block ids",
+          "this host does not expose a Python-visible baseline entrypoint for v2_grad"
+        ],
+        "name": "top1_fp16_finalize_routing_v2_grad",
+        "shape": {
+          "boundary": {
+            "experts": 4,
+            "hidden": 128,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 4,
+            "hidden": 64,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 4,
+            "hidden": 16,
+            "tokens": 16
+          }
+        }
+      },
+      "status": "blocked",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_finalize_routing_v2_grad/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_finalize_routing_v2_grad/20260320T173757Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

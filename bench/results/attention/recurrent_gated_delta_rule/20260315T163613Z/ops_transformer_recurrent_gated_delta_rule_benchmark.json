@@ -1,0 +1,371 @@
+{
+  "baseline_limitations": [
+    "baseline timing uses the functional entrypoint to observe both output and final_state",
+    "baseline correctness is validated on output only; final_state semantics remain a host-contract gap for this first bounded slice"
+  ],
+  "correctness": {
+    "atol": 0.15,
+    "max_abs_diff": 0.133544921875,
+    "passes": true,
+    "rtol": 0.15
+  },
+  "entrypoint": "torch_npu.npu_recurrent_gated_delta_rule_functional",
+  "reference_contract": "nd_recurrent_no_gk",
+  "shape_summaries": [
+    {
+      "attention_out": [
+        2,
+        16,
+        16
+      ],
+      "beta": [
+        2,
+        16
+      ],
+      "final_state": [
+        2,
+        16,
+        16,
+        16
+      ],
+      "g": [
+        2,
+        16
+      ],
+      "key": [
+        2,
+        16,
+        16
+      ],
+      "query": [
+        2,
+        16,
+        16
+      ],
+      "state": [
+        2,
+        16,
+        16,
+        16
+      ],
+      "value": [
+        2,
+        16,
+        16
+      ]
+    },
+    {
+      "attention_out": [
+        4,
+        16,
+        64
+      ],
+      "beta": [
+        4,
+        16
+      ],
+      "final_state": [
+        4,
+        16,
+        64,
+        64
+      ],
+      "g": [
+        4,
+        16
+      ],
+      "key": [
+        4,
+        16,
+        64
+      ],
+      "query": [
+        4,
+        16,
+        64
+      ],
+      "state": [
+        4,
+        16,
+        64,
+        64
+      ],
+      "value": [
+        4,
+        16,
+        64
+      ]
+    },
+    {
+      "attention_out": [
+        8,
+        16,
+        128
+      ],
+      "beta": [
+        8,
+        16
+      ],
+      "final_state": [
+        8,
+        16,
+        128,
+        128
+      ],
+      "g": [
+        8,
+        16
+      ],
+      "key": [
+        8,
+        16,
+        128
+      ],
+      "query": [
+        8,
+        16,
+        128
+      ],
+      "state": [
+        8,
+        16,
+        128,
+        128
+      ],
+      "value": [
+        8,
+        16,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 0.23970077745616436,
+    "median": 0.15566102229058743,
+    "min": 0.11656014248728752
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.133544921875,
+        "out_max_abs_diff": 0.133544921875,
+        "passes": true,
+        "state_max_abs_diff": 0.6064453125
+      },
+      "shape_summary": {
+        "attention_out": [
+          2,
+          16,
+          16
+        ],
+        "beta": [
+          2,
+          16
+        ],
+        "final_state": [
+          2,
+          16,
+          16,
+          16
+        ],
+        "g": [
+          2,
+          16
+        ],
+        "key": [
+          2,
+          16,
+          16
+        ],
+        "query": [
+          2,
+          16,
+          16
+        ],
+        "state": [
+          2,
+          16,
+          16,
+          16
+        ],
+        "value": [
+          2,
+          16,
+          16
+        ]
+      },
+      "timings_ms": {
+        "max": 0.19056093879044056,
+        "median": 0.15566102229058743,
+        "min": 0.14948099851608276
+      },
+      "variant": {
+        "batch_size": 1,
+        "dim": 16,
+        "input_scale": 0.125,
+        "num_heads": 16,
+        "num_value_heads": 16,
+        "seed": 0,
+        "seq_len": 2
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.07470703125,
+        "out_max_abs_diff": 0.07470703125,
+        "passes": true,
+        "state_max_abs_diff": 0.763671875
+      },
+      "shape_summary": {
+        "attention_out": [
+          4,
+          16,
+          64
+        ],
+        "beta": [
+          4,
+          16
+        ],
+        "final_state": [
+          4,
+          16,
+          64,
+          64
+        ],
+        "g": [
+          4,
+          16
+        ],
+        "key": [
+          4,
+          16,
+          64
+        ],
+        "query": [
+          4,
+          16,
+          64
+        ],
+        "state": [
+          4,
+          16,
+          64,
+          64
+        ],
+        "value": [
+          4,
+          16,
+          64
+        ]
+      },
+      "timings_ms": {
+        "max": 0.23970077745616436,
+        "median": 0.1241760328412056,
+        "min": 0.11656014248728752
+      },
+      "variant": {
+        "batch_size": 1,
+        "dim": 64,
+        "input_scale": 0.125,
+        "num_heads": 16,
+        "num_value_heads": 16,
+        "seed": 1,
+        "seq_len": 4
+      }
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.05322265625,
+        "out_max_abs_diff": 0.05322265625,
+        "passes": true,
+        "state_max_abs_diff": 0.791015625
+      },
+      "shape_summary": {
+        "attention_out": [
+          8,
+          16,
+          128
+        ],
+        "beta": [
+          8,
+          16
+        ],
+        "final_state": [
+          8,
+          16,
+          128,
+          128
+        ],
+        "g": [
+          8,
+          16
+        ],
+        "key": [
+          8,
+          16,
+          128
+        ],
+        "query": [
+          8,
+          16,
+          128
+        ],
+        "state": [
+          8,
+          16,
+          128,
+          128
+        ],
+        "value": [
+          8,
+          16,
+          128
+        ]
+      },
+      "timings_ms": {
+        "max": 0.1623809803277254,
+        "median": 0.13925100211054087,
+        "min": 0.1310710795223713
+      },
+      "variant": {
+        "batch_size": 1,
+        "dim": 128,
+        "input_scale": 0.125,
+        "num_heads": 16,
+        "num_value_heads": 16,
+        "seed": 2,
+        "seq_len": 8
+      }
+    }
+  ],
+  "variants": [
+    {
+      "batch_size": 1,
+      "dim": 16,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 0,
+      "seq_len": 2
+    },
+    {
+      "batch_size": 1,
+      "dim": 64,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 1,
+      "seq_len": 4
+    },
+    {
+      "batch_size": 1,
+      "dim": 128,
+      "input_scale": 0.125,
+      "num_heads": 16,
+      "num_value_heads": 16,
+      "seed": 2,
+      "seq_len": 8
+    }
+  ]
+}

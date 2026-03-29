@@ -1,0 +1,277 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260316T031057Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/gmm/grouped_matmul_swiglu_quant.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "attempted_weight_storage_shape": [
+        16,
+        128,
+        16,
+        16,
+        32
+      ],
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+      "reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: Run:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:135 NPU function error: AclSetCompileopt(aclCompileOpt::ACL_OP_JIT_COMPILE, val->c_str()), error code is 500001\n[ERROR] 2026-03-16-11:11:18 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260316T031057Z/ops_transformer_grouped_matmul_swiglu_quant_benchmark.json",
+      "shape_summaries": [
+        {
+          "group_list": [
+            16
+          ],
+          "output": [
+            1024,
+            2048
+          ],
+          "output_scale": [
+            1024
+          ],
+          "weight_logical": [
+            16,
+            256,
+            4096
+          ],
+          "weight_scale": [
+            16,
+            4096
+          ],
+          "weight_storage_nz": [
+            16,
+            128,
+            16,
+            16,
+            32
+          ],
+          "x": [
+            1024,
+            256
+          ],
+          "x_scale": [
+            1024
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "compile": {
+      "attempted_weight_storage_shape": [
+        16,
+        128,
+        16,
+        16,
+        32
+      ],
+      "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+      "reason": "Unable to materialize NZ-format weight storage on this host: RuntimeError: SetPrecisionMode:build/CMakeFiles/torch_npu.dir/compiler_depend.ts:175 NPU function error: at_npu::native::AclSetCompileopt(aclCompileOpt::ACL_PRECISION_MODE, precision_mode), error code is 500001\n[ERROR] 2026-03-16-11:11:08 (PID:667120, Device:0, RankID:-1) ERR00100 PTA call acl api failed\n[Error]: The internal ACL of the system is incorrect.\n        Rectify the fault based on the error information in the ascend log.\n[PID: 667120] 2026-03-16-11:11:08.365.521 Environment_Error_Import_Python_Module_Failed(EC0010): Failed to import Python module ModuleNotFoundError: No module named 'tbe'..\n        Solution: Check that all required components are properly installed and the specified Python path matches the Python installation directory. If the path does not match the directory, run set_env.sh in the installation package.\n        TraceBack (most recent call last):\n        AOE failed to call InitCannKB.[FUNC:Initialize][FILE:python_adapter_manager.cc][LINE:52]\n        Failed to initialize TeConfigInfo.[FUNC:TeInnerErrMessageReport][FILE:common_utils.cc][LINE:397]\n        [GraphOpt][InitializeInner][InitTbeFunc] Failed to init tbe.[FUNC:InitializeTeFusion][FILE:tbe_op_store_adapter.cc][LINE:1966]\n        [GraphOpt][InitializeInner][InitTeFusion]: Failed to initialize TeFusion.[FUNC:InitializeInner][FILE:tbe_op_store_adapter.cc][LINE:1933]\n        [SubGraphOpt][PreCompileOp][InitAdapter] InitializeAdapter adapter [tbe_op_adapter] failed! Ret [4294967295][FUNC:InitializeAdapter][FILE:op_store_adapter_manager.cc][LINE:80]\n        [SubGraphOpt][PreCompileOp][Init] Initialize op store adapter failed, OpsStoreName[tbe-custom].[FUNC:Initialize][FILE:op_store_adapter_manager.cc][LINE:121]\n        [FusionMngr][Init] Op store adapter manager init failed.[FUNC:Initialize][FILE:fusion_manager.cc][LINE:118]\n        PluginManager InvokeAll failed.[FUNC:Initialize][FILE:ops_kernel_manager.cc][LINE:100]\n        OpsManager initialize failed.[FUNC:InnerInitialize][FILE:gelib.cc][LINE:224]\n        GELib::InnerInitialize failed.[FUNC:Initialize][FILE:gelib.cc][LINE:161]\n        GEInitializeV2 failed.[FUNC:GEInitializeV2][FILE:ge_api_v2.cc][LINE:323]\n        GEInitializeV2 initialize failed.[FUNC:GEInitialize][FILE:ge_api.cc][LINE:199]\n        [Initialize][Ge]GEInitialize failed. ge result = 4294967295[FUNC:ReportCallError][FILE:log_inner.cpp][LINE:148]\n        [Init][Compiler]Init compiler failed[FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:132]\n        [Set][Options]OpCompileProcessor init failed![FUNC:ReportInnerError][FILE:log_inner.cpp][LINE:132]\n",
+      "shape_summaries": [
+        {
+          "group_list": [
+            16
+          ],
+          "output": [
+            1024,
+            2048
+          ],
+          "output_scale": [
+            1024
+          ],
+          "weight_logical": [
+            16,
+            256,
+            4096
+          ],
+          "weight_scale": [
+            16,
+            4096
+          ],
+          "weight_storage_nz": [
+            16,
+            128,
+            16,
+            16,
+            32
+          ],
+          "x": [
+            1024,
+            256
+          ],
+          "x_scale": [
+            1024
+          ]
+        }
+      ],
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "family": "gmm",
+    "name": "grouped_matmul_swiglu_quant",
+    "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant",
+    "runtime_entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant",
+    "seed_variant": {
+      "default": {
+        "e": 16,
+        "input_dtype": "int8",
+        "k": 256,
+        "m": 1024,
+        "n": 4096,
+        "seed": 0,
+        "weight_dtype": "int8_fractal_nz"
+      },
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.02,
+    "rtol": 0.02,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "npu_arch": "dav-2201",
+    "pto_arch": "a3",
+    "soc": "ascend910b",
+    "toolkit_version": "9.0.0-beta.1"
+  },
+  "dry_run": false,
+  "family": "gmm",
+  "inventory_ref": "gmm/grouped_matmul_swiglu_quant",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/gmm/grouped_matmul_swiglu_quant/report.json",
+  "name": "grouped_matmul_swiglu_quant",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/gmm/grouped_matmul_swiglu_quant.py",
+    "benchmark": {
+      "reason": "PTO port is deferred until the host FRACTAL_NZ baseline contract is reproducible.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260316T031057Z/ptodsl_grouped_matmul_swiglu_quant_benchmark.json",
+      "status": "blocked",
+      "variants": [
+        {
+          "e": 16,
+          "input_dtype": "int8",
+          "k": 256,
+          "m": 1024,
+          "n": 4096,
+          "seed": 0,
+          "weight_dtype": "int8_fractal_nz"
+        }
+      ]
+    },
+    "compile": {
+      "reason": "grouped_matmul_swiglu_quant PTO port is deferred until the FRACTAL_NZ baseline contract is reproducible on this host.",
+      "status": "blocked"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant/kernel.py",
+    "meta": {
+      "archetype": "grouped-matmul-swiglu-quant",
+      "blockers": [
+        "ops-transformer-grouped-swiglu-quant-format-contract",
+        "ptodsl-group-routing-primitives",
+        "ptodsl-cube-preload-pipeline-surface"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "gmm",
+      "name": "grouped_matmul_swiglu_quant",
+      "ops_transformer_path": "gmm/grouped_matmul_swiglu_quant",
+      "seed_variant": {
+        "limits": [
+          "baseline contract probe only",
+          "requires FRACTAL_NZ weight storage metadata",
+          "requires int8 input/output quantized path",
+          "PTO kernel implementation is deferred until the host baseline contract is reproducible"
+        ],
+        "name": "fractal_nz_int8_swiglu_quant_contract_probe",
+        "shape": {
+          "variant_0": {
+            "group_list": [
+              16
+            ],
+            "output": [
+              1024,
+              2048
+            ],
+            "output_scale": [
+              1024
+            ],
+            "weight_logical": [
+              16,
+              256,
+              4096
+            ],
+            "weight_scale": [
+              16,
+              4096
+            ],
+            "weight_storage_nz": [
+              16,
+              128,
+              16,
+              16,
+              32
+            ],
+            "x": [
+              1024,
+              256
+            ],
+            "x_scale": [
+              1024
+            ]
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave1"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/gmm/grouped_matmul_swiglu_quant/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/gmm/grouped_matmul_swiglu_quant/20260316T031057Z/report.json",
+  "status": "prototype",
+  "wave": "wave1"
+}

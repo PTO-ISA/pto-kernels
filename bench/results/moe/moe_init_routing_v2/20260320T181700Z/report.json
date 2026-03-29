@@ -1,0 +1,468 @@
+{
+  "artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z",
+  "baseline": {
+    "adapter": "bench/adapters/ops_transformer/moe/moe_init_routing_v2.py",
+    "baseline_root": "/home/zhouruoyu/github/ops-transformer",
+    "benchmark": {
+      "entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+      "reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/ops_transformer_moe_init_routing_v2_benchmark.json",
+      "status": "blocked",
+      "stderr": "",
+      "stdout": "",
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+      "note": "Baseline execution uses the installed runtime builtin. The constrained slice fixes topK=1, dropless mode, and pre-groups expert_idx by expert.",
+      "status": "runtime_builtin"
+    },
+    "family": "moe",
+    "name": "moe_init_routing_v2",
+    "ops_transformer_path": "moe/moe_init_routing_v2",
+    "runtime_entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+    "seed_variant": {
+      "default": {
+        "dtype": "float16",
+        "expert_tokens_num_flag": true,
+        "expert_tokens_num_type": 1,
+        "experts": 4,
+        "hidden_size": 16,
+        "seed": 0,
+        "tokens": 16,
+        "top_k": 1
+      },
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    }
+  },
+  "bench": {
+    "parity_threshold": 0.1,
+    "repeat": 100,
+    "statistic": "median",
+    "warmup": 20
+  },
+  "capture_msprof": false,
+  "correctness": {
+    "atol": 0.001,
+    "rtol": 0.001,
+    "shape_sets": [
+      "smoke",
+      "nominal",
+      "boundary"
+    ]
+  },
+  "device": {
+    "id": 0
+  },
+  "dry_run": false,
+  "family": "moe",
+  "inventory_ref": "moe/moe_init_routing_v2",
+  "latest_artifacts_dir": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2",
+  "latest_report_path": "/home/zhouruoyu/github/pto-kernels/bench/generated/moe/moe_init_routing_v2/report.json",
+  "name": "moe_init_routing_v2",
+  "pto": {
+    "adapter": "bench/adapters/ptodsl/moe/moe_init_routing_v2.py",
+    "benchmark": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t16_h16_e4/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t16_h16_e4/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t16_h16_e4/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t16_h16_e4/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t256_h64_e8/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t256_h64_e8/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t256_h64_e8/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t256_h64_e8/kernel.so",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t128_h128_e8/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t128_h128_e8/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t128_h128_e8/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/t128_h128_e8/kernel.so"
+      ],
+      "correctness": {
+        "atol": 0.001,
+        "max_abs_diff": 0.0,
+        "passes": true,
+        "rtol": 0.001
+      },
+      "reference_contract": "top1_grouped_expert_idx_init_routing_v2",
+      "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/ptodsl_moe_init_routing_v2_benchmark.json",
+      "shape_summaries": [
+        {
+          "expanded_row_idx": [
+            16
+          ],
+          "expanded_x": [
+            16,
+            16
+          ],
+          "expert_idx": [
+            16,
+            1
+          ],
+          "expert_tokens_before_capacity": [
+            4
+          ],
+          "expert_tokens_count_or_cumsum": [
+            4
+          ],
+          "x": [
+            16,
+            16
+          ]
+        },
+        {
+          "expanded_row_idx": [
+            256
+          ],
+          "expanded_x": [
+            256,
+            64
+          ],
+          "expert_idx": [
+            256,
+            1
+          ],
+          "expert_tokens_before_capacity": [
+            8
+          ],
+          "expert_tokens_count_or_cumsum": [
+            8
+          ],
+          "x": [
+            256,
+            64
+          ]
+        },
+        {
+          "expanded_row_idx": [
+            128
+          ],
+          "expanded_x": [
+            128,
+            128
+          ],
+          "expert_idx": [
+            128,
+            1
+          ],
+          "expert_tokens_before_capacity": [
+            8
+          ],
+          "expert_tokens_count_or_cumsum": [
+            8
+          ],
+          "x": [
+            128,
+            128
+          ]
+        }
+      ],
+      "status": "ok",
+      "timings_ms": {
+        "max": 0.5378434434533119,
+        "median": 0.5015130154788494,
+        "min": 0.4650633782148361
+      },
+      "variant_reports": [
+        {
+          "correctness": {
+            "expanded_row_idx_max_abs_diff": 0,
+            "expanded_x_max_abs_diff": 0.0,
+            "expert_tokens_before_capacity_max_abs_diff": 0,
+            "expert_tokens_count_or_cumsum_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expanded_row_idx": [
+              16
+            ],
+            "expanded_x": [
+              16,
+              16
+            ],
+            "expert_idx": [
+              16,
+              1
+            ],
+            "expert_tokens_before_capacity": [
+              4
+            ],
+            "expert_tokens_count_or_cumsum": [
+              4
+            ],
+            "x": [
+              16,
+              16
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5134227685630322,
+            "median": 0.473307678475976,
+            "min": 0.4650633782148361
+          },
+          "variant": {
+            "dtype": "float16",
+            "expert_tokens_num_flag": true,
+            "expert_tokens_num_type": 1,
+            "experts": 4,
+            "hidden_size": 16,
+            "seed": 0,
+            "tokens": 16,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "expanded_row_idx_max_abs_diff": 0,
+            "expanded_x_max_abs_diff": 0.0,
+            "expert_tokens_before_capacity_max_abs_diff": 0,
+            "expert_tokens_count_or_cumsum_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expanded_row_idx": [
+              256
+            ],
+            "expanded_x": [
+              256,
+              64
+            ],
+            "expert_idx": [
+              256,
+              1
+            ],
+            "expert_tokens_before_capacity": [
+              8
+            ],
+            "expert_tokens_count_or_cumsum": [
+              8
+            ],
+            "x": [
+              256,
+              64
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5169431678950787,
+            "median": 0.4885881207883358,
+            "min": 0.47315191477537155
+          },
+          "variant": {
+            "dtype": "float16",
+            "expert_tokens_num_flag": true,
+            "expert_tokens_num_type": 1,
+            "experts": 8,
+            "hidden_size": 64,
+            "seed": 1,
+            "tokens": 256,
+            "top_k": 1
+          }
+        },
+        {
+          "correctness": {
+            "expanded_row_idx_max_abs_diff": 0,
+            "expanded_x_max_abs_diff": 0.0,
+            "expert_tokens_before_capacity_max_abs_diff": 0,
+            "expert_tokens_count_or_cumsum_max_abs_diff": 0,
+            "max_abs_diff": 0.0
+          },
+          "shape_summary": {
+            "expanded_row_idx": [
+              128
+            ],
+            "expanded_x": [
+              128,
+              128
+            ],
+            "expert_idx": [
+              128,
+              1
+            ],
+            "expert_tokens_before_capacity": [
+              8
+            ],
+            "expert_tokens_count_or_cumsum": [
+              8
+            ],
+            "x": [
+              128,
+              128
+            ]
+          },
+          "timings_ms": {
+            "max": 0.5378434434533119,
+            "median": 0.5015130154788494,
+            "min": 0.4823533818125725
+          },
+          "variant": {
+            "dtype": "float16",
+            "expert_tokens_num_flag": true,
+            "expert_tokens_num_type": 1,
+            "experts": 8,
+            "hidden_size": 128,
+            "seed": 2,
+            "tokens": 128,
+            "top_k": 1
+          }
+        }
+      ],
+      "variants": [
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 4,
+          "hidden_size": 16,
+          "seed": 0,
+          "tokens": 16,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 64,
+          "seed": 1,
+          "tokens": 256,
+          "top_k": 1
+        },
+        {
+          "dtype": "float16",
+          "expert_tokens_num_flag": true,
+          "expert_tokens_num_type": 1,
+          "experts": 8,
+          "hidden_size": 128,
+          "seed": 2,
+          "tokens": 128,
+          "top_k": 1
+        }
+      ]
+    },
+    "compile": {
+      "artifact_paths": [
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/kernel.pto",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/kernel.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/caller.cpp",
+        "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/kernel.so"
+      ],
+      "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py",
+      "library_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/kernel.so",
+      "output_dir": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z",
+      "status": "ready"
+    },
+    "kernel_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_init_routing_v2/kernel.py",
+    "meta": {
+      "archetype": "moe-routing",
+      "blockers": [
+        "ptodsl-routing-sort-primitives",
+        "ptodsl-group-routing-primitives"
+      ],
+      "checklist": [
+        "baseline_adapter",
+        "pto_dsl_source",
+        "artifact_trace",
+        "correctness",
+        "benchmark",
+        "parity"
+      ],
+      "family": "moe",
+      "name": "moe_init_routing_v2",
+      "ops_transformer_path": "moe/moe_init_routing_v2",
+      "seed_variant": {
+        "limits": [
+          "top-1 routing only",
+          "dropless mode only",
+          "expert_idx is pre-grouped by expert on input",
+          "PTO seed covers copy plus expert count/cumsum and does not sort on-device yet",
+          "nominal shape uses all requested block ids for the expanded_x copy path"
+        ],
+        "name": "top1_fp16_init_routing_v2_grouped_expert_idx",
+        "shape": {
+          "boundary": {
+            "experts": 8,
+            "hidden": 128,
+            "tokens": 128
+          },
+          "nominal": {
+            "experts": 8,
+            "hidden": 64,
+            "tokens": 256
+          },
+          "smoke": {
+            "experts": 4,
+            "hidden": 16,
+            "tokens": 16
+          }
+        }
+      },
+      "status": "prototype",
+      "wave": "wave2"
+    },
+    "meta_path": "/home/zhouruoyu/github/pto-kernels/python/pto_kernels/ops/moe/moe_init_routing_v2/meta.py"
+  },
+  "report_path": "/home/zhouruoyu/github/pto-kernels/bench/results/moe/moe_init_routing_v2/20260320T181700Z/report.json",
+  "status": "prototype",
+  "wave": "wave2"
+}

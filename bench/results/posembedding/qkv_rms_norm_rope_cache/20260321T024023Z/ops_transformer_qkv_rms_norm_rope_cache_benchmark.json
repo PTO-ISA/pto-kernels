@@ -1,0 +1,19 @@
+{
+  "entrypoint": "torch_npu.npu_qkv_rms_norm_rope_cache",
+  "reason": "Baseline runtime entrypoint is unavailable on this host.",
+  "status": "blocked",
+  "variants": [
+    {
+      "batch": 2,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 0
+    },
+    {
+      "batch": 4,
+      "cache_len": 8,
+      "dtype": "float16",
+      "seed": 1
+    }
+  ]
+}

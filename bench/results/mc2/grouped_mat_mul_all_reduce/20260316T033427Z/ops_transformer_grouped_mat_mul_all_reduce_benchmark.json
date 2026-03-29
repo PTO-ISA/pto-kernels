@@ -1,0 +1,242 @@
+{
+  "correctness": {
+    "atol": 0.001,
+    "max_abs_diff": 0.00048828125,
+    "passes": true,
+    "rtol": 0.001
+  },
+  "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+  "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+  "shape_summaries": [
+    {
+      "group_list": [
+        128
+      ],
+      "groups": 1,
+      "output": [
+        128,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        128,
+        128
+      ]
+    },
+    {
+      "group_list": [
+        256
+      ],
+      "groups": 1,
+      "output": [
+        256,
+        128
+      ],
+      "weight_local": [
+        128,
+        128
+      ],
+      "world_size": 2,
+      "x_local": [
+        256,
+        128
+      ]
+    }
+  ],
+  "status": "ok",
+  "timings_ms": {
+    "max": 3.7205119151622057,
+    "median": 0.7192851044237614,
+    "min": 0.6117341108620167
+  },
+  "variant_reports": [
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ]
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 0.8850551676005125,
+            "median": 0.713284476660192,
+            "min": 0.6170931737869978
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.0564479529857635,
+            "median": 0.7192851044237614,
+            "min": 0.6117341108620167
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+      "shape_summary": {
+        "group_list": [
+          128
+        ],
+        "groups": 1,
+        "output": [
+          128,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          128,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 3.0564479529857635,
+        "median": 0.7192851044237614,
+        "min": 0.6117341108620167,
+        "per_rank_median": [
+          0.713284476660192,
+          0.7192851044237614
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 128,
+        "n": 128,
+        "seed": 0
+      },
+      "world_size": 2
+    },
+    {
+      "correctness": {
+        "max_abs_diff": 0.00048828125,
+        "per_rank_max_abs_diff": [
+          0.00048828125,
+          0.00048828125
+        ]
+      },
+      "entrypoint": "torch_npu.npu_grouped_matmul + dist.all_reduce",
+      "rank_reports": [
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:0",
+          "rank": 0,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.606222104281187,
+            "median": 0.695478986017406,
+            "min": 0.6702339742332697
+          },
+          "world_size": 2
+        },
+        {
+          "correctness": {
+            "max_abs_diff": 0.00048828125
+          },
+          "device": "npu:1",
+          "rank": 1,
+          "status": "ok",
+          "timings_ms": {
+            "max": 3.7205119151622057,
+            "median": 0.6988040404394269,
+            "min": 0.6741639226675034
+          },
+          "world_size": 2
+        }
+      ],
+      "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
+      "shape_summary": {
+        "group_list": [
+          256
+        ],
+        "groups": 1,
+        "output": [
+          256,
+          128
+        ],
+        "weight_local": [
+          128,
+          128
+        ],
+        "world_size": 2,
+        "x_local": [
+          256,
+          128
+        ]
+      },
+      "status": "ok",
+      "timings_ms": {
+        "max": 3.7205119151622057,
+        "median": 0.6988040404394269,
+        "min": 0.6702339742332697,
+        "per_rank_median": [
+          0.695478986017406,
+          0.6988040404394269
+        ]
+      },
+      "variant": {
+        "dtype": "float16",
+        "expected_world_size": 2,
+        "groups": 1,
+        "input_scale": 0.125,
+        "k_total": 256,
+        "m": 256,
+        "n": 128,
+        "seed": 1
+      },
+      "world_size": 2
+    }
+  ],
+  "variants": [
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 128,
+      "n": 128,
+      "seed": 0
+    },
+    {
+      "dtype": "float16",
+      "expected_world_size": 2,
+      "groups": 1,
+      "input_scale": 0.125,
+      "k_total": 256,
+      "m": 256,
+      "n": 128,
+      "seed": 1
+    }
+  ]
+}

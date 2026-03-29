@@ -1,0 +1,36 @@
+module {
+  func.func @moe_token_unpermute_grad_seed(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<f16>, %arg2: !pto.ptr<f16>, %arg3: !pto.ptr<i32>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c256 = arith.constant 256 : index
+    %c64 = arith.constant 64 : index
+    %0 = pto.make_tensor_view %arg2, shape = [%c256, %c64] strides = [%c64, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg0, shape = [%c256, %c64] strides = [%c64, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.vector {
+      %2 = pto.get_block_idx
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.get_block_num
+      %5 = arith.index_cast %4 : i64 to index
+      %6 = arith.ceildivsi %c256, %5 : index
+      %7 = arith.muli %3, %6 : index
+      %8 = arith.addi %7, %6 : index
+      %9 = arith.minui %8, %c256 : index
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=64, v_row=1, v_col=64, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      %11 = arith.cmpi eq, %3, %c0 : index
+      scf.if %11 {
+        %cst = arith.constant 0.000000e+00 : f16
+        pto.store_scalar %cst, %arg1[%c0] : !pto.ptr<f16>, f16
+      }
+      scf.for %arg4 = %7 to %9 step %c1 {
+        %12 = pto.load_scalar %arg3[%arg4] : !pto.ptr<i32> -> i32
+        %13 = arith.index_cast %12 : i32 to index
+        %14 = pto.partition_view %0, offsets = [%arg4, %c0], sizes = [%c1, %c64] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x64xf16>
+        %15 = pto.partition_view %1, offsets = [%13, %c0], sizes = [%c1, %c64] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x64xf16>
+        pto.tload ins(%14 : !pto.partition_tensor_view<1x64xf16>) outs(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=64, v_row=1, v_col=64, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+        pto.tstore ins(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=64, v_row=1, v_col=64, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%15 : !pto.partition_tensor_view<1x64xf16>)
+      }
+    }
+    return
+  }
+}
+

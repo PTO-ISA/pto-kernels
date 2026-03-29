@@ -1,0 +1,87 @@
+module {
+  func.func @moe_init_routing_v2_seed(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<i32>, %arg2: !pto.ptr<i32>, %arg3: !pto.ptr<i32>, %arg4: !pto.ptr<f16>, %arg5: !pto.ptr<i32>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c16 = arith.constant 16 : index
+    %c16_0 = arith.constant 16 : index
+    %0 = pto.make_tensor_view %arg4, shape = [%c16, %c16_0] strides = [%c16_0, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg0, shape = [%c16, %c16_0] strides = [%c16_0, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.vector {
+      %2 = pto.get_block_idx
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.get_block_num
+      %5 = arith.index_cast %4 : i64 to index
+      %6 = arith.ceildivsi %c16, %5 : index
+      %7 = arith.muli %3, %6 : index
+      %8 = arith.addi %7, %6 : index
+      %9 = arith.minui %8, %c16 : index
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      scf.for %arg6 = %7 to %9 step %c1 {
+        %23 = pto.partition_view %0, offsets = [%arg6, %c0], sizes = [%c1, %c16_0] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x16xf16>
+        %24 = pto.partition_view %1, offsets = [%arg6, %c0], sizes = [%c1, %c16_0] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x16xf16>
+        pto.tload ins(%23 : !pto.partition_tensor_view<1x16xf16>) outs(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+        pto.tstore ins(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%24 : !pto.partition_tensor_view<1x16xf16>)
+        %25 = arith.index_cast %arg6 : index to i32
+        pto.store_scalar %25, %arg1[%arg6] : !pto.ptr<i32>, i32
+      }
+      %c0_1 = arith.constant 0 : index
+      %c0_2 = arith.constant 0 : index
+      %c0_3 = arith.constant 0 : index
+      %c0_4 = arith.constant 0 : index
+      scf.for %arg6 = %c0 to %c16 step %c1 {
+        %23 = pto.load_scalar %arg5[%arg6] : !pto.ptr<i32> -> i32
+        %24 = arith.index_cast %23 : i32 to index
+        %c0_11 = arith.constant 0 : index
+        %25 = arith.cmpi eq, %24, %c0_11 : index
+        %c1_12 = arith.constant 1 : index
+        %26 = arith.addi %c0_1, %c1_12 : index
+        %27 = arith.select %25, %26, %c0_1 : index
+        %c1_13 = arith.constant 1 : index
+        %28 = arith.cmpi eq, %24, %c1_13 : index
+        %c1_14 = arith.constant 1 : index
+        %29 = arith.addi %c0_2, %c1_14 : index
+        %30 = arith.select %28, %29, %c0_2 : index
+        %c2_15 = arith.constant 2 : index
+        %31 = arith.cmpi eq, %24, %c2_15 : index
+        %c1_16 = arith.constant 1 : index
+        %32 = arith.addi %c0_3, %c1_16 : index
+        %33 = arith.select %31, %32, %c0_3 : index
+        %c3_17 = arith.constant 3 : index
+        %34 = arith.cmpi eq, %24, %c3_17 : index
+        %c1_18 = arith.constant 1 : index
+        %35 = arith.addi %c0_4, %c1_18 : index
+        %36 = arith.select %34, %35, %c0_4 : index
+      }
+      %11 = arith.addi %c0, %c0_1 : index
+      %c0_5 = arith.constant 0 : index
+      %12 = arith.index_cast %c0_1 : index to i32
+      pto.store_scalar %12, %arg3[%c0_5] : !pto.ptr<i32>, i32
+      %c0_6 = arith.constant 0 : index
+      %13 = arith.index_cast %11 : index to i32
+      pto.store_scalar %13, %arg2[%c0_6] : !pto.ptr<i32>, i32
+      %14 = arith.addi %11, %c0_2 : index
+      %c1_7 = arith.constant 1 : index
+      %15 = arith.index_cast %c0_2 : index to i32
+      pto.store_scalar %15, %arg3[%c1_7] : !pto.ptr<i32>, i32
+      %c1_8 = arith.constant 1 : index
+      %16 = arith.index_cast %14 : index to i32
+      pto.store_scalar %16, %arg2[%c1_8] : !pto.ptr<i32>, i32
+      %17 = arith.addi %14, %c0_3 : index
+      %c2 = arith.constant 2 : index
+      %18 = arith.index_cast %c0_3 : index to i32
+      pto.store_scalar %18, %arg3[%c2] : !pto.ptr<i32>, i32
+      %c2_9 = arith.constant 2 : index
+      %19 = arith.index_cast %17 : index to i32
+      pto.store_scalar %19, %arg2[%c2_9] : !pto.ptr<i32>, i32
+      %20 = arith.addi %17, %c0_4 : index
+      %c3 = arith.constant 3 : index
+      %21 = arith.index_cast %c0_4 : index to i32
+      pto.store_scalar %21, %arg3[%c3] : !pto.ptr<i32>, i32
+      %c3_10 = arith.constant 3 : index
+      %22 = arith.index_cast %20 : index to i32
+      pto.store_scalar %22, %arg2[%c3_10] : !pto.ptr<i32>, i32
+    }
+    return
+  }
+}
+

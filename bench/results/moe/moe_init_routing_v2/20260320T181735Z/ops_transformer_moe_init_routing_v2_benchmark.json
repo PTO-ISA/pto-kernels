@@ -1,0 +1,39 @@
+{
+  "entrypoint": "torch.ops.npu.npu_moe_init_routing_v2",
+  "reason": "The Python-visible npu_moe_init_routing_v2 host entrypoint crashes on this host (exit code -11) for the validated dropless top-1 grouped-expert probe.",
+  "status": "blocked",
+  "stderr": "",
+  "stdout": "",
+  "variants": [
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 4,
+      "hidden_size": 16,
+      "seed": 0,
+      "tokens": 16,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 8,
+      "hidden_size": 64,
+      "seed": 1,
+      "tokens": 256,
+      "top_k": 1
+    },
+    {
+      "dtype": "float16",
+      "expert_tokens_num_flag": true,
+      "expert_tokens_num_type": 1,
+      "experts": 8,
+      "hidden_size": 128,
+      "seed": 2,
+      "tokens": 128,
+      "top_k": 1
+    }
+  ]
+}

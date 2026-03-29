@@ -1,0 +1,102 @@
+module {
+  func.func @moe_re_routing_seed(%arg0: !pto.ptr<f16>, %arg1: !pto.ptr<f32>, %arg2: !pto.ptr<i32>, %arg3: !pto.ptr<i32>, %arg4: !pto.ptr<f16>, %arg5: !pto.ptr<i32>, %arg6: !pto.ptr<f32>) {
+    %c0 = arith.constant 0 : index
+    %c1 = arith.constant 1 : index
+    %c8 = arith.constant 8 : index
+    %c16 = arith.constant 16 : index
+    %c2 = arith.constant 2 : index
+    %c2_0 = arith.constant 2 : index
+    %0 = pto.make_tensor_view %arg4, shape = [%c8, %c16] strides = [%c16, %c1] : !pto.tensor_view<?x?xf16>
+    %1 = pto.make_tensor_view %arg0, shape = [%c8, %c16] strides = [%c16, %c1] : !pto.tensor_view<?x?xf16>
+    pto.section.vector {
+      %2 = pto.get_block_idx
+      %3 = arith.index_cast %2 : i64 to index
+      %4 = pto.get_block_num
+      %5 = arith.index_cast %4 : i64 to index
+      %6 = arith.ceildivsi %c8, %5 : index
+      %7 = arith.muli %3, %6 : index
+      %8 = arith.addi %7, %6 : index
+      %9 = arith.minui %8, %c8 : index
+      %10 = pto.alloc_tile : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>
+      %11 = arith.cmpi eq, %3, %c0 : index
+      scf.if %11 {
+        scf.for %arg7 = %c0 to %c2_0 step %c1 {
+          %12 = scf.for %arg8 = %c0 to %c2 step %c1 iter_args(%arg9 = %c0) -> (index) {
+            %14 = arith.muli %arg8, %c2_0 : index
+            %15 = arith.addi %14, %arg7 : index
+            %16 = pto.load_scalar %arg5[%15] : !pto.ptr<i32> -> i32
+            %17 = arith.index_cast %16 : i32 to index
+            %18 = arith.addi %arg9, %17 : index
+            scf.yield %18 : index
+          }
+          %13 = arith.index_cast %12 : index to i32
+          pto.store_scalar %13, %arg3[%arg7] : !pto.ptr<i32>, i32
+        }
+      }
+      scf.for %arg7 = %7 to %9 step %c1 {
+        %12:3 = scf.for %arg8 = %c0 to %c2_0 step %c1 iter_args(%arg9 = %c0, %arg10 = %c0, %arg11 = %c0) -> (index, index, index) {
+          %20 = scf.for %arg12 = %c0 to %c2 step %c1 iter_args(%arg13 = %c0) -> (index) {
+            %29 = arith.muli %arg12, %c2_0 : index
+            %30 = arith.addi %29, %arg8 : index
+            %31 = pto.load_scalar %arg5[%30] : !pto.ptr<i32> -> i32
+            %32 = arith.index_cast %31 : i32 to index
+            %33 = arith.addi %arg13, %32 : index
+            scf.yield %33 : index
+          }
+          %21 = arith.cmpi sge, %arg7, %arg10 : index
+          %22 = arith.addi %arg10, %20 : index
+          %23 = arith.cmpi slt, %arg7, %22 : index
+          %24 = arith.andi %21, %23 : i1
+          %25 = arith.select %24, %arg8, %arg9 : index
+          %26 = arith.subi %arg7, %arg10 : index
+          %27 = arith.select %24, %26, %arg11 : index
+          %28 = arith.addi %arg10, %20 : index
+          scf.yield %25, %28, %27 : index, index, index
+        }
+        %13:3 = scf.for %arg8 = %c0 to %c2 step %c1 iter_args(%arg9 = %c0, %arg10 = %c0, %arg11 = %c0) -> (index, index, index) {
+          %20 = arith.muli %arg8, %c2_0 : index
+          %21 = arith.addi %20, %12#0 : index
+          %22 = pto.load_scalar %arg5[%21] : !pto.ptr<i32> -> i32
+          %23 = arith.index_cast %22 : i32 to index
+          %24 = arith.cmpi sge, %12#2, %arg11 : index
+          %25 = arith.addi %arg11, %23 : index
+          %26 = arith.cmpi slt, %12#2, %25 : index
+          %27 = arith.andi %24, %26 : i1
+          %28 = arith.select %27, %arg8, %arg10 : index
+          %29 = arith.subi %12#2, %arg11 : index
+          %30 = arith.select %27, %29, %arg9 : index
+          %31 = arith.addi %arg11, %23 : index
+          scf.yield %30, %28, %31 : index, index, index
+        }
+        %14 = scf.for %arg8 = %c0 to %c2 step %c1 iter_args(%arg9 = %c0) -> (index) {
+          %20 = scf.for %arg10 = %c0 to %c2_0 step %c1 iter_args(%arg11 = %arg9) -> (index) {
+            %21 = arith.muli %arg8, %c2_0 : index
+            %22 = arith.addi %21, %arg10 : index
+            %23 = pto.load_scalar %arg5[%22] : !pto.ptr<i32> -> i32
+            %24 = arith.index_cast %23 : i32 to index
+            %25 = arith.cmpi slt, %arg8, %13#1 : index
+            %26 = arith.cmpi eq, %arg8, %13#1 : index
+            %27 = arith.cmpi slt, %arg10, %12#0 : index
+            %28 = arith.andi %26, %27 : i1
+            %29 = arith.ori %25, %28 : i1
+            %30 = arith.select %29, %24, %c0 : index
+            %31 = arith.addi %arg11, %30 : index
+            scf.yield %31 : index
+          }
+          scf.yield %20 : index
+        }
+        %15 = arith.addi %14, %13#0 : index
+        %16 = pto.partition_view %0, offsets = [%15, %c0], sizes = [%c1, %c16] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x16xf16>
+        %17 = pto.partition_view %1, offsets = [%arg7, %c0], sizes = [%c1, %c16] : !pto.tensor_view<?x?xf16> -> !pto.partition_tensor_view<1x16xf16>
+        pto.tload ins(%16 : !pto.partition_tensor_view<1x16xf16>) outs(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>)
+        pto.tstore ins(%10 : !pto.tile_buf<loc=vec, dtype=f16, rows=1, cols=16, v_row=1, v_col=16, blayout=row_major, slayout=none_box, fractal=512, pad=0>) outs(%17 : !pto.partition_tensor_view<1x16xf16>)
+        %18 = pto.load_scalar %arg6[%15] : !pto.ptr<f32> -> f32
+        pto.store_scalar %18, %arg1[%arg7] : !pto.ptr<f32>, f32
+        %19 = arith.index_cast %15 : index to i32
+        pto.store_scalar %19, %arg2[%arg7] : !pto.ptr<i32>, i32
+      }
+    }
+    return
+  }
+}
+

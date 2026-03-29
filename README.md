@@ -45,3 +45,12 @@ make check-env
 make bootstrap
 PYTHONPATH=python python3 scripts/check_env.py --json
 ```
+
+## Tutorial
+
+If you are new to this repository, start with the Chinese tutorial under
+[`tutorial/`](./tutorial/README.md). It explains the full
+`PTO-DSL -> PTOAS -> PTO-ISA -> Bisheng -> .so -> benchmark` workflow,
+shows minimal PTODSL examples, and walks through real kernels such as
+`grouped_matmul`, `flash_attention_score`, and `moe_token_permute` with
+current performance data from `bench/reports/regression_latest.md`.

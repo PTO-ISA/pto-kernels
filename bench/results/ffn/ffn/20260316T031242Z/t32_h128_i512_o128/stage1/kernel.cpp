@@ -1,0 +1,141 @@
+#include "pto/pto-inst.hpp"
+using namespace pto;
+__global__ AICORE void _stage(__gm__ half* v1, __gm__ half* v2, __gm__ half* v3) {
+  unsigned v4 = 8192;
+  unsigned v5 = 16384;
+  unsigned v6 = 512;
+  unsigned v7 = 64;
+  unsigned v8 = 2048;
+  unsigned v9 = 128;
+  unsigned v10 = 32;
+  unsigned v11 = 16;
+  unsigned v12 = 1;
+  unsigned v13 = 0;
+  int32_t v14 = 4;
+  int32_t v15 = 64;
+  int32_t v16 = 16;
+  int32_t v17 = 512;
+  int32_t v18 = 128;
+  int32_t v19 = 32;
+  int32_t v20 = 1;
+  int32_t v21 = 0;
+  int32_t v22 = 2;
+  int32_t v23 = 3;
+  int32_t v24 = 5;
+  int32_t v25 = 6;
+  int32_t v26 = 7;
+  int32_t v27 = 8;
+  int32_t v28 = 9;
+  int32_t v29 = 10;
+  int32_t v30 = 11;
+  int32_t v31 = 12;
+  int32_t v32 = 13;
+  int32_t v33 = 14;
+  int32_t v34 = 15;
+  int64_t v35 = 0;
+  int64_t v36 = 1024;
+  using T = float;
+
+  #if defined(__DAV_CUBE__)
+  int64_t v37 = get_block_idx();
+  int64_t v38 = get_block_num();
+  Tile<TileType::Mat, half, 16, 32, BLayout::ColMajor, 16, 32, SLayout::RowMajor, 512, PadValue::Null> v39;
+  TASSIGN(v39, v35);
+  Tile<TileType::Mat, half, 16, 32, BLayout::ColMajor, 16, 32, SLayout::RowMajor, 512, PadValue::Null> v40;
+  __cbuf__ half* v41 = v39.data();
+  uint64_t v42 = reinterpret_cast<uint64_t>(v41);
+  TASSIGN(v40, v42);
+  Tile<TileType::Mat, half, 32, 64, BLayout::ColMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v43;
+  TASSIGN(v43, v36);
+  Tile<TileType::Mat, half, 32, 64, BLayout::ColMajor, 32, 64, SLayout::RowMajor, 512, PadValue::Null> v44;
+  __cbuf__ half* v45 = v43.data();
+  uint64_t v46 = reinterpret_cast<uint64_t>(v45);
+  TASSIGN(v44, v46);
+  Tile<TileType::Left, half, 16, 32, BLayout::RowMajor, 16, 32, SLayout::RowMajor, 512, PadValue::Null> v47;
+  TASSIGN(v47, v35);
+  Tile<TileType::Left, half, 16, 32, BLayout::RowMajor, 16, 32, SLayout::RowMajor, 512, PadValue::Null> v48;
+  __ca__ half* v49 = v47.data();
+  uint64_t v50 = reinterpret_cast<uint64_t>(v49);
+  TASSIGN(v48, v50);
+  Tile<TileType::Right, half, 32, 64, BLayout::RowMajor, 32, 64, SLayout::ColMajor, 512, PadValue::Null> v51;
+  TASSIGN(v51, v35);
+  Tile<TileType::Right, half, 32, 64, BLayout::RowMajor, 32, 64, SLayout::ColMajor, 512, PadValue::Null> v52;
+  __cb__ half* v53 = v51.data();
+  uint64_t v54 = reinterpret_cast<uint64_t>(v53);
+  TASSIGN(v52, v54);
+  Tile<TileType::Acc, float, 16, 64, BLayout::ColMajor, 16, 64, SLayout::RowMajor, 1024, PadValue::Null> v55;
+  TASSIGN(v55, v35);
+  Tile<TileType::Acc, float, 16, 64, BLayout::ColMajor, 16, 64, SLayout::RowMajor, 1024, PadValue::Null> v56;
+  __cc__ float* v57 = v55.data();
+  uint64_t v58 = reinterpret_cast<uint64_t>(v57);
+  TASSIGN(v56, v58);
+  set_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
+  set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
+  set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID1);
+  set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
+  set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID3);
+  set_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
+  for (int32_t v59 = (int32_t) v37; v59 < v16; v59 += (int32_t) v38) {
+    bool v60 = v59 == v27;
+    bool v61 = v59 == v28;
+    bool v62 = v59 == v29;
+    bool v63 = v59 == v30;
+    bool v64 = v59 == v31;
+    bool v65 = v59 == v32;
+    bool v66 = v59 == v33;
+    bool v67 = v59 == v34;
+    int32_t v68 = (int32_t) ((uint32_t) (v67 ? v20 : v66 ? v20 : (v65 ? v20 : v64 ? v20 : (v63 ? v20 : v62 ? v20 : (v61 ? v20 : v60 ? v20 : v21)))) * (uint32_t) v16);
+    int32_t v69 = (int32_t) ((uint32_t) (v67 ? v26 : v66 ? v25 : (v65 ? v24 : v64 ? v14 : (v63 ? v23 : v62 ? v22 : (v61 ? v20 : v60 ? v21 : (v59 == v26 ? v26 : v59 == v25 ? v25 : (v59 == v24 ? v24 : v59 == v14 ? v14 : (v59 == v23 ? v23 : v59 == v22 ? v22 : (v59 == v20 ? v20 : v21)))))))) * (uint32_t) v15);
+    wait_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
+    for (int32_t v70 = v21; v70 < v14; v70 += v20) {
+      int32_t v71 = (int32_t) ((uint32_t) v70 * (uint32_t) v19);
+      pto::Shape<1, 1, 1, 16, 32> v72 = pto::Shape<1, 1, 1, 16, 32>();
+      pto::Stride<2048, 2048, 2048, 128, 1> v73 = pto::Stride<2048, 2048, 2048, 128, 1>();
+      GlobalTensor<half, pto::Shape<1, 1, 1, 16, 32>, pto::Stride<2048, 2048, 2048, 128, 1>, pto::Layout::ND> v74 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 32>, pto::Stride<2048, 2048, 2048, 128, 1>, pto::Layout::ND>(v2 + (v13 + (unsigned) v68 * (unsigned) v18 + (unsigned) v71 * (unsigned) v20), v72, v73);
+      pto::Shape<1, 1, 1, 32, 64> v75 = pto::Shape<1, 1, 1, 32, 64>();
+      pto::Stride<16384, 16384, 16384, 512, 1> v76 = pto::Stride<16384, 16384, 16384, 512, 1>();
+      GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<16384, 16384, 16384, 512, 1>, pto::Layout::ND> v77 = GlobalTensor<half, pto::Shape<1, 1, 1, 32, 64>, pto::Stride<16384, 16384, 16384, 512, 1>, pto::Layout::ND>(v3 + (v13 + (unsigned) v71 * (unsigned) v17 + (unsigned) v69 * (unsigned) v20), v75, v76);
+      wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
+      TLOAD(v40, v74);
+      set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
+      wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
+      TLOAD(v44, v77);
+      set_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID1);
+      wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID0);
+      wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
+      pipe_barrier(PIPE_MTE1);
+      TMOV(v48, v40);
+      set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
+      wait_flag(PIPE_MTE2, PIPE_MTE1, EVENT_ID1);
+      TMOV(v52, v44);
+      set_flag(PIPE_MTE1, PIPE_M, EVENT_ID0);
+      set_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
+      wait_flag(PIPE_MTE1, PIPE_M, EVENT_ID0);
+      if (v70 == v21) {
+        TMATMUL(v56, v48, v52);
+      } else {
+        TMATMUL_ACC(v56, v56, v48, v52);
+      };
+      set_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
+    };
+    set_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
+    pto::Shape<1, 1, 1, 16, 64> v78 = pto::Shape<1, 1, 1, 16, 64>();
+    pto::Stride<8192, 8192, 8192, 512, 1> v79 = pto::Stride<8192, 8192, 8192, 512, 1>();
+    GlobalTensor<half, pto::Shape<1, 1, 1, 16, 64>, pto::Stride<8192, 8192, 8192, 512, 1>, pto::Layout::ND> v80 = GlobalTensor<half, pto::Shape<1, 1, 1, 16, 64>, pto::Stride<8192, 8192, 8192, 512, 1>, pto::Layout::ND>(v1 + (v13 + (unsigned) v68 * (unsigned) v17 + (unsigned) v69 * (unsigned) v20), v78, v79);
+    wait_flag(PIPE_M, PIPE_FIX, EVENT_ID0);
+    pipe_barrier(PIPE_FIX);
+    TSTORE(v80, v56);
+    set_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
+  }
+  pipe_barrier(PIPE_ALL);
+  wait_flag(PIPE_FIX, PIPE_M, EVENT_ID0);
+  wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID0);
+  wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID1);
+  wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID2);
+  wait_flag(PIPE_MTE1, PIPE_MTE2, EVENT_ID3);
+  wait_flag(PIPE_M, PIPE_MTE1, EVENT_ID0);
+  #endif // __DAV_CUBE__
+
+  return;
+}
+

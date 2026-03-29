@@ -1,0 +1,214 @@
+{
+  "reason": "A real PTO port requires a validated PTODSL/PTOAS/pto-isa path for layernorm -> quantize(int8) -> int8 cube matmul with int32 bias -> dequantize -> q/k/v split. That upstream-faithful quantized Swin path is not exposed end to end in the current PTO stack.",
+  "required_stack_features": [
+    "ptodsl quantized layernorm and per-channel quant surface",
+    "ptoas legality/emission for quantized Swin LN-QKV IR",
+    "pto-isa validated A2/A3 int8 cube + dequant epilogue path"
+  ],
+  "shape_summaries": [
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 64,
+      "value_output": [
+        1,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        1,
+        64,
+        128
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 512,
+      "value_output": [
+        8,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        8,
+        64,
+        128
+      ]
+    },
+    {
+      "beta": [
+        128
+      ],
+      "bias": [
+        384
+      ],
+      "dequantScale": [
+        384
+      ],
+      "gamma": [
+        128
+      ],
+      "hWinSize": 8,
+      "key_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "oriHeight": 8,
+      "oriWidth": 8,
+      "quantOffset": [
+        128
+      ],
+      "quantScale": [
+        128
+      ],
+      "query_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "seqLength": 64,
+      "tokens": 2048,
+      "value_output": [
+        32,
+        4,
+        64,
+        32
+      ],
+      "wWinSize": 8,
+      "weight": [
+        128,
+        384
+      ],
+      "x": [
+        32,
+        64,
+        128
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "base_m": 64,
+      "batch": 1,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 0,
+      "seq": 64,
+      "w_win_size": 8
+    },
+    {
+      "base_m": 128,
+      "batch": 8,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 1,
+      "seq": 64,
+      "w_win_size": 8
+    },
+    {
+      "base_m": 128,
+      "batch": 32,
+      "block_dim": 24,
+      "h_win_size": 8,
+      "head_dim": 32,
+      "heads": 4,
+      "hidden": 128,
+      "ori_height": 8,
+      "ori_width": 8,
+      "seed": 2,
+      "seq": 64,
+      "w_win_size": 8
+    }
+  ]
+}

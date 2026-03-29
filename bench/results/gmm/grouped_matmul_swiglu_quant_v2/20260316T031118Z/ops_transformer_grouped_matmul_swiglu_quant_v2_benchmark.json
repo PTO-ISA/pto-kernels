@@ -1,0 +1,50 @@
+{
+  "entrypoint": "torch_npu.npu_grouped_matmul_swiglu_quant_v2",
+  "reason": "torch_npu.npu_grouped_matmul_swiglu_quant_v2 requires list-valued FP8/scale contracts matching the upstream ACLNN example. A stable minimal Python baseline slice is not reproduced yet on this host.",
+  "shape_summaries": [
+    {
+      "group_list": [
+        8
+      ],
+      "output": [
+        2048,
+        2048
+      ],
+      "output_scale": [
+        2048,
+        32,
+        2
+      ],
+      "weight_list_item": [
+        8,
+        7168,
+        4096
+      ],
+      "weight_scale_list_item": [
+        8,
+        112,
+        4096,
+        2
+      ],
+      "x": [
+        2048,
+        7168
+      ],
+      "x_scale": [
+        2048,
+        112,
+        2
+      ]
+    }
+  ],
+  "status": "blocked",
+  "variants": [
+    {
+      "e": 8,
+      "k": 7168,
+      "m": 2048,
+      "n": 4096,
+      "seed": 0
+    }
+  ]
+}
