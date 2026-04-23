@@ -1,5 +1,7 @@
 """Python entrypoints for PTO kernels and superproject tooling."""
 
+# Import torch before the extension so its shared libraries, including libc10,
+# are available when pto_kernels_ops is loaded.
 try:
     import torch  # noqa: F401
 except ImportError:
