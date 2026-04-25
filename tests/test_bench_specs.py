@@ -15,4 +15,4 @@ def test_benchmark_runner_dry_run_emits_report(tmp_path):
     report = runner.run("bench/specs/gmm/grouped_matmul.yaml", dry_run=True)
     assert report["dry_run"] is True
     assert report["family"] == "gmm"
-    assert report["pto"]["meta"]["name"] == "grouped_matmul"
+    assert report["pto"]["adapter"] == "bench/adapters/ptodsl/gmm/grouped_matmul.py"

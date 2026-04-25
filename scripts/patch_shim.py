@@ -115,14 +115,18 @@ def _apply_hunks(target: Path, hunks: list[Hunk]) -> None:
             payload = hunk_line[1:]
             if prefix == " ":
                 if cursor >= len(content) or content[cursor] != payload:
-                    raise ValueError(f"Context mismatch in {target} at line {cursor + 1}.")
+                    raise ValueError(
+                        f"Context mismatch in {target} at line {cursor + 1}."
+                    )
                 replacement.append(payload)
                 original_slice.append(payload)
                 cursor += 1
                 continue
             if prefix == "-":
                 if cursor >= len(content) or content[cursor] != payload:
-                    raise ValueError(f"Delete mismatch in {target} at line {cursor + 1}.")
+                    raise ValueError(
+                        f"Delete mismatch in {target} at line {cursor + 1}."
+                    )
                 original_slice.append(payload)
                 cursor += 1
                 continue

@@ -20,7 +20,10 @@ from pto_kernels.ops.gmm.grouped_matmul.runtime import (
 def describe(repo_root, spec):
     summary = describe_baseline(repo_root, "gmm", "grouped_matmul", spec.inventory_ref)
     summary["runtime_entrypoint"] = "torch_npu.npu_grouped_matmul"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     summary["upstream_build_status"] = (
         "fast_kernel_launch_example is currently blocked on this host because bisheng "
         "fails while compiling torch header dependencies in the example extension."
@@ -48,7 +51,9 @@ def benchmark(repo_root, spec, artifacts_dir):
     try:
         variant_reports = []
         for variant in VARIANTS:
-            inputs = make_dense_single_weight_inputs(variant, device_index=int(spec.device.get("id", 0)))
+            inputs = make_dense_single_weight_inputs(
+                variant, device_index=int(spec.device.get("id", 0))
+            )
             reference = inputs["baseline_reference"]
             for _ in range(spec.bench.warmup):
                 run_torch_npu_grouped_matmul(inputs)
@@ -69,7 +74,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                 )
 
             baseline_tensor = output[0] if isinstance(output, (list, tuple)) else output
-            max_abs_diff = (baseline_tensor.float().cpu() - reference).abs().max().item()
+            max_abs_diff = (
+                (baseline_tensor.float().cpu() - reference).abs().max().item()
+            )
             variant_reports.append(
                 {
                     "variant": variant.as_dict(),
@@ -85,7 +92,7 @@ def benchmark(repo_root, spec, artifacts_dir):
                     "output_type": str(type(output)),
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
@@ -93,8 +100,12 @@ def benchmark(repo_root, spec, artifacts_dir):
             "reason": str(exc),
             "blocking_gap": "ops-transformer-grouped-matmul-v5-shape-contract",
         }
-        report_path = Path(artifacts_dir) / "ops_transformer_grouped_matmul_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ops_transformer_grouped_matmul_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -119,6 +130,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         "reference_contract": "bf16_rounded_matmul",
     }
     report_path = Path(artifacts_dir) / "ops_transformer_grouped_matmul_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

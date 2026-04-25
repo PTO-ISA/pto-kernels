@@ -134,13 +134,27 @@ def delta_fraction(baseline_ms: float | None, pto_ms: float | None) -> float | N
 
 
 def aggregate_rounds(rounds: list[dict]) -> dict:
-    baseline_values = [round_info["baseline_median_ms"] for round_info in rounds if round_info["baseline_median_ms"] is not None]
-    pto_values = [round_info["pto_median_ms"] for round_info in rounds if round_info["pto_median_ms"] is not None]
-    all_rounds_measured = all(round_info["status"] == "measured" for round_info in rounds)
+    baseline_values = [
+        round_info["baseline_median_ms"]
+        for round_info in rounds
+        if round_info["baseline_median_ms"] is not None
+    ]
+    pto_values = [
+        round_info["pto_median_ms"]
+        for round_info in rounds
+        if round_info["pto_median_ms"] is not None
+    ]
+    all_rounds_measured = all(
+        round_info["status"] == "measured" for round_info in rounds
+    )
     baseline_ms = statistics.median(baseline_values) if baseline_values else None
     pto_ms = statistics.median(pto_values) if pto_values else None
     return {
-        "status": "measured" if all_rounds_measured and baseline_ms is not None and pto_ms is not None else "blocked",
+        "status": (
+            "measured"
+            if all_rounds_measured and baseline_ms is not None and pto_ms is not None
+            else "blocked"
+        ),
         "baseline_median_ms": baseline_ms,
         "pto_median_ms": pto_ms,
         "pto_over_baseline": baseline_ratio(baseline_ms, pto_ms),
@@ -162,32 +176,46 @@ def summarize_round(report: dict, round_index: int) -> dict:
     pto_ms = median_ms(report, "pto")
     return {
         "round": round_index,
-        "status": "measured" if baseline_ok and pto_ok and baseline_ms is not None and pto_ms is not None else "blocked",
+        "status": (
+            "measured"
+            if baseline_ok and pto_ok and baseline_ms is not None and pto_ms is not None
+            else "blocked"
+        ),
         "report_path": report["report_path"],
         "latest_report_path": report.get("latest_report_path"),
         "artifacts_dir": report["artifacts_dir"],
         "latest_artifacts_dir": report.get("latest_artifacts_dir"),
-        "baseline_status": report.get("baseline", {}).get("benchmark", {}).get("status"),
+        "baseline_status": report.get("baseline", {})
+        .get("benchmark", {})
+        .get("status"),
         "pto_status": report.get("pto", {}).get("benchmark", {}).get("status"),
         "baseline_median_ms": baseline_ms,
         "pto_median_ms": pto_ms,
         "pto_over_baseline": baseline_ratio(baseline_ms, pto_ms),
         "delta_over_baseline": delta_fraction(baseline_ms, pto_ms),
-        "baseline_reason": report.get("baseline", {}).get("benchmark", {}).get("reason"),
+        "baseline_reason": report.get("baseline", {})
+        .get("benchmark", {})
+        .get("reason"),
         "pto_reason": report.get("pto", {}).get("benchmark", {}).get("reason"),
         "baseline_correct": baseline_ok,
         "pto_correct": pto_ok,
     }
 
 
-def summarize_trial(case_name: str, env_overrides: dict[str, str], round_reports: list[dict]) -> dict:
+def summarize_trial(
+    case_name: str, env_overrides: dict[str, str], round_reports: list[dict]
+) -> dict:
     return {
         "case": case_name,
         "env": env_overrides,
         "rounds": round_reports,
         "aggregate": aggregate_rounds(round_reports),
-        "latest_report_path": round_reports[-1].get("latest_report_path") if round_reports else None,
-        "latest_artifacts_dir": round_reports[-1].get("latest_artifacts_dir") if round_reports else None,
+        "latest_report_path": (
+            round_reports[-1].get("latest_report_path") if round_reports else None
+        ),
+        "latest_artifacts_dir": (
+            round_reports[-1].get("latest_artifacts_dir") if round_reports else None
+        ),
     }
 
 
@@ -220,7 +248,11 @@ def write_markdown(path: Path, summary: dict) -> None:
             continue
         env = ", ".join(f"{k}={v}" for k, v in best["env"].items()) or "default"
         aggregate = best["aggregate"]
-        latest = Path(best["latest_report_path"]).relative_to(REPO_ROOT) if best["latest_report_path"] else "n/a"
+        latest = (
+            Path(best["latest_report_path"]).relative_to(REPO_ROOT)
+            if best["latest_report_path"]
+            else "n/a"
+        )
         lines.append(
             "| {name} | {env} | {baseline} | {pto} | {ratio} | {status} | [report]({latest}) |".format(
                 name=case["name"],
@@ -290,9 +322,13 @@ def main() -> int:
     summary = {"generated_at": generated_at, "rounds": args.rounds, "cases": cases}
     json_path = REPORTS_DIR / f"kernel_parity_{generated_at}.json"
     md_path = REPORTS_DIR / f"kernel_parity_{generated_at}.md"
-    json_path.write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    json_path.write_text(
+        json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
+    )
     write_markdown(md_path, summary)
-    LATEST_JSON.write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    LATEST_JSON.write_text(
+        json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
+    )
     write_markdown(LATEST_MD, summary)
     print(
         json.dumps(

@@ -30,7 +30,9 @@ def _block_dim() -> int:
 
 def _chunk_rows(block_dim: int) -> int:
     if TOTAL_ROWS % block_dim != 0:
-        raise ValueError(f"apply_rotary_pos_emb seed requires TOTAL_ROWS={TOTAL_ROWS} to be divisible by block_dim={block_dim}")
+        raise ValueError(
+            f"apply_rotary_pos_emb seed requires TOTAL_ROWS={TOTAL_ROWS} to be divisible by block_dim={block_dim}"
+        )
     return TOTAL_ROWS // block_dim
 
 

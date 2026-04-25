@@ -14,7 +14,7 @@ for skill_dir in "${SKILLS_SRC}"/*; do
     echo "[WARN] Skipping ${skill_dir}: missing SKILL.md" >&2
     continue
   fi
-  rm -rf "${SKILLS_DST}/$(basename "${skill_dir}")"
+  rm -rf "${SKILLS_DST:?}/$(basename "${skill_dir}")"
   cp -R "${skill_dir}" "${SKILLS_DST}/"
   echo "[skills] installed $(basename "${skill_dir}")"
 done

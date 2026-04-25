@@ -116,7 +116,9 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def moe_token_permute_seed(out_ptr: "ptr", tokens_ptr: "ptr", gather_ptr: "ptr_i32") -> None:
+    def moe_token_permute_seed(
+        out_ptr: "ptr", tokens_ptr: "ptr", gather_ptr: "ptr_i32"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cTokens = const(config.tokens)
@@ -152,13 +154,19 @@ def _build_permute_kernel(*, config: MoeTokenPermuteConfig, output_dir):
             tb_gather = pto.alloc_tile(tile_gather)
             tb_out = pto.alloc_tile(tile_out)
 
-            sv_tokens = pto.slice_view(sub_tokens, source=tv_tokens, offsets=[c0], sizes=[cTotal])
+            sv_tokens = pto.slice_view(
+                sub_tokens, source=tv_tokens, offsets=[c0], sizes=[cTotal]
+            )
             pto.load(sv_tokens, tb_tokens)
 
             for row_idx in pto.range(row_start, row_end, c1):
                 row_off = row_idx * cHidden
-                sv_gather = pto.slice_view(sub_gather, source=tv_gather, offsets=[row_off], sizes=[cHidden])
-                sv_out = pto.slice_view(sub_out, source=tv_out, offsets=[row_off], sizes=[cHidden])
+                sv_gather = pto.slice_view(
+                    sub_gather, source=tv_gather, offsets=[row_off], sizes=[cHidden]
+                )
+                sv_out = pto.slice_view(
+                    sub_out, source=tv_out, offsets=[row_off], sizes=[cHidden]
+                )
 
                 pto.load(sv_gather, tb_gather)
                 tile.gather(tb_tokens, tb_out, tb_gather)
@@ -175,7 +183,9 @@ def _build_copy_indices_kernel(*, config: MoeTokenPermuteConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def moe_token_permute_copy_indices(out_ptr: "ptr_i32", indices_ptr: "ptr_i32") -> None:
+    def moe_token_permute_copy_indices(
+        out_ptr: "ptr_i32", indices_ptr: "ptr_i32"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cTokens = const(config.tokens)
@@ -196,7 +206,9 @@ def _build_copy_indices_kernel(*, config: MoeTokenPermuteConfig, output_dir):
         with pto.vector_section():
             tb_in = pto.alloc_tile(tile_i32)
             sv_in = pto.slice_view(sub_i32, source=tv_in, offsets=[c0], sizes=[cTokens])
-            sv_out = pto.slice_view(sub_i32, source=tv_out, offsets=[c0], sizes=[cTokens])
+            sv_out = pto.slice_view(
+                sub_i32, source=tv_out, offsets=[c0], sizes=[cTokens]
+            )
             pto.load(sv_in, tb_in)
             pto.store(tb_in, sv_out)
 
@@ -234,7 +246,15 @@ class MoeTokenPermuteWrapper:
     def output_dir(self):
         return str(self._output_dir)
 
-    def __call__(self, out_ptr, sorted_indices_out_ptr, tokens_ptr, indices_ptr, gather_ptr, stream_ptr=None):
+    def __call__(
+        self,
+        out_ptr,
+        sorted_indices_out_ptr,
+        tokens_ptr,
+        indices_ptr,
+        gather_ptr,
+        stream_ptr=None,
+    ):
         self._permute(out_ptr, tokens_ptr, gather_ptr, stream_ptr=stream_ptr)
         self._copy(sorted_indices_out_ptr, indices_ptr, stream_ptr=stream_ptr)
 

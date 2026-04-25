@@ -109,9 +109,9 @@ with pto.section.vector():
 
 ## 常见误区
 
-- 误区：MoE kernel 的关键是乘法  
+- 误区：MoE kernel 的关键是乘法
   很多时候不是。真正难的是 routing metadata 和数据重排。
-- 误区：只要 correctness 通过就不用管 scalar-heavy  
+- 误区：只要 correctness 通过就不用管 scalar-heavy
   不对。迁移体系里，green 和 green + tile-first 是两个层次。
 
 下一章：开始读 `.pto` 和调试 artifact，把“编译链路”真正看见。

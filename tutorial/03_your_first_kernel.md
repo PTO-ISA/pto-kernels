@@ -98,9 +98,9 @@ pto.section.vector {
 
 ## 常见误区
 
-- 误区：先把 API 全记下来再开始写  
+- 误区：先把 API 全记下来再开始写
   没必要。先记住 `as_tensor / slice_view / load / compute / store` 这条主线。
-- 误区：`.pto` 应该和 Python 长得一模一样  
+- 误区：`.pto` 应该和 Python 长得一模一样
   不会。`.pto` 是更底层的 IR 表达，重点是结构能对上，而不是字面一一对应。
 
 下一章：从最小骨架进入本仓库里最适合教学的 matmul 主线。

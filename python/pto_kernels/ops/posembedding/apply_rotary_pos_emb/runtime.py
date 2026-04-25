@@ -41,6 +41,7 @@ class RopeVariant:
             return self.batch * self.seq_len * self.heads
         raise ValueError(f"Unsupported layout {self.layout!r}")
 
+
 TND_HALF_VARIANT = RopeVariant(layout="TND", tokens=64, batch=1, seq_len=64, heads=1)
 BSND_HALF_VARIANT = RopeVariant(layout="BSND", tokens=64, batch=2, seq_len=32, heads=1)
 VARIANT = TND_HALF_VARIANT
@@ -88,10 +89,18 @@ def make_inputs(variant: RopeVariant, *, device_index: int = 0) -> dict[str, obj
     generator.manual_seed(variant.seed)
 
     query_shape, rope_shape = _shape_for(variant)
-    query_cpu = torch.randn(query_shape, generator=generator, dtype=torch.float32).to(torch.float16)
-    key_cpu = torch.randn(query_shape, generator=generator, dtype=torch.float32).to(torch.float16)
-    cos_cpu = torch.randn(rope_shape, generator=generator, dtype=torch.float32).to(torch.float16)
-    sin_cpu = torch.randn(rope_shape, generator=generator, dtype=torch.float32).to(torch.float16)
+    query_cpu = torch.randn(query_shape, generator=generator, dtype=torch.float32).to(
+        torch.float16
+    )
+    key_cpu = torch.randn(query_shape, generator=generator, dtype=torch.float32).to(
+        torch.float16
+    )
+    cos_cpu = torch.randn(rope_shape, generator=generator, dtype=torch.float32).to(
+        torch.float16
+    )
+    sin_cpu = torch.randn(rope_shape, generator=generator, dtype=torch.float32).to(
+        torch.float16
+    )
 
     query_ref, key_ref = _reference_cpu(query_cpu, key_cpu, cos_cpu, sin_cpu)
 
@@ -143,7 +152,9 @@ def run_torch_npu_apply_rotary_pos_emb(inputs: dict[str, object]):
     )
 
 
-def run_pto_variant(wrapper, inputs: dict[str, object]) -> tuple[torch.Tensor, torch.Tensor]:
+def run_pto_variant(
+    wrapper, inputs: dict[str, object]
+) -> tuple[torch.Tensor, torch.Tensor]:
     wrapper(
         inputs["query"],
         inputs["key"],
@@ -154,5 +165,7 @@ def run_pto_variant(wrapper, inputs: dict[str, object]) -> tuple[torch.Tensor, t
     return inputs["query"], inputs["key"]
 
 
-def run_pto_tnd_half_variant(wrapper, inputs: dict[str, object]) -> tuple[torch.Tensor, torch.Tensor]:
+def run_pto_tnd_half_variant(
+    wrapper, inputs: dict[str, object]
+) -> tuple[torch.Tensor, torch.Tensor]:
     return run_pto_variant(wrapper, inputs)

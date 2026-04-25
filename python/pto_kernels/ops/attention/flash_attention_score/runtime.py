@@ -64,14 +64,18 @@ def _reference_cpu(
     value: torch.Tensor,
     variant: DenseBnsdVariant,
 ) -> torch.Tensor:
-    return F.scaled_dot_product_attention(
-        query.float(),
-        key.float(),
-        value.float(),
-        dropout_p=0.0,
-        is_causal=False,
-        scale=_scale(variant),
-    ).to(torch.float16).float()
+    return (
+        F.scaled_dot_product_attention(
+            query.float(),
+            key.float(),
+            value.float(),
+            dropout_p=0.0,
+            is_causal=False,
+            scale=_scale(variant),
+        )
+        .to(torch.float16)
+        .float()
+    )
 
 
 def make_dense_bnsd_inputs(
@@ -85,9 +89,21 @@ def make_dense_bnsd_inputs(
     generator.manual_seed(variant.seed)
 
     shape = (variant.batch, variant.heads, variant.seq_len, variant.head_dim)
-    query_cpu = torch.randn(shape, generator=generator, dtype=torch.float32).mul(variant.input_scale).to(torch.float16)
-    key_cpu = torch.randn(shape, generator=generator, dtype=torch.float32).mul(variant.input_scale).to(torch.float16)
-    value_cpu = torch.randn(shape, generator=generator, dtype=torch.float32).mul(variant.input_scale).to(torch.float16)
+    query_cpu = (
+        torch.randn(shape, generator=generator, dtype=torch.float32)
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
+    key_cpu = (
+        torch.randn(shape, generator=generator, dtype=torch.float32)
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
+    value_cpu = (
+        torch.randn(shape, generator=generator, dtype=torch.float32)
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
 
     return {
         "device": device,
@@ -122,7 +138,9 @@ def run_torch_npu_flash_attention_score(inputs: dict[str, object]):
     )
 
 
-def run_pto_flash_attention_score_variant(wrapper, inputs: dict[str, object]) -> torch.Tensor:
+def run_pto_flash_attention_score_variant(
+    wrapper, inputs: dict[str, object]
+) -> torch.Tensor:
     wrapper(
         inputs["output_pto"],
         inputs["scores_pto"],

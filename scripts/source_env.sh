@@ -16,7 +16,10 @@ elif [[ -f "/usr/local/Ascend/ascend-toolkit/set_env.sh" ]]; then
   TOOLKIT_HOME="/usr/local/Ascend/ascend-toolkit"
 else
   echo "[ERROR] Unable to locate Ascend toolkit set_env.sh" >&2
-  return 1 2>/dev/null || exit 1
+  if [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
+    return 1
+  fi
+  exit 1
 fi
 
 if [[ -f "${TOOLKIT_HOME}/set_env.sh" ]]; then

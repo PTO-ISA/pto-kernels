@@ -9,9 +9,12 @@ from pathlib import Path
 
 import torch
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, temporary_env
+from pto_kernels.bench.adapter_utils import (
+    compile_pto_kernel,
+    describe_pto,
+    temporary_env,
+)
 from pto_kernels.ops.gmm.grouped_matmul.runtime import (
-    VARIANT,
     VARIANTS,
     make_dense_single_weight_inputs,
     run_pto_dense_variant,
@@ -38,7 +41,9 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_GROUPED_MATMUL_BASE_M": os.environ.get("PTO_GROUPED_MATMUL_BASE_M", "16"),
         "PTO_GROUPED_MATMUL_BASE_N": os.environ.get("PTO_GROUPED_MATMUL_BASE_N", "64"),
         "PTO_GROUPED_MATMUL_BASE_K": os.environ.get("PTO_GROUPED_MATMUL_BASE_K", "64"),
-        "PTO_GROUPED_MATMUL_BLOCK_DIM": os.environ.get("PTO_GROUPED_MATMUL_BLOCK_DIM", "16"),
+        "PTO_GROUPED_MATMUL_BLOCK_DIM": os.environ.get(
+            "PTO_GROUPED_MATMUL_BLOCK_DIM", "16"
+        ),
     }
 
 
@@ -68,10 +73,14 @@ def benchmark(repo_root, spec, artifacts_dir):
                     base_m = int(os.environ.get("PTO_GROUPED_MATMUL_BASE_M", "16"))
                     base_n = int(os.environ.get("PTO_GROUPED_MATMUL_BASE_N", "64"))
                     total_tiles = (variant.m // base_m) * (variant.n // base_n)
-                    requested_block_dim = int(os.environ.get("PTO_GROUPED_MATMUL_BLOCK_DIM", "16"))
+                    requested_block_dim = int(
+                        os.environ.get("PTO_GROUPED_MATMUL_BLOCK_DIM", "16")
+                    )
                     set_block_dim(min(requested_block_dim, total_tiles))
 
-                inputs = make_dense_single_weight_inputs(variant, device_index=int(spec.device.get("id", 0)))
+                inputs = make_dense_single_weight_inputs(
+                    variant, device_index=int(spec.device.get("id", 0))
+                )
                 reference = inputs["baseline_reference"]
 
                 for _ in range(spec.bench.warmup):
@@ -88,7 +97,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                     timings_ms.append((time.perf_counter() - start) * 1000.0)
 
                 if output is None:
-                    raise RuntimeError(f"PTO benchmark did not produce an output tensor for {variant.label}.")
+                    raise RuntimeError(
+                        f"PTO benchmark did not produce an output tensor for {variant.label}."
+                    )
 
                 max_abs_diff = (output.float().cpu() - reference).abs().max().item()
                 variant_reports.append(
@@ -106,16 +117,21 @@ def benchmark(repo_root, spec, artifacts_dir):
                     }
                 )
                 artifact_paths.extend(
-                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
                 )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO execution failed: {exc}",
         }
         report_path = Path(artifacts_dir) / "ptodsl_grouped_matmul_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -139,6 +155,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         "artifact_paths": artifact_paths,
     }
     report_path = Path(artifacts_dir) / "ptodsl_grouped_matmul_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

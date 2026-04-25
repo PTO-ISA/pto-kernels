@@ -16,8 +16,6 @@ from ptodsl import jit, pto, tile
 from ptodsl import scalar as s
 from pto_kernels.utils.tuning import tuned_int
 
-from pto_kernels.ops.mc2.matmul_all_reduce.kernel import build_jit_wrapper as build_mm_jit_wrapper
-
 
 const = s.const
 
@@ -30,16 +28,22 @@ class AddRmsNormConfig:
 
     def validate(self) -> None:
         if self.m <= 0 or self.n <= 0:
-            raise ValueError("matmul_all_reduce_add_rms_norm seed requires positive m and n")
+            raise ValueError(
+                "matmul_all_reduce_add_rms_norm seed requires positive m and n"
+            )
         if self.block_dim <= 0:
-            raise ValueError("matmul_all_reduce_add_rms_norm seed requires positive block_dim")
+            raise ValueError(
+                "matmul_all_reduce_add_rms_norm seed requires positive block_dim"
+            )
 
 
 def _config() -> AddRmsNormConfig:
     config = AddRmsNormConfig(
         m=tuned_int("PTO_MC2_MM_ARN_M", 128, valid_values=(128, 256)),
         n=tuned_int("PTO_MC2_MM_ARN_N", 128, valid_values=(128,)),
-        block_dim=tuned_int("PTO_MC2_MM_ARN_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16)),
+        block_dim=tuned_int(
+            "PTO_MC2_MM_ARN_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16)
+        ),
     )
     config.validate()
     return config
@@ -110,11 +114,19 @@ def build_add_rms_norm_jit_wrapper(*, output_dir):
         cN = const(config.n)
 
         tv_mm = pto.as_tensor(tensor, ptr=mm_ptr, shape=[cM, cN], strides=[cN, c1])
-        tv_residual = pto.as_tensor(tensor, ptr=residual_ptr, shape=[cM, cN], strides=[cN, c1])
+        tv_residual = pto.as_tensor(
+            tensor, ptr=residual_ptr, shape=[cM, cN], strides=[cN, c1]
+        )
         tv_y = pto.as_tensor(tensor, ptr=y_ptr, shape=[cM, cN], strides=[cN, c1])
-        tv_norm = pto.as_tensor(tensor, ptr=norm_out_ptr, shape=[cM, cN], strides=[cN, c1])
-        tv_gamma = pto.as_tensor(tensor, ptr=gamma_ptr, shape=[c1, cN], strides=[cN, c1])
-        tv_inv_n = pto.as_tensor(tensor, ptr=inv_n_ptr, shape=[c1, cN], strides=[cN, c1])
+        tv_norm = pto.as_tensor(
+            tensor, ptr=norm_out_ptr, shape=[cM, cN], strides=[cN, c1]
+        )
+        tv_gamma = pto.as_tensor(
+            tensor, ptr=gamma_ptr, shape=[c1, cN], strides=[cN, c1]
+        )
+        tv_inv_n = pto.as_tensor(
+            tensor, ptr=inv_n_ptr, shape=[c1, cN], strides=[cN, c1]
+        )
         tv_eps = pto.as_tensor(tensor, ptr=eps_ptr, shape=[c1, cN], strides=[cN, c1])
 
         with pto.vector_section():
@@ -144,26 +156,40 @@ def build_add_rms_norm_jit_wrapper(*, output_dir):
             scalar = pto.alloc_tile(scalar_tile)
 
             pto.load(
-                pto.slice_view(row_view, source=tv_gamma, offsets=[c0, c0], sizes=[c1, cN]),
+                pto.slice_view(
+                    row_view, source=tv_gamma, offsets=[c0, c0], sizes=[c1, cN]
+                ),
                 gamma_row_f16,
             )
             tile.cvt(gamma_row_f16, gamma_row)
             pto.load(
-                pto.slice_view(row_view, source=tv_inv_n, offsets=[c0, c0], sizes=[c1, cN]),
+                pto.slice_view(
+                    row_view, source=tv_inv_n, offsets=[c0, c0], sizes=[c1, cN]
+                ),
                 inv_n_row_f16,
             )
             tile.cvt(inv_n_row_f16, inv_n_row)
             pto.load(
-                pto.slice_view(row_view, source=tv_eps, offsets=[c0, c0], sizes=[c1, cN]),
+                pto.slice_view(
+                    row_view, source=tv_eps, offsets=[c0, c0], sizes=[c1, cN]
+                ),
                 eps_row_f16,
             )
             tile.cvt(eps_row_f16, eps_row)
 
             for row_idx in pto.range(row_start, row_end, c1):
-                sv_mm = pto.slice_view(row_view, source=tv_mm, offsets=[row_idx, c0], sizes=[c1, cN])
-                sv_residual = pto.slice_view(row_view, source=tv_residual, offsets=[row_idx, c0], sizes=[c1, cN])
-                sv_y = pto.slice_view(row_view, source=tv_y, offsets=[row_idx, c0], sizes=[c1, cN])
-                sv_norm = pto.slice_view(row_view, source=tv_norm, offsets=[row_idx, c0], sizes=[c1, cN])
+                sv_mm = pto.slice_view(
+                    row_view, source=tv_mm, offsets=[row_idx, c0], sizes=[c1, cN]
+                )
+                sv_residual = pto.slice_view(
+                    row_view, source=tv_residual, offsets=[row_idx, c0], sizes=[c1, cN]
+                )
+                sv_y = pto.slice_view(
+                    row_view, source=tv_y, offsets=[row_idx, c0], sizes=[c1, cN]
+                )
+                sv_norm = pto.slice_view(
+                    row_view, source=tv_norm, offsets=[row_idx, c0], sizes=[c1, cN]
+                )
 
                 pto.load(sv_mm, mm_row_f16)
                 pto.load(sv_residual, residual_row_f16)

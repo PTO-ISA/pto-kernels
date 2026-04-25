@@ -58,9 +58,9 @@ def make_dense_single_weight_inputs(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(variant.seed)
 
-    x_cpu = torch.randn((variant.m, variant.k), generator=generator, dtype=torch.float32).to(
-        torch.bfloat16
-    )
+    x_cpu = torch.randn(
+        (variant.m, variant.k), generator=generator, dtype=torch.float32
+    ).to(torch.bfloat16)
     weight_cpu = torch.randn(
         (variant.k, variant.n), generator=generator, dtype=torch.float32
     ).to(torch.bfloat16)
@@ -71,7 +71,9 @@ def make_dense_single_weight_inputs(
     weight_v5 = weight_cpu_v5.npu()
     a3d = x.unsqueeze(0).contiguous()
     group_list = torch.tensor([variant.m], dtype=torch.int64).npu()
-    out_pto = torch.empty((variant.batch, variant.m, variant.n), dtype=torch.bfloat16).npu()
+    out_pto = torch.empty(
+        (variant.batch, variant.m, variant.n), dtype=torch.bfloat16
+    ).npu()
     return {
         "device": device,
         "variant": variant.as_dict(),
@@ -82,7 +84,9 @@ def make_dense_single_weight_inputs(
         "a3d": a3d,
         "group_list": group_list,
         "out_pto": out_pto,
-        "baseline_reference": torch.matmul(x_cpu.float(), weight_cpu.float()).to(torch.bfloat16).float(),
+        "baseline_reference": torch.matmul(x_cpu.float(), weight_cpu.float())
+        .to(torch.bfloat16)
+        .float(),
     }
 
 
@@ -99,5 +103,10 @@ def run_torch_npu_grouped_matmul(inputs: dict[str, object]):
 
 
 def run_pto_dense_variant(wrapper, inputs: dict[str, object]) -> torch.Tensor:
-    wrapper(inputs["out_pto"], inputs["a3d"], inputs["weight"], int(inputs["out_pto"].shape[0]))
+    wrapper(
+        inputs["out_pto"],
+        inputs["a3d"],
+        inputs["weight"],
+        int(inputs["out_pto"].shape[0]),
+    )
     return inputs["out_pto"][0].float()

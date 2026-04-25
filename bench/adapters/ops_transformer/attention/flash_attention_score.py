@@ -25,7 +25,10 @@ def describe(repo_root, spec):
         spec.inventory_ref,
     )
     summary["runtime_entrypoint"] = "torch_npu.npu_fusion_attention_v2"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     return summary
 
 
@@ -49,7 +52,9 @@ def benchmark(repo_root, spec, artifacts_dir):
     try:
         variant_reports = []
         for variant in VARIANTS:
-            inputs = make_dense_bnsd_inputs(variant, device_index=int(spec.device.get("id", 0)))
+            inputs = make_dense_bnsd_inputs(
+                variant, device_index=int(spec.device.get("id", 0))
+            )
             reference = inputs["reference"]
             for _ in range(spec.bench.warmup):
                 run_torch_npu_flash_attention_score(inputs)
@@ -65,7 +70,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                 timings_ms.append((time.perf_counter() - start) * 1000.0)
 
             if output is None:
-                raise RuntimeError(f"Baseline benchmark did not produce an output tensor for {variant.label}.")
+                raise RuntimeError(
+                    f"Baseline benchmark did not produce an output tensor for {variant.label}."
+                )
 
             attention_out = output[0]
             max_abs_diff = (attention_out.float().cpu() - reference).abs().max().item()
@@ -81,15 +88,19 @@ def benchmark(repo_root, spec, artifacts_dir):
                     "correctness": {"max_abs_diff": max_abs_diff},
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "entrypoint": "torch_npu.npu_fusion_attention_v2",
             "reason": str(exc),
         }
-        report_path = Path(artifacts_dir) / "ops_transformer_flash_attention_score_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ops_transformer_flash_attention_score_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -113,7 +124,11 @@ def benchmark(repo_root, spec, artifacts_dir):
         "variant_reports": variant_reports,
         "reference_contract": "fp16_bnsd_scaled_dot_product_attention",
     }
-    report_path = Path(artifacts_dir) / "ops_transformer_flash_attention_score_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ops_transformer_flash_attention_score_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

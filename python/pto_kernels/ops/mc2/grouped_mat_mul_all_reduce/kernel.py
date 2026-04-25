@@ -57,7 +57,11 @@ class GroupedMatmulAllReduceConfig:
 
     @property
     def split_m(self) -> int:
-        return self.core_num // self.num_blocks_n if self.core_num % self.num_blocks_n == 0 else 1
+        return (
+            self.core_num // self.num_blocks_n
+            if self.core_num % self.num_blocks_n == 0
+            else 1
+        )
 
     @property
     def lambda_m(self) -> int:
@@ -95,9 +99,13 @@ class GroupedMatmulAllReduceConfig:
                     f"grouped_mat_mul_all_reduce seed requires {axis_name}={axis} divisible by {base}"
                 )
         if self.core_num <= 0:
-            raise ValueError("grouped_mat_mul_all_reduce seed requires positive block_dim")
+            raise ValueError(
+                "grouped_mat_mul_all_reduce seed requires positive block_dim"
+            )
         if self.active_cores <= 0:
-            raise ValueError("grouped_mat_mul_all_reduce seed requires at least one active core")
+            raise ValueError(
+                "grouped_mat_mul_all_reduce seed requires at least one active core"
+            )
 
 
 def _config() -> GroupedMatmulAllReduceConfig:
@@ -110,7 +118,9 @@ def _config() -> GroupedMatmulAllReduceConfig:
         base_m=tuned_int("PTO_MC2_GMM_AR_BASE_M", 32, valid_values=(16, 32, 64)),
         base_n=tuned_int("PTO_MC2_GMM_AR_BASE_N", 32, valid_values=(32, 64, 128)),
         base_k=tuned_int("PTO_MC2_GMM_AR_BASE_K", 64, valid_values=(32, 64)),
-        max_block_dim=tuned_int("PTO_MC2_GMM_AR_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)),
+        max_block_dim=tuned_int(
+            "PTO_MC2_GMM_AR_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)
+        ),
     )
     config.validate()
     return config
@@ -127,11 +137,21 @@ def _meta_data(config: GroupedMatmulAllReduceConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.single_n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[config.single_m, config.single_n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileBufType(
+        shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT"
+    )
+    b_mat = pto.TileBufType(
+        shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT"
+    )
+    a_tile = pto.TileBufType(
+        shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT"
+    )
+    b_tile = pto.TileBufType(
+        shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT"
+    )
+    out_acc = pto.TileBufType(
+        shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC"
+    )
 
     return {
         "ptr": ptr,
@@ -157,7 +177,9 @@ def build_jit_wrapper(*, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def grouped_mat_mul_all_reduce_local(out_ptr: "ptr", x_ptr: "ptr", weight_ptr: "ptr") -> None:
+    def grouped_mat_mul_all_reduce_local(
+        out_ptr: "ptr", x_ptr: "ptr", weight_ptr: "ptr"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cM = const(config.m)

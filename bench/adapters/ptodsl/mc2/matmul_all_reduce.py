@@ -5,7 +5,10 @@ import os
 from pathlib import Path
 
 from pto_kernels.bench.adapter_utils import describe_pto, load_module, temporary_env
-from pto_kernels.ops.mc2.matmul_all_reduce.runtime import VARIANTS, run_distributed_pto_benchmark
+from pto_kernels.ops.mc2.matmul_all_reduce.runtime import (
+    VARIANTS,
+    run_distributed_pto_benchmark,
+)
 
 
 KERNEL = "python/pto_kernels/ops/mc2/matmul_all_reduce/kernel.py"
@@ -32,7 +35,9 @@ def compile_kernel(repo_root, spec, artifacts_dir):
             build = getattr(wrapper, "_build", None)
             if callable(build):
                 build()
-            artifact_paths = [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+            artifact_paths = [
+                str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+            ]
     except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         return {"status": "blocked", "reason": f"PTO compile failed: {exc}"}
     return {
@@ -72,11 +77,18 @@ def benchmark(repo_root, spec, artifacts_dir):
                         "reason": "kernel module does not expose build_jit_wrapper(output_dir)",
                     }
 
-                wrapper = builder(output_dir=Path(artifacts_dir) / variant.label / "compile_probe")
+                wrapper = builder(
+                    output_dir=Path(artifacts_dir) / variant.label / "compile_probe"
+                )
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
-                artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
+                artifact_paths.extend(
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
+                )
 
                 variant_report = run_distributed_pto_benchmark(
                     variant=variant,
@@ -101,21 +113,29 @@ def benchmark(repo_root, spec, artifacts_dir):
             "reason": f"PTO compile failed: {exc}",
         }
         report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
     if any(item.get("status") != "ok" for item in variant_reports):
-        first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
+        first_blocked = next(
+            item for item in variant_reports if item.get("status") != "ok"
+        )
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
-            "reason": first_blocked.get("reason", "Distributed PTO matmul_all_reduce launch failed."),
+            "reason": first_blocked.get(
+                "reason", "Distributed PTO matmul_all_reduce launch failed."
+            ),
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
         }
     else:
-        max_abs_diff = max(float(item["correctness"]["max_abs_diff"]) for item in variant_reports)
+        max_abs_diff = max(
+            float(item["correctness"]["max_abs_diff"]) for item in variant_reports
+        )
         report = {
             "status": "ok",
             "variants": [item["variant"] for item in variant_reports],
@@ -137,6 +157,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         }
 
     report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

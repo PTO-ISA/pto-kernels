@@ -1,4 +1,4 @@
-"""Shared path and manifest helpers for the PTO 910B bring-up workspace."""
+"""Shared path and manifest helpers for the pto-kernels workspace."""
 
 from __future__ import annotations
 

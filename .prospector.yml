@@ -6,8 +6,12 @@ max-line-length: 140
 
 ignore-paths:
   - build/
+  - bench/
   - scripts/
   - csrc/
+  - python/pto_kernels/bench/
+  - python/pto_kernels/ops/
+  - python/pto_kernels/utils/distributed.py
 
 python-targets:
   - 3

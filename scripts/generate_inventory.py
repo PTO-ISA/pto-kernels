@@ -25,7 +25,9 @@ def load_inventory(ops_transformer_root: Path) -> dict[str, object]:
     for rel, name in entries:
         op_dir = ops_transformer_root / rel
         cml = op_dir / "op_host" / "CMakeLists.txt"
-        content = cml.read_text(encoding="utf-8", errors="ignore") if cml.exists() else ""
+        content = (
+            cml.read_text(encoding="utf-8", errors="ignore") if cml.exists() else ""
+        )
         has_a2 = "ascend910b" in content
         has_a3 = "ascend910_93" in content
         record = {

@@ -39,10 +39,14 @@ SEEDS = (
 
 
 def _latest_report(seed: SeedRef) -> Path:
-    candidates = [path / "report.json" for path in seed.results_dir.iterdir() if path.is_dir()]
+    candidates = [
+        path / "report.json" for path in seed.results_dir.iterdir() if path.is_dir()
+    ]
     existing = [path for path in candidates if path.exists()]
     if not existing:
-        raise FileNotFoundError(f"No report.json files found for {seed.label} in {seed.results_dir}")
+        raise FileNotFoundError(
+            f"No report.json files found for {seed.label} in {seed.results_dir}"
+        )
     return max(existing, key=lambda path: path.stat().st_mtime)
 
 
@@ -111,9 +115,20 @@ def main() -> int:
     }
 
     OUTPUT_JSON.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_JSON.write_text(json.dumps(audit, indent=2, sort_keys=True), encoding="utf-8")
+    OUTPUT_JSON.write_text(
+        json.dumps(audit, indent=2, sort_keys=True), encoding="utf-8"
+    )
     OUTPUT_MD.write_text(_render_markdown(entries), encoding="utf-8")
-    print(json.dumps({"json": str(OUTPUT_JSON), "markdown": str(OUTPUT_MD), "phase1_complete": audit["phase1_complete"]}, indent=2))
+    print(
+        json.dumps(
+            {
+                "json": str(OUTPUT_JSON),
+                "markdown": str(OUTPUT_MD),
+                "phase1_complete": audit["phase1_complete"],
+            },
+            indent=2,
+        )
+    )
     return 0
 
 

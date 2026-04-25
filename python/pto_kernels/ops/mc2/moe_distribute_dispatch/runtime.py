@@ -57,7 +57,9 @@ class MoeDistributeDispatchVariant:
 
 VARIANT = MoeDistributeDispatchVariant()
 VARIANTS = (
-    MoeDistributeDispatchVariant(tokens=8, hidden_size=7168, expected_world_size=8, seed=0),
+    MoeDistributeDispatchVariant(
+        tokens=8, hidden_size=7168, expected_world_size=8, seed=0
+    ),
 )
 
 
@@ -92,13 +94,19 @@ def _make_rank_tensors(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x = (
-        torch.randn((resolved.tokens, resolved.hidden_size), generator=generator, dtype=torch.float32)
+        torch.randn(
+            (resolved.tokens, resolved.hidden_size),
+            generator=generator,
+            dtype=torch.float32,
+        )
         * resolved.input_scale
     ).to(torch.float16)
 
     # Keep the first slice deterministic and balanced while still varying per rank/variant.
     base = torch.arange(resolved.tokens, dtype=torch.int64)
-    route = ((base + rank + resolved.seed) % resolved.expected_world_size).to(torch.int32)
+    route = ((base + rank + resolved.seed) % resolved.expected_world_size).to(
+        torch.int32
+    )
     expert_ids = route.unsqueeze(1).contiguous()
     return x, expert_ids
 
@@ -108,7 +116,9 @@ def _bincount_destinations(expert_ids: torch.Tensor, world_size: int) -> torch.T
     return torch.bincount(flat, minlength=world_size).to(torch.int32)
 
 
-def _expand_idx_for_local_tokens(expert_ids: torch.Tensor, world_size: int) -> torch.Tensor:
+def _expand_idx_for_local_tokens(
+    expert_ids: torch.Tensor, world_size: int
+) -> torch.Tensor:
     del world_size
     counts: dict[int, int] = {}
     values = []
@@ -155,10 +165,14 @@ def _reference_outputs_for_rank(
         mask = src_expert_ids.reshape(-1) == rank
         recv_counts.append(int(mask.sum().item()))
         if int(mask.sum().item()) > 0:
-            recv_chunks.append(src_x.index_select(0, torch.nonzero(mask, as_tuple=False).reshape(-1)))
+            recv_chunks.append(
+                src_x.index_select(0, torch.nonzero(mask, as_tuple=False).reshape(-1))
+            )
 
     total_rows = sum(recv_counts)
-    expand_x = torch.zeros((resolved.global_bs, resolved.hidden_size), dtype=torch.float16)
+    expand_x = torch.zeros(
+        (resolved.global_bs, resolved.hidden_size), dtype=torch.float16
+    )
     if recv_chunks:
         stacked = torch.cat(recv_chunks, dim=0)
         expand_x[: stacked.shape[0]].copy_(stacked)
@@ -182,7 +196,9 @@ def make_local_pack_inputs(
     x_cpu, expert_ids_cpu = _make_rank_tensors(rank, resolved)
     send_order_cpu = _send_order(expert_ids_cpu, resolved.expected_world_size)
     gather_indices_cpu = _gather_map(send_order_cpu, resolved.hidden_size)
-    send_counts_cpu = _bincount_destinations(expert_ids_cpu, resolved.expected_world_size)
+    send_counts_cpu = _bincount_destinations(
+        expert_ids_cpu, resolved.expected_world_size
+    )
     return {
         "variant": resolved.as_dict(),
         "shape_summary": resolved.shape_summary,
@@ -191,7 +207,9 @@ def make_local_pack_inputs(
         "gather_indices": gather_indices_cpu.to(device),
         "send_buffer": torch.empty_like(x_cpu).to(device),
         "send_counts": send_counts_cpu.to(device),
-        "reference": _reference_outputs_for_rank(rank, resolved.expected_world_size, resolved),
+        "reference": _reference_outputs_for_rank(
+            rank, resolved.expected_world_size, resolved
+        ),
     }
 
 
@@ -290,7 +308,9 @@ def _extract_baseline_outputs(
         "expand_x": expand_x,
         "expand_idx": expand_idx,
         "expert_token_nums": expert_token_nums,
-        "ep_recv_counts_prefix": ep_recv_counts.reshape(-1)[: reference["ep_recv_counts_prefix"].numel()],
+        "ep_recv_counts_prefix": ep_recv_counts.reshape(-1)[
+            : reference["ep_recv_counts_prefix"].numel()
+        ],
         "valid_rows": reference["valid_rows"].clone(),
     }
 
@@ -303,16 +323,24 @@ def _correctness_metrics(
     actual_expand = actual["expand_x"][:valid_rows].float().cpu()
     ref_expand = reference["expand_x"][:valid_rows].float()
     return {
-        "expand_x_max_abs_diff": (actual_expand - ref_expand).abs().max().item() if valid_rows > 0 else 0.0,
+        "expand_x_max_abs_diff": (
+            (actual_expand - ref_expand).abs().max().item() if valid_rows > 0 else 0.0
+        ),
         "expand_idx_max_abs_diff": (
-            actual["expand_idx"].reshape(-1)[: reference["expand_idx"].numel()].to(torch.int32).cpu()
+            actual["expand_idx"]
+            .reshape(-1)[: reference["expand_idx"].numel()]
+            .to(torch.int32)
+            .cpu()
             - reference["expand_idx"]
         )
         .abs()
         .max()
         .item(),
         "expert_token_nums_max_abs_diff": (
-            actual["expert_token_nums"].reshape(-1)[: reference["expert_token_nums"].numel()].to(torch.int64).cpu()
+            actual["expert_token_nums"]
+            .reshape(-1)[: reference["expert_token_nums"].numel()]
+            .to(torch.int64)
+            .cpu()
             - reference["expert_token_nums"]
         )
         .abs()
@@ -348,7 +376,14 @@ def _baseline_worker(
 
     for _ in range(warmup):
         dist.barrier()
-        _call_baseline_dispatch(x, expert_ids, hcom_name=hcom_name, world_size=world_size, rank=rank, variant=variant)
+        _call_baseline_dispatch(
+            x,
+            expert_ids,
+            hcom_name=hcom_name,
+            world_size=world_size,
+            rank=rank,
+            variant=variant,
+        )
     torch.npu.synchronize()
     dist.barrier()
 
@@ -359,12 +394,19 @@ def _baseline_worker(
         torch.npu.synchronize()
         start = time.perf_counter()
         outputs = _call_baseline_dispatch(
-            x, expert_ids, hcom_name=hcom_name, world_size=world_size, rank=rank, variant=variant
+            x,
+            expert_ids,
+            hcom_name=hcom_name,
+            world_size=world_size,
+            rank=rank,
+            variant=variant,
         )
         torch.npu.synchronize()
         dist.barrier()
         timings_ms.append((time.perf_counter() - start) * 1000.0)
-        actual = _extract_baseline_outputs(outputs, rank=rank, world_size=world_size, variant=variant)
+        actual = _extract_baseline_outputs(
+            outputs, rank=rank, world_size=world_size, variant=variant
+        )
 
     if actual is None:
         raise RuntimeError("npu_moe_distribute_dispatch did not return output tensors.")
@@ -395,7 +437,9 @@ def run_distributed_baseline_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MOE_DISPATCH_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MOE_DISPATCH_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -412,12 +456,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed moe_distribute_dispatch baseline failed."),
+            "reason": launch.get(
+                "reason", "Distributed moe_distribute_dispatch baseline failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -440,7 +490,9 @@ def run_distributed_baseline_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "ep_only_top1_no_quant_dispatch",
         "rank_reports": rank_reports,
@@ -449,7 +501,9 @@ def run_distributed_baseline_benchmark(
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_moe_distribute_dispatch_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_moe_distribute_dispatch_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -457,7 +511,9 @@ def _load_kernel_module():
     return module
 
 
-def _all_gather_send_counts(local_counts: torch.Tensor, world_size: int) -> torch.Tensor:
+def _all_gather_send_counts(
+    local_counts: torch.Tensor, world_size: int
+) -> torch.Tensor:
     gathered = [torch.empty_like(local_counts) for _ in range(world_size)]
     dist.all_gather(gathered, local_counts)
     return torch.stack(gathered, dim=0)
@@ -490,9 +546,15 @@ def _pto_worker(
 
     all_send_counts = _all_gather_send_counts(send_counts, world_size)
     recv_counts = all_send_counts[:, rank].contiguous()
-    send_splits = [int(item) * variant.hidden_size for item in send_counts.cpu().tolist()]
-    recv_splits = [int(item) * variant.hidden_size for item in recv_counts.cpu().tolist()]
-    recv_buffer = torch.zeros((variant.global_bs, variant.hidden_size), dtype=torch.float16).to(device)
+    send_splits = [
+        int(item) * variant.hidden_size for item in send_counts.cpu().tolist()
+    ]
+    recv_splits = [
+        int(item) * variant.hidden_size for item in recv_counts.cpu().tolist()
+    ]
+    recv_buffer = torch.zeros(
+        (variant.global_bs, variant.hidden_size), dtype=torch.float16
+    ).to(device)
 
     def _run_once():
         wrapper(send_buffer, x, gather_indices)
@@ -557,7 +619,9 @@ def run_distributed_pto_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MOE_DISPATCH_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MOE_DISPATCH_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -574,12 +638,18 @@ def run_distributed_pto_benchmark(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed PTO moe_distribute_dispatch failed."),
+            "reason": launch.get(
+                "reason", "Distributed PTO moe_distribute_dispatch failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -601,7 +671,9 @@ def run_distributed_pto_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "host_precomputed_send_order_then_all_to_all_single",
         "rank_reports": rank_reports,

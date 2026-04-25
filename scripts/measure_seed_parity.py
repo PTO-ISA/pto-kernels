@@ -133,13 +133,21 @@ def main() -> int:
                     {
                         "variant": variant,
                         "shape_summary": baseline_variant.get("shape_summary"),
-                        "baseline_median_ms": baseline_variant.get("timings_ms", {}).get("median"),
-                        "pto_median_ms": None if pto_variant is None else pto_variant.get("timings_ms", {}).get("median"),
-                        "baseline_over_pto_pct": None
-                        if pto_variant is None
-                        else efficiency_pct(
-                            baseline_variant.get("timings_ms", {}).get("median"),
-                            pto_variant.get("timings_ms", {}).get("median"),
+                        "baseline_median_ms": baseline_variant.get(
+                            "timings_ms", {}
+                        ).get("median"),
+                        "pto_median_ms": (
+                            None
+                            if pto_variant is None
+                            else pto_variant.get("timings_ms", {}).get("median")
+                        ),
+                        "baseline_over_pto_pct": (
+                            None
+                            if pto_variant is None
+                            else efficiency_pct(
+                                baseline_variant.get("timings_ms", {}).get("median"),
+                                pto_variant.get("timings_ms", {}).get("median"),
+                            )
                         ),
                     }
                 )
@@ -158,9 +166,19 @@ def main() -> int:
                     "variant_rows": variant_rows,
                 }
             )
-        baseline_values = [round_info["baseline_median_ms"] for round_info in rounds if round_info["baseline_median_ms"] is not None]
-        pto_values = [round_info["pto_median_ms"] for round_info in rounds if round_info["pto_median_ms"] is not None]
-        baseline_median_ms = statistics.median(baseline_values) if baseline_values else None
+        baseline_values = [
+            round_info["baseline_median_ms"]
+            for round_info in rounds
+            if round_info["baseline_median_ms"] is not None
+        ]
+        pto_values = [
+            round_info["pto_median_ms"]
+            for round_info in rounds
+            if round_info["pto_median_ms"] is not None
+        ]
+        baseline_median_ms = (
+            statistics.median(baseline_values) if baseline_values else None
+        )
         pto_median_ms = statistics.median(pto_values) if pto_values else None
         variant_map: dict[str, dict[str, Any]] = {}
         for round_info in rounds:
@@ -183,9 +201,13 @@ def main() -> int:
         variants = []
         for entry in variant_map.values():
             baseline_variant_median = (
-                statistics.median(entry["baseline_values"]) if entry["baseline_values"] else None
+                statistics.median(entry["baseline_values"])
+                if entry["baseline_values"]
+                else None
             )
-            pto_variant_median = statistics.median(entry["pto_values"]) if entry["pto_values"] else None
+            pto_variant_median = (
+                statistics.median(entry["pto_values"]) if entry["pto_values"] else None
+            )
             variants.append(
                 {
                     "variant": entry["variant"],
@@ -197,7 +219,8 @@ def main() -> int:
                         pto_variant_median,
                     ),
                     "all_correct": all(
-                        round_info["baseline_correct"] and round_info["pto_correct"] for round_info in rounds
+                        round_info["baseline_correct"] and round_info["pto_correct"]
+                        for round_info in rounds
                     ),
                 }
             )
@@ -212,8 +235,13 @@ def main() -> int:
                 "aggregate": {
                     "baseline_median_ms": baseline_median_ms,
                     "pto_median_ms": pto_median_ms,
-                    "baseline_over_pto_pct": efficiency_pct(baseline_median_ms, pto_median_ms),
-                    "all_correct": all(round_info["baseline_correct"] and round_info["pto_correct"] for round_info in rounds),
+                    "baseline_over_pto_pct": efficiency_pct(
+                        baseline_median_ms, pto_median_ms
+                    ),
+                    "all_correct": all(
+                        round_info["baseline_correct"] and round_info["pto_correct"]
+                        for round_info in rounds
+                    ),
                 },
             }
         )
@@ -221,9 +249,13 @@ def main() -> int:
     summary = {"generated_at": generated_at, "rounds": args.rounds, "kernels": kernels}
     json_path = REPORTS_DIR / f"kernel_parity_{generated_at}.json"
     md_path = REPORTS_DIR / f"kernel_parity_{generated_at}.md"
-    json_path.write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    json_path.write_text(
+        json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
+    )
     write_markdown(md_path, summary)
-    LATEST_JSON.write_text(json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8")
+    LATEST_JSON.write_text(
+        json.dumps(summary, indent=2, sort_keys=True), encoding="utf-8"
+    )
     write_markdown(LATEST_MD, summary)
     print(
         json.dumps(

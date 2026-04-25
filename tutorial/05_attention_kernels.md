@@ -58,7 +58,7 @@ def build_jit_wrapper(*, output_dir):
 
 这说明一个很关键的工程实践：
 
-> 真正复杂的 attention kernel，不应该把所有逻辑都塞进单文件。  
+> 真正复杂的 attention kernel，不应该把所有逻辑都塞进单文件。
 > 应该尽量把可复用的 QK / softmax / PV 路径抽出来。
 
 ## softmax 为什么值得特别关注
@@ -99,9 +99,9 @@ attention 的很多正确性问题，不在 matmul，而在 softmax：
 
 ## 常见误区
 
-- 误区：attention 只是两次 matmul 加一个 softmax  
+- 误区：attention 只是两次 matmul 加一个 softmax
   形式上像，但工程复杂度明显更高，尤其是数值稳定和 contract 细节。
-- 误区：只要 flash attention 绿了，infer attention 应该也差不多  
+- 误区：只要 flash attention 绿了，infer attention 应该也差不多
   不对。infer contract、cache shape、block 策略都会改变行为。
 
 下一章：进入 MoE 和 routing 类 kernel，这类 kernel 里“数据搬运”往往比“乘加”更主导。

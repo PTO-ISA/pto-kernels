@@ -8,13 +8,17 @@ from pathlib import Path
 
 import torch
 from pto_kernels.ops.attention.flash_attention_score.runtime import (
-    VARIANT,
     VARIANTS,
     make_dense_bnsd_inputs,
     run_pto_flash_attention_score_variant,
 )
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
+from pto_kernels.bench.adapter_utils import (
+    compile_pto_kernel,
+    describe_pto,
+    load_module,
+    temporary_env,
+)
 
 
 KERNEL = "python/pto_kernels/ops/attention/flash_attention_score/kernel.py"
@@ -41,7 +45,9 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_ATTENTION_PV_BASE_N": os.environ.get("PTO_ATTENTION_PV_BASE_N", "32"),
         "PTO_ATTENTION_PV_BASE_K": os.environ.get("PTO_ATTENTION_PV_BASE_K", "32"),
         "PTO_ATTENTION_PV_BLOCK_DIM": os.environ.get("PTO_ATTENTION_PV_BLOCK_DIM", "8"),
-        "PTO_ATTENTION_SOFTMAX_BLOCK_DIM": os.environ.get("PTO_ATTENTION_SOFTMAX_BLOCK_DIM", "8"),
+        "PTO_ATTENTION_SOFTMAX_BLOCK_DIM": os.environ.get(
+            "PTO_ATTENTION_SOFTMAX_BLOCK_DIM", "8"
+        ),
     }
 
 
@@ -65,7 +71,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                 if callable(build):
                     build()
 
-                inputs = make_dense_bnsd_inputs(variant, device_index=int(spec.device.get("id", 0)))
+                inputs = make_dense_bnsd_inputs(
+                    variant, device_index=int(spec.device.get("id", 0))
+                )
                 reference = inputs["reference"]
 
                 for _ in range(spec.bench.warmup):
@@ -82,7 +90,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                     timings_ms.append((time.perf_counter() - start) * 1000.0)
 
                 if output is None:
-                    raise RuntimeError(f"PTO benchmark did not produce an output tensor for {variant.label}.")
+                    raise RuntimeError(
+                        f"PTO benchmark did not produce an output tensor for {variant.label}."
+                    )
 
                 max_abs_diff = (output.float().cpu() - reference).abs().max().item()
                 variant_reports.append(
@@ -98,16 +108,23 @@ def benchmark(repo_root, spec, artifacts_dir):
                     }
                 )
                 artifact_paths.extend(
-                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
                 )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
-        report_path = Path(artifacts_dir) / "ptodsl_flash_attention_score_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ptodsl_flash_attention_score_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -132,6 +149,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         "artifact_paths": artifact_paths,
     }
     report_path = Path(artifacts_dir) / "ptodsl_flash_attention_score_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

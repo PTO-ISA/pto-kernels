@@ -48,7 +48,9 @@ def _meta_data(config: MoeDistributeCombineConfig):
     tensor_idx = pto.TensorType(rank=1, dtype=idx_dtype)
     row_view = pto.SubTensorType(shape=[1, config.hidden], dtype=dtype)
     row_idx_view = pto.SubTensorType(shape=[1, config.hidden], dtype=idx_dtype)
-    chunk_view = pto.SubTensorType(shape=[1, config.rows_per_core * config.hidden], dtype=dtype)
+    chunk_view = pto.SubTensorType(
+        shape=[1, config.rows_per_core * config.hidden], dtype=dtype
+    )
     row_tile = pto.TileBufType(
         shape=[1, config.hidden],
         valid_shape=[1, config.hidden],
@@ -94,7 +96,9 @@ def build_jit_wrapper(*, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def moe_distribute_combine_seed(x_out_ptr: "ptr", compact_expand_x_ptr: "ptr", scatter_idx_ptr: "ptr_idx") -> None:
+    def moe_distribute_combine_seed(
+        x_out_ptr: "ptr", compact_expand_x_ptr: "ptr", scatter_idx_ptr: "ptr_idx"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cTokens = const(config.tokens)
@@ -141,8 +145,12 @@ def build_jit_wrapper(*, output_dir):
 
             for row_idx in pto.range(row_start, row_end, c1):
                 row_offset = row_idx * cHidden
-                src_view = pto.slice_view(row_view, source=tv_src, offsets=[row_offset], sizes=[cHidden])
-                idx_view = pto.slice_view(row_idx_view, source=tv_idx, offsets=[row_offset], sizes=[cHidden])
+                src_view = pto.slice_view(
+                    row_view, source=tv_src, offsets=[row_offset], sizes=[cHidden]
+                )
+                idx_view = pto.slice_view(
+                    row_idx_view, source=tv_idx, offsets=[row_offset], sizes=[cHidden]
+                )
                 pto.load(src_view, src_row_tile)
                 pto.load(idx_view, idx_row_tile)
                 tile.scatter(src_row_tile, idx_row_tile, dst_chunk_tile)

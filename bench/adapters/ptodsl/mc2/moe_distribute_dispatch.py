@@ -4,7 +4,12 @@ import json
 import os
 from pathlib import Path
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
+from pto_kernels.bench.adapter_utils import (
+    compile_pto_kernel,
+    describe_pto,
+    load_module,
+    temporary_env,
+)
 from pto_kernels.ops.mc2.moe_distribute_dispatch.runtime import (
     VARIANTS,
     run_distributed_pto_benchmark,
@@ -28,7 +33,9 @@ def _variant_env(variant) -> dict[str, str]:
         "PTO_MC2_MOE_DISPATCH_TOKENS": str(variant.tokens),
         "PTO_MC2_MOE_DISPATCH_HIDDEN": str(variant.hidden_size),
         "PTO_MC2_MOE_DISPATCH_WORLD_SIZE": str(variant.expected_world_size),
-        "PTO_MC2_MOE_DISPATCH_BLOCK_DIM": os.environ.get("PTO_MC2_MOE_DISPATCH_BLOCK_DIM", "8"),
+        "PTO_MC2_MOE_DISPATCH_BLOCK_DIM": os.environ.get(
+            "PTO_MC2_MOE_DISPATCH_BLOCK_DIM", "8"
+        ),
     }
 
 
@@ -47,11 +54,18 @@ def benchmark(repo_root, spec, artifacts_dir):
                         "reason": "kernel module does not expose build_jit_wrapper(output_dir)",
                     }
 
-                wrapper = builder(output_dir=Path(artifacts_dir) / variant.label / "compile_probe")
+                wrapper = builder(
+                    output_dir=Path(artifacts_dir) / variant.label / "compile_probe"
+                )
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
-                artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
+                artifact_paths.extend(
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
+                )
 
                 variant_report = run_distributed_pto_benchmark(
                     variant=variant,
@@ -69,28 +83,38 @@ def benchmark(repo_root, spec, artifacts_dir):
                         }
                     )
                 variant_reports.append(variant_report)
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
-        report_path = Path(artifacts_dir) / "ptodsl_moe_distribute_dispatch_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ptodsl_moe_distribute_dispatch_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
     if any(item.get("status") != "ok" for item in variant_reports):
-        first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
+        first_blocked = next(
+            item for item in variant_reports if item.get("status") != "ok"
+        )
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
-            "reason": first_blocked.get("reason", "Distributed PTO moe_distribute_dispatch launch failed."),
+            "reason": first_blocked.get(
+                "reason", "Distributed PTO moe_distribute_dispatch launch failed."
+            ),
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
         }
     else:
-        max_abs_diff = max(float(item["correctness"]["max_abs_diff"]) for item in variant_reports)
+        max_abs_diff = max(
+            float(item["correctness"]["max_abs_diff"]) for item in variant_reports
+        )
         report = {
             "status": "ok",
             "variants": [item["variant"] for item in variant_reports],
@@ -112,6 +136,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         }
 
     report_path = Path(artifacts_dir) / "ptodsl_moe_distribute_dispatch_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

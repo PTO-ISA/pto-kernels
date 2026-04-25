@@ -90,7 +90,9 @@ class MatmulAllReduceConfig:
             ("n", self.n, self.base_n),
         ):
             if axis % base != 0:
-                raise ValueError(f"matmul_all_reduce seed requires {axis_name}={axis} divisible by {base}")
+                raise ValueError(
+                    f"matmul_all_reduce seed requires {axis_name}={axis} divisible by {base}"
+                )
         if self.core_num <= 0:
             raise ValueError("matmul_all_reduce seed requires positive block_dim")
         if self.active_cores <= 0:
@@ -107,7 +109,9 @@ def _config() -> MatmulAllReduceConfig:
         base_m=tuned_int("PTO_MC2_MM_AR_BASE_M", 32, valid_values=(16, 32, 64)),
         base_n=tuned_int("PTO_MC2_MM_AR_BASE_N", 32, valid_values=(32, 64, 128)),
         base_k=tuned_int("PTO_MC2_MM_AR_BASE_K", 64, valid_values=(32, 64)),
-        max_block_dim=tuned_int("PTO_MC2_MM_AR_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)),
+        max_block_dim=tuned_int(
+            "PTO_MC2_MM_AR_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)
+        ),
     )
     config.validate()
     return config
@@ -124,11 +128,21 @@ def _meta_data(config: MatmulAllReduceConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.single_n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[config.single_m, config.single_n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileBufType(
+        shape=[config.single_m, config.base_k], dtype=dtype, memory_space="MAT"
+    )
+    b_mat = pto.TileBufType(
+        shape=[config.base_k, config.single_n], dtype=dtype, memory_space="MAT"
+    )
+    a_tile = pto.TileBufType(
+        shape=[config.single_m, config.base_k], dtype=dtype, memory_space="LEFT"
+    )
+    b_tile = pto.TileBufType(
+        shape=[config.base_k, config.single_n], dtype=dtype, memory_space="RIGHT"
+    )
+    out_acc = pto.TileBufType(
+        shape=[config.single_m, config.single_n], dtype=acc_dtype, memory_space="ACC"
+    )
 
     return {
         "ptr": ptr,

@@ -90,9 +90,9 @@ pto.section.cube {
 
 ## 常见误区
 
-- 误区：看到 `.pto` 就说明问题一定不在 PTODSL  
+- 误区：看到 `.pto` 就说明问题一定不在 PTODSL
   不一定。PTODSL 也可能生成了“不够理想但合法”的 IR。
-- 误区：report 里只看 latency 就够  
+- 误区：report 里只看 latency 就够
   不够。还要看 baseline/PTO 状态、correctness、blocked reason。
 
 下一章：把这些状态放回性能视角，学会正确阅读当前仓库里的数据。

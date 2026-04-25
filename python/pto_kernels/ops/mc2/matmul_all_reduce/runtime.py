@@ -53,25 +53,33 @@ VARIANTS = (
 )
 
 
-def _resolve_variant(variant: MatmulAllReduceVariant | None = None) -> MatmulAllReduceVariant:
+def _resolve_variant(
+    variant: MatmulAllReduceVariant | None = None,
+) -> MatmulAllReduceVariant:
     return VARIANT if variant is None else variant
 
 
-def _make_rank_tensors(rank: int, variant: MatmulAllReduceVariant | None = None) -> tuple[torch.Tensor, torch.Tensor]:
+def _make_rank_tensors(
+    rank: int, variant: MatmulAllReduceVariant | None = None
+) -> tuple[torch.Tensor, torch.Tensor]:
     resolved = _resolve_variant(variant)
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x1 = (
-        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 1000)
     x2 = (
-        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     return x1, x2
 
 
-def _reference_output(world_size: int, variant: MatmulAllReduceVariant | None = None) -> torch.Tensor:
+def _reference_output(
+    world_size: int, variant: MatmulAllReduceVariant | None = None
+) -> torch.Tensor:
     resolved = _resolve_variant(variant)
     x2 = _make_rank_tensors(0, resolved)[1]
     full = None
@@ -147,7 +155,9 @@ def _baseline_worker(
 
     for _ in range(warmup):
         dist.barrier()
-        torch_npu.npu_mm_all_reduce_base(x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op)
+        torch_npu.npu_mm_all_reduce_base(
+            x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op
+        )
     torch.npu.synchronize()
     dist.barrier()
 
@@ -193,7 +203,9 @@ def run_distributed_baseline_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MM_AR_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MM_AR_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -206,12 +218,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed matmul_all_reduce baseline failed."),
+            "reason": launch.get(
+                "reason", "Distributed matmul_all_reduce baseline failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -234,7 +252,9 @@ def run_distributed_baseline_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "all_reduce(sum_i(x1_local_i @ x2))",
         "rank_reports": rank_reports,
@@ -243,7 +263,9 @@ def run_distributed_baseline_benchmark(
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_matmul_all_reduce_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_matmul_all_reduce_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -323,18 +345,26 @@ def run_distributed_pto_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MM_AR_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MM_AR_WORLD_SIZE", variant.expected_world_size)
+    )
     output_dir = Path(artifacts_dir) / "distributed_pto"
     launch = run_local_ranked_job(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed PTO matmul_all_reduce launch failed."),
+            "reason": launch.get(
+                "reason", "Distributed PTO matmul_all_reduce launch failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -356,7 +386,9 @@ def run_distributed_pto_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "pto_local_matmul_then_all_reduce",
         "rank_reports": rank_reports,

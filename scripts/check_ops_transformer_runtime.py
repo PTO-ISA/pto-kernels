@@ -14,7 +14,9 @@ from pto_kernels.utils import detect_env, inspect_ops_transformer_runtime
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--json", action="store_true", help="Print the runtime status as JSON.")
+    parser.add_argument(
+        "--json", action="store_true", help="Print the runtime status as JSON."
+    )
     args = parser.parse_args()
 
     env = detect_env()

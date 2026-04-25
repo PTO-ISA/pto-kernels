@@ -60,7 +60,9 @@ class GroupedMatmulConfig:
             ("n", self.n, self.base_n),
         ):
             if axis % base != 0:
-                raise ValueError(f"grouped_matmul seed requires {axis_name}={axis} to be divisible by base={base}")
+                raise ValueError(
+                    f"grouped_matmul seed requires {axis_name}={axis} to be divisible by base={base}"
+                )
         if self.launch_block_dim <= 0:
             raise ValueError("grouped_matmul seed requires a positive launch_block_dim")
 
@@ -89,7 +91,9 @@ def _build_tile_schedule(config: GroupedMatmulConfig) -> tuple[tuple[int, int], 
         else:
             tail_m = config.m_tiles % THRESHOLD_BLOCK_NUM
             cur_threshold_m = (
-                tail_m if relative_block >= _align_down(total_tiles, threshold_m_dim_n) else THRESHOLD_BLOCK_NUM
+                tail_m
+                if relative_block >= _align_down(total_tiles, threshold_m_dim_n)
+                else THRESHOLD_BLOCK_NUM
             )
             cur_threshold_m = cur_threshold_m or THRESHOLD_BLOCK_NUM
 
@@ -98,17 +102,30 @@ def _build_tile_schedule(config: GroupedMatmulConfig) -> tuple[tuple[int, int], 
             cur_threshold_n = (
                 tail_n
                 if relative_block % threshold_m_dim_n
-                >= _align_down(cur_threshold_m * config.n_tiles, cur_threshold_m_threshold_n)
+                >= _align_down(
+                    cur_threshold_m * config.n_tiles, cur_threshold_m_threshold_n
+                )
                 else THRESHOLD_BLOCK_NUM
             )
             cur_threshold_n = cur_threshold_n or THRESHOLD_BLOCK_NUM
 
-            local_relative_block = relative_block % threshold_m_dim_n % cur_threshold_m_threshold_n
-            m_idx = local_relative_block % cur_threshold_m + relative_block // threshold_m_dim_n * THRESHOLD_BLOCK_NUM
+            local_relative_block = (
+                relative_block % threshold_m_dim_n % cur_threshold_m_threshold_n
+            )
+            m_idx = (
+                local_relative_block % cur_threshold_m
+                + relative_block // threshold_m_dim_n * THRESHOLD_BLOCK_NUM
+            )
             n_idx = (
-                (local_relative_block + local_relative_block // _lcm(cur_threshold_m, cur_threshold_n))
+                (
+                    local_relative_block
+                    + local_relative_block // _lcm(cur_threshold_m, cur_threshold_n)
+                )
                 % cur_threshold_n
-                + relative_block % threshold_m_dim_n // cur_threshold_m_threshold_n * THRESHOLD_BLOCK_NUM
+                + relative_block
+                % threshold_m_dim_n
+                // cur_threshold_m_threshold_n
+                * THRESHOLD_BLOCK_NUM
             )
 
         if not (0 <= m_idx < config.m_tiles and 0 <= n_idx < config.n_tiles):
@@ -138,7 +155,9 @@ def _config() -> GroupedMatmulConfig:
         base_m=tuned_int("PTO_GROUPED_MATMUL_BASE_M", 16, valid_values=(16, 32, 64)),
         base_n=tuned_int("PTO_GROUPED_MATMUL_BASE_N", 64, valid_values=(64, 128)),
         base_k=tuned_int("PTO_GROUPED_MATMUL_BASE_K", 64, valid_values=(32, 64)),
-        max_block_dim=tuned_int("PTO_GROUPED_MATMUL_BLOCK_DIM", 16, valid_values=(1, 2, 4, 8, 16, 20)),
+        max_block_dim=tuned_int(
+            "PTO_GROUPED_MATMUL_BLOCK_DIM", 16, valid_values=(1, 2, 4, 8, 16, 20)
+        ),
     )
     config.validate()
     return config
@@ -158,11 +177,21 @@ def _meta_data(config: GroupedMatmulConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.base_n], dtype=bf16)
     view_out = pto.SubTensorType(shape=[config.base_m, config.base_n], dtype=bf16)
 
-    tile_a_mat = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="MAT")
-    tile_b_mat = pto.TileBufType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="MAT")
-    tile_a = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=bf16, memory_space="LEFT")
-    tile_b = pto.TileBufType(shape=[config.base_k, config.base_n], dtype=bf16, memory_space="RIGHT")
-    tile_c = pto.TileBufType(shape=[config.base_m, config.base_n], dtype=f32, memory_space="ACC")
+    tile_a_mat = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=bf16, memory_space="MAT"
+    )
+    tile_b_mat = pto.TileBufType(
+        shape=[config.base_k, config.base_n], dtype=bf16, memory_space="MAT"
+    )
+    tile_a = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=bf16, memory_space="LEFT"
+    )
+    tile_b = pto.TileBufType(
+        shape=[config.base_k, config.base_n], dtype=bf16, memory_space="RIGHT"
+    )
+    tile_c = pto.TileBufType(
+        shape=[config.base_m, config.base_n], dtype=f32, memory_space="ACC"
+    )
 
     return {
         "ptr_out": ptr_out,
@@ -220,10 +249,7 @@ def build_jit_wrapper(*, output_dir):
                 shape=[cM, cK],
                 strides=[cK, c1],
             )
-            tv_b = pto.as_tensor(
-                tensor_in,
-                ptr=b_ptr, shape=[cK, cN], strides=[cN, c1]
-            )
+            tv_b = pto.as_tensor(tensor_in, ptr=b_ptr, shape=[cK, cN], strides=[cN, c1])
             tv_out = pto.as_tensor(
                 tensor_out, ptr=out_ptr, shape=[cM, cN], strides=[cN, c1]
             )

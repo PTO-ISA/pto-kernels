@@ -60,14 +60,20 @@ class AllGatherMatmulConfig:
             ("k", self.k, self.base_k),
         ):
             if axis % base != 0:
-                raise ValueError(f"all_gather_matmul seed requires {axis_name}={axis} divisible by {base}")
+                raise ValueError(
+                    f"all_gather_matmul seed requires {axis_name}={axis} divisible by {base}"
+                )
         if self.launch_block_dim <= 0:
-            raise ValueError("all_gather_matmul seed requires a positive launch_block_dim")
+            raise ValueError(
+                "all_gather_matmul seed requires a positive launch_block_dim"
+            )
 
 
 def _config() -> AllGatherMatmulConfig:
     world_size = tuned_int("PTO_MC2_ALL_GATHER_WORLD_SIZE", 2, valid_values=(2,))
-    rank_id = tuned_int("PTO_MC2_ALL_GATHER_RANK", 0, minimum=0, valid_values=tuple(range(world_size)))
+    rank_id = tuned_int(
+        "PTO_MC2_ALL_GATHER_RANK", 0, minimum=0, valid_values=tuple(range(world_size))
+    )
     config = AllGatherMatmulConfig(
         global_m=tuned_int("PTO_MC2_ALL_GATHER_M", 128, valid_values=(128, 256)),
         k=tuned_int("PTO_MC2_ALL_GATHER_K", 256, valid_values=(256,)),
@@ -76,7 +82,9 @@ def _config() -> AllGatherMatmulConfig:
         rank_id=rank_id,
         base_m=tuned_int("PTO_MC2_ALL_GATHER_BASE_M", 32, valid_values=(16, 32, 64)),
         base_k=tuned_int("PTO_MC2_ALL_GATHER_BASE_K", 64, valid_values=(32, 64)),
-        max_block_dim=tuned_int("PTO_MC2_ALL_GATHER_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)),
+        max_block_dim=tuned_int(
+            "PTO_MC2_ALL_GATHER_BLOCK_DIM", 4, valid_values=(1, 2, 4, 8)
+        ),
     )
     config.validate()
     return config
@@ -112,11 +120,21 @@ def _meta_data(config: AllGatherMatmulConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[config.base_m, config.n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[config.base_k, config.n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[config.base_k, config.n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.base_m, config.n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=dtype, memory_space="MAT"
+    )
+    b_mat = pto.TileBufType(
+        shape=[config.base_k, config.n], dtype=dtype, memory_space="MAT"
+    )
+    a_tile = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=dtype, memory_space="LEFT"
+    )
+    b_tile = pto.TileBufType(
+        shape=[config.base_k, config.n], dtype=dtype, memory_space="RIGHT"
+    )
+    out_acc = pto.TileBufType(
+        shape=[config.base_m, config.n], dtype=acc_dtype, memory_space="ACC"
+    )
 
     return {
         "ptr": ptr,
@@ -143,7 +161,9 @@ def build_jit_wrapper(*, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def all_gather_matmul_dense(out_ptr: "ptr", gathered_x1_ptr: "ptr", x2_ptr: "ptr") -> None:
+    def all_gather_matmul_dense(
+        out_ptr: "ptr", gathered_x1_ptr: "ptr", x2_ptr: "ptr"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cM = const(config.global_m)
@@ -211,7 +231,9 @@ def build_jit_wrapper(*, output_dir):
                     pto.cond(
                         s.eq(i, c0),
                         lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-                        lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
+                        lambda: tile.matmul_acc(
+                            out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile
+                        ),
                     )
 
                 sv_out = pto.slice_view(

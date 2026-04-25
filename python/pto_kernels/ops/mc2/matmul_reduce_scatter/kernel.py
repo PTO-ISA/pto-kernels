@@ -42,7 +42,9 @@ class MatmulReduceScatterConfig:
 
 def _config() -> MatmulReduceScatterConfig:
     world_size = tuned_int("PTO_MC2_WORLD_SIZE", 2, valid_values=(2, 4, 8))
-    rank_id = tuned_int("PTO_MC2_RANK", 0, minimum=0, valid_values=tuple(range(world_size)))
+    rank_id = tuned_int(
+        "PTO_MC2_RANK", 0, minimum=0, valid_values=tuple(range(world_size))
+    )
     return MatmulReduceScatterConfig(
         m=tuned_int("PTO_MC2_M", 128, valid_values=(64, 128)),
         k=tuned_int("PTO_MC2_K", 256, valid_values=(128, 256)),
@@ -65,11 +67,21 @@ def _meta_data(config: MatmulReduceScatterConfig):
     view_b = pto.SubTensorType(shape=[config.base_k, config.n], dtype=dtype)
     view_out = pto.SubTensorType(shape=[config.base_m, config.n], dtype=dtype)
 
-    a_mat = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=dtype, memory_space="MAT")
-    b_mat = pto.TileBufType(shape=[config.base_k, config.n], dtype=dtype, memory_space="MAT")
-    a_tile = pto.TileBufType(shape=[config.base_m, config.base_k], dtype=dtype, memory_space="LEFT")
-    b_tile = pto.TileBufType(shape=[config.base_k, config.n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[config.base_m, config.n], dtype=acc_dtype, memory_space="ACC")
+    a_mat = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=dtype, memory_space="MAT"
+    )
+    b_mat = pto.TileBufType(
+        shape=[config.base_k, config.n], dtype=dtype, memory_space="MAT"
+    )
+    a_tile = pto.TileBufType(
+        shape=[config.base_m, config.base_k], dtype=dtype, memory_space="LEFT"
+    )
+    b_tile = pto.TileBufType(
+        shape=[config.base_k, config.n], dtype=dtype, memory_space="RIGHT"
+    )
+    out_acc = pto.TileBufType(
+        shape=[config.base_m, config.n], dtype=acc_dtype, memory_space="ACC"
+    )
 
     return {
         "ptr": ptr,
@@ -95,7 +107,9 @@ def build_jit_wrapper(*, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def matmul_reduce_scatter_local_mm(out_ptr: "ptr", x1_ptr: "ptr", x2_ptr: "ptr") -> None:
+    def matmul_reduce_scatter_local_mm(
+        out_ptr: "ptr", x1_ptr: "ptr", x2_ptr: "ptr"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cM = const(config.m)
@@ -165,7 +179,9 @@ def build_jit_wrapper(*, output_dir):
                         pto.cond(
                             s.eq(i, c0),
                             lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-                            lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
+                            lambda: tile.matmul_acc(
+                                out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile
+                            ),
                         )
 
                     sv_out = pto.slice_view(
