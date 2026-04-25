@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the local 910B PTO bring-up environment."""
+"""Validate the local 910B PTO environment."""
 
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ def main() -> int:
     parser.add_argument(
         "--strict",
         action="store_true",
-        help="Return non-zero if the environment does not match the expected 910B bring-up target.",
+        help="Return non-zero if the environment does not match the expected 910B target.",
     )
     args = parser.parse_args()
 
@@ -45,7 +45,9 @@ def main() -> int:
         print(f"npu_arch          : {env.npu_arch}")
         print(f"ops_pkg_metadata  : {ops_runtime.build_dependency_metadata_present}")
         print(f"ops_pkg_effective : {ops_runtime.effective_package_path}")
-        print(f"ops_pkg_compat    : {ops_runtime.compat_build_dependency_metadata_present}")
+        print(
+            f"ops_pkg_compat    : {ops_runtime.compat_build_dependency_metadata_present}"
+        )
         print(f"ops_pkg_installed : {ops_runtime.package_installed}")
         print(f"ops_pkg_runfiles  : {len(ops_runtime.package_runfiles)}")
         if env.warnings:

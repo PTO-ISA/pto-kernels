@@ -60,16 +60,22 @@ VARIANTS = (
 )
 
 
-def _resolve_variant(variant: AllGatherMatmulVariant | None = None) -> AllGatherMatmulVariant:
+def _resolve_variant(
+    variant: AllGatherMatmulVariant | None = None,
+) -> AllGatherMatmulVariant:
     return VARIANT if variant is None else variant
 
 
-def _make_local_x1(rank: int, variant: AllGatherMatmulVariant | None = None) -> torch.Tensor:
+def _make_local_x1(
+    rank: int, variant: AllGatherMatmulVariant | None = None
+) -> torch.Tensor:
     resolved = _resolve_variant(variant)
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x1 = (
-        torch.randn((resolved.local_m, resolved.k), generator=generator, dtype=torch.float32)
+        torch.randn(
+            (resolved.local_m, resolved.k), generator=generator, dtype=torch.float32
+        )
         * resolved.input_scale
     ).to(torch.float16)
     return x1
@@ -80,7 +86,8 @@ def _make_x2(variant: AllGatherMatmulVariant | None = None) -> torch.Tensor:
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + 1000)
     x2 = (
-        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     return x2
 
@@ -90,7 +97,9 @@ def _reference_outputs(
     variant: AllGatherMatmulVariant | None = None,
 ) -> tuple[torch.Tensor, torch.Tensor]:
     resolved = _resolve_variant(variant)
-    gathered = torch.cat([_make_local_x1(rank, resolved) for rank in range(world_size)], dim=0).contiguous()
+    gathered = torch.cat(
+        [_make_local_x1(rank, resolved) for rank in range(world_size)], dim=0
+    ).contiguous()
     x2 = _make_x2(resolved)
     output = (gathered.float() @ x2.float()).to(torch.float16)
     return output, gathered
@@ -191,10 +200,14 @@ def _baseline_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if output is None or gather_out is None:
-        raise RuntimeError("npu_all_gather_base_mm did not return the expected output tensors.")
+        raise RuntimeError(
+            "npu_all_gather_base_mm did not return the expected output tensors."
+        )
 
     output_diff = (output.float().cpu() - reference_output.float()).abs().max().item()
-    gather_diff = (gather_out.float().cpu() - reference_gather.float()).abs().max().item()
+    gather_diff = (
+        (gather_out.float().cpu() - reference_gather.float()).abs().max().item()
+    )
     return {
         "status": "ok",
         "rank": rank,
@@ -221,7 +234,9 @@ def run_distributed_baseline_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_ALL_GATHER_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_ALL_GATHER_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -234,12 +249,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed HCCL baseline bring-up failed."),
+            "reason": launch.get(
+                "reason", "Distributed HCCL baseline bring-up failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -247,8 +268,12 @@ def run_distributed_baseline_benchmark(
 
     rank_reports = launch["rank_reports"]
     per_rank_medians = [report["timings_ms"]["median"] for report in rank_reports]
-    output_max_abs_diff = max(report["correctness"]["output_max_abs_diff"] for report in rank_reports)
-    gather_max_abs_diff = max(report["correctness"]["gather_max_abs_diff"] for report in rank_reports)
+    output_max_abs_diff = max(
+        report["correctness"]["output_max_abs_diff"] for report in rank_reports
+    )
+    gather_max_abs_diff = max(
+        report["correctness"]["gather_max_abs_diff"] for report in rank_reports
+    )
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
@@ -266,7 +291,9 @@ def run_distributed_baseline_benchmark(
             "output_max_abs_diff": output_max_abs_diff,
             "gather_max_abs_diff": gather_max_abs_diff,
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "output = allgather(x1) @ x2; gather_out = allgather(x1)",
         "rank_reports": rank_reports,
@@ -275,7 +302,9 @@ def run_distributed_baseline_benchmark(
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_all_gather_matmul_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_all_gather_matmul_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -337,10 +366,16 @@ def _pto_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if pto_output is None or pto_gather is None:
-        raise RuntimeError("PTO all_gather_matmul worker did not produce output tensors.")
+        raise RuntimeError(
+            "PTO all_gather_matmul worker did not produce output tensors."
+        )
 
-    output_diff = (pto_output.float().cpu() - reference_output.float()).abs().max().item()
-    gather_diff = (pto_gather.float().cpu() - reference_gather.float()).abs().max().item()
+    output_diff = (
+        (pto_output.float().cpu() - reference_output.float()).abs().max().item()
+    )
+    gather_diff = (
+        (pto_gather.float().cpu() - reference_gather.float()).abs().max().item()
+    )
     return {
         "status": "ok",
         "rank": rank,
@@ -366,18 +401,26 @@ def run_distributed_pto_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_ALL_GATHER_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_ALL_GATHER_WORLD_SIZE", variant.expected_world_size)
+    )
     output_dir = Path(artifacts_dir) / "distributed_pto"
     launch = run_local_ranked_job(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed PTO all_gather_matmul launch failed."),
+            "reason": launch.get(
+                "reason", "Distributed PTO all_gather_matmul launch failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -385,8 +428,12 @@ def run_distributed_pto_benchmark(
 
     rank_reports = launch["rank_reports"]
     per_rank_medians = [report["timings_ms"]["median"] for report in rank_reports]
-    output_max_abs_diff = max(report["correctness"]["output_max_abs_diff"] for report in rank_reports)
-    gather_max_abs_diff = max(report["correctness"]["gather_max_abs_diff"] for report in rank_reports)
+    output_max_abs_diff = max(
+        report["correctness"]["output_max_abs_diff"] for report in rank_reports
+    )
+    gather_max_abs_diff = max(
+        report["correctness"]["gather_max_abs_diff"] for report in rank_reports
+    )
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
@@ -403,7 +450,9 @@ def run_distributed_pto_benchmark(
             "output_max_abs_diff": output_max_abs_diff,
             "gather_max_abs_diff": gather_max_abs_diff,
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "host_all_gather_then_pto_global_matmul",
         "rank_reports": rank_reports,

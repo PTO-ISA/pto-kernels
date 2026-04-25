@@ -13,9 +13,14 @@ from pto_kernels.ops.mc2.moe_distribute_combine.runtime import (
 
 
 def describe(repo_root, spec):
-    summary = describe_baseline(repo_root, "mc2", "moe_distribute_combine", spec.inventory_ref)
+    summary = describe_baseline(
+        repo_root, "mc2", "moe_distribute_combine", spec.inventory_ref
+    )
     summary["runtime_entrypoint"] = "torch_npu.npu_moe_distribute_combine"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     return summary
 
 
@@ -45,13 +50,17 @@ def benchmark(repo_root, spec, artifacts_dir):
                 repeat=spec.bench.repeat,
             )
         )
-    first_blocked = next((item for item in variant_reports if item.get("status") != "ok"), None)
+    first_blocked = next(
+        (item for item in variant_reports if item.get("status") != "ok"), None
+    )
     if first_blocked is not None:
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "entrypoint": "torch_npu.npu_moe_distribute_combine",
-            "reason": first_blocked.get("reason", "Distributed MC2 baseline launch failed."),
+            "reason": first_blocked.get(
+                "reason", "Distributed MC2 baseline launch failed."
+            ),
             "variant_reports": variant_reports,
         }
     else:
@@ -59,7 +68,11 @@ def benchmark(repo_root, spec, artifacts_dir):
             "status": "ok",
             "variants": [item["variant"] for item in variant_reports],
         }
-    report_path = Path(artifacts_dir) / "ops_transformer_moe_distribute_combine_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ops_transformer_moe_distribute_combine_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

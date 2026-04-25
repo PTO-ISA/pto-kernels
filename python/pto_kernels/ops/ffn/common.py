@@ -45,7 +45,9 @@ class DenseReluFfnConfig:
         )
         for axis_name, axis, base in dims:
             if axis % base != 0:
-                raise ValueError(f"FFN seed requires {axis_name}={axis} to be divisible by base={base}")
+                raise ValueError(
+                    f"FFN seed requires {axis_name}={axis} to be divisible by base={base}"
+                )
 
 
 def _launch_block_dim(total_tiles: int, requested: int) -> int:
@@ -67,7 +69,9 @@ def _matmul_meta_data(*, base_m: int, base_k: int, base_n: int):
     b_mat = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="MAT")
     a_tile = pto.TileBufType(shape=[base_m, base_k], dtype=dtype, memory_space="LEFT")
     b_tile = pto.TileBufType(shape=[base_k, base_n], dtype=dtype, memory_space="RIGHT")
-    out_acc = pto.TileBufType(shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC")
+    out_acc = pto.TileBufType(
+        shape=[base_m, base_n], dtype=acc_dtype, memory_space="ACC"
+    )
 
     return {
         "ptr": ptr,
@@ -85,7 +89,9 @@ def _matmul_meta_data(*, base_m: int, base_k: int, base_n: int):
 
 def _matmul_tile_schedule(total_m_tiles: int, total_n_tiles: int):
     return tuple(
-        (m_idx, n_idx) for m_idx in range(total_m_tiles) for n_idx in range(total_n_tiles)
+        (m_idx, n_idx)
+        for m_idx in range(total_m_tiles)
+        for n_idx in range(total_n_tiles)
     )
 
 
@@ -104,7 +110,9 @@ def _relu_meta_data(config: DenseReluFfnConfig):
     ptr = pto.PtrType(dtype)
     tensor = pto.TensorType(rank=2, dtype=dtype)
     sub = pto.SubTensorType(shape=[1, config.intermediate], dtype=dtype)
-    vec = pto.TileBufType(shape=[1, config.intermediate], dtype=dtype, memory_space="VEC")
+    vec = pto.TileBufType(
+        shape=[1, config.intermediate], dtype=dtype, memory_space="VEC"
+    )
 
     return {
         "ptr": ptr,
@@ -131,7 +139,9 @@ def build_matmul_stage(
     schedule = _matmul_tile_schedule(input_m // base_m, input_n // base_n)
 
     @jit(
-        meta_data=lambda: _matmul_meta_data(base_m=base_m, base_k=base_k, base_n=base_n),
+        meta_data=lambda: _matmul_meta_data(
+            base_m=base_m, base_k=base_k, base_n=base_n
+        ),
         output_dir=output_dir,
         block_dim=_launch_block_dim(len(schedule), stage_block_dim),
         enable_insert_sync=True,
@@ -170,10 +180,16 @@ def build_matmul_stage(
                 for i in pto.range(c0, cKIter, c1):
                     k_off = i * cBaseK
                     sv_a = pto.slice_view(
-                        view_a, source=tv_a, offsets=[m_off, k_off], sizes=[cBaseM, cBaseK]
+                        view_a,
+                        source=tv_a,
+                        offsets=[m_off, k_off],
+                        sizes=[cBaseM, cBaseK],
                     )
                     sv_b = pto.slice_view(
-                        view_b, source=tv_b, offsets=[k_off, n_off], sizes=[cBaseK, cBaseN]
+                        view_b,
+                        source=tv_b,
+                        offsets=[k_off, n_off],
+                        sizes=[cBaseK, cBaseN],
                     )
 
                     pto.load(sv_a, a_mat_tile)
@@ -184,11 +200,16 @@ def build_matmul_stage(
                     pto.cond(
                         s.eq(i, c0),
                         lambda: tile.matmul(a_tile_buf, b_tile_buf, out_acc_tile),
-                        lambda: tile.matmul_acc(out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile),
+                        lambda: tile.matmul_acc(
+                            out_acc_tile, a_tile_buf, b_tile_buf, out_acc_tile
+                        ),
                     )
 
                 sv_out = pto.slice_view(
-                    view_out, source=tv_out, offsets=[m_off, n_off], sizes=[cBaseM, cBaseN]
+                    view_out,
+                    source=tv_out,
+                    offsets=[m_off, n_off],
+                    sizes=[cBaseM, cBaseN],
                 )
                 pto.store(out_acc_tile, sv_out)
 
@@ -211,7 +232,10 @@ def build_relu_stage(*, config: DenseReluFfnConfig, output_dir):
         cTokens = const(config.tokens)
 
         tv_hidden = pto.as_tensor(
-            tensor, ptr=hidden_ptr, shape=[cTokens, cIntermediate], strides=[cIntermediate, c1]
+            tensor,
+            ptr=hidden_ptr,
+            shape=[cTokens, cIntermediate],
+            strides=[cIntermediate, c1],
         )
 
         with pto.vector_section():
@@ -224,7 +248,12 @@ def build_relu_stage(*, config: DenseReluFfnConfig, output_dir):
             hidden_out = pto.alloc_tile(vec_out)
 
             for row_idx in pto.range(row_start, row_end, c1):
-                sv_row = pto.slice_view(sub, source=tv_hidden, offsets=[row_idx, c0], sizes=[c1, cIntermediate])
+                sv_row = pto.slice_view(
+                    sub,
+                    source=tv_hidden,
+                    offsets=[row_idx, c0],
+                    sizes=[c1, cIntermediate],
+                )
                 pto.load(sv_row, hidden_in)
                 tile.relu(hidden_in, hidden_out)
                 pto.store(hidden_out, sv_row)
@@ -249,7 +278,9 @@ class DenseReluFfnPipelineWrapper:
             base_k=config.base_k1,
             stage_block_dim=config.block_dim1,
         )
-        self._relu = build_relu_stage(config=config, output_dir=self._output_dir / "stage2_relu")
+        self._relu = build_relu_stage(
+            config=config, output_dir=self._output_dir / "stage2_relu"
+        )
         self._relu.set_block_dim(max(1, min(config.tokens, config.relu_block_dim)))
         self._stage3 = build_matmul_stage(
             config=config,
@@ -270,7 +301,11 @@ class DenseReluFfnPipelineWrapper:
         self._stage3._build()
 
     def _artifact_paths(self):
-        return (*self._stage1._artifact_paths(), *self._relu._artifact_paths(), *self._stage3._artifact_paths())
+        return (
+            *self._stage1._artifact_paths(),
+            *self._relu._artifact_paths(),
+            *self._stage3._artifact_paths(),
+        )
 
     @property
     def library_path(self):

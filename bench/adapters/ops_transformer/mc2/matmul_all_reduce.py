@@ -13,9 +13,14 @@ from pto_kernels.ops.mc2.matmul_all_reduce.runtime import (
 
 
 def describe(repo_root, spec):
-    summary = describe_baseline(repo_root, "mc2", "matmul_all_reduce", spec.inventory_ref)
+    summary = describe_baseline(
+        repo_root, "mc2", "matmul_all_reduce", spec.inventory_ref
+    )
     summary["runtime_entrypoint"] = "torch_npu.npu_mm_all_reduce_base"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     return summary
 
 
@@ -48,23 +53,33 @@ def benchmark(repo_root, spec, artifacts_dir):
         report["reason"] = f"Distributed matmul_all_reduce baseline failed: {exc}"
     else:
         if any(item.get("status") != "ok" for item in variant_reports):
-            first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
+            first_blocked = next(
+                item for item in variant_reports if item.get("status") != "ok"
+            )
             report = {
                 "status": "blocked",
                 "variants": [variant.as_dict() for variant in VARIANTS],
                 "entrypoint": "torch_npu.npu_mm_all_reduce_base",
-                "reason": first_blocked.get("reason", "Distributed matmul_all_reduce baseline failed."),
+                "reason": first_blocked.get(
+                    "reason", "Distributed matmul_all_reduce baseline failed."
+                ),
                 "variant_reports": variant_reports,
             }
         else:
-            max_abs_diff = max(float(item["correctness"]["max_abs_diff"]) for item in variant_reports)
+            max_abs_diff = max(
+                float(item["correctness"]["max_abs_diff"]) for item in variant_reports
+            )
             report = {
                 "status": "ok",
                 "variants": [item["variant"] for item in variant_reports],
                 "entrypoint": "torch_npu.npu_mm_all_reduce_base",
-                "shape_summaries": [item.get("shape_summary") for item in variant_reports],
+                "shape_summaries": [
+                    item.get("shape_summary") for item in variant_reports
+                ],
                 "timings_ms": {
-                    "median": max(item["timings_ms"]["median"] for item in variant_reports),
+                    "median": max(
+                        item["timings_ms"]["median"] for item in variant_reports
+                    ),
                     "min": min(item["timings_ms"]["min"] for item in variant_reports),
                     "max": max(item["timings_ms"]["max"] for item in variant_reports),
                 },
@@ -77,7 +92,11 @@ def benchmark(repo_root, spec, artifacts_dir):
                 "variant_reports": variant_reports,
                 "reference_contract": "all_reduce(sum_i(x1_local_i @ x2))",
             }
-    report_path = Path(artifacts_dir) / "ops_transformer_matmul_all_reduce_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ops_transformer_matmul_all_reduce_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

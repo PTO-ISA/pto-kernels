@@ -133,9 +133,9 @@ for row_idx in range(row_start, row_end, c1):
 
 ## 常见误区
 
-- 误区：Grouped Matmul 就是多套 matmul 简单 for-loop 拼接  
+- 误区：Grouped Matmul 就是多套 matmul 简单 for-loop 拼接
   不够准确。真正重要的是 tile/block/schedule 怎么随着 group 维扩展。
-- 误区：性能优化就是改几个 tile 参数  
+- 误区：性能优化就是改几个 tile 参数
   不够。tile 只是第一层，后面还有 swizzle、pipeline、epilogue、routing 合约。
 
 下一章：进入 attention，看看为什么同样是 tile-first，attention 会明显更复杂。

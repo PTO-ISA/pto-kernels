@@ -83,14 +83,18 @@ def load_spec(spec_path: str | Path) -> KernelBenchmarkSpec:
             repeat=int(bench_data.get("repeat", defaults["bench"]["repeat"])),
             statistic=str(bench_data.get("statistic", defaults["bench"]["statistic"])),
             parity_threshold=float(
-                bench_data.get("parity_threshold", defaults["bench"]["parity_threshold"])
+                bench_data.get(
+                    "parity_threshold", defaults["bench"]["parity_threshold"]
+                )
             ),
         ),
         correctness=CorrectnessSettings(
             atol=float(correctness_data.get("atol", defaults["correctness"]["atol"])),
             rtol=float(correctness_data.get("rtol", defaults["correctness"]["rtol"])),
             shape_sets=list(
-                correctness_data.get("shape_sets", defaults["correctness"]["shape_sets"])
+                correctness_data.get(
+                    "shape_sets", defaults["correctness"]["shape_sets"]
+                )
             ),
         ),
         device=device,

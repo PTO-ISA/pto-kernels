@@ -34,7 +34,9 @@ def _config() -> MoeDistributeDispatchConfig:
         tokens=tuned_int("PTO_MC2_MOE_DISPATCH_TOKENS", 8, valid_values=(8, 16, 32)),
         hidden=tuned_int("PTO_MC2_MOE_DISPATCH_HIDDEN", 7168, valid_values=(7168,)),
         world_size=tuned_int("PTO_MC2_MOE_DISPATCH_WORLD_SIZE", 8, valid_values=(8,)),
-        block_dim=tuned_int("PTO_MC2_MOE_DISPATCH_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16, 20)),
+        block_dim=tuned_int(
+            "PTO_MC2_MOE_DISPATCH_BLOCK_DIM", 8, valid_values=(1, 2, 4, 8, 16, 20)
+        ),
     )
 
 
@@ -96,7 +98,9 @@ def _build_pack_kernel(*, config: MoeDistributeDispatchConfig, output_dir):
         enable_insert_sync=True,
         npu_arch="dav-2201",
     )
-    def moe_distribute_dispatch_pack(send_ptr: "ptr", x_ptr: "ptr", gather_ptr: "ptr_i32") -> None:
+    def moe_distribute_dispatch_pack(
+        send_ptr: "ptr", x_ptr: "ptr", gather_ptr: "ptr_i32"
+    ) -> None:
         c0 = const(0)
         c1 = const(1)
         cTokens = const(config.tokens)
@@ -133,13 +137,19 @@ def _build_pack_kernel(*, config: MoeDistributeDispatchConfig, output_dir):
             gather_tile = pto.alloc_tile(tile_gather)
             dst_tile = pto.alloc_tile(tile_dst)
 
-            src_view = pto.slice_view(sub_src, source=tv_src, offsets=[c0], sizes=[cTotal])
+            src_view = pto.slice_view(
+                sub_src, source=tv_src, offsets=[c0], sizes=[cTotal]
+            )
             pto.load(src_view, src_tile)
 
             for row_idx in pto.range(row_start, row_end, c1):
                 row_off = row_idx * cHidden
-                gather_view = pto.slice_view(sub_gather, source=tv_row_idx, offsets=[row_off], sizes=[cHidden])
-                dst_view = pto.slice_view(sub_dst, source=tv_dst, offsets=[row_off], sizes=[cHidden])
+                gather_view = pto.slice_view(
+                    sub_gather, source=tv_row_idx, offsets=[row_off], sizes=[cHidden]
+                )
+                dst_view = pto.slice_view(
+                    sub_dst, source=tv_dst, offsets=[row_off], sizes=[cHidden]
+                )
                 pto.load(gather_view, gather_tile)
                 tile.gather(src_tile, dst_tile, gather_tile)
                 pto.store(dst_tile, dst_view)

@@ -8,13 +8,17 @@ from pathlib import Path
 
 import torch
 from pto_kernels.ops.moe.moe_token_permute.runtime import (
-    VARIANT,
     VARIANTS,
     make_top1_permutation_inputs,
     run_pto_moe_token_permute_variant,
 )
 
-from pto_kernels.bench.adapter_utils import compile_pto_kernel, describe_pto, load_module, temporary_env
+from pto_kernels.bench.adapter_utils import (
+    compile_pto_kernel,
+    describe_pto,
+    load_module,
+    temporary_env,
+)
 
 
 KERNEL = "python/pto_kernels/ops/moe/moe_token_permute/kernel.py"
@@ -57,7 +61,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                 if callable(build):
                     build()
 
-                inputs = make_top1_permutation_inputs(variant, device_index=int(spec.device.get("id", 0)))
+                inputs = make_top1_permutation_inputs(
+                    variant, device_index=int(spec.device.get("id", 0))
+                )
 
                 for _ in range(spec.bench.warmup):
                     run_pto_moe_token_permute_variant(wrapper, inputs)
@@ -73,13 +79,26 @@ def benchmark(repo_root, spec, artifacts_dir):
                     timings_ms.append((time.perf_counter() - start) * 1000.0)
 
                 if output is None:
-                    raise RuntimeError(f"PTO benchmark did not produce output tensors for {variant.label}.")
+                    raise RuntimeError(
+                        f"PTO benchmark did not produce output tensors for {variant.label}."
+                    )
 
                 permuted_tokens, sorted_indices = output
-                token_diff = (permuted_tokens.float().cpu() - inputs["reference_tokens"]).abs().max().item()
+                token_diff = (
+                    (permuted_tokens.float().cpu() - inputs["reference_tokens"])
+                    .abs()
+                    .max()
+                    .item()
+                )
                 index_diff = (
-                    sorted_indices.to(torch.int32).cpu() - inputs["reference_sorted_indices"]
-                ).abs().max().item()
+                    (
+                        sorted_indices.to(torch.int32).cpu()
+                        - inputs["reference_sorted_indices"]
+                    )
+                    .abs()
+                    .max()
+                    .item()
+                )
                 variant_reports.append(
                     {
                         "variant": variant.as_dict(),
@@ -97,16 +116,21 @@ def benchmark(repo_root, spec, artifacts_dir):
                     }
                 )
                 artifact_paths.extend(
-                    [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()]
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
                 )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
         report_path = Path(artifacts_dir) / "ptodsl_moe_token_permute_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -137,6 +161,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         "artifact_paths": artifact_paths,
     }
     report_path = Path(artifacts_dir) / "ptodsl_moe_token_permute_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

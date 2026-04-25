@@ -1,4 +1,4 @@
-"""Helpers for ops-transformer seed-package bring-up on the local workspace."""
+"""Helpers for ops-transformer seed packages in the local workspace."""
 
 from __future__ import annotations
 
@@ -42,7 +42,11 @@ PACKAGE_VERSION_INFO_FALLBACKS = {
     "ge-compiler": ("compiler/version.info",),
     "asc-devkit": ("toolkit/version.info",),
     "bisheng-compiler": ("bisheng_toolkit/version.info", "compiler/version.info"),
-    "asc-tools": ("toolkit/version.info", "tools/aoe/version.info", "tools/ncs/version.info"),
+    "asc-tools": (
+        "toolkit/version.info",
+        "tools/aoe/version.info",
+        "tools/ncs/version.info",
+    ),
 }
 
 
@@ -91,7 +95,10 @@ def required_version_info_paths(package_path: str | None) -> list[Path]:
     if not package_path:
         return []
     root = Path(package_path)
-    return [root / "share" / "info" / pkg / "version.info" for pkg in REQUIRED_BUILD_INFO_PACKAGES]
+    return [
+        root / "share" / "info" / pkg / "version.info"
+        for pkg in REQUIRED_BUILD_INFO_PACKAGES
+    ]
 
 
 def _compat_root_default() -> Path:
@@ -152,7 +159,9 @@ def _render_compat_version_info(source: Path) -> str:
     return "\n".join(rendered_lines) + "\n"
 
 
-def compat_required_version_info_paths(compat_root: str | os.PathLike[str] | None) -> list[Path]:
+def compat_required_version_info_paths(
+    compat_root: str | os.PathLike[str] | None,
+) -> list[Path]:
     if compat_root is None:
         return []
     return required_version_info_paths(str(compat_root))
@@ -234,14 +243,18 @@ class OpsTransformerRuntimeStatus:
         return json.dumps(asdict(self), indent=2, sort_keys=True)
 
 
-def inspect_ops_transformer_runtime(*, toolkit_home: str | None) -> OpsTransformerRuntimeStatus:
+def inspect_ops_transformer_runtime(
+    *, toolkit_home: str | None
+) -> OpsTransformerRuntimeStatus:
     ops_root = resolve_workspace_repo("ops-transformer")
     install_root = _infer_install_root(toolkit_home)
 
     build_out = ops_root / "build_out" if ops_root else None
     package_runfiles = _discover_runfiles(build_out) if build_out else []
 
-    share_info_dir = install_root / "share" / "info" / "ops_transformer" if install_root else None
+    share_info_dir = (
+        install_root / "share" / "info" / "ops_transformer" if install_root else None
+    )
     vendors_dir = _discover_vendor_root(toolkit_home)
     uninstall_candidates = [
         share_info_dir / "script" / "uninstall.sh" if share_info_dir else None,
@@ -254,23 +267,42 @@ def inspect_ops_transformer_runtime(*, toolkit_home: str | None) -> OpsTransform
     )
     vendors_config_candidates = [
         vendors_dir / "config.ini" if vendors_dir else None,
-        vendors_dir / "op_impl" / "ai_core" / "tbe" / "kernel" / "config" / "ascend910b" / "binary_info_config.json"
-        if vendors_dir
-        else None,
+        (
+            vendors_dir
+            / "op_impl"
+            / "ai_core"
+            / "tbe"
+            / "kernel"
+            / "config"
+            / "ascend910b"
+            / "binary_info_config.json"
+            if vendors_dir
+            else None
+        ),
     ]
     vendors_config = next(
-        (path for path in vendors_config_candidates if path is not None and path.exists()),
+        (
+            path
+            for path in vendors_config_candidates
+            if path is not None and path.exists()
+        ),
         None,
     )
     binary_info_configs = []
     if vendors_dir and vendors_dir.exists():
-        binary_info_configs = sorted(str(path) for path in vendors_dir.rglob("binary_info_config.json"))
+        binary_info_configs = sorted(
+            str(path) for path in vendors_dir.rglob("binary_info_config.json")
+        )
     required_infos = required_version_info_paths(toolkit_home)
     missing_infos = [str(path) for path in required_infos if not path.exists()]
     compat_root = prepare_compat_package_path(toolkit_home=toolkit_home)
     compat_required_infos = compat_required_version_info_paths(compat_root)
-    compat_missing_infos = [str(path) for path in compat_required_infos if not path.exists()]
-    effective_package_path = str(compat_root) if compat_root and missing_infos else toolkit_home
+    compat_missing_infos = [
+        str(path) for path in compat_required_infos if not path.exists()
+    ]
+    effective_package_path = (
+        str(compat_root) if compat_root and missing_infos else toolkit_home
+    )
 
     return OpsTransformerRuntimeStatus(
         ops_transformer_root=str(ops_root) if ops_root else None,
@@ -282,10 +314,18 @@ def inspect_ops_transformer_runtime(*, toolkit_home: str | None) -> OpsTransform
         package_path=toolkit_home,
         effective_package_path=effective_package_path,
         compat_package_path=str(compat_root) if compat_root else None,
-        share_info_dir=str(share_info_dir) if share_info_dir and share_info_dir.exists() else None,
-        uninstall_script=str(uninstall_script) if uninstall_script and uninstall_script.exists() else None,
+        share_info_dir=(
+            str(share_info_dir) if share_info_dir and share_info_dir.exists() else None
+        ),
+        uninstall_script=(
+            str(uninstall_script)
+            if uninstall_script and uninstall_script.exists()
+            else None
+        ),
         vendors_dir=str(vendors_dir) if vendors_dir and vendors_dir.exists() else None,
-        vendors_config=str(vendors_config) if vendors_config and vendors_config.exists() else None,
+        vendors_config=(
+            str(vendors_config) if vendors_config and vendors_config.exists() else None
+        ),
         binary_info_configs=binary_info_configs,
         required_version_infos=[str(path) for path in required_infos],
         missing_version_infos=missing_infos,

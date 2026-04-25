@@ -34,3 +34,34 @@ def planned_meta(
         "checklist": list(DEFAULT_CHECKLIST),
         "blockers": blockers,
     }
+
+
+def tilekernels_meta(
+    *,
+    family: str,
+    name: str,
+    builders: list[str],
+    notes: str,
+    configs: list[dict[str, Any]] | None = None,
+    source: str | None = None,
+) -> dict[str, Any]:
+    return {
+        "family": family,
+        "name": name,
+        "wave": "tilekernels",
+        "archetype": "tilekernels-ptodsl",
+        "source": source or f"{family}/{name}",
+        "status": "local_ptoas",
+        "checklist": [
+            "pto_dsl_source",
+            "ptoas",
+            "validation_assets",
+            "validation_compile",
+            "sim_correct",
+            "npu_correct",
+            "bench_adapter",
+        ],
+        "builders": list(builders),
+        "configs": list(configs or []),
+        "notes": notes,
+    }

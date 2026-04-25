@@ -45,7 +45,10 @@ class MatmulReduceScatterVariant:
             "x1": [self.m, self.k],
             "x2": [self.k, self.n],
             "local_mm": [self.m, self.n],
-            "reduce_scatter_output_per_rank": [self.m // self.expected_world_size, self.n],
+            "reduce_scatter_output_per_rank": [
+                self.m // self.expected_world_size,
+                self.n,
+            ],
             "world_size": self.expected_world_size,
         }
 
@@ -56,6 +59,7 @@ VARIANTS = (
     MatmulReduceScatterVariant(m=64, k=256, n=128, expected_world_size=2, seed=1),
 )
 
+
 def resolve_world_size() -> int:
     value = os.environ.get("PTO_MC2_WORLD_SIZE")
     if value is None:
@@ -63,25 +67,33 @@ def resolve_world_size() -> int:
     return int(value)
 
 
-def _resolve_variant(variant: MatmulReduceScatterVariant | None = None) -> MatmulReduceScatterVariant:
+def _resolve_variant(
+    variant: MatmulReduceScatterVariant | None = None,
+) -> MatmulReduceScatterVariant:
     return VARIANT if variant is None else variant
 
 
-def _make_rank_tensors(rank: int, variant: MatmulReduceScatterVariant | None = None) -> tuple[torch.Tensor, torch.Tensor]:
+def _make_rank_tensors(
+    rank: int, variant: MatmulReduceScatterVariant | None = None
+) -> tuple[torch.Tensor, torch.Tensor]:
     resolved = _resolve_variant(variant)
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x1 = (
-        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 100 + rank)
     x2 = (
-        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     return x1, x2
 
 
-def _reference_chunk(rank: int, world_size: int, variant: MatmulReduceScatterVariant | None = None) -> torch.Tensor:
+def _reference_chunk(
+    rank: int, world_size: int, variant: MatmulReduceScatterVariant | None = None
+) -> torch.Tensor:
     resolved = _resolve_variant(variant)
     full = None
     for peer_rank in range(world_size):
@@ -144,7 +156,9 @@ def _baseline_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if output is None:
-        raise RuntimeError("npu_mm_reduce_scatter_base did not return an output tensor.")
+        raise RuntimeError(
+            "npu_mm_reduce_scatter_base did not return an output tensor."
+        )
 
     max_abs_diff = (output.float().cpu() - reference).abs().max().item()
     return {
@@ -184,12 +198,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed HCCL baseline bring-up failed."),
+            "reason": launch.get(
+                "reason", "Distributed HCCL baseline bring-up failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -212,7 +232,9 @@ def run_distributed_baseline_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "reduce_scatter(sum_i(x1_i @ x2_i))",
         "rank_reports": rank_reports,
@@ -221,7 +243,9 @@ def run_distributed_baseline_benchmark(
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_matmul_reduce_scatter_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_matmul_reduce_scatter_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -317,7 +341,11 @@ def run_distributed_pto_benchmark(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
@@ -345,7 +373,9 @@ def run_distributed_pto_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "host_orchestrated_all_reduce_then_chunk",
         "rank_reports": rank_reports,
@@ -378,7 +408,9 @@ def baseline_environment_summary(*, device_index: int = 0) -> dict[str, object]:
 def baseline_blocker(*, device_index: int = 0) -> dict[str, object]:
     summary = baseline_environment_summary(device_index=device_index)
     if not summary["symbol_available"]:
-        reason = "torch_npu does not expose npu_mm_reduce_scatter_base on this environment."
+        reason = (
+            "torch_npu does not expose npu_mm_reduce_scatter_base on this environment."
+        )
     elif summary["parsed_world_size"] is None:
         reason = (
             "torch_npu.npu_mm_reduce_scatter_base requires a multi-rank HCCL process group and an hcom "

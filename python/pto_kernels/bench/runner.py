@@ -26,14 +26,30 @@ def _load_module_from_path(path: Path) -> ModuleType:
 
 
 class BenchmarkRunner:
-    def __init__(self, *, results_dir: Path | None = None):
+    def __init__(
+        self, *, results_dir: Path | None = None, generated_dir: Path | None = None
+    ):
         self.repo_root = repo_root()
         self.results_dir = results_dir or self.repo_root / "bench" / "results"
-        self.generated_dir = self.repo_root / "bench" / "generated"
+        if generated_dir is not None:
+            self.generated_dir = generated_dir
+        elif results_dir is not None:
+            self.generated_dir = results_dir / "generated"
+        else:
+            self.generated_dir = self.repo_root / "bench" / "generated"
 
-    def _adapter_summary(self, adapter_path: str, spec: KernelBenchmarkSpec) -> dict[str, Any]:
+    def _adapter_summary(
+        self, adapter_path: str, spec: KernelBenchmarkSpec
+    ) -> dict[str, Any]:
         adapter_file = self.repo_root / adapter_path
-        module = _load_module_from_path(adapter_file)
+        try:
+            module = _load_module_from_path(adapter_file)
+        except ImportError as exc:
+            return {
+                "adapter": adapter_path,
+                "status": "blocked",
+                "reason": f"adapter import failed: {exc}",
+            }
         describe = getattr(module, "describe", None)
         summary = describe(self.repo_root, spec) if callable(describe) else {}
         summary["adapter"] = adapter_path
@@ -50,7 +66,10 @@ class BenchmarkRunner:
         module = _load_module_from_path(adapter_file)
         method = getattr(module, method_name, None)
         if not callable(method):
-            return {"status": "blocked", "reason": f"{method_name}() is not implemented"}
+            return {
+                "status": "blocked",
+                "reason": f"{method_name}() is not implemented",
+            }
         try:
             return method(self.repo_root, spec, artifacts_dir)
         except NotImplementedError as exc:
@@ -104,7 +123,9 @@ class BenchmarkRunner:
         latest_report_path = latest_dir / "report.json"
         report["latest_report_path"] = str(latest_report_path)
         report["report_path"] = str(report_path)
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         self._refresh_latest_artifacts(artifacts_dir, latest_dir)
         return report
 
@@ -124,7 +145,9 @@ def main() -> int:
     args = parser.parse_args()
 
     runner = BenchmarkRunner()
-    report = runner.run(args.spec, dry_run=args.dry_run, capture_msprof=args.capture_msprof)
+    report = runner.run(
+        args.spec, dry_run=args.dry_run, capture_msprof=args.capture_msprof
+    )
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
 

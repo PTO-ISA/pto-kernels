@@ -67,11 +67,17 @@ def _make_rank_tensors(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x = (
-        torch.randn((resolved.tokens, resolved.hidden_size), generator=generator, dtype=torch.float32)
+        torch.randn(
+            (resolved.tokens, resolved.hidden_size),
+            generator=generator,
+            dtype=torch.float32,
+        )
         * resolved.input_scale
     ).to(torch.float16)
     base = torch.arange(resolved.tokens, dtype=torch.int64)
-    route = ((base + rank + resolved.seed) % resolved.expected_world_size).to(torch.int32)
+    route = ((base + rank + resolved.seed) % resolved.expected_world_size).to(
+        torch.int32
+    )
     expert_ids = route.unsqueeze(1).contiguous()
     return x, expert_ids
 
@@ -79,7 +85,9 @@ def _make_rank_tensors(
 def _block_dim() -> int:
     value = int(os.environ.get("PTO_MC2_MOE_COMBINE_BLOCK_DIM", "4"))
     if value not in (2, 4, 8):
-        raise ValueError(f"Unsupported PTO_MC2_MOE_COMBINE_BLOCK_DIM={value}; expected one of 2,4,8.")
+        raise ValueError(
+            f"Unsupported PTO_MC2_MOE_COMBINE_BLOCK_DIM={value}; expected one of 2,4,8."
+        )
     return value
 
 
@@ -108,7 +116,9 @@ def make_combine_inputs(
     torch.npu.set_device(device)
     x_cpu, expert_ids_cpu = _make_rank_tensors(rank, variant)
     expand_idx_cpu = _expand_idx_for_local_tokens(expert_ids_cpu)
-    ep_send_counts_cpu = _ep_send_counts_prefix(expert_ids_cpu, variant.expected_world_size)
+    ep_send_counts_cpu = _ep_send_counts_prefix(
+        expert_ids_cpu, variant.expected_world_size
+    )
     expert_scales_cpu = torch.ones((variant.tokens, variant.topk), dtype=torch.float32)
     rows_per_core = variant.tokens // _block_dim()
     permutation: list[int] = []
@@ -126,7 +136,9 @@ def make_combine_inputs(
                 dtype=torch.int16,
             )
 
-    compact_expand_x_cpu = x_cpu.index_select(0, torch.tensor(permutation, dtype=torch.int64))
+    compact_expand_x_cpu = x_cpu.index_select(
+        0, torch.tensor(permutation, dtype=torch.int64)
+    )
     scatter_indices_cpu = scatter_rows.contiguous()
 
     return {
@@ -193,7 +205,9 @@ def _get_hccl_comm_name(rank: int) -> str:
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_moe_distribute_combine_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_moe_distribute_combine_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -201,7 +215,9 @@ def _load_kernel_module():
     return module
 
 
-def _correctness_metrics(actual: torch.Tensor, reference: torch.Tensor) -> dict[str, float]:
+def _correctness_metrics(
+    actual: torch.Tensor, reference: torch.Tensor
+) -> dict[str, float]:
     max_abs_diff = (actual.float().cpu() - reference.float().cpu()).abs().max().item()
     return {"x_out_max_abs_diff": max_abs_diff, "max_abs_diff": max_abs_diff}
 
@@ -307,7 +323,9 @@ def _baseline_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if actual is None:
-        raise RuntimeError("npu_moe_distribute_combine did not return an output tensor.")
+        raise RuntimeError(
+            "npu_moe_distribute_combine did not return an output tensor."
+        )
 
     metrics = _correctness_metrics(actual, reference_x)
     return {
@@ -332,7 +350,9 @@ def run_distributed_baseline_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MOE_COMBINE_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MOE_COMBINE_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -349,12 +369,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed moe_distribute_combine baseline failed."),
+            "reason": launch.get(
+                "reason", "Distributed moe_distribute_combine baseline failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -377,7 +403,9 @@ def run_distributed_baseline_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "host_precompacted_reverse_route_buffer",
         "rank_reports": rank_reports,
@@ -453,7 +481,9 @@ def run_distributed_pto_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_MOE_COMBINE_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_MOE_COMBINE_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -470,12 +500,18 @@ def run_distributed_pto_benchmark(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed PTO moe_distribute_combine failed."),
+            "reason": launch.get(
+                "reason", "Distributed PTO moe_distribute_combine failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -497,7 +533,9 @@ def run_distributed_pto_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "host_precompacted_reverse_route_buffer",
         "rank_reports": rank_reports,

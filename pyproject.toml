@@ -60,3 +60,6 @@ wheel.packages = ["python/pto_kernels"]
 
 [tool.ruff]
 exclude = ["build"]
+
+[tool.ruff.lint.per-file-ignores]
+"python/pto_kernels/ops/**/*.py" = ["E731", "F821", "F841"]

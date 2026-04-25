@@ -25,9 +25,7 @@ class DenseReluVariant:
 
     @property
     def label(self) -> str:
-        return (
-            f"t{self.tokens}_h{self.hidden_size}_i{self.intermediate_size}_o{self.output_size}"
-        )
+        return f"t{self.tokens}_h{self.hidden_size}_i{self.intermediate_size}_o{self.output_size}"
 
     @property
     def shape_summary(self) -> dict[str, object]:
@@ -42,9 +40,15 @@ class DenseReluVariant:
 
 VARIANT = DenseReluVariant()
 VARIANTS = (
-    DenseReluVariant(tokens=32, hidden_size=128, intermediate_size=256, output_size=128, seed=0),
-    DenseReluVariant(tokens=64, hidden_size=128, intermediate_size=256, output_size=128, seed=1),
-    DenseReluVariant(tokens=32, hidden_size=128, intermediate_size=512, output_size=128, seed=2),
+    DenseReluVariant(
+        tokens=32, hidden_size=128, intermediate_size=256, output_size=128, seed=0
+    ),
+    DenseReluVariant(
+        tokens=64, hidden_size=128, intermediate_size=256, output_size=128, seed=1
+    ),
+    DenseReluVariant(
+        tokens=32, hidden_size=128, intermediate_size=512, output_size=128, seed=2
+    ),
 )
 
 
@@ -62,21 +66,33 @@ def make_dense_relu_inputs(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(variant.seed)
 
-    x_cpu = torch.randn(
-        (variant.tokens, variant.hidden_size),
-        generator=generator,
-        dtype=torch.float32,
-    ).mul(variant.input_scale).to(torch.float16)
-    weight1_cpu = torch.randn(
-        (variant.hidden_size, variant.intermediate_size),
-        generator=generator,
-        dtype=torch.float32,
-    ).mul(variant.input_scale).to(torch.float16)
-    weight2_cpu = torch.randn(
-        (variant.intermediate_size, variant.output_size),
-        generator=generator,
-        dtype=torch.float32,
-    ).mul(variant.input_scale).to(torch.float16)
+    x_cpu = (
+        torch.randn(
+            (variant.tokens, variant.hidden_size),
+            generator=generator,
+            dtype=torch.float32,
+        )
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
+    weight1_cpu = (
+        torch.randn(
+            (variant.hidden_size, variant.intermediate_size),
+            generator=generator,
+            dtype=torch.float32,
+        )
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
+    weight2_cpu = (
+        torch.randn(
+            (variant.intermediate_size, variant.output_size),
+            generator=generator,
+            dtype=torch.float32,
+        )
+        .mul(variant.input_scale)
+        .to(torch.float16)
+    )
 
     x = x_cpu.npu()
     weight1 = weight1_cpu.npu()

@@ -18,9 +18,14 @@ from pto_kernels.ops.moe.moe_token_permute.runtime import (
 
 
 def describe(repo_root, spec):
-    summary = describe_baseline(repo_root, "moe", "moe_token_permute", spec.inventory_ref)
+    summary = describe_baseline(
+        repo_root, "moe", "moe_token_permute", spec.inventory_ref
+    )
     summary["runtime_entrypoint"] = "torch_npu.npu_moe_token_permute"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     return summary
 
 
@@ -44,7 +49,9 @@ def benchmark(repo_root, spec, artifacts_dir):
     try:
         variant_reports = []
         for variant in VARIANTS:
-            inputs = make_top1_permutation_inputs(variant, device_index=int(spec.device.get("id", 0)))
+            inputs = make_top1_permutation_inputs(
+                variant, device_index=int(spec.device.get("id", 0))
+            )
             for _ in range(spec.bench.warmup):
                 run_torch_npu_moe_token_permute(inputs)
             torch.npu.synchronize()
@@ -59,13 +66,26 @@ def benchmark(repo_root, spec, artifacts_dir):
                 timings_ms.append((time.perf_counter() - start) * 1000.0)
 
             if output is None:
-                raise RuntimeError(f"Baseline benchmark did not produce output tensors for {variant.label}.")
+                raise RuntimeError(
+                    f"Baseline benchmark did not produce output tensors for {variant.label}."
+                )
 
             permuted_tokens, sorted_indices = output
-            token_diff = (permuted_tokens.float().cpu() - inputs["reference_tokens"]).abs().max().item()
+            token_diff = (
+                (permuted_tokens.float().cpu() - inputs["reference_tokens"])
+                .abs()
+                .max()
+                .item()
+            )
             index_diff = (
-                sorted_indices.to(torch.int32).cpu() - inputs["reference_sorted_indices"]
-            ).abs().max().item()
+                (
+                    sorted_indices.to(torch.int32).cpu()
+                    - inputs["reference_sorted_indices"]
+                )
+                .abs()
+                .max()
+                .item()
+            )
             variant_reports.append(
                 {
                     "variant": variant.as_dict(),
@@ -82,15 +102,19 @@ def benchmark(repo_root, spec, artifacts_dir):
                     },
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "entrypoint": "torch_npu.npu_moe_token_permute",
             "reason": str(exc),
         }
-        report_path = Path(artifacts_dir) / "ops_transformer_moe_token_permute_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ops_transformer_moe_token_permute_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -120,7 +144,11 @@ def benchmark(repo_root, spec, artifacts_dir):
         "variant_reports": variant_reports,
         "reference_contract": "top1_argsort_permute",
     }
-    report_path = Path(artifacts_dir) / "ops_transformer_moe_token_permute_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ops_transformer_moe_token_permute_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

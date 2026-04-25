@@ -133,9 +133,9 @@
 
 ## 常见误区
 
-- 误区：比例低就说明 kernel 没价值  
+- 误区：比例低就说明 kernel 没价值
   不对。很多低比例 kernel 仍然是很好的教学样本。
-- 误区：`baseline blocked / PTO ok` 就没法讲性能  
+- 误区：`baseline blocked / PTO ok` 就没法讲性能
   不对。仍然可以讲 PTO 自身性能、结构和 blocker 性质，只是不能做直接对比。
 
 下一章：把前面内容收束成一个新增 kernel 的实操 checklist。

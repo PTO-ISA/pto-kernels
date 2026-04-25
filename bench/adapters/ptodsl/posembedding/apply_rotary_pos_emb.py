@@ -31,7 +31,9 @@ def compile_kernel(repo_root, spec, artifacts_dir):
 
 def benchmark(repo_root, spec, artifacts_dir):
     kernel_file = repo_root / KERNEL
-    spec_obj = importlib.util.spec_from_file_location("pto_apply_rotary_pos_emb_kernel", kernel_file)
+    spec_obj = importlib.util.spec_from_file_location(
+        "pto_apply_rotary_pos_emb_kernel", kernel_file
+    )
     if spec_obj is None or spec_obj.loader is None:
         return {"status": "blocked", "reason": f"Unable to import {kernel_file}"}
 
@@ -42,14 +44,16 @@ def benchmark(repo_root, spec, artifacts_dir):
     try:
         if callable(build):
             build()
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
         report_path = Path(artifacts_dir) / "ptodsl_apply_rotary_pos_emb_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -73,11 +77,17 @@ def benchmark(repo_root, spec, artifacts_dir):
                 timings_ms.append((time.perf_counter() - start) * 1000.0)
 
             if output is None:
-                raise RuntimeError(f"PTO benchmark did not produce an output tensor for {variant.layout}.")
+                raise RuntimeError(
+                    f"PTO benchmark did not produce an output tensor for {variant.layout}."
+                )
 
             query_out, key_out = output
-            query_diff = (query_out.float().cpu() - inputs["reference_query"]).abs().max().item()
-            key_diff = (key_out.float().cpu() - inputs["reference_key"]).abs().max().item()
+            query_diff = (
+                (query_out.float().cpu() - inputs["reference_query"]).abs().max().item()
+            )
+            key_diff = (
+                (key_out.float().cpu() - inputs["reference_key"]).abs().max().item()
+            )
             variant_reports.append(
                 {
                     "variant": variant.as_dict(),
@@ -94,15 +104,19 @@ def benchmark(repo_root, spec, artifacts_dir):
                     },
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO execution failed: {exc}",
-            "artifact_paths": [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()],
+            "artifact_paths": [
+                str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+            ],
         }
         report_path = Path(artifacts_dir) / "ptodsl_apply_rotary_pos_emb_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -123,10 +137,14 @@ def benchmark(repo_root, spec, artifacts_dir):
             "passes": bool(max_abs_diff <= spec.correctness.atol),
         },
         "variant_reports": variant_reports,
-        "artifact_paths": [str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()],
+        "artifact_paths": [
+            str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+        ],
         "reference_contract": "fp16_half_rope_tnd_and_bsnd",
     }
     report_path = Path(artifacts_dir) / "ptodsl_apply_rotary_pos_emb_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

@@ -22,7 +22,9 @@ def blocked(reason: str) -> dict[str, Any]:
     return {"status": "blocked", "reason": reason}
 
 
-def describe_baseline(repo_root: Path, family: str, name: str, ops_transformer_path: str) -> dict[str, Any]:
+def describe_baseline(
+    repo_root: Path, family: str, name: str, ops_transformer_path: str
+) -> dict[str, Any]:
     return {
         "family": family,
         "name": name,
@@ -44,7 +46,9 @@ def describe_pto(repo_root: Path, kernel_path: str, meta_path: str) -> dict[str,
     return result
 
 
-def compile_pto_kernel(repo_root: Path, kernel_path: str, output_dir: Path) -> dict[str, Any]:
+def compile_pto_kernel(
+    repo_root: Path, kernel_path: str, output_dir: Path
+) -> dict[str, Any]:
     kernel_file = repo_root / kernel_path
     module = load_module(kernel_file)
     builder = getattr(module, "build_jit_wrapper", None)
@@ -58,7 +62,7 @@ def compile_pto_kernel(repo_root: Path, kernel_path: str, output_dir: Path) -> d
     try:
         if callable(build):
             build()
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         return blocked(f"PTO compile failed: {exc}")
     artifact_paths = getattr(wrapper, "_artifact_paths", lambda: ())()
     return {

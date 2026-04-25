@@ -56,8 +56,12 @@ class InplaceMatmulAllReduceAddRmsNormVariant:
 
 VARIANT = InplaceMatmulAllReduceAddRmsNormVariant()
 VARIANTS = (
-    InplaceMatmulAllReduceAddRmsNormVariant(m=128, k=256, n=128, expected_world_size=2, seed=0),
-    InplaceMatmulAllReduceAddRmsNormVariant(m=256, k=256, n=128, expected_world_size=2, seed=1),
+    InplaceMatmulAllReduceAddRmsNormVariant(
+        m=128, k=256, n=128, expected_world_size=2, seed=0
+    ),
+    InplaceMatmulAllReduceAddRmsNormVariant(
+        m=256, k=256, n=128, expected_world_size=2, seed=1
+    ),
 )
 
 
@@ -75,19 +79,24 @@ def _make_rank_tensors(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x1 = (
-        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.m, resolved.k), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 1000)
     x2 = (
-        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.k, resolved.n), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 200 + rank)
     residual = (
-        torch.randn((resolved.m, resolved.n), generator=generator, dtype=torch.float32) * resolved.input_scale
+        torch.randn((resolved.m, resolved.n), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 3000)
     gamma = (
-        torch.randn((resolved.n,), generator=generator, dtype=torch.float32) * resolved.input_scale + 1.0
+        torch.randn((resolved.n,), generator=generator, dtype=torch.float32)
+        * resolved.input_scale
+        + 1.0
     ).to(torch.float16)
     return x1, x2, residual, gamma
 
@@ -107,7 +116,9 @@ def _reference_outputs(
         local = x1.float() @ x2.float()
         mm_full = local if mm_full is None else mm_full + local
     if mm_full is None:
-        raise RuntimeError("Failed to build inplace_matmul_all_reduce_add_rms_norm reference.")
+        raise RuntimeError(
+            "Failed to build inplace_matmul_all_reduce_add_rms_norm reference."
+        )
     residual_y = mm_full + residual_in.float()
     rstd = torch.rsqrt(residual_y.pow(2).mean(dim=-1, keepdim=True) + resolved.epsilon)
     norm_out = (residual_y * rstd * gamma.float()).to(torch.float16)
@@ -187,7 +198,9 @@ def _baseline_worker(
 
     for _ in range(warmup):
         dist.barrier()
-        mm_out = torch_npu.npu_mm_all_reduce_base(x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op)
+        mm_out = torch_npu.npu_mm_all_reduce_base(
+            x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op
+        )
         torch_npu.npu_add_rms_norm(mm_out, residual, gamma, variant.epsilon)
     torch.npu.synchronize()
     dist.barrier()
@@ -199,14 +212,20 @@ def _baseline_worker(
         dist.barrier()
         torch.npu.synchronize()
         start = time.perf_counter()
-        mm_out = torch_npu.npu_mm_all_reduce_base(x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op)
-        norm_out, _, residual_y = torch_npu.npu_add_rms_norm(mm_out, residual, gamma, variant.epsilon)
+        mm_out = torch_npu.npu_mm_all_reduce_base(
+            x1=x1, x2=x2, hcom=hcom_name, reduce_op=variant.reduce_op
+        )
+        norm_out, _, residual_y = torch_npu.npu_add_rms_norm(
+            mm_out, residual, gamma, variant.epsilon
+        )
         torch.npu.synchronize()
         dist.barrier()
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if residual_y is None or norm_out is None:
-        raise RuntimeError("Baseline inplace_matmul_all_reduce_add_rms_norm worker produced no output.")
+        raise RuntimeError(
+            "Baseline inplace_matmul_all_reduce_add_rms_norm worker produced no output."
+        )
 
     y_diff = (residual_y.float().cpu() - ref_residual_y.float()).abs().max().item()
     norm_diff = (norm_out.float().cpu() - ref_norm.float()).abs().max().item()
@@ -254,7 +273,11 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
@@ -270,8 +293,12 @@ def run_distributed_baseline_benchmark(
 
     rank_reports = launch["rank_reports"]
     per_rank_medians = [report["timings_ms"]["median"] for report in rank_reports]
-    y_diff = max(report["correctness"]["residual_y_max_abs_diff"] for report in rank_reports)
-    norm_diff = max(report["correctness"]["norm_max_abs_diff"] for report in rank_reports)
+    y_diff = max(
+        report["correctness"]["residual_y_max_abs_diff"] for report in rank_reports
+    )
+    norm_diff = max(
+        report["correctness"]["norm_max_abs_diff"] for report in rank_reports
+    )
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
@@ -289,7 +316,9 @@ def run_distributed_baseline_benchmark(
             "residual_y_max_abs_diff": y_diff,
             "norm_max_abs_diff": norm_diff,
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "inplace_add_rms_norm(all_reduce(sum_i(x1_local_i @ x2)), residual_rank, gamma)",
         "rank_reports": rank_reports,
@@ -336,8 +365,12 @@ def _pto_worker(
         "pto_mc2_inplace_matmul_all_reduce_add_rms_norm_kernel",
     )
 
-    mm_wrapper = mm_module.build_jit_wrapper(output_dir=output_dir / f"rank_{rank}_mm_kernel")
-    arn_wrapper = arn_module.build_inplace_add_rms_norm_jit_wrapper(output_dir=output_dir / f"rank_{rank}_iarn_kernel")
+    mm_wrapper = mm_module.build_jit_wrapper(
+        output_dir=output_dir / f"rank_{rank}_mm_kernel"
+    )
+    arn_wrapper = arn_module.build_inplace_add_rms_norm_jit_wrapper(
+        output_dir=output_dir / f"rank_{rank}_iarn_kernel"
+    )
     for wrapper in (mm_wrapper, arn_wrapper):
         build = getattr(wrapper, "_build", None)
         if callable(build):
@@ -349,8 +382,12 @@ def _pto_worker(
     residual_inout = residual_cpu.to(device)
     residual_seed = residual_cpu.to(device)
     gamma = gamma_cpu.to(device)
-    inv_n = torch.full((1, variant.n), 1.0 / float(variant.n), dtype=torch.float16).to(device)
-    eps_row = torch.full((1, variant.n), float(variant.epsilon), dtype=torch.float16).to(device)
+    inv_n = torch.full((1, variant.n), 1.0 / float(variant.n), dtype=torch.float16).to(
+        device
+    )
+    eps_row = torch.full(
+        (1, variant.n), float(variant.epsilon), dtype=torch.float16
+    ).to(device)
     mm_out = torch.empty((variant.m, variant.n), dtype=torch.float16).to(device)
     residual_y = torch.empty((variant.m, variant.n), dtype=torch.float16).to(device)
     norm_out = torch.empty((variant.m, variant.n), dtype=torch.float16).to(device)
@@ -392,7 +429,9 @@ def _pto_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if pto_residual_y is None or pto_norm is None:
-        raise RuntimeError("PTO inplace_matmul_all_reduce_add_rms_norm worker produced no output.")
+        raise RuntimeError(
+            "PTO inplace_matmul_all_reduce_add_rms_norm worker produced no output."
+        )
 
     y_diff = (pto_residual_y.float().cpu() - ref_residual_y.float()).abs().max().item()
     norm_diff = (pto_norm.float().cpu() - ref_norm.float()).abs().max().item()
@@ -432,7 +471,11 @@ def run_distributed_pto_benchmark(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
@@ -448,8 +491,12 @@ def run_distributed_pto_benchmark(
 
     rank_reports = launch["rank_reports"]
     per_rank_medians = [report["timings_ms"]["median"] for report in rank_reports]
-    y_diff = max(report["correctness"]["residual_y_max_abs_diff"] for report in rank_reports)
-    norm_diff = max(report["correctness"]["norm_max_abs_diff"] for report in rank_reports)
+    y_diff = max(
+        report["correctness"]["residual_y_max_abs_diff"] for report in rank_reports
+    )
+    norm_diff = max(
+        report["correctness"]["norm_max_abs_diff"] for report in rank_reports
+    )
     max_abs_diff = max(report["correctness"]["max_abs_diff"] for report in rank_reports)
     return {
         "status": "ok",
@@ -466,7 +513,9 @@ def run_distributed_pto_benchmark(
             "residual_y_max_abs_diff": y_diff,
             "norm_max_abs_diff": norm_diff,
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "pto_local_matmul_then_all_reduce_then_inplace_add_rms_norm",
         "rank_reports": rank_reports,

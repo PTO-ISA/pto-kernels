@@ -71,9 +71,13 @@ def make_top1_permutation_inputs(
     indices_cpu = perm_cpu.to(torch.int32)
     sorted_order = torch.argsort(indices_cpu.to(torch.int64))
     gather_indices_cpu = (
-        sorted_order[:, None] * variant.hidden_size
-        + torch.arange(variant.hidden_size, dtype=torch.int64)[None, :]
-    ).reshape(-1).to(torch.int32)
+        (
+            sorted_order[:, None] * variant.hidden_size
+            + torch.arange(variant.hidden_size, dtype=torch.int64)[None, :]
+        )
+        .reshape(-1)
+        .to(torch.int32)
+    )
 
     return {
         "device": device,

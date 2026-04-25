@@ -98,9 +98,9 @@ python/pto_kernels/ops/attention/flash_attention_score/kernel.py
 
 ## 常见误区
 
-- 误区：先把 kernel 写出来，其他文件以后补  
+- 误区：先把 kernel 写出来，其他文件以后补
   在这个仓库里不成立。没有 spec/adapter/report，基本等于没有进入迁移体系。
-- 误区：`bench/generated` 是临时目录，不重要  
+- 误区：`bench/generated` 是临时目录，不重要
   不对。这里是教程、汇总和状态同步的事实来源之一。
 
 下一章：先不看复杂真实 kernel，先学会读一个最小 PTO kernel 长什么样。

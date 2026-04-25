@@ -54,8 +54,12 @@ class GroupedMatmulAllReduceVariant:
 
 VARIANT = GroupedMatmulAllReduceVariant()
 VARIANTS = (
-    GroupedMatmulAllReduceVariant(m=128, k_total=256, n=128, expected_world_size=2, seed=0),
-    GroupedMatmulAllReduceVariant(m=256, k_total=256, n=128, expected_world_size=2, seed=1),
+    GroupedMatmulAllReduceVariant(
+        m=128, k_total=256, n=128, expected_world_size=2, seed=0
+    ),
+    GroupedMatmulAllReduceVariant(
+        m=256, k_total=256, n=128, expected_world_size=2, seed=1
+    ),
 )
 
 
@@ -72,12 +76,16 @@ def _make_rank_tensors(
     generator = torch.Generator(device="cpu")
     generator.manual_seed(resolved.seed + rank)
     x = (
-        torch.randn((resolved.m, resolved.k_local), generator=generator, dtype=torch.float32)
+        torch.randn(
+            (resolved.m, resolved.k_local), generator=generator, dtype=torch.float32
+        )
         * resolved.input_scale
     ).to(torch.float16)
     generator.manual_seed(resolved.seed + 100 + rank)
     weight = (
-        torch.randn((resolved.k_local, resolved.n), generator=generator, dtype=torch.float32)
+        torch.randn(
+            (resolved.k_local, resolved.n), generator=generator, dtype=torch.float32
+        )
         * resolved.input_scale
     ).to(torch.float16)
     return x, weight
@@ -201,7 +209,9 @@ def _baseline_worker(
         timings_ms.append((time.perf_counter() - start) * 1000.0)
 
     if output is None:
-        raise RuntimeError("Baseline grouped_mat_mul_all_reduce worker produced no output.")
+        raise RuntimeError(
+            "Baseline grouped_mat_mul_all_reduce worker produced no output."
+        )
 
     max_abs_diff = (output.float().cpu() - reference.float()).abs().max().item()
     return {
@@ -225,7 +235,9 @@ def run_distributed_baseline_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_GMM_AR_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_GMM_AR_WORLD_SIZE", variant.expected_world_size)
+    )
     if world_size not in SUPPORTED_WORLD_SIZES:
         return {
             "status": "blocked",
@@ -238,12 +250,18 @@ def run_distributed_baseline_benchmark(
         _baseline_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed grouped_mat_mul_all_reduce baseline failed."),
+            "reason": launch.get(
+                "reason", "Distributed grouped_mat_mul_all_reduce baseline failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -266,7 +284,9 @@ def run_distributed_baseline_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "all_reduce(sum_i(grouped_matmul_local_i))",
         "rank_reports": rank_reports,
@@ -275,7 +295,9 @@ def run_distributed_baseline_benchmark(
 
 def _load_kernel_module():
     kernel_path = Path(__file__).with_name("kernel.py")
-    spec = importlib.util.spec_from_file_location("pto_mc2_grouped_mat_mul_all_reduce_kernel", kernel_path)
+    spec = importlib.util.spec_from_file_location(
+        "pto_mc2_grouped_mat_mul_all_reduce_kernel", kernel_path
+    )
     if spec is None or spec.loader is None:
         raise ImportError(f"Unable to import PTO kernel module from {kernel_path}")
     module = importlib.util.module_from_spec(spec)
@@ -355,18 +377,26 @@ def run_distributed_pto_benchmark(
     warmup: int,
     repeat: int,
 ) -> dict[str, object]:
-    world_size = int(os.environ.get("PTO_MC2_GMM_AR_WORLD_SIZE", variant.expected_world_size))
+    world_size = int(
+        os.environ.get("PTO_MC2_GMM_AR_WORLD_SIZE", variant.expected_world_size)
+    )
     output_dir = Path(artifacts_dir) / "distributed_pto"
     launch = run_local_ranked_job(
         _pto_worker,
         world_size=world_size,
         output_dir=output_dir,
-        worker_kwargs={"warmup": warmup, "repeat": repeat, "variant_dict": variant.as_dict()},
+        worker_kwargs={
+            "warmup": warmup,
+            "repeat": repeat,
+            "variant_dict": variant.as_dict(),
+        },
     )
     if launch["status"] != "ok":
         return {
             "status": "blocked",
-            "reason": launch.get("reason", "Distributed PTO grouped_mat_mul_all_reduce launch failed."),
+            "reason": launch.get(
+                "reason", "Distributed PTO grouped_mat_mul_all_reduce launch failed."
+            ),
             "variant": variant.as_dict(),
             "world_size": world_size,
             "rank_reports": launch.get("rank_reports", []),
@@ -388,7 +418,9 @@ def run_distributed_pto_benchmark(
         },
         "correctness": {
             "max_abs_diff": max_abs_diff,
-            "per_rank_max_abs_diff": [report["correctness"]["max_abs_diff"] for report in rank_reports],
+            "per_rank_max_abs_diff": [
+                report["correctness"]["max_abs_diff"] for report in rank_reports
+            ],
         },
         "reference_contract": "pto_local_grouped_matmul_then_all_reduce",
         "rank_reports": rank_reports,

@@ -50,11 +50,11 @@
 
 ## 常见误区
 
-- 误区 1：`pto-kernels` 只是一个 kernel 代码仓库  
+- 误区 1：`pto-kernels` 只是一个 kernel 代码仓库
   不是。它同时承载了 benchmark、inventory、migration checklist、debug artifacts。
-- 误区 2：写完 `kernel.py` 就算完成  
+- 误区 2：写完 `kernel.py` 就算完成
   不是。最少还要有 `meta.py`、spec、adapter、report。
-- 误区 3：PTO-ISA 是给大多数用户直接写业务逻辑的 API  
+- 误区 3：PTO-ISA 是给大多数用户直接写业务逻辑的 API
   不是。大部分用户写的是 PTODSL；PTO-ISA 更像底层 tile 指令语义和 backend 合约。
 
 下一章：从整体链路开始，把几个核心仓库和执行阶段放进同一张图里看。

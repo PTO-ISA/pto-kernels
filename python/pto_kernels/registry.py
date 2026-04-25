@@ -1,4 +1,4 @@
-"""Kernel inventory helpers for the PTO 910B migration program."""
+"""Kernel inventory helpers for pto-kernels."""
 
 from __future__ import annotations
 
@@ -12,7 +12,6 @@ from .config import repo_root
 
 
 INVENTORY_PATH = repo_root() / "bench" / "kernel_inventory.yaml"
-GAP_BOARD_PATH = repo_root() / "bench" / "gap_board.yaml"
 
 
 @dataclass(frozen=True)
@@ -20,7 +19,6 @@ class KernelRecord:
     name: str
     family: str
     wave: str
-    phase: str
     status: str
     ops_transformer_path: str
 
@@ -37,10 +35,6 @@ def load_inventory() -> dict[str, Any]:
     return _read_yaml(INVENTORY_PATH)
 
 
-def load_gap_board() -> dict[str, Any]:
-    return _read_yaml(GAP_BOARD_PATH)
-
-
 def included_kernel_records() -> list[KernelRecord]:
     data = load_inventory()
     records: list[KernelRecord] = []
@@ -50,7 +44,6 @@ def included_kernel_records() -> list[KernelRecord]:
                 name=entry["name"],
                 family=entry["family"],
                 wave=entry["wave"],
-                phase=entry["phase"],
                 status=entry["status"],
                 ops_transformer_path=entry["ops_transformer_path"],
             )

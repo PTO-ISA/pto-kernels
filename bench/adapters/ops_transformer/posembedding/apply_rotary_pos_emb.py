@@ -66,11 +66,17 @@ def benchmark(repo_root, spec, artifacts_dir):
                 timings_ms.append((time.perf_counter() - start) * 1000.0)
 
             if output is None:
-                raise RuntimeError(f"Baseline benchmark did not produce an output tensor for {variant.layout}.")
+                raise RuntimeError(
+                    f"Baseline benchmark did not produce an output tensor for {variant.layout}."
+                )
 
             query_out, key_out = output
-            query_diff = (query_out.float().cpu() - inputs["reference_query"]).abs().max().item()
-            key_diff = (key_out.float().cpu() - inputs["reference_key"]).abs().max().item()
+            query_diff = (
+                (query_out.float().cpu() - inputs["reference_query"]).abs().max().item()
+            )
+            key_diff = (
+                (key_out.float().cpu() - inputs["reference_key"]).abs().max().item()
+            )
             variant_reports.append(
                 {
                     "variant": variant.as_dict(),
@@ -87,15 +93,19 @@ def benchmark(repo_root, spec, artifacts_dir):
                     },
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
             "entrypoint": "torch_npu.npu_apply_rotary_pos_emb",
             "reason": str(exc),
         }
-        report_path = Path(artifacts_dir) / "ops_transformer_apply_rotary_pos_emb_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ops_transformer_apply_rotary_pos_emb_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -119,7 +129,11 @@ def benchmark(repo_root, spec, artifacts_dir):
         "variant_reports": variant_reports,
         "reference_contract": "fp16_half_rope_tnd_and_bsnd",
     }
-    report_path = Path(artifacts_dir) / "ops_transformer_apply_rotary_pos_emb_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ops_transformer_apply_rotary_pos_emb_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

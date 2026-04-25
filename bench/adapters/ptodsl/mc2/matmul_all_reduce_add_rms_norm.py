@@ -55,11 +55,18 @@ def compile_kernel(repo_root, spec, artifacts_dir):
                         "status": "blocked",
                         "reason": f"{kernel_path} does not expose {build_name}(output_dir)",
                     }
-                wrapper = builder(output_dir=Path(artifacts_dir) / Path(kernel_path).stem)
+                wrapper = builder(
+                    output_dir=Path(artifacts_dir) / Path(kernel_path).stem
+                )
                 build = getattr(wrapper, "_build", None)
                 if callable(build):
                     build()
-                artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
+                artifact_paths.extend(
+                    [
+                        str(path)
+                        for path in getattr(wrapper, "_artifact_paths", lambda: ())()
+                    ]
+                )
                 library_paths.append(getattr(wrapper, "library_path", None))
     except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         return {"status": "blocked", "reason": f"PTO compile failed: {exc}"}
@@ -89,11 +96,20 @@ def benchmark(repo_root, spec, artifacts_dir):
                             "status": "blocked",
                             "reason": f"{kernel_path} does not expose {build_name}(output_dir)",
                         }
-                    wrapper = builder(output_dir=Path(artifacts_dir) / variant.label / suffix)
+                    wrapper = builder(
+                        output_dir=Path(artifacts_dir) / variant.label / suffix
+                    )
                     build = getattr(wrapper, "_build", None)
                     if callable(build):
                         build()
-                    artifact_paths.extend([str(path) for path in getattr(wrapper, "_artifact_paths", lambda: ())()])
+                    artifact_paths.extend(
+                        [
+                            str(path)
+                            for path in getattr(
+                                wrapper, "_artifact_paths", lambda: ()
+                            )()
+                        ]
+                    )
 
                 variant_report = run_distributed_pto_benchmark(
                     variant=variant,
@@ -117,24 +133,39 @@ def benchmark(repo_root, spec, artifacts_dir):
             "variants": [variant.as_dict() for variant in VARIANTS],
             "reason": f"PTO compile failed: {exc}",
         }
-        report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_add_rms_norm_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path = (
+            Path(artifacts_dir) / "ptodsl_matmul_all_reduce_add_rms_norm_benchmark.json"
+        )
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
     if any(item.get("status") != "ok" for item in variant_reports):
-        first_blocked = next(item for item in variant_reports if item.get("status") != "ok")
+        first_blocked = next(
+            item for item in variant_reports if item.get("status") != "ok"
+        )
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
-            "reason": first_blocked.get("reason", "Distributed PTO matmul_all_reduce_add_rms_norm launch failed."),
+            "reason": first_blocked.get(
+                "reason",
+                "Distributed PTO matmul_all_reduce_add_rms_norm launch failed.",
+            ),
             "variant_reports": variant_reports,
             "artifact_paths": artifact_paths,
         }
     else:
-        y_diff = max(float(item["correctness"]["y_max_abs_diff"]) for item in variant_reports)
-        norm_diff = max(float(item["correctness"]["norm_max_abs_diff"]) for item in variant_reports)
-        max_abs_diff = max(float(item["correctness"]["max_abs_diff"]) for item in variant_reports)
+        y_diff = max(
+            float(item["correctness"]["y_max_abs_diff"]) for item in variant_reports
+        )
+        norm_diff = max(
+            float(item["correctness"]["norm_max_abs_diff"]) for item in variant_reports
+        )
+        max_abs_diff = max(
+            float(item["correctness"]["max_abs_diff"]) for item in variant_reports
+        )
         report = {
             "status": "ok",
             "variants": [item["variant"] for item in variant_reports],
@@ -157,7 +188,11 @@ def benchmark(repo_root, spec, artifacts_dir):
             "reference_contract": "pto_local_matmul_then_all_reduce_then_add_rms_norm",
         }
 
-    report_path = Path(artifacts_dir) / "ptodsl_matmul_all_reduce_add_rms_norm_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path = (
+        Path(artifacts_dir) / "ptodsl_matmul_all_reduce_add_rms_norm_benchmark.json"
+    )
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

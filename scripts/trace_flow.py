@@ -25,9 +25,15 @@ def _load_module(module_path: Path):
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("kernel_module", help="Path to kernel.py exposing build_jit_wrapper().")
-    parser.add_argument("--output-dir", required=True, help="Directory for generated artifacts.")
-    parser.add_argument("--build", action="store_true", help="Compile artifacts with the JIT wrapper.")
+    parser.add_argument(
+        "kernel_module", help="Path to kernel.py exposing build_jit_wrapper()."
+    )
+    parser.add_argument(
+        "--output-dir", required=True, help="Directory for generated artifacts."
+    )
+    parser.add_argument(
+        "--build", action="store_true", help="Compile artifacts with the JIT wrapper."
+    )
     args = parser.parse_args()
 
     module_path = Path(args.kernel_module).resolve()

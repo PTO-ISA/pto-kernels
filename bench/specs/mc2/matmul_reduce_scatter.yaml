@@ -10,4 +10,4 @@ pto:
   kernel: python/pto_kernels/ops/mc2/matmul_reduce_scatter/kernel.py
   meta: python/pto_kernels/ops/mc2/matmul_reduce_scatter/meta.py
 notes:
-  - Seed kernel for 910B MC2 bring-up.
+  - Seed kernel for 910B MC2 validation.

@@ -1,4 +1,4 @@
-"""Environment discovery for the PTO 910B bring-up workflow."""
+"""Environment discovery for the PTO 910B workflow."""
 
 from __future__ import annotations
 
@@ -43,7 +43,9 @@ def parse_npu_smi_output(output: str) -> tuple[str | None, int]:
     return models[0], len(models)
 
 
-def _map_model(model: str | None) -> tuple[str | None, str | None, str | None, list[str]]:
+def _map_model(
+    model: str | None,
+) -> tuple[str | None, str | None, str | None, list[str]]:
     warnings: list[str] = []
     if not model:
         warnings.append("No NPU model detected from npu-smi output.")

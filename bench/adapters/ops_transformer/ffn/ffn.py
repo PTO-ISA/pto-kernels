@@ -20,7 +20,10 @@ from pto_kernels.ops.ffn.ffn.runtime import (
 def describe(repo_root, spec):
     summary = describe_baseline(repo_root, "ffn", "ffn", spec.inventory_ref)
     summary["runtime_entrypoint"] = "torch_npu.npu_ffn"
-    summary["seed_variant"] = {"default": VARIANT.as_dict(), "variants": [variant.as_dict() for variant in VARIANTS]}
+    summary["seed_variant"] = {
+        "default": VARIANT.as_dict(),
+        "variants": [variant.as_dict() for variant in VARIANTS],
+    }
     return summary
 
 
@@ -44,7 +47,9 @@ def benchmark(repo_root, spec, artifacts_dir):
     try:
         variant_reports = []
         for variant in VARIANTS:
-            inputs = make_dense_relu_inputs(variant, device_index=int(spec.device.get("id", 0)))
+            inputs = make_dense_relu_inputs(
+                variant, device_index=int(spec.device.get("id", 0))
+            )
             reference = inputs["reference"]
             for _ in range(spec.bench.warmup):
                 run_torch_npu_ffn(inputs)
@@ -60,7 +65,9 @@ def benchmark(repo_root, spec, artifacts_dir):
                 timings_ms.append((time.perf_counter() - start) * 1000.0)
 
             if output is None:
-                raise RuntimeError(f"Baseline benchmark did not produce an output tensor for {variant.label}.")
+                raise RuntimeError(
+                    f"Baseline benchmark did not produce an output tensor for {variant.label}."
+                )
 
             max_abs_diff = (output.float().cpu() - reference).abs().max().item()
             variant_reports.append(
@@ -75,7 +82,7 @@ def benchmark(repo_root, spec, artifacts_dir):
                     "correctness": {"max_abs_diff": max_abs_diff},
                 }
             )
-    except Exception as exc:  # pragma: no cover - exercised on NPU bring-up hosts
+    except Exception as exc:  # pragma: no cover - exercised on NPU hosts
         report = {
             "status": "blocked",
             "variants": [variant.as_dict() for variant in VARIANTS],
@@ -83,7 +90,9 @@ def benchmark(repo_root, spec, artifacts_dir):
             "reason": str(exc),
         }
         report_path = Path(artifacts_dir) / "ops_transformer_ffn_benchmark.json"
-        report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+        report_path.write_text(
+            json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+        )
         report["report_path"] = str(report_path)
         return report
 
@@ -108,6 +117,8 @@ def benchmark(repo_root, spec, artifacts_dir):
         "reference_contract": "fp16_dense_relu_ffn_torch_ops",
     }
     report_path = Path(artifacts_dir) / "ops_transformer_ffn_benchmark.json"
-    report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
     report["report_path"] = str(report_path)
     return report

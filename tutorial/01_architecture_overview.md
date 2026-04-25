@@ -110,9 +110,9 @@ with pto.section.cube():
 
 ## 常见误区
 
-- 误区：`.pto` 就是 PTO-ISA  
+- 误区：`.pto` 就是 PTO-ISA
   不对。`.pto` 更接近 PTODSL 产出的 IR 文本，还要经过 PTOAS 和 backend。
-- 误区：PTO kernel 跑通就等于迁移完成  
+- 误区：PTO kernel 跑通就等于迁移完成
   不对。还要看 baseline 对齐、性能、block use、是否 scalar-heavy。
 
 下一章：把抽象概念落到本仓库的目录和工作流上。

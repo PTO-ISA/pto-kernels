@@ -12,7 +12,6 @@ from typing import Any
 
 import torch
 import torch.distributed as dist
-import torch.multiprocessing as mp
 
 
 def _pick_free_port() -> int:
@@ -62,7 +61,9 @@ def _spawn_worker(
             **worker_kwargs,
         )
         if not isinstance(report, dict):
-            raise TypeError(f"Distributed worker returned {type(report).__name__}, expected dict.")
+            raise TypeError(
+                f"Distributed worker returned {type(report).__name__}, expected dict."
+            )
         report.setdefault("status", "ok")
         report.setdefault("rank", rank)
         report.setdefault("world_size", world_size)
@@ -81,7 +82,9 @@ def _spawn_worker(
             except Exception:
                 pass
 
-    rank_report_path.write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
+    rank_report_path.write_text(
+        json.dumps(report, indent=2, sort_keys=True), encoding="utf-8"
+    )
 
 
 def run_local_ranked_job(
@@ -99,7 +102,7 @@ def run_local_ranked_job(
         if npu_count < world_size:
             return {
                 "status": "blocked",
-                "reason": f"Need {world_size} local NPUs for distributed bring-up, but only {npu_count} detected.",
+                "reason": f"Need {world_size} local NPUs for distributed validation, but only {npu_count} detected.",
             }
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -107,7 +110,9 @@ def run_local_ranked_job(
     spawn_module = importlib.import_module("torch.multiprocessing.spawn")
     launch_timeout = timeout_seconds
     if launch_timeout is None:
-        launch_timeout = float(os.environ.get("PTO_DISTRIBUTED_LAUNCH_TIMEOUT_SEC", "180"))
+        launch_timeout = float(
+            os.environ.get("PTO_DISTRIBUTED_LAUNCH_TIMEOUT_SEC", "180")
+        )
     context = spawn_module.start_processes(
         _spawn_worker,
         args=(
@@ -138,7 +143,9 @@ def run_local_ranked_job(
             for rank in range(world_size):
                 report_path = output_dir / f"rank_{rank}.json"
                 if report_path.exists():
-                    partial_rank_reports.append(json.loads(report_path.read_text(encoding="utf-8")))
+                    partial_rank_reports.append(
+                        json.loads(report_path.read_text(encoding="utf-8"))
+                    )
             return {
                 "status": "blocked",
                 "reason": (
