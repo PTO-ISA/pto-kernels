@@ -1,0 +1,19 @@
+# IDE
+.idea/
+
+# OS
+.DS_Store
+
+# Build outputs
+output/
+**/output/
+/site/
+/.cache/
+
+# Python documentation tooling
+__pycache__/
+*.py[cod]
+.venv/
+
+# Temporary files
+*.log
