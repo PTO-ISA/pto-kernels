@@ -1,0 +1,9 @@
+{
+  "schema": "pto-kernels.supernpu-source.v1",
+  "source_repo": "https://github.com/PTO-ISA/SuperNPUBench",
+  "source_commit": "4d8fcb5d4f3ff845e0400da70a1b290094880493",
+  "source_tree": "0f5fc1dff18db3abb91bcf02f22241bc01272be8",
+  "import_path": "benchmarks/supernpu",
+  "source_license_file": null,
+  "note": "The source repository did not contain a license file at the reviewed commit; preserve this provenance record and do not infer a license from repository ownership."
+}

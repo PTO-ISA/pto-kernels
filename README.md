@@ -61,6 +61,13 @@ pip install --force-reinstall pto_kernels-*.whl
 make test
 ```
 
+## SuperNPU benchmark suite
+
+The former standalone SuperNPUBench workload tree is maintained at
+[`benchmarks/supernpu/`](benchmarks/supernpu/README.md). The active subtree is
+aligned to the PTO/Linx v0.58 contract; imported pre-v0.58 material is isolated
+under its `status/legacy/` directory and is not an architectural authority.
+
 ## Contributor Workflow
 
 Use the lightweight local path first:
@@ -225,6 +232,7 @@ pto-kernels/
 ├── csrc/                  # C++ kernel source files
 ├── python/pto_kernels/    # Python bindings and utilities
 ├── bench/                 # Benchmark specs, adapters, and inventory
+├── benchmarks/supernpu/  # Imported and maintained SuperNPU workload suite
 ├── docs/                  # Repository notes and references
 ├── examples/jit_cpp/      # JIT compilation examples
 ├── skills/                # Agent workflow skills

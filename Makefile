@@ -48,12 +48,14 @@ test:
 		tests/test_bench_specs.py \
 		tests/test_env_utils.py \
 		tests/test_registry_inventory.py \
+		tests/test_supernpu_migration.py \
 		tests/test_workflow_docs.py
 
 test-npu:
 	pytest -v tests/ -m npu --run-npu
 
 check: test
+	python3 scripts/check_supernpu_v058.py
 	git diff --check
 
 bootstrap:
