@@ -8,12 +8,13 @@ Generate topk dataset for testing.
 import struct
 import random
 
+
 def main():
     NUM_INPUT = 131072
     TOP_K = 2048
     OUTPUT_DIR = "data_obj"
 
-    print(f"Generating topk dataset:")
+    print("Generating topk dataset:")
     print(f"  Input elements:  {NUM_INPUT} uint16_t")
     print(f"  Top-K:           {TOP_K}")
 

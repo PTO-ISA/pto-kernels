@@ -63,3 +63,8 @@ exclude = ["build"]
 
 [tool.ruff.lint.per-file-ignores]
 "python/pto_kernels/ops/**/*.py" = ["E731", "F821", "F841"]
+
+[tool.black]
+extend-exclude = '''
+/benchmarks/supernpu/status/legacy/
+'''

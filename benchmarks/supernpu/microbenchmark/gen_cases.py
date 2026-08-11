@@ -16,10 +16,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DTYPE = {
     "fp16": "__half",
     "fp32": "float",
-    "i8":   "int8_t",
-    "i16":  "int16_t",
-    "i32":  "int32_t",
+    "i8": "int8_t",
+    "i16": "int16_t",
+    "i32": "int32_t",
 }
+
 
 # ---- case spec ----
 # kind selects the bench template + call lambda.
@@ -28,8 +29,8 @@ class Case:
     op: str
     kind: str
     dtypes: tuple[str, ...]
-    size: tuple[int, int]          # (M, N); cube uses (M,N,K) via cube_kind
-    cube: bool = False             # if True, size is (M,N,K)
+    size: tuple[int, int]  # (M, N); cube uses (M,N,K) via cube_kind
+    cube: bool = False  # if True, size is (M,N,K)
 
 
 # ============ VEC and SFU cases ============
@@ -37,8 +38,21 @@ V = []  # noqa
 M16 = (16, 16)
 
 # mode 0 tile-tile binary arithmetic/bitwise
-for op in ["TADD", "TSUB", "TMUL", "TDIV", "TREm".replace("REm", "REM"),
-           "TAND", "TOR", "TXOR", "TSHL", "TSHR", "TMAX", "TMIN", "TCMP"]:
+for op in [
+    "TADD",
+    "TSUB",
+    "TMUL",
+    "TDIV",
+    "TREm".replace("REm", "REM"),
+    "TAND",
+    "TOR",
+    "TXOR",
+    "TSHL",
+    "TSHR",
+    "TMAX",
+    "TMIN",
+    "TCMP",
+]:
     if op in ("TAND", "TOR", "TXOR", "TSHL", "TSHR"):
         dt = ("i16", "i32")
     elif op == "TREM":
@@ -74,9 +88,21 @@ for op in ["TPARTADD", "TPARTMUL", "TPARTMAX", "TPARTMIN"]:
 
 # mode 1 tile-scalar (1 tile + scalar)
 # tile-scalar ops only support float dtypes on current toolchain
-for op in ["TADDS", "TSUBS", "TMULS", "TDIVS", "TREMS",
-           "TANDS", "TORS", "TXORS", "TSHLS", "TSHRS",
-           "TMAXS", "TMINS", "TCMPS"]:
+for op in [
+    "TADDS",
+    "TSUBS",
+    "TMULS",
+    "TDIVS",
+    "TREMS",
+    "TANDS",
+    "TORS",
+    "TXORS",
+    "TSHLS",
+    "TSHRS",
+    "TMAXS",
+    "TMINS",
+    "TCMPS",
+]:
     V.append(Case(op, "scalar", ("fp16", "f32"), M16))
 
 # mode 1 tile-scalar fused (2 tile + scalar)
@@ -87,8 +113,16 @@ for op in ["TSELS"]:
 V.append(Case("TEXPANDS", "scalarbcast", ("fp16", "fp32"), M16))
 
 # mode 2 reduce
-for op in ["TROWSUM", "TROWMAX", "TROWMIN", "TROWPROD",
-           "TCOLSUM", "TCOLMAX", "TCOLMIN", "TCOLPROD"]:
+for op in [
+    "TROWSUM",
+    "TROWMAX",
+    "TROWMIN",
+    "TROWPROD",
+    "TCOLSUM",
+    "TCOLMAX",
+    "TCOLMIN",
+    "TCOLPROD",
+]:
     V.append(Case(op, "reduce", ("fp16", "fp32", "i32"), M16))
 
 # mode 2 argmax / argmin
@@ -101,11 +135,25 @@ for op in ["TROWEXPAND", "TCOLEXPAND"]:
 
 # mode 2 expand (2 src: data M×N + row/col scalar vector). Per tileop-usage doc:
 #   row expand arith: src1 = M×1 ; col expand arith: src1 = 1×N
-for op in ["TROWEXPANDADD", "TROWEXPANDSUB", "TROWEXPANDMUL", "TROWEXPANDDIV",
-           "TROWEXPANDMAX", "TROWEXPANDMIN", "TROWEXPANDEXPDIF"]:
+for op in [
+    "TROWEXPANDADD",
+    "TROWEXPANDSUB",
+    "TROWEXPANDMUL",
+    "TROWEXPANDDIV",
+    "TROWEXPANDMAX",
+    "TROWEXPANDMIN",
+    "TROWEXPANDEXPDIF",
+]:
     V.append(Case(op, "expand_row", ("fp16", "fp32"), M16))
-for op in ["TCOLEXPANDADD", "TCOLEXPANDSUB", "TCOLEXPANDMUL", "TCOLEXPANDDIV",
-           "TCOLEXPANDMAX", "TCOLEXPANDMIN", "TCOLEXPANDEXPDIF"]:
+for op in [
+    "TCOLEXPANDADD",
+    "TCOLEXPANDSUB",
+    "TCOLEXPANDMUL",
+    "TCOLEXPANDDIV",
+    "TCOLEXPANDMAX",
+    "TCOLEXPANDMIN",
+    "TCOLEXPANDEXPDIF",
+]:
     V.append(Case(op, "expand_col", ("fp16", "fp32"), M16))
 
 # mode 3 complex
@@ -117,8 +165,18 @@ V.append(Case("THISTOGRAM", "hist", ("fp16", "fp32"), M16))
 # NZ requirement). Kept here as a skip list; re-enable when pto_tileop.hpp aligns.
 VECTOR_SKIP = {
     # need fractal/NZ layout (32-byte align) — plain RowMajor Mx1/Nx1 output fails:
-    "TROWMAX", "TROWMIN", "TROWPROD", "TROWSUM", "TROWARGMAX", "TROWARGMIN",
-    "TCOLSUM", "TCOLMAX", "TCOLMIN", "TCOLPROD", "TCOLARGMAX", "TCOLARGMIN",
+    "TROWMAX",
+    "TROWMIN",
+    "TROWPROD",
+    "TROWSUM",
+    "TROWARGMAX",
+    "TROWARGMIN",
+    "TCOLSUM",
+    "TCOLMAX",
+    "TCOLMIN",
+    "TCOLPROD",
+    "TCOLARGMAX",
+    "TCOLARGMIN",
     # signature mismatch (PTO arity != bench template); TODO align:
     "TSEL",
 }
@@ -148,25 +206,28 @@ for op, kind, dt, sz in [
 # TGEMV* are not yet exposed by the toolchain; only TMATMUL* land.
 C = []
 
+
 def csize(dt):
     if dt == "fp32":
-        return (32, 32, 32)   # 32x32x4B = 4KB
+        return (32, 32, 32)  # 32x32x4B = 4KB
     if dt == "fp16":
-        return (64, 64, 64)   # 64x64x2B = 8KB
+        return (64, 64, 64)  # 64x64x2B = 8KB
     if dt == "i8":
-        return (64, 64, 64)   # 64x64x1B = 4KB
+        return (64, 64, 64)  # 64x64x1B = 4KB
     return (64, 64, 64)
+
 
 def cube(op, kind, dt, sz=None):
     if sz is None:
         sz = csize(dt)
     C.append(Case(op, kind, (dt,), sz, cube=True))
 
+
 for dt in ("fp16", "fp32", "i8"):
     cube("TMATMUL", "matmul", dt)
 cube("TMATMUL_BIAS", "matmul_bias", "fp16")
 cube("TMATMUL_BIAS", "matmul_bias", "fp32")
-cube("TMATMUL_MX", "matmul_mx", "fp16")        # e4m3 placeholder -> fp16
+cube("TMATMUL_MX", "matmul_mx", "fp16")  # e4m3 placeholder -> fp16
 # matmul.ac backend still crashes (llvm.linx.blk.matmul.ac SelectionDAG) on latest toolchain
 # cube("TMATMUL_ACC", "matmul_acc", "fp16")
 # cube("TMATMUL_ACC", "matmul_acc", "fp32")
@@ -195,22 +256,77 @@ SCALAR_OPS = [
     ("sub", "bin", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return x-y;}}"),
     ("mul", "bin", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return x*y;}}"),
     ("div", "bin", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return x/y;}}"),
-    ("and", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(({ut})x & ({ut})y);}}"),
-    ("or",  "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(({ut})x | ({ut})y);}}"),
-    ("xor", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(({ut})x ^ ({ut})y);}}"),
-    ("sll", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(({ut})x << (y & 31));}}"),
-    ("srl", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(({ut})x >> (y & 31));}}"),
+    (
+        "and",
+        "bin",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})(({ut})x & ({ut})y);}}",
+    ),
+    (
+        "or",
+        "bin",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})(({ut})x | ({ut})y);}}",
+    ),
+    (
+        "xor",
+        "bin",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})(({ut})x ^ ({ut})y);}}",
+    ),
+    (
+        "sll",
+        "bin",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})(({ut})x << (y & 31));}}",
+    ),
+    (
+        "srl",
+        "bin",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})(({ut})x >> (y & 31));}}",
+    ),
     ("sra", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(x >> (y & 31));}}"),
     ("slt", "bin", ("i32", "i64"), "[](auto x,auto y){{return ({T})(x < y);}}"),
-    ("max", "bin", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return x<y?y:x;}}"),
-    ("min", "bin", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return x<y?x:y;}}"),
+    (
+        "max",
+        "bin",
+        ("i32", "i64", "f32", "f64"),
+        "[](auto x,auto y){{return x<y?y:x;}}",
+    ),
+    (
+        "min",
+        "bin",
+        ("i32", "i64", "f32", "f64"),
+        "[](auto x,auto y){{return x<y?x:y;}}",
+    ),
     ("mod", "bin", ("i32", "i64"), "[](auto x,auto y){{return x%y;}}"),
-    ("abs", "un", ("i32", "f32", "f64"), "[](auto x,auto y){{auto t=x+y; return t<0?-t:t;}}"),
+    (
+        "abs",
+        "un",
+        ("i32", "f32", "f64"),
+        "[](auto x,auto y){{auto t=x+y; return t<0?-t:t;}}",
+    ),
     ("neg", "un", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return -(x+y);}}"),
     ("not", "un", ("i32", "i64"), "[](auto x,auto y){{return ({T})(~({ut})(x+y));}}"),
-    ("popc", "un", ("i32", "i64"), "[](auto x,auto y){{return ({T})__builtin_popcountll((unsigned long long)(x+y));}}"),
-    ("clz", "un", ("i32", "i64"), "[](auto x,auto y){{return ({T})__builtin_clzll((unsigned long long)(x+y));}}"),
-    ("sqrt", "un", ("f32", "f64"), "[](auto x,auto y){{return ({T})std::sqrt((double)(x+y));}}"),
+    (
+        "popc",
+        "un",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})__builtin_popcountll((unsigned long long)(x+y));}}",
+    ),
+    (
+        "clz",
+        "un",
+        ("i32", "i64"),
+        "[](auto x,auto y){{return ({T})__builtin_clzll((unsigned long long)(x+y));}}",
+    ),
+    (
+        "sqrt",
+        "un",
+        ("f32", "f64"),
+        "[](auto x,auto y){{return ({T})std::sqrt((double)(x+y));}}",
+    ),
     ("ld", "ld", ("i32", "i64", "f32", "f64"), "[](auto x,auto y){{return y;}}"),
 ]
 # (op, cat, [(in,out), ...])
@@ -227,6 +343,7 @@ SCALAR_ST = [("st", "st", ("i32", "i64", "f32", "f64"))]
 def lower(op: str) -> str:
     return op.lower()
 
+
 def case_name(c: Case, dt: str) -> str:
     base = lower(c.op)
     if c.cube:
@@ -239,12 +356,10 @@ def case_name(c: Case, dt: str) -> str:
 def emit_vector(c: Case, dt: str) -> str:
     ct = DTYPE[dt]
     m, n = c.size
-    n_elems = m * n
-    name = case_name(c, dt)
     op = c.op
     # concat dst can be up to M*2K (fp16 K=16 -> 32 cols); size arrays for the worst case
     arr = m * 32 if c.kind == "concat" else m * n
-    head = f'''#include "vector_bench.hpp"
+    head = f"""#include "vector_bench.hpp"
 // auto-generated by gen_cases.py
 // {op} ({c.kind}) {dt} {c.size[0]}x{c.size[1]}
 int main() {{
@@ -252,7 +367,7 @@ int main() {{
     {ct} a[{arr}], b[{arr}], d[{arr}], c[{arr}];
     fill_seq(a, {arr}); fill_seq(b, {arr}); fill_seq(d, {arr}); zero(c, {arr});
     BENCHSTART;
-'''
+"""
     tail = "    BENCHEND;\n    return 0;\n}\n"
     if c.kind == "binary":
         body = f"    bench_binary<{ct},M,N>(c,a,b,[](auto& dst,auto& s0,auto& s1){{ {op}(dst,s0,s1); }});\n"
@@ -264,7 +379,9 @@ int main() {{
         # src0=M×K, src1=M×K, dst=M×2K (K=32/sizeof(D)); arrays sized for max (fp16 K=16->dst 32 cols)
         body = f"    bench_concat<{ct},M>(c,a,b,[](auto& dst,auto& s0,auto& s1){{ {op}(dst,s0,s1); }});\n"
     elif c.kind == "unary":
-        body = f"    bench_unary<{ct},M,N>(c,a,[](auto& dst,auto& s){{ {op}(dst,s); }});\n"
+        body = (
+            f"    bench_unary<{ct},M,N>(c,a,[](auto& dst,auto& s){{ {op}(dst,s); }});\n"
+        )
     elif c.kind == "ternary":
         body = f"    bench_ternary<{ct},M,N>(c,a,b,d,[](auto& dst,auto& s0,auto& s1,auto& s2){{ {op}(dst,s0,s1,s2); }});\n"
     elif c.kind == "reduce":
@@ -289,9 +406,8 @@ int main() {{
 def emit_memory(c: Case, dt: str) -> str:
     ct = DTYPE[dt]
     m, n = c.size
-    name = case_name(c, dt)
     op = c.op
-    head = f'''#include "memory_bench.hpp"
+    head = f"""#include "memory_bench.hpp"
 // auto-generated by gen_cases.py
 // {op} ({c.kind}) {dt} {c.size[0]}x{c.size[1]}
 int main() {{
@@ -299,7 +415,7 @@ int main() {{
     {ct} a[M*N], c[M*N], idx[M*N], mask[M*N];
     fill_seq(a, M*N); fill_idx(idx, M*N); fill_const(mask, M*N, ({ct})1); zero(c, M*N);
     BENCHSTART;
-'''
+"""
     tail = "    BENCHEND;\n    return 0;\n}\n"
     if c.kind == "load":
         body = f"    bench_load<{ct},M,N>(c,a);\n"
@@ -326,7 +442,7 @@ def emit_cube(c: Case, dt: str) -> str:
     ct = DTYPE.get(dt, "__half")  # low-precision placeholder falls back to __half
     m, n, k = c.size
     op = c.op
-    head = f'''#include "cube_bench.hpp"
+    head = f"""#include "cube_bench.hpp"
 // auto-generated by gen_cases.py
 // {op} ({c.kind}) {dt} {m}x{n}x{k}
 int main() {{
@@ -335,7 +451,7 @@ int main() {{
     fill_seq(a, M*K); fill_seq(b, K*N); fill_seq(bias, N);
     fill_const(as, M*K, ({ct})1); fill_const(bs, K*N, ({ct})1); zero(c, M*N);
     BENCHSTART;
-'''
+"""
     tail = "    BENCHEND;\n    return 0;\n}\n"
     if c.kind == "matmul":
         body = f"    bench_matmul<{ct},M,N,K>(c,a,b);\n"
@@ -372,14 +488,14 @@ def gen_family(family: str, cases: list[Case], emitter):
                 continue  # skip placeholder dtypes (e.g. bf16)
             name = case_name(c, dt)
             names.append(name)
-            with open(os.path.join(src_dir, name + ".cpp"), "w") as f:
+            with open(os.path.join(src_dir, name + ".cpp"), "w", encoding="utf-8") as f:
                 f.write(emitter(c, dt))
     # compile.all
     lines = ["#!/bin/bash", f'echo "=== {family} ==="']
     for n in sorted(names):
         lines.append(f'echo "  {n}"; make TESTCASE={n}')
     lines.append('echo "=== Done ==="')
-    with open(os.path.join(ROOT, family, "compile.all"), "w") as f:
+    with open(os.path.join(ROOT, family, "compile.all"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     os.chmod(os.path.join(ROOT, family, "compile.all"), 0o755)
     return len(names)
@@ -395,7 +511,7 @@ def gen_scalar():
 
     def write(name, body):
         names.append(name)
-        with open(os.path.join(src_dir, name + ".cpp"), "w") as f:
+        with open(os.path.join(src_dir, name + ".cpp"), "w", encoding="utf-8") as f:
             f.write(body)
 
     # bin / un / ld opcodes
@@ -407,7 +523,9 @@ def gen_scalar():
             metrics = ("thr", "lat") if cat in ("bin", "un") else ("thr",)
             for m in metrics:
                 fn = "bench_throughput" if m == "thr" else "bench_latency"
-                write(f"{op}_{dt}_{m}", f'''#include "scalar_bench.hpp"
+                write(
+                    f"{op}_{dt}_{m}",
+                    f"""#include "scalar_bench.hpp"
 // auto-generated: {op} ({cat}) {dt} {m}
 int main() {{
     {ct} a[16], b[16];
@@ -419,13 +537,16 @@ int main() {{
     sink = r;
     return 0;
 }}
-''')
+""",
+                )
 
     # store opcodes
     for op, cat, dtypes in SCALAR_ST:
         for dt in dtypes:
             ct = SDTYPE[dt]
-            write(f"{op}_{dt}_thr", f'''#include "scalar_bench.hpp"
+            write(
+                f"{op}_{dt}_thr",
+                f"""#include "scalar_bench.hpp"
 // auto-generated: {op} ({cat}) {dt} throughput
 int main() {{
     {ct} out[16], val = ({ct})5;
@@ -436,32 +557,36 @@ int main() {{
     volatile {ct} sink = out[0];
     return 0;
 }}
-''')
+""",
+            )
 
     # conversion opcodes
     for op, cat, pairs in SCALAR_CV:
         for indt, outdt in pairs:
             ict = SDTYPE[indt]
-            oct = SDTYPE[outdt]
-            write(f"{op}_{indt}_to_{outdt}_thr", f'''#include "scalar_bench.hpp"
+            output_ct = SDTYPE[outdt]
+            write(
+                f"{op}_{indt}_to_{outdt}_thr",
+                f"""#include "scalar_bench.hpp"
 // auto-generated: {op} ({cat}) {indt}->{outdt} throughput
 int main() {{
     {ict} b[16];
     for (int i = 0; i < 16; ++i) b[i] = ({ict})(i * 0.7 + 1);
-    volatile {oct} sink = ({oct})0;
+    volatile {output_ct} sink = ({output_ct})0;
     BENCHSTART;
-    {oct} r = bench_cv<{ict}, {oct}>(b);
+    {output_ct} r = bench_cv<{ict}, {output_ct}>(b);
     BENCHEND;
     sink = r;
     return 0;
 }}
-''')
+""",
+            )
 
     lines = ["#!/bin/bash", 'echo "=== scalar ==="']
     for n in sorted(names):
         lines.append(f'echo "  {n}"; make TESTCASE={n}')
     lines.append('echo "=== Done ==="')
-    with open(os.path.join(ROOT, "scalar", "compile.all"), "w") as f:
+    with open(os.path.join(ROOT, "scalar", "compile.all"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     os.chmod(os.path.join(ROOT, "scalar", "compile.all"), 0o755)
     return len(names)
@@ -472,7 +597,9 @@ def main():
     nm = gen_family("memory", ME, emit_memory)
     nc = gen_family("cube", C, emit_cube)
     ns = gen_scalar()
-    print(f"generated: vector={nv} memory={nm} cube={nc} scalar={ns} total={nv+nm+nc+ns}")
+    print(
+        f"generated: vector={nv} memory={nm} cube={nc} scalar={ns} total={nv+nm+nc+ns}"
+    )
 
 
 if __name__ == "__main__":

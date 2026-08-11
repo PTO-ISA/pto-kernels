@@ -22,7 +22,7 @@ def test_legacy_is_excluded_but_active_retired_spelling_fails(tmp_path):
 
     active = tmp_path / "benchmark"
     active.mkdir()
-    (active / "bad.hpp").write_text("asm(\"B.IOD\");\n", encoding="utf-8")
+    (active / "bad.hpp").write_text('asm("B.IOD");\n', encoding="utf-8")
     errors = CHECKER.find_forbidden_active_terms(tmp_path)
     assert len(errors) == 1
     assert "retired B.IOD spelling" in errors[0]
