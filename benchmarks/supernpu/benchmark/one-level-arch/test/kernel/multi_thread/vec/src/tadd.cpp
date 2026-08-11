@@ -48,7 +48,7 @@ void vec_multithread(float* out_ptr, float* a_ptr, float* b_ptr) {
 
     itOut out_iter(out_ptr+gm_offset);
     auto dst = out_iter(0, 0);
-    TCOPYOUT(dst, tC);
+    TSTORE(dst, tC);
 }
 
 int main() {

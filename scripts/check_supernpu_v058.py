@@ -47,6 +47,7 @@ FORBIDDEN_ACTIVE_PATTERNS = {
     "retired C.B.IOS spelling": re.compile(r"\bC\.B\.IOS\b"),
     "old TMA block classification": re.compile(r"\bBSTART\.TMA\b"),
     "old TEPL classification": re.compile(r"\bTEPL\b|_TEPL\b|\bBSTART\.TEPL\b"),
+    "retired Tile load/store spelling": re.compile(r"\bTCOPY(?:IN|OUT)\b"),
     "retired operation spelling": re.compile(
         r"\b(?:ACCCVT|TADDC|TADDSC|TAXPY|TFMOD|TFMODS|TGATHERB|TLRELU|"
         r"TPRELU|TRANDOM|TRESHAPE|TSORT32|TSUBC|TSUBSC)\b"

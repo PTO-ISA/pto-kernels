@@ -14,7 +14,7 @@
 // is a host loop bounded by kMaxProbe with NO data-dependent early break: a tile-level
 // early exit would need to reduce the "still-searching" mask to a host scalar, and the
 // tile-op API has no tile->scalar-register reduction (only TROWSUM->tile and
-// TCOPYOUT->memory). Since TSELECT keeps already-found lanes immune to later probes,
+// TSTORE->memory). Since TSELECT keeps already-found lanes immune to later probes,
 // running all kMaxProbe iterations is correct; the loop is pure tile ops + a host counter.
 // ============================================================================
 
@@ -195,7 +195,7 @@ void runHashFind(int32_t __out__ *out,
         TSEL(outTile, matchMask, tableValTile);   // match ? value : keep
 
         // NOTE: no early break. A data-dependent early exit would require reducing the
-        // "still-searching" mask to a host scalar (TROWSUMEXPAND -> TCOPYOUT -> scalar
+        // "still-searching" mask to a host scalar (TROWSUMEXPAND -> TSTORE -> scalar
         // load), i.e. a tile->memory->scalar round-trip every iteration. The tile-op API
         // has no tile->scalar-register reduction, so that round-trip is the only option
         // and it is exactly the fragile path we avoid. TSELECT already makes already-found

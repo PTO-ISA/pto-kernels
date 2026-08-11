@@ -170,7 +170,7 @@ Uses the PTO (Parallel Tile Operations) framework:
 - `global_tensor`: Defines global memory layout
 - `Tile`: Defines tile shape and memory location (Vec/Scalar)
 - `global_iterator`: Iterates over tiles in global memory
-- `TCOPYIN`/`TCOPYOUT`: DMA transfers between global and tile memory
+- `TLOAD`/`TSTORE`: DMA transfers between global and tile memory
 
 ### 3. Corner Case Handling
 

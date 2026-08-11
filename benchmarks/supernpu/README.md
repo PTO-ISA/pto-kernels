@@ -39,8 +39,10 @@ python3 scripts/check_supernpu_v058.py
 
 Compilation requires a LinxISA v0.58 compiler/sysroot and a matching
 Linx-TileOP-API checkout. Set `COMPILER_DIR` to the compiler `bin/` directory
-and `LINX_TILEOP_API_ROOT` to the TileOP API repository root before running a
-benchmark Makefile.
+and `LINX_TILEOP_API_ROOT` to the TileOP API repository root. Set
+`LINX_SYSROOT` to the matching musl sysroot containing libc++, libc++abi,
+libunwind, and the Linx compiler runtime before running a benchmark Makefile.
+The build fails closed when any of these three roots is omitted.
 
 Full compiler, model, and hardware coverage remains an explicit release or
 bring-up action; missing or skipped runs are not success.

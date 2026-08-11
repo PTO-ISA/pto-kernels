@@ -112,46 +112,25 @@ void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
         for (int j = 0; j < Nb; ++j) {
             tileC tC;
 
-            if constexpr (Kb == 1) {
-                tileA tA;
-                tileBLocal tBLocal;
-
-                auto gA = gIterA(i, 0);
-                TLOAD(tA, gA);
-                auto gB = gIterB(0, j);
-                TLOAD(tBLocal, gB);
-                tileBShared tBShared = TMOV_L2S_PUBLISH(tBLocal);
-                TMATMUL(tC, tA, tBShared);
-            } else {
-                // Compile-only Shared B experiment: initialize tC from the
-                // first K block and temporarily disable the ACC/FIXP path.
-                {
+            auto accumulate_k = [&]<int KIndex>(auto &&self) __attribute__((always_inline)) -> void {
+                if constexpr (KIndex < Kb) {
                     tileA tA;
                     tileBLocal tBLocal;
-                    auto gA = gIterA(i, 0);
-                    auto gB = gIterB(0, j);
+                    auto gA = gIterA(i, KIndex);
                     TLOAD(tA, gA);
+                    auto gB = gIterB(KIndex, j);
                     TLOAD(tBLocal, gB);
                     tileBShared tBShared = TMOV_L2S_PUBLISH(tBLocal);
-                    TMATMUL(tC, tA, tBShared);
+                    if constexpr (KIndex == 0) {
+                        TMATMUL(tC, tA, tBShared);
+                    } else {
+                        TMATMUL_ACC(tC, tC, tA, tBShared);
+                    }
+                    self.template operator()<KIndex + 1>(self);
                 }
+            };
+            accumulate_k.template operator()<0>(accumulate_k);
 
-                // Temporarily retained as load-only code so the original loop
-                // structure remains visible during the Shared B experiment.
-                #pragma clang loop unroll(full)
-                for (int k = 1; k < Kb; ++k) {
-                    tileA tA;
-                    tileBLocal tBLocal;
-                    auto gA = gIterA(i, k);
-                    auto gB = gIterB(k, j);
-                    TLOAD(tA, gA);
-                    TLOAD(tBLocal, gB);
-                    tileBShared tBShared = TMOV_L2S_PUBLISH(tBLocal);
-                    TMATMUL_ACC(tC, tC, tA, tBShared);
-                }
-            }
-
-            // Compile-only experiment: tC currently contains only k=0.
             auto gC = gIterC(i, j);
             TSTORE(gC, tC);
         }
