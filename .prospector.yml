@@ -7,6 +7,8 @@ max-line-length: 140
 ignore-paths:
   - build/
   - bench/
+  # Historical source snapshots are retained as evidence and are not active code.
+  - benchmarks/supernpu/status/legacy/
   - scripts/
   - csrc/
   - python/pto_kernels/bench/

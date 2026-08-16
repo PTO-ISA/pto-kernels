@@ -11,9 +11,10 @@ import struct
 import random
 
 # MurmurHash3 constants (must match the implementation in hashtable_lookup_simd.cpp)
-C1 = 0xcc9e2d51
-C2 = 0x1b873593
-C3 = 0xe6546b64
+C1 = 0xCC9E2D51
+C2 = 0x1B873593
+C3 = 0xE6546B64
+
 
 def murmurhash3(key, seed=0):
     """MurmurHash3 for 64-bit key (unsigned), returns 32-bit hash.
@@ -44,27 +45,27 @@ def murmurhash3(key, seed=0):
     # Finalization
     h ^= 8  # len = 8 bytes
     h ^= h >> 16
-    h = (h * 0x85ebca6b) & 0xFFFFFFFF
+    h = (h * 0x85EBCA6B) & 0xFFFFFFFF
     h ^= h >> 13
-    h = (h * 0xc2b2ae35) & 0xFFFFFFFF
+    h = (h * 0xC2B2AE35) & 0xFFFFFFFF
     h ^= h >> 16
 
     return h
 
 
-def main():
+def main():  # noqa: MC0001 - intentionally linear deterministic data generation
     CAP = 2550000
     LOAD_FACTOR = 0.83
     NUM_INSERTED = int(CAP * LOAD_FACTOR)  # 2116500
     NUM_QUERIES = 6144
-    SEED_TABLE = 42   # Seed for key generation / table building
+    SEED_TABLE = 42  # Seed for key generation / table building
     SEED_QUERY = 211  # Seed for query key sampling (tuned for target per-warp stats)
 
-    print(f"Generating hashtable_lookup dataset:")
+    print("Generating hashtable_lookup dataset:")
     print(f"  Table capacity:  {CAP}")
     print(f"  Keys inserted:   {NUM_INSERTED} ({LOAD_FACTOR*100:.0f}% load factor)")
     print(f"  Query keys:      {NUM_QUERIES}")
-    print(f"  Entry size:      16 bytes (key:int64 + value:int32 + padding)")
+    print("  Entry size:      16 bytes (key:int64 + value:int32 + padding)")
     print(f"  Table size:      {CAP * 16} bytes ({CAP * 16 / 1024 / 1024:.1f} MB)")
 
     # Generate random 64-bit keys
@@ -122,7 +123,9 @@ def main():
 
     # Sample query keys from all inserted keys
     # SEED_QUERY is tuned so per-warp(64) stats hit target: mean~40, median~32, max~300
-    print(f"\nSampling {NUM_QUERIES} query keys from inserted keys (seed={SEED_QUERY})...")
+    print(
+        f"\nSampling {NUM_QUERIES} query keys from inserted keys (seed={SEED_QUERY})..."
+    )
     random.seed(SEED_QUERY)
     query_keys = random.sample(inserted_keys, NUM_QUERIES)
     expected_values = [key_to_value[key] for key in query_keys]
@@ -151,7 +154,9 @@ def main():
             f.write(struct.pack("<i", val))
 
     print(f"\nGenerated files in {output_dir}/:")
-    print(f"  inserted_slot.data:  {CAP * 16} bytes ({CAP} entries, {CAP * 16 / 1024 / 1024:.1f} MB)")
+    print(
+        f"  inserted_slot.data:  {CAP * 16} bytes ({CAP} entries, {CAP * 16 / 1024 / 1024:.1f} MB)"
+    )
     print(f"  lookup_keys.data:    {NUM_QUERIES * 8} bytes ({NUM_QUERIES} keys)")
     print(f"  lookup_values.data:  {NUM_QUERIES * 4} bytes ({NUM_QUERIES} values)")
 
@@ -169,11 +174,16 @@ def main():
             warp_means.append(sum(wp) / len(wp))
 
         print(f"\n=== Per-warp stats (warp={warp_size}, {num_warps} warps) ===")
-        print(f"  Warp max probe:  min={min(warp_maxes)}, max={max(warp_maxes)}, mean={sum(warp_maxes)/len(warp_maxes):.2f}")
-        print(f"  Warp mean probe: min={min(warp_means):.2f}, max={max(warp_means):.2f}, mean={sum(warp_means)/len(warp_means):.2f}")
+        print(
+            f"  Warp max probe:  min={min(warp_maxes)}, max={max(warp_maxes)}, mean={sum(warp_maxes)/len(warp_maxes):.2f}"
+        )
+        print(
+            f"  Warp mean probe: min={min(warp_means):.2f}, max={max(warp_means):.2f}, mean={sum(warp_means)/len(warp_means):.2f}"
+        )
         print(f"\n  {'Warp':>4}  {'MaxProbe':>8}  {'MeanProbe':>9}  {'MinInWarp':>9}")
         for i, (mx, mu) in enumerate(zip(warp_maxes, warp_means)):
-            start = i * warp_size; end = min(start + warp_size, NUM_QUERIES)
+            start = i * warp_size
+            end = min(start + warp_size, NUM_QUERIES)
             print(f"  {i:4d}  {mx:8d}  {mu:9.2f}  {min(query_probes[start:end]):9d}")
 
 

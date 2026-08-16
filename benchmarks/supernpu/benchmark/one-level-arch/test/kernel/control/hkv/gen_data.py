@@ -40,29 +40,34 @@ BUCKETS_NUM = 16
 BUCKET_CAPACITY = 128
 DIM = 2  # float pairs per value
 
+
 def murmur3_hash_device(key):
     """64-bit MurmurHash3 finalizer matching the device code."""
     k = key & 0xFFFFFFFFFFFFFFFF
     k ^= k >> 33
-    k = (k * 0xff51afd7ed558ccd) & 0xFFFFFFFFFFFFFFFF
+    k = (k * 0xFF51AFD7ED558CCD) & 0xFFFFFFFFFFFFFFFF
     k ^= k >> 33
-    k = (k * 0xc4ceb9fe1a85ec53) & 0xFFFFFFFFFFFFFFFF
+    k = (k * 0xC4CEB9FE1A85EC53) & 0xFFFFFFFFFFFFFFFF
     k ^= k >> 33
     return k
+
 
 def get_digest(key):
     h = murmur3_hash_device(key)
     return (h >> 32) & 0xFF
 
+
 def empty_digest():
     h = murmur3_hash_device(EMPTY_KEY)
     return (h >> 32) & 0xFF
+
 
 def get_global_idx(hashed_key, capacity):
     """Simplified: global_idx = hashed_key % capacity (capacity = BUCKETS_NUM * BUCKET_CAPACITY)"""
     return hashed_key % capacity
 
-def main():
+
+def main():  # noqa: MC0001 - intentionally linear deterministic data generation
     random.seed(42)
 
     capacity = BUCKETS_NUM * BUCKET_CAPACITY  # 2048 total slots
@@ -138,7 +143,7 @@ def main():
         print(f"  Bucket {b}: {buckets_size[b]}/{BUCKET_CAPACITY} occupied")
 
     # Generate lookup keys: 80% found, 20% not found
-    found_keys = list(keys_list[:NUM_LOOKUP * 4 // 5])
+    found_keys = list(keys_list[: NUM_LOOKUP * 4 // 5])
     # Generate not-found keys
     not_found_keys = []
     while len(not_found_keys) < NUM_LOOKUP - len(found_keys):
@@ -153,8 +158,8 @@ def main():
 
     # Compute expected lookup results
     # For found keys: (v0, v1) pair; for not-found: (NaN, NaN) sentinel
-    NOT_FOUND_V0 = float('nan')
-    NOT_FOUND_V1 = float('nan')
+    NOT_FOUND_V0 = float("nan")
+    NOT_FOUND_V1 = float("nan")
     lookedup_values = []
     for key in lookup_keys:
         if key in key_to_value:
@@ -208,14 +213,19 @@ def main():
             f.write(struct.pack("<B", digest))
 
     print(f"\nGenerated files in {output_dir}/:")
-    print(f"  buckets.bin:         {BUCKETS_NUM * (128 + 128*8 + 128*8 + 128*2*4)} bytes")
+    print(
+        f"  buckets.bin:         {BUCKETS_NUM * (128 + 128*8 + 128*8 + 128*2*4)} bytes"
+    )
     print(f"  buckets_size.bin:    {BUCKETS_NUM * 4} bytes")
     print(f"  lookup_keys.bin:     {NUM_LOOKUP * 8} bytes")
     print(f"  lookedup_values.bin: {NUM_LOOKUP * 2 * 4} bytes")
     print(f"  key_score_digest.bin:{NUM_KEYS * (8 + 8 + 1)} bytes")
 
     found_count = sum(1 for v in lookedup_values if v[0] == v[0])  # NaN != NaN
-    print(f"\nLookup keys: {NUM_LOOKUP} ({found_count} found, {NUM_LOOKUP - found_count} not found)")
+    print(
+        f"\nLookup keys: {NUM_LOOKUP} ({found_count} found, {NUM_LOOKUP - found_count} not found)"
+    )
+
 
 if __name__ == "__main__":
     main()

@@ -13,7 +13,8 @@ Deleted operations are not generated or compiled. Imported cases that used
 deleted names are retained only under `../status/legacy/deleted-operation-cases/`.
 
 Set `COMPILER_DIR` to a LinxISA v0.58 compiler `bin/` directory and
-`LINX_TILEOP_API_ROOT` to a matching TileOP API checkout, then run:
+`LINX_TILEOP_API_ROOT` to a matching TileOP API checkout. Set `LINX_SYSROOT`
+to the matching Linx musl sysroot with the C++ runtime overlay, then run:
 
 ```bash
 bash compile_all.sh all

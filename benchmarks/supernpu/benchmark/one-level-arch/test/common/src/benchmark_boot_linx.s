@@ -4,10 +4,10 @@
 .extern _linx_start
 
 _start:
-  bstart.std call _linx_start
-  c.setret 2, ->ra
+  HL.BSTART.STD CALL, _linx_start, ra=_end
+  C.BSTOP
 _end:
-  bstart.std fall
+  BSTART.STD
   addi zero, 0x5e, ->x1
   acrc 1
-  c.bstop
+  C.BSTOP

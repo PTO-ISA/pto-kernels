@@ -31,7 +31,7 @@ TopK (k=2048, 从 131072 个 uint16 元素中选出前 2048 大的)。
 | `TSHRS` | 提取 high8 = val >> 8 |
 | `TANDS` | 提取 low8 = val & 0xFF |
 | `TEXPANDS` | 广播 bucket 常量 |
-| `TCOPYOUT` | 存储直方图到 global memory |
+| `TSTORE` | 存储直方图到 global memory |
 
 ## 实现方式
 

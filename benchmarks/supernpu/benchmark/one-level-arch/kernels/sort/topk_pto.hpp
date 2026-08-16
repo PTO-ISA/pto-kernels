@@ -68,7 +68,7 @@ void ExtractHigh8Hist_PTO(tile_shape_out& dst, const uint16_t* src) {
     }
     
     // Store result
-    TCOPYOUT(dst, hist_tile);
+    TSTORE(dst, hist_tile);
 }
 
 // ============================================================================
@@ -105,7 +105,7 @@ void ExtractLow8HistForKthBin_PTO(tile_shape_out& dst, const uint16_t* src,
     }
     
     // Store result
-    TCOPYOUT(dst, hist_tile);
+    TSTORE(dst, hist_tile);
 }
 
 // ============================================================================

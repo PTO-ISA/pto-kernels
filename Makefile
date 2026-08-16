@@ -48,6 +48,7 @@ test:
 		tests/test_bench_specs.py \
 		tests/test_env_utils.py \
 		tests/test_registry_inventory.py \
+		tests/test_supernpu_makefile_contract.py \
 		tests/test_supernpu_migration.py \
 		tests/test_workflow_docs.py
 

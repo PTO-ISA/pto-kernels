@@ -47,6 +47,7 @@ FORBIDDEN_ACTIVE_PATTERNS = {
     "retired C.B.IOS spelling": re.compile(r"\bC\.B\.IOS\b"),
     "old TMA block classification": re.compile(r"\bBSTART\.TMA\b"),
     "old TEPL classification": re.compile(r"\bTEPL\b|_TEPL\b|\bBSTART\.TEPL\b"),
+    "retired Tile load/store spelling": re.compile(r"\bTCOPY(?:IN|OUT)\b"),
     "retired operation spelling": re.compile(
         r"\b(?:ACCCVT|TADDC|TADDSC|TAXPY|TFMOD|TFMODS|TGATHERB|TLRELU|"
         r"TPRELU|TRANDOM|TRESHAPE|TSORT32|TSUBC|TSUBSC)\b"
@@ -79,7 +80,9 @@ def find_forbidden_active_terms(active_root: Path) -> list[str]:
             match = pattern.search(text)
             if match:
                 line = text.count("\n", 0, match.start()) + 1
-                errors.append(f"{path.relative_to(active_root)}:{line}: {label}: {match.group(0)}")
+                errors.append(
+                    f"{path.relative_to(active_root)}:{line}: {label}: {match.group(0)}"
+                )
     return errors
 
 
@@ -108,7 +111,9 @@ def check_repository(repo_root: Path) -> list[str]:
     lock = json.loads((active_root / "SOURCE.lock.json").read_text(encoding="utf-8"))
     for key, expected in EXPECTED_SOURCE.items():
         if lock.get(key) != expected:
-            errors.append(f"SOURCE.lock.json {key!r}: expected {expected!r}, got {lock.get(key)!r}")
+            errors.append(
+                f"SOURCE.lock.json {key!r}: expected {expected!r}, got {lock.get(key)!r}"
+            )
 
     readme = (active_root / "README.md").read_text(encoding="utf-8")
     for engine in ("VEC", "TLSU", "CUBE", "SFU"):
@@ -116,10 +121,14 @@ def check_repository(repo_root: Path) -> list[str]:
             errors.append(f"active README is missing {engine} engine classification")
 
     if (active_root / "benchmark" / "two-level-arch").exists():
-        errors.append("embedded two-level API remains active; move it under status/legacy")
+        errors.append(
+            "embedded two-level API remains active; move it under status/legacy"
+        )
 
     embedded_api = list((active_root / "benchmark").rglob("template_asm.hpp"))
-    embedded_api = [path for path in embedded_api if not is_legacy_path(path, active_root)]
+    embedded_api = [
+        path for path in embedded_api if not is_legacy_path(path, active_root)
+    ]
     if embedded_api:
         errors.extend(
             f"active embedded assembly authority: {path.relative_to(active_root)}"
