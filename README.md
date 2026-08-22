@@ -67,6 +67,9 @@ The former standalone SuperNPUBench workload tree is maintained at
 [`benchmarks/supernpu/`](benchmarks/supernpu/README.md). The active subtree is
 aligned to the PTO/Linx v0.58 contract; imported pre-v0.58 material is isolated
 under its `status/legacy/` directory and is not an architectural authority.
+The exact PTO ISA 0.58.3 release identity consumed by active workloads is
+recorded in [`PTO_ISA.lock.json`](PTO_ISA.lock.json) and checked by
+`python3 scripts/check_pto_isa_0583.py`.
 
 ## Contributor Workflow
 

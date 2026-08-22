@@ -211,10 +211,10 @@ def csize(dt):
     if dt == "fp32":
         return (32, 32, 32)  # 32x32x4B = 4KB
     if dt == "fp16":
-        return (64, 64, 64)  # 64x64x2B = 8KB
+        return (32, 64, 64)  # CUBE_M32 lhs/output; 4 KiB each
     if dt == "i8":
-        return (64, 64, 64)  # 64x64x1B = 4KB
-    return (64, 64, 64)
+        return (32, 64, 64)  # CUBE_M32 lhs/output; 2 KiB each
+    return (32, 64, 64)
 
 
 def cube(op, kind, dt, sz=None):
@@ -223,16 +223,16 @@ def cube(op, kind, dt, sz=None):
     C.append(Case(op, kind, (dt,), sz, cube=True))
 
 
-for dt in ("fp16", "fp32", "i8"):
+for dt in ("fp16", "fp32"):
     cube("TMATMUL", "matmul", dt)
+cube("TMATMUL", "matmul", "fp16", (16, 32, 32))
 cube("TMATMUL_BIAS", "matmul_bias", "fp16")
 cube("TMATMUL_BIAS", "matmul_bias", "fp32")
-cube("TMATMUL_MX", "matmul_mx", "fp16")  # e4m3 placeholder -> fp16
-# matmul.ac backend still crashes (llvm.linx.blk.matmul.ac SelectionDAG) on latest toolchain
+cube("TMATMUL_ACC", "matmul_acc", "fp32")
+# A second ACC dtype is deferred until the exact compiler/runtime lane is green.
 # cube("TMATMUL_ACC", "matmul_acc", "fp16")
-# cube("TMATMUL_ACC", "matmul_acc", "fp32")
 
-# TODO: re-enable when toolchain exposes TGEMV/TGEMV_ACC/TGEMV_BIAS/TGEMV_MX.
+# TODO: add independent M=1 result oracles before enabling TGEMV cases.
 # cube("TGEMV", "gemv", "fp16")
 # cube("TGEMV", "gemv", "fp32")
 # cube("TGEMV_ACC", "gemv_acc", "fp16")
@@ -447,9 +447,9 @@ def emit_cube(c: Case, dt: str) -> str:
 // {op} ({c.kind}) {dt} {m}x{n}x{k}
 int main() {{
     constexpr int M = {m}, N = {n}, K = {k};
-    {ct} a[M*K], b[K*N], bias[1*N], as[M*K], bs[K*N], c[M*N];
+    {ct} a[M*K], b[K*N], bias[1*N], c[M*N];
     fill_seq(a, M*K); fill_seq(b, K*N); fill_seq(bias, N);
-    fill_const(as, M*K, ({ct})1); fill_const(bs, K*N, ({ct})1); zero(c, M*N);
+    zero(c, M*N);
     BENCHSTART;
 """
     tail = "    BENCHEND;\n    return 0;\n}\n"
@@ -459,8 +459,6 @@ int main() {{
         body = f"    bench_matmul_acc<{ct},M,N,K>(c,a,b);\n"
     elif c.kind == "matmul_bias":
         body = f"    bench_matmul_bias<{ct},M,N,K>(c,a,b,bias);\n"
-    elif c.kind == "matmul_mx":
-        body = f"    bench_matmul_mx<{ct},M,N,K>(c,a,as,b,bs);\n"
     elif c.kind == "gemv":
         body = f"    bench_gemv<{ct},M,N,K>(c,a,b);\n"
     elif c.kind == "gemv_acc":
