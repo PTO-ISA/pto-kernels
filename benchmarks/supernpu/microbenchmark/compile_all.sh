@@ -1,24 +1,42 @@
 #!/bin/bash
-# Microbench top-level build: cube / vector / memory / scalar
-# Each category has its own compile.all that builds every generated case.
+# Build one or every active microbenchmark category with aggregate failures.
 
+set -uo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+MICROBENCH_ROOT=${MICROBENCH_ROOT:-$SCRIPT_DIR}
 CATEGORY=${1:-all}
 
-compile_cube()   { echo ""; echo ">>> matrix (CUBE)"; (cd cube && bash compile.all); }
-compile_vector() { echo ""; echo ">>> VEC/SFU";       (cd vector && bash compile.all); }
-compile_memory() { echo ""; echo ">>> memory (TLSU)";     (cd memory && bash compile.all); }
-compile_scalar() { echo ""; echo ">>> scalar (GPR ALU)";  (cd scalar && bash compile.all); }
+run_category() {
+    local category=$1
+    local label=$2
+    local root="$MICROBENCH_ROOT/$category"
 
+    echo ""
+    echo ">>> $label"
+    if [ ! -d "$root" ]; then
+        echo "ERROR: microbenchmark category directory is missing: $root"
+        return 1
+    fi
+    if [ ! -f "$root/compile.all" ]; then
+        echo "ERROR: microbenchmark category has no compile.all: $root"
+        return 1
+    fi
+    if (cd "$root" && bash compile.all); then
+        echo "PASS: $category category"
+        return 0
+    fi
+    echo "FAIL: $category category"
+    return 1
+}
+
+selected=()
 case "$CATEGORY" in
-    cube)   compile_cube ;;
-    vector) compile_vector ;;
-    memory) compile_memory ;;
-    scalar) compile_scalar ;;
+    cube|vector|memory|scalar)
+        selected+=("$CATEGORY")
+        ;;
     all)
-        compile_cube
-        compile_vector
-        compile_memory
-        compile_scalar
+        selected+=(cube vector memory scalar)
         ;;
     *)
         echo "Usage: $0 [cube|vector|memory|scalar|all]"
@@ -26,7 +44,28 @@ case "$CATEGORY" in
         ;;
 esac
 
+failures=()
+for category in "${selected[@]}"; do
+    case "$category" in
+        cube) label="matrix (CUBE)" ;;
+        vector) label="VEC/SFU" ;;
+        memory) label="memory (TLSU)" ;;
+        scalar) label="scalar (GPR ALU)" ;;
+    esac
+    if ! run_category "$category" "$label"; then
+        failures+=("$category")
+    fi
+done
+
+if [ "${#failures[@]}" -ne 0 ]; then
+    echo ""
+    echo "=========================================="
+    echo "Microbench build FAILED: ${failures[*]}"
+    echo "=========================================="
+    exit 1
+fi
+
 echo ""
 echo "=========================================="
-echo "Microbench build completed for: $CATEGORY"
+echo "Microbench build completed: all selected categories passed ($CATEGORY)"
 echo "=========================================="

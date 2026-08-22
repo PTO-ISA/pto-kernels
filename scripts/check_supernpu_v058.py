@@ -87,8 +87,10 @@ def find_forbidden_active_terms(active_root: Path) -> list[str]:
 
 
 def compile_all_cases(path: Path) -> set[str]:
-    pattern = re.compile(r"\bmake\s+TESTCASE=([A-Za-z0-9_]+)")
-    return set(pattern.findall(path.read_text(encoding="utf-8")))
+    text = path.read_text(encoding="utf-8")
+    direct = re.findall(r"\bmake\s+TESTCASE=([A-Za-z0-9_]+)", text)
+    guarded = re.findall(r"^run_case\s+([A-Za-z0-9_]+)\s*$", text, re.MULTILINE)
+    return set(direct + guarded)
 
 
 def check_repository(repo_root: Path) -> list[str]:

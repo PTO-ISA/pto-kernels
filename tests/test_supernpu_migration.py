@@ -26,3 +26,11 @@ def test_legacy_is_excluded_but_active_retired_spelling_fails(tmp_path):
     errors = CHECKER.find_forbidden_active_terms(tmp_path)
     assert len(errors) == 1
     assert "retired B.IOD spelling" in errors[0]
+
+
+def test_compile_all_inventory_accepts_guarded_run_case(tmp_path):
+    compile_all = tmp_path / "compile.all"
+    compile_all.write_text(
+        "run_case first_case\nrun_case second_case\n", encoding="utf-8"
+    )
+    assert CHECKER.compile_all_cases(compile_all) == {"first_case", "second_case"}
