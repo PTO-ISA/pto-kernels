@@ -57,6 +57,7 @@ test-npu:
 	pytest -v tests/ -m npu --run-npu
 
 check: test
+	python3 benchmarks/supernpu/microbenchmark/gen_cases.py --check
 	python3 scripts/check_supernpu_v058.py
 	python3 scripts/check_pto_isa_0583.py
 	git diff --check

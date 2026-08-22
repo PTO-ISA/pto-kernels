@@ -19,18 +19,31 @@ using gmB_t = global_tensor<D, RowMajor<K, N>>;
 template <typename D, int M, int N>
 using gmC_t = global_tensor<D, RowMajor<M, N>>;
 
+template <typename D>
+struct cube_accumulator_element {
+    using type = std::conditional_t<
+        std::is_same_v<D, __half> || std::is_floating_point_v<D>, float,
+        std::conditional_t<std::is_signed_v<D>, int32_t, uint32_t>>;
+};
+
+template <typename D>
+using cube_accumulator_element_t = typename cube_accumulator_element<D>::type;
+
 template <typename D, int M, int K>
 using tL_t = std::conditional_t<(M <= 16), CubeTileM16<D, M, K>,
                                 CubeTileM32<D, M, K>>;
 template <typename D, int K, int N>
 using tR_t = CubeTileN8<D, K, N>;
 template <typename D, int M, int N>
-using tAcc_t = std::conditional_t<(M <= 16), CubeAccumulatorM16<D, M, N>,
-                                  CubeAccumulatorM32<D, M, N>>;
+using tAcc_t = std::conditional_t<
+    (M <= 16), CubeAccumulatorM16<cube_accumulator_element_t<D>, M, N>,
+    CubeAccumulatorM32<cube_accumulator_element_t<D>, M, N>>;
 template <typename D, int M, int N>
-using tOut_t = tAcc_t<D, M, N>;
+using tOut_t = std::conditional_t<(M <= 16), CubeAccumulatorM16<D, M, N>,
+                                  CubeAccumulatorM32<D, M, N>>;
 template <typename D, int N>
-using tBias_t = Tile<Location::Vec, D, 1, N, BLayout::RowMajor>;
+using tBias_t = Tile<Location::Vec, cube_accumulator_element_t<D>, 1, N,
+                       BLayout::RowMajor>;
 
 // C = A * B   (TMATMUL -> Tile -> GM)
 template <typename D, int M, int N, int K>
@@ -71,11 +84,13 @@ void bench_matmul_acc(D *c, D *a, D *b) {
 
 // C = A * B + bias  (TMATMUL_BIAS)
 template <typename D, int M, int N, int K>
-void bench_matmul_bias(D *c, D *a, D *b, D *bias) {
+void bench_matmul_bias(D *c, D *a, D *b,
+                       cube_accumulator_element_t<D> *bias) {
     using itA = global_iterator<gmA_t<D, M, K>, tL_t<D, M, K>>;
     using itB = global_iterator<gmB_t<D, K, N>, tR_t<D, K, N>>;
     using itC = global_iterator<gmC_t<D, M, N>, tOut_t<D, M, N>>;
-    using itBias = global_iterator<gmC_t<D, 1, N>, tOut_t<D, 1, N>>;
+    using AccD = cube_accumulator_element_t<D>;
+    using itBias = global_iterator<gmC_t<AccD, 1, N>, tBias_t<D, N>>;
     itA gA(a); itB gB(b); itC gC(c); itBias gBias(bias);
     auto gA0 = gA(0, 0), gB0 = gB(0, 0), gC0 = gC(0, 0), gBias0 = gBias(0, 0);
     tL_t<D, M, K> tA; tR_t<D, K, N> tB; tBias_t<D, N> tBias;

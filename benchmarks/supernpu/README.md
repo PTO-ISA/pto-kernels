@@ -29,6 +29,9 @@ under `status/legacy/` remain non-normative evidence.
 
 Historical source, reports, and the pre-v0.58 embedded two-level API are isolated under
 [`status/legacy/`](status/legacy/README.md) and are excluded from active checks.
+The former `fa_2d_unroll_gmma.cpp` SPMD sketch is also archived there: it mixed
+legacy matrix tiles, ordinary DMA, Vec accumulators, and `TMATMUL_FIXP` without
+an executable result oracle, so it is not an active 0.58.3 workload.
 
 ## Layout
 

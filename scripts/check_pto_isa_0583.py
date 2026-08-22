@@ -128,13 +128,63 @@ def check_repository(repo_root: Path) -> list[str]:
         "TLOAD_CUBE",
         "TSTORE_CUBE",
         "TMATMUL_ACC(tOut, tAcc, tA, tB)",
-        "Tile<Location::Vec, D, 1, N, BLayout::RowMajor>",
+        "Tile<Location::Vec, cube_accumulator_element_t<D>, 1, N,",
     ):
         if required not in cube_header:
             errors.append(f"cube_bench.hpp is missing {required}")
     for forbidden in ("TileLeft", "TileRight", "bench_matmul_mx"):
         if forbidden in cube_header:
             errors.append(f"active cube_bench.hpp retains {forbidden}")
+    for required in (
+        "cube_accumulator_element_t",
+        "std::is_signed_v<D>",
+        "int32_t, uint32_t",
+        "gmC_t<AccD, 1, N>",
+        "tBias_t<D, N>",
+    ):
+        if required not in cube_header:
+            errors.append(f"cube_bench.hpp is missing accumulator trait {required}")
+
+    active_cube_sources = (
+        active_root / "benchmark" / "one-level-arch" / "test" / "kernel"
+    )
+    required_cell_sources = (
+        active_cube_sources / "matmul" / "src" / "matmul_gmma.cpp",
+        active_cube_sources / "multi_thread" / "matmul" / "src" / "matmul.cpp",
+    )
+    for source in required_cell_sources:
+        if not source.is_file():
+            errors.append(f"missing active CUBE source {source.relative_to(repo_root)}")
+            continue
+        text = source.read_text(encoding="utf-8")
+        for required in (
+            "CubeTileM16",
+            "CubeTileM32",
+            "CubeTileN8",
+            "CubeAccumulatorM16",
+            "CubeAccumulatorM32",
+            "TLOAD_CUBE",
+            "TSTORE_CUBE",
+            "TMATMUL_ACC(tNext, tC, tA, tB)",
+        ):
+            if required not in text:
+                errors.append(f"{source.relative_to(repo_root)} is missing {required}")
+        for forbidden in ("TileLeft", "TileRight", "TMATMUL_FIXP"):
+            if forbidden in text:
+                errors.append(f"{source.relative_to(repo_root)} retains {forbidden}")
+
+    retired_fa = (
+        active_root
+        / "status"
+        / "legacy"
+        / "one-level-cube-v058-incomplete"
+        / "fa_2d_unroll_gmma.cpp"
+    )
+    active_fa = (
+        active_cube_sources / "multi_thread" / "fa" / "src" / "fa_2d_unroll_gmma.cpp"
+    )
+    if active_fa.exists() or not retired_fa.is_file():
+        errors.append("incomplete FA GMMA sketch is not isolated under status/legacy")
 
     cube_sources = sorted(
         (active_root / "microbenchmark" / "cube" / "src").glob("*.cpp")

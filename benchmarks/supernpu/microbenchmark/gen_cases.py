@@ -8,7 +8,10 @@
 # Usage: python3 gen_cases.py
 from __future__ import annotations
 
+import argparse
 import os
+from pathlib import Path
+import tempfile
 from dataclasses import dataclass
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -440,6 +443,11 @@ int main() {{
 
 def emit_cube(c: Case, dt: str) -> str:
     ct = DTYPE.get(dt, "__half")  # low-precision placeholder falls back to __half
+    acc_ct = (
+        "float"
+        if dt in {"fp16", "fp32"}
+        else ("int32_t" if dt.startswith("i") else "uint32_t")
+    )
     m, n, k = c.size
     op = c.op
     head = f"""#include "cube_bench.hpp"
@@ -447,7 +455,8 @@ def emit_cube(c: Case, dt: str) -> str:
 // {op} ({c.kind}) {dt} {m}x{n}x{k}
 int main() {{
     constexpr int M = {m}, N = {n}, K = {k};
-    {ct} a[M*K], b[K*N], bias[1*N], c[M*N];
+    {ct} a[M*K], b[K*N], c[M*N];
+    {acc_ct} bias[1*N];
     fill_seq(a, M*K); fill_seq(b, K*N); fill_seq(bias, N);
     zero(c, M*N);
     BENCHSTART;
@@ -590,15 +599,80 @@ int main() {{
     return len(names)
 
 
-def main():
-    nv = gen_family("vector", V, emit_vector)
-    nm = gen_family("memory", ME, emit_memory)
-    nc = gen_family("cube", C, emit_cube)
-    ns = gen_scalar()
+def generate_all(
+    root: str | os.PathLike[str] | None = None,
+) -> tuple[int, int, int, int]:
+    global ROOT
+    previous_root = ROOT
+    if root is None:
+        root = ROOT
+    ROOT = os.fspath(root)
+    try:
+        nv = gen_family("vector", V, emit_vector)
+        nm = gen_family("memory", ME, emit_memory)
+        nc = gen_family("cube", C, emit_cube)
+        ns = gen_scalar()
+    finally:
+        ROOT = previous_root
+    return nv, nm, nc, ns
+
+
+def check_generated(root: str | os.PathLike[str] = ROOT) -> list[str]:
+    root_path = Path(root).resolve()
+    errors: list[str] = []
+    with tempfile.TemporaryDirectory(prefix="pto-kernels-generated-") as tmp:
+        generated_root = Path(tmp)
+        generate_all(generated_root)
+        for family in ("vector", "memory", "cube", "scalar"):
+            expected_dir = generated_root / family
+            actual_dir = root_path / family
+            expected = {
+                path.relative_to(expected_dir)
+                for path in expected_dir.rglob("*")
+                if path.is_file()
+            }
+            actual = {
+                path.relative_to(actual_dir)
+                for path in actual_dir.rglob("*")
+                if path.is_file()
+                and (path.name == "compile.all" or path.parent.name == "src")
+            }
+            for relative in sorted(expected - actual):
+                errors.append(f"{family}: missing generated file {relative}")
+            for relative in sorted(actual - expected):
+                errors.append(f"{family}: stale generated file {relative}")
+            for relative in sorted(expected & actual):
+                expected_path = expected_dir / relative
+                actual_path = actual_dir / relative
+                if expected_path.read_bytes() != actual_path.read_bytes():
+                    errors.append(f"{family}: generated drift in {relative}")
+                if relative.name == "compile.all" and not os.access(
+                    actual_path, os.X_OK
+                ):
+                    errors.append(f"{family}: compile.all is not executable")
+    return errors
+
+
+def main(argv: list[str] | None = None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--check", action="store_true")
+    args = parser.parse_args(argv)
+    if args.check:
+        errors = check_generated()
+        if errors:
+            print("generated microbenchmark checks failed:")
+            for error in errors:
+                print(f"- {error}")
+            return 1
+        print("generated microbenchmark corpus is current")
+        return 0
+
+    nv, nm, nc, ns = generate_all()
     print(
         f"generated: vector={nv} memory={nm} cube={nc} scalar={ns} total={nv+nm+nc+ns}"
     )
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

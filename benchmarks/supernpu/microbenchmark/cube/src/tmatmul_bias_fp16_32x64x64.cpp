@@ -3,7 +3,8 @@
 // TMATMUL_BIAS (matmul_bias) fp16 32x64x64
 int main() {
     constexpr int M = 32, N = 64, K = 64;
-    __half a[M*K], b[K*N], bias[1*N], c[M*N];
+    __half a[M*K], b[K*N], c[M*N];
+    float bias[1*N];
     fill_seq(a, M*K); fill_seq(b, K*N); fill_seq(bias, N);
     zero(c, M*N);
     BENCHSTART;

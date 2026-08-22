@@ -67,23 +67,6 @@ ifeq ($(TESTCASE), fa_softmax_pto)
    TARGET = $(ELF_HEAD)/$(TESTCASE)_Sq$(Sq)_Skv$(Skv)_Tm$(Tm)_Tk$(Tk).elf
 endif
 
-ifeq ($(TESTCASE), fa_2d_unroll_gmma)
-   SRC_FILE += $(TEST_ROOT)/$(CASE_SRC_DIR)/fa_2d_unroll_gmma.cpp
-   Sq ?= 512
-   Skv ?= 512
-   Tm ?= 8
-   Tk ?= 16
-   X ?= 1
-   Y ?= 1
-   DEFINES += -DTsq=$(Sq)
-   DEFINES += -DTskv=$(Skv)
-   DEFINES += -DTm=$(Tm)
-   DEFINES += -DTk=$(Tk)
-   DEFINES += -DXdim=$(X)
-   DEFINES += -DYdim=$(Y)
-   TARGET = $(ELF_HEAD)/$(TESTCASE)_Sq$(Sq)_Skv$(Skv)_Tm$(Tm)_Tk$(Tk)_X$(X)_Y$(Y).elf
-endif
-
 include ../../common/Makefile.common
 
 clean:

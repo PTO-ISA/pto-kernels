@@ -51,15 +51,14 @@ using namespace pto;
 //   - get_thread_idx() selects one complete A/C matrix from those arrays.
 //   - The kernel's gM and tM are already PE-local dimensions; no further
 //     row splitting occurs inside the kernel.
-//   - B is not split. Each PE loads the complete [tK, tN] rhs operand into
-//     TileRight.
+//   - B is not split. Each PE loads the complete [tK, tN] rhs operand into a
+//     persistent CUBE_N8 Local tile.
 //
 // Tile mapping:
 //   - Each PE holds A_pe [tM, tK] and C_pe [tM, tN].
 //   - The four PE-local A cells collectively form A_big [4*tM, tK].
-//   - Each PE presents one TileRight B operand with shape [tK, tN].
-//   - TMATMUL collectively computes C_big [4*tM, tN], while each PE receives
-//     only its own accumulator C_pe [tM, tN].
+//   - Each PE presents one CUBE_N8 B operand with shape [tK, tN].
+//   - Each TMATMUL computes the current PE's accumulator C_pe [tM, tN].
 template <typename dtype, int gM, int gN, int gK, int tM, int tN, int tK>
 void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     constexpr int kTileByteLimit = 8 * 1024;
@@ -67,6 +66,7 @@ void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     static_assert(gM % tM == 0, "M must be divisible by tM");
     static_assert(gN % tN == 0, "N must be divisible by tN");
     static_assert(gK % tK == 0, "K must be divisible by tK");
+    static_assert(tM <= 32, "Local CUBE lhs/output requires CUBE_M16/M32");
     static_assert(tM * tK * sizeof(dtype) < kTileByteLimit,
                   "each PE A tile must be smaller than 8 KB");
     static_assert(tM * tN * sizeof(float) < kTileByteLimit,
@@ -86,17 +86,15 @@ void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     using gmC = global_tensor<float, RowMajor<gM, gN>>;
 
     // PE-private lhs and output cells.
-    using tileA = TileLeft<dtype, tM, tK>;
-    using tileC =
-        Tile<Location::Vec, float, tM, tN, BLayout::RowMajor>;
-
-    // TLOAD requires a local tile. Publish it to compiler-managed shared
-    // storage before passing B to the shared-right TMATMUL overload.
-    using tileBLocal = TileRight<dtype, tK, tN>;
-    using tileBShared = SharedTile<tileBLocal>;
+    using tileA = std::conditional_t<(tM <= 16), CubeTileM16<dtype, tM, tK>,
+                                     CubeTileM32<dtype, tM, tK>>;
+    using tileC = std::conditional_t<
+        (tM <= 16), CubeAccumulatorM16<float, tM, tN>,
+        CubeAccumulatorM32<float, tM, tN>>;
+    using tileB = CubeTileN8<dtype, tK, tN>;
 
     using itA = global_iterator<gmA, tileA>;
-    using itB = global_iterator<gmB, tileBLocal>;
+    using itB = global_iterator<gmB, tileB>;
     using itC = global_iterator<gmC, tileC>;
 
     itA gIterA(a_ptr);
@@ -115,16 +113,17 @@ void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
             auto accumulate_k = [&]<int KIndex>(auto &&self) __attribute__((always_inline)) -> void {
                 if constexpr (KIndex < Kb) {
                     tileA tA;
-                    tileBLocal tBLocal;
+                    tileB tB;
                     auto gA = gIterA(i, KIndex);
-                    TLOAD(tA, gA);
+                    TLOAD_CUBE(tA, gA);
                     auto gB = gIterB(KIndex, j);
-                    TLOAD(tBLocal, gB);
-                    tileBShared tBShared = TMOV_L2S_PUBLISH(tBLocal);
+                    TLOAD_CUBE(tB, gB);
                     if constexpr (KIndex == 0) {
-                        TMATMUL(tC, tA, tBShared);
+                        TMATMUL(tC, tA, tB);
                     } else {
-                        TMATMUL_ACC(tC, tC, tA, tBShared);
+                        tileC tNext;
+                        TMATMUL_ACC(tNext, tC, tA, tB);
+                        tC = tNext;
                     }
                     self.template operator()<KIndex + 1>(self);
                 }
@@ -132,7 +131,7 @@ void matmul_multithread(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
             accumulate_k.template operator()<0>(accumulate_k);
 
             auto gC = gIterC(i, j);
-            TSTORE(gC, tC);
+            TSTORE_CUBE(gC, tC);
         }
     }
 }

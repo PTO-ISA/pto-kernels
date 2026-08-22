@@ -1,5 +1,7 @@
 import importlib.util
 from pathlib import Path
+import shutil
+import sys
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "check_pto_isa_0583.py"
@@ -7,6 +9,19 @@ SPEC = importlib.util.spec_from_file_location("check_pto_isa_0583", SCRIPT)
 assert SPEC is not None and SPEC.loader is not None
 CHECKER = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(CHECKER)
+
+GENERATOR_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "benchmarks"
+    / "supernpu"
+    / "microbenchmark"
+    / "gen_cases.py"
+)
+GENERATOR_SPEC = importlib.util.spec_from_file_location("gen_cases", GENERATOR_PATH)
+assert GENERATOR_SPEC is not None and GENERATOR_SPEC.loader is not None
+GENERATOR = importlib.util.module_from_spec(GENERATOR_SPEC)
+sys.modules[GENERATOR_SPEC.name] = GENERATOR
+GENERATOR_SPEC.loader.exec_module(GENERATOR)
 
 
 def test_pto_isa_0583_repository_contract():
@@ -40,3 +55,30 @@ def test_retired_body_branch_is_rejected_outside_legacy(tmp_path):
 
     errors = CHECKER.check_repository(tmp_path)
     assert any("retired branch B.EQ" in error for error in errors)
+
+
+def test_generated_microbenchmark_corpus_is_current():
+    assert GENERATOR.check_generated(GENERATOR_PATH.parent) == []
+
+
+def test_generated_microbenchmark_check_rejects_drift(tmp_path):
+    source_root = GENERATOR_PATH.parent
+    for family in ("vector", "memory", "cube", "scalar"):
+        shutil.copytree(source_root / family, tmp_path / family)
+    drift = tmp_path / "cube" / "src" / "tmatmul_fp32_32x32x32.cpp"
+    drift.write_text(drift.read_text(encoding="utf-8") + "// drift\n", encoding="utf-8")
+    errors = GENERATOR.check_generated(tmp_path)
+    assert "cube: generated drift in src/tmatmul_fp32_32x32x32.cpp" in errors
+
+
+def test_cube_accumulator_and_bias_types_are_architectural():
+    micro_root = GENERATOR_PATH.parent
+    header = (micro_root / "cube" / "cube_bench.hpp").read_text(encoding="utf-8")
+    fp16_bias = (
+        micro_root / "cube" / "src" / "tmatmul_bias_fp16_32x64x64.cpp"
+    ).read_text(encoding="utf-8")
+    assert "std::is_floating_point_v<D>, float" in header
+    assert "std::is_signed_v<D>, int32_t, uint32_t" in header
+    assert "gmC_t<AccD, 1, N>" in header
+    assert "float bias[1*N];" in fp16_bias
+    assert "bench_matmul_bias<__half,M,N,K>(c,a,b,bias);" in fp16_bias

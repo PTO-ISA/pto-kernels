@@ -3,7 +3,8 @@
 // TMATMUL (matmul) fp16 16x32x32
 int main() {
     constexpr int M = 16, N = 32, K = 32;
-    __half a[M*K], b[K*N], bias[1*N], c[M*N];
+    __half a[M*K], b[K*N], c[M*N];
+    float bias[1*N];
     fill_seq(a, M*K); fill_seq(b, K*N); fill_seq(bias, N);
     zero(c, M*N);
     BENCHSTART;
