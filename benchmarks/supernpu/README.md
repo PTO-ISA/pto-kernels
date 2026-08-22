@@ -6,15 +6,34 @@ This subtree is the maintained SuperNPUBench workload collection inside
 
 ## Active architecture contract
 
-- PTO-ISA and LinxISA: released v0.58 common tile-operation contract.
+- PTO ISA 0.58.3: exact released authority recorded in
+  [`PTO_ISA.lock.json`](../../PTO_ISA.lock.json), including source commit/tree,
+  encoding ABI, projection/content hashes, and instruction counts.
+- Active one-level CUBE reachability is recorded in
+  [`CUBE_ACTIVE.json`](CUBE_ACTIVE.json) and must exactly match checker discovery.
 - Semantic engines: **VEC**, **TLSU**, **CUBE**, and **SFU**.
 - VEC contains elementwise operations only; complex operations use SFU.
-- Tile size is 128 B..8 KiB per participating PE.
+- Local `B.IOT` SizeCode 1..10 encodes 128 B..64 KiB per participating PE;
+  Shared `B.IOS` SizeCode 1..12 encodes 128 B..256 KiB per participating PE.
+- The exact PEMode mask decoder is `0000, 1000, 0100, 0010, 0001, 1100,
+  1110, 1111`; zero is a strict no-op and other four-bit masks are illegal.
+- Local CUBE primaries use persistent `CUBE_M16`, `CUBE_M32`, and `CUBE_N8`
+  CELL layouts with explicit GM conversion at `TLOAD_CUBE`/`TSTORE_CUBE`.
+- Matrix operations carry exactly one `B.FPATR`; its low fields include
+  `TransA` and `TransB`, which are legal only for the corresponding Shared
+  primary.
 - Active assembly and intrinsic names must come from the v0.58 PTO/Linx
   specifications and the matching Linx-TileOP-API.
 
+The eight retired body branches `B.EQ`, `B.NE`, `B.LT`, `B.GE`, `B.LTU`,
+`B.GEU`, `B.Z`, and `B.NZ` are rejected from active sources. Historical files
+under `status/legacy/` remain non-normative evidence.
+
 Historical source, reports, and the pre-v0.58 embedded two-level API are isolated under
 [`status/legacy/`](status/legacy/README.md) and are excluded from active checks.
+The former `fa_2d_unroll_gmma.cpp` SPMD sketch is also archived there: it mixed
+legacy matrix tiles, ordinary DMA, Vec accumulators, and `TMATMUL_FIXP` without
+an executable result oracle, so it is not an active 0.58.3 workload.
 
 ## Layout
 
@@ -35,6 +54,7 @@ The default repository check is lightweight and does not require an NPU:
 
 ```bash
 python3 scripts/check_supernpu_v058.py
+python3 scripts/check_pto_isa_0583.py
 ```
 
 Compilation requires a LinxISA v0.58 compiler/sysroot and a matching
@@ -46,3 +66,7 @@ The build fails closed when any of these three roots is omitted.
 
 Full compiler, model, and hardware coverage remains an explicit release or
 bring-up action; missing or skipped runs are not success.
+
+The build consumes `LINX_TILEOP_API_ROOT` as an explicit checkout and does not
+pin a temporary LLVM topic SHA. The final compiler identity belongs in the
+superproject component lock after its reviewed leaf PR is merged.

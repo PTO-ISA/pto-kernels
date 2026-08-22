@@ -6,24 +6,19 @@ for type/dimension parameterization.
 
 ## Operator List
 
-> **DeepSeek 迁移算子**：`deepseek/` 子目录收录从 TileKernels（TileLang DSL）迁移的 19 个
-> tile 版算子（engram/mhc/moe/quant/transpose 五模块），已通过 linx 工具链编译+链接验证。
+> **DeepSeek 迁移算子**：`deepseek/` 子目录保留当前非-CUBE active
+> tile 算子；旧 multilayer-recompute GEMM 已移入 legacy，不计入当前验证。
 > 详见 [`deepseek/TileKernels迁移说明.md`](deepseek/TileKernels迁移说明.md) 与各模块 README。
 
-### 1. Matmul — `matmul/`
-- `matmul.hpp` — general matrix multiply; FP32/FP16/FP8; mask, dynamic, vec variants; A/B tile reuse.
-- `matmul_mx.hpp` — MX quantized matmul; FP4×FP4, BF16×FP4 mixed precision; microscaling factors.
+### 1. Matmul
+- The active executable smoke is the CELL-based
+  `test/kernel/matmul/src/matmul_gmma.cpp`.
+- Pre-CELL generic/MX headers are archived under
+  `status/legacy/one-level-cube-v058-incomplete/`.
 
-### 2. Flash Attention — `fa/` (see [`fa/README.md`](fa/README.md))
-- `fa_2d_unroll.hpp` / `fa_2d_unroll_pto.hpp` — 2D unroll (X/Y dims); seq len 256/512.
-- `fa_unalign_2d_unroll.hpp` / `fa_unalign_2d_unroll_pto.hpp` — unaligned boundary.
-- `fa_hif4.hpp` / `fa_hif4_pto.hpp` — HIF4 quantized.
-- `fa_dcore.hpp` / `fa_dcore_pto.hpp` — DCore-optimized.
-- `sfa_pto.hpp` — Sparse Flash Attention (block-sparse / CSR pattern), two-pass.
-- `fa_utils.h` / `fa_fp4_utils.h` — shared helpers.
-
-> Note: in `one-level-arch`, `*_pto.hpp` files are PTO-style variants kept
-> alongside the base implementations.
+### 2. Flash Attention
+- The imported one-level FA headers mixed pre-CELL matrix storage and deleted
+  CUBE APIs without a current oracle. They are non-normative legacy material.
 
 ### 3. Broadcast — `broadcast/`
 - `broadcast.hpp` — base; `broadcast_07/019/039/Hunyuan.hpp` — 2D~5D shapes;
@@ -56,10 +51,8 @@ for type/dimension parameterization.
 - `topk.hpp` / `topk_pto.hpp` — Top-K via radix-bucket histogram.
 
 ### 11. DeepSeek 迁移算子 — `deepseek/` (see [`deepseek/README.md`](deepseek/README.md))
-- 19 个从 TileKernels (TileLang DSL) 迁移的 tile 版算子:
-  engram (2), mhc (5+1), moe (8+1), quant (3+2), transpose (1)
-- `_compile_test.cpp` 实例化全部 kernel 用于编译验证
-- 23 个独立测试用例 (每个 kernel 一个 ELF)
+- `_compile_test.cpp` 实例化当前 active 非-CUBE kernel。
+- multilayer-recompute 位于 `status/legacy/one-level-cube-v058-incomplete/`。
 
 ### Utils — `utils/`
 - `layout_transform.hpp` — ND→ZZ / ND→NN offset calculation.
@@ -71,10 +64,9 @@ for type/dimension parameterization.
 4. **Optimization-oriented** — multiple variants per scenario.
 
 ## Usage
-```cpp
-#include "matmul/matmul.hpp"
-matmul_mask<float, M, N, K, tM, tN, tK>(dst, src0, src1);
-```
+
+Use the separately versioned Linx-TileOP-API CUBE_M16/M32 and CUBE_N8 types;
+do not include archived one-level CUBE headers.
 
 ## Optimization Tips
 - Pick `tM/tN/tK` per hardware.

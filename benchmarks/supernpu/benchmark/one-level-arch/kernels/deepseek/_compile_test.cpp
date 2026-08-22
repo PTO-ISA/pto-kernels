@@ -1,4 +1,4 @@
-// 编译测试驱动：实例化全部 19 个迁移 kernel，用于 linx 工具链编译验证。
+// 编译测试驱动：实例化当前 active 迁移 kernel，用于 linx 工具链编译验证。
 #include <common/pto_tileop.hpp>
 #include <cstdint>
 #include "deepseek/engram/fused_weight_pto.hpp"
@@ -7,7 +7,6 @@
 #include "deepseek/mhc/expand_to_mhc_bwd_pto.hpp"
 #include "deepseek/mhc/sinkhorn_pto.hpp"
 #include "deepseek/mhc/norm_fn_pto.hpp"
-#include "deepseek/mhc/multilayer_recompute_pto.hpp"
 #include "deepseek/moe/normalize_weight_pto.hpp"
 #include "deepseek/moe/topk_gate_pto.hpp"
 #include "deepseek/moe/group_count_aux_fi_pto.hpp"
@@ -30,7 +29,6 @@ int main() {
     [[maybe_unused]] auto a05 = &sinkhorn_fwd<2, 16, 1>;
     [[maybe_unused]] auto a06 = &rms_norm<16, 8>;
     [[maybe_unused]] auto a07 = &fn_normw_merge_fwd<16, 32, 16, 32>;
-    [[maybe_unused]] auto a08 = &multilayer_recompute<16, 16, 2>;
     [[maybe_unused]] auto a09 = &normalize_weight<16, 8>;
     [[maybe_unused]] auto a10 = &topk_gate<16, 32, 4>;
     [[maybe_unused]] auto a11 = &group_count<16, 8, 32>;

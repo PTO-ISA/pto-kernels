@@ -1,17 +1,16 @@
 #!/bin/bash
-# DeepSeek migrated kernels — 23 independent compile tests (one ELF per kernel)
+# DeepSeek active non-CUBE independent compile tests (one ELF per kernel)
 
 # engram (2)
 make TESTCASE=fused_weight diss
 make TESTCASE=engram_hash_layer diss
 
-# mhc (6)
+# mhc (5 active; the pre-CELL multilayer GEMM is archived)
 make TESTCASE=expand_to_mhc_fwd diss
 make TESTCASE=expand_to_mhc_bwd diss
 make TESTCASE=sinkhorn_fwd diss
 make TESTCASE=rms_norm diss
 make TESTCASE=fn_normw_merge_fwd diss
-make TESTCASE=multilayer_recompute diss
 
 # moe (9)
 make TESTCASE=normalize_weight diss

@@ -20,7 +20,9 @@ jobs:
           python-version: '3.10'
       - name: Check active source and build contracts
         run: |
+          python3 benchmarks/supernpu/microbenchmark/gen_cases.py --check
           python3 scripts/check_supernpu_v058.py
+          python3 scripts/check_pto_isa_0583.py
           python3 tests/test_supernpu_makefile_contract.py
 
   shellcheck:

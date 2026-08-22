@@ -9,7 +9,7 @@ The `test` tree contains kernel test suites. All make-driven suites reuse
 | Path | Use it for |
 | --- | --- |
 | [`common`](common) | Shared make rules, platform flags, output layout, simulator targets, `_start.s`, `benchmark.h`. |
-| [`kernel`](kernel) | Per-operator suites: broadcast, concat, control, element_wise, fa, gather, matmul, reduction, sort, transpose. |
+| [`kernel`](kernel) | Per-operator suites: broadcast, concat, control, element_wise, gather, CELL matmul, reduction, sort, transpose. |
 
 ## Kernel Test Suites
 
@@ -19,9 +19,8 @@ The `test` tree contains kernel test suites. All make-driven suites reuse
 | [`kernel/concat`](kernel/concat) | Concat-gather / concat-scatter. |
 | [`kernel/control`](kernel/control) | Hash-table lookup (pure tile-op). |
 | [`kernel/element_wise`](kernel/element_wise) | GELU. |
-| [`kernel/fa`](kernel/fa) | Flash attention. |
 | [`kernel/gather`](kernel/gather) | Gather. |
-| [`kernel/matmul`](kernel/matmul) | Matmul (HIF4_HIF4, A16W4, MASK). |
+| [`kernel/matmul`](kernel/matmul) | PTO ISA 0.58.3 Local CELL matmul smoke. |
 | [`kernel/reduction`](kernel/reduction) | Reduction (max, sum). |
 | [`kernel/sort`](kernel/sort) | Topk. |
 | [`kernel/transpose`](kernel/transpose) | Transpose. |
@@ -30,7 +29,8 @@ The `test` tree contains kernel test suites. All make-driven suites reuse
 
 ```sh
 cd test/kernel/matmul
-make TESTCASE=matmul TYPE=HIF4_HIF4 M=256 N=2048 K=2048 tM=64 tN=64 tK=128 \
+make TESTCASE=matmul TYPE=GMMA MODE=MASK_FP16 \
+    M=256 N=256 K=256 tM=16 tN=16 tK=64 \
     COMPILER_DIR=/path/to/linx/compiler/bin
 ```
 

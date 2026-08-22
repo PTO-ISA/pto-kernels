@@ -47,7 +47,9 @@ test:
 	pytest -v \
 		tests/test_bench_specs.py \
 		tests/test_env_utils.py \
+		tests/test_pto_isa_0583_contract.py \
 		tests/test_registry_inventory.py \
+		tests/test_supernpu_compile_all.py \
 		tests/test_supernpu_makefile_contract.py \
 		tests/test_supernpu_migration.py \
 		tests/test_workflow_docs.py
@@ -56,7 +58,9 @@ test-npu:
 	pytest -v tests/ -m npu --run-npu
 
 check: test
+	python3 benchmarks/supernpu/microbenchmark/gen_cases.py --check
 	python3 scripts/check_supernpu_v058.py
+	python3 scripts/check_pto_isa_0583.py
 	git diff --check
 
 bootstrap:

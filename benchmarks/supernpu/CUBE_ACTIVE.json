@@ -1,0 +1,18 @@
+{
+  "schema": "pto-kernels.supernpu-cube-active.v1",
+  "release": "0.58.3",
+  "active_sources": [
+    "benchmark/one-level-arch/test/kernel/matmul/src/matmul_gmma.cpp",
+    "benchmark/one-level-arch/test/kernel/multi_thread/matmul/src/matmul.cpp"
+  ],
+  "generated_corpus": "microbenchmark/cube",
+  "legacy_root": "status/legacy/one-level-cube-v058-incomplete",
+  "requirements": [
+    "CUBE_M16_OR_M32_A_AND_D",
+    "CUBE_N8_B",
+    "TLOAD_CUBE_TSTORE_CUBE",
+    "DISTINCT_EXPLICIT_ACC_D_C",
+    "ACCUMULATOR_TYPED_BIAS_SCALE_POSTPROCESS",
+    "LOCAL_M_AT_MOST_32"
+  ]
+}

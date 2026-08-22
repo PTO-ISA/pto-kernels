@@ -16,11 +16,11 @@
 #endif
 
 #ifndef tilM
-#define tilM 128
+#define tilM 32
 #endif
 
 #ifndef tilN
-#define tilN 128
+#define tilN 32
 #endif
 
 #ifndef tilK
@@ -59,11 +59,11 @@ using namespace pto;
 // Execution model:
 //   - get_thread_idx() selects one complete PE-local A/C matrix.
 //   - Each PE independently loads its A tile and the same logical B tile.
-//   - The four PE-local products collectively form the big logical result.
+//   - The four PE-local products form independent result slices.
 //   - Each PE stores only its own C matrix.
 //
-// This file is mainly used to describe the GMMA tile mapping. The name gmma is
-// intentionally kept as the intrinsic name from the programming model.
+// The historical GMMA filename is retained for workload compatibility; the
+// active implementation uses ordinary per-PE PTO CUBE CELL operations.
 template <typename dtype, int gM, int gN, int gK, int tM, int tN, int tK>
 void matmul_mask_gmma_tileop(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     constexpr int kTileByteLimit = 4 * 1024;
@@ -71,6 +71,7 @@ void matmul_mask_gmma_tileop(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     static_assert(gM % tM == 0, "gM must be divisible by tM in this GMMA model");
     static_assert(gN % tN == 0, "gN must be divisible by tN in this GMMA model");
     static_assert(gK % tK == 0, "gK must be divisible by tK in this GMMA model");
+    static_assert(tM <= 32, "Local CUBE lhs/output requires CUBE_M16/M32");
     static_assert(tM * tK * sizeof(dtype) < kTileByteLimit,
                   "each PE A tile must be smaller than 4 KB");
     static_assert(tM * tN * sizeof(float) < kTileByteLimit,
@@ -88,9 +89,12 @@ void matmul_mask_gmma_tileop(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
     using gmB = global_tensor<dtype, RowMajor<gK, gN>>;
     using gmC = global_tensor<float, RowMajor<gM, gN>>;
 
-    using tileA = TileLeft<dtype, tM, tK>;
-    using tileB = TileRight<dtype, tK, tN>;
-    using tileC = Tile<Location::Vec, float, tM, tN, BLayout::RowMajor>;
+    using tileA = std::conditional_t<(tM <= 16), CubeTileM16<dtype, tM, tK>,
+                                     CubeTileM32<dtype, tM, tK>>;
+    using tileB = CubeTileN8<dtype, tK, tN>;
+    using tileC = std::conditional_t<
+        (tM <= 16), CubeAccumulatorM16<float, tM, tN>,
+        CubeAccumulatorM32<float, tM, tN>>;
 
     using itA = global_iterator<gmA, tileA>;
     using itB = global_iterator<gmB, tileB>;
@@ -112,23 +116,22 @@ void matmul_mask_gmma_tileop(float *c_ptr, dtype *a_ptr, dtype *b_ptr) {
             for (int k = 0; k < Kb; ++k) {
                 tileA tA;
                 tileB tB;
-                tileC tPart;
-
                 auto gA = gAIter(i, k);
                 auto gB = gBIter(k, j);
-                TLOAD(tA, gA);
-                TLOAD(tB, gB);
-                TMATMUL_FIXP(tPart, tA, tB, fixp::keep_acc());
+                TLOAD_CUBE(tA, gA);
+                TLOAD_CUBE(tB, gB);
 
                 if (k == 0) {
-                    tC = tPart;
+                    TMATMUL(tC, tA, tB);
                 } else {
-                    TADD(tC, tC, tPart);
+                    tileC tNext;
+                    TMATMUL_ACC(tNext, tC, tA, tB);
+                    tC = tNext;
                 }
             }
 
             auto gC = gCIter(i, j);
-            TSTORE(gC, tC);
+            TSTORE_CUBE(gC, tC);
         }
     }
 }
