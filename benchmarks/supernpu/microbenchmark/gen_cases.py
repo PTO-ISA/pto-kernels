@@ -498,10 +498,33 @@ def gen_family(family: str, cases: list[Case], emitter):
             with open(os.path.join(src_dir, name + ".cpp"), "w", encoding="utf-8") as f:
                 f.write(emitter(c, dt))
     # compile.all
-    lines = ["#!/bin/bash", f'echo "=== {family} ==="']
+    lines = [
+        "#!/bin/bash",
+        "set -uo pipefail",
+        f'echo "=== {family} ==="',
+        "failures=()",
+        "run_case() {",
+        "    local testcase=$1",
+        '    echo "  $testcase"',
+        '    if make "TESTCASE=$testcase"; then',
+        '        echo "PASS: $testcase"',
+        "    else",
+        '        echo "FAIL: $testcase"',
+        '        failures+=("$testcase")',
+        "    fi",
+        "}",
+    ]
     for n in sorted(names):
-        lines.append(f'echo "  {n}"; make TESTCASE={n}')
-    lines.append('echo "=== Done ==="')
+        lines.append(f"run_case {n}")
+    lines.extend(
+        [
+            'if [ "${#failures[@]}" -ne 0 ]; then',
+            f'    echo "=== {family} FAILED: ${{failures[*]}} ==="',
+            "    exit 1",
+            "fi",
+            f'echo "=== {family} completed: all {len(names)} cases passed ==="',
+        ]
+    )
     with open(os.path.join(ROOT, family, "compile.all"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     os.chmod(os.path.join(ROOT, family, "compile.all"), 0o755)
@@ -589,10 +612,33 @@ int main() {{
 """,
             )
 
-    lines = ["#!/bin/bash", 'echo "=== scalar ==="']
+    lines = [
+        "#!/bin/bash",
+        "set -uo pipefail",
+        'echo "=== scalar ==="',
+        "failures=()",
+        "run_case() {",
+        "    local testcase=$1",
+        '    echo "  $testcase"',
+        '    if make "TESTCASE=$testcase"; then',
+        '        echo "PASS: $testcase"',
+        "    else",
+        '        echo "FAIL: $testcase"',
+        '        failures+=("$testcase")',
+        "    fi",
+        "}",
+    ]
     for n in sorted(names):
-        lines.append(f'echo "  {n}"; make TESTCASE={n}')
-    lines.append('echo "=== Done ==="')
+        lines.append(f"run_case {n}")
+    lines.extend(
+        [
+            'if [ "${#failures[@]}" -ne 0 ]; then',
+            '    echo "=== scalar FAILED: ${failures[*]} ==="',
+            "    exit 1",
+            "fi",
+            f'echo "=== scalar completed: all {len(names)} cases passed ==="',
+        ]
+    )
     with open(os.path.join(ROOT, "scalar", "compile.all"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     os.chmod(os.path.join(ROOT, "scalar", "compile.all"), 0o755)

@@ -47,6 +47,7 @@ test:
 	pytest -v \
 		tests/test_bench_specs.py \
 		tests/test_env_utils.py \
+		tests/test_microbenchmark_compile_driver.py \
 		tests/test_pto_isa_0583_contract.py \
 		tests/test_registry_inventory.py \
 		tests/test_supernpu_compile_all.py \
