@@ -52,9 +52,24 @@ def test_retired_body_branch_is_rejected_outside_legacy(tmp_path):
         encoding="utf-8",
     )
     (active / "bad.S").write_text("B.EQ target\n", encoding="utf-8")
+    stale_cube = (
+        active / "benchmark" / "one-level-arch" / "test" / "kernel" / "stale_cube.cpp"
+    )
+    stale_cube.parent.mkdir(parents=True)
+    stale_cube.write_text(
+        "#define tilM 128\n"
+        "using A = TileLeft<float, tilM, 32>;\n"
+        "using D = Tile<Location::Vec, float, 128, 32>;\n"
+        "void bad(A &a, D &d) { TLOAD(a, d); TMATMUL_FIXP(d, a, a); }\n",
+        encoding="utf-8",
+    )
 
     errors = CHECKER.check_repository(tmp_path)
     assert any("retired branch B.EQ" in error for error in errors)
+    assert any("retains TileLeft" in error for error in errors)
+    assert any("retains ordinary CUBE TLOAD" in error for error in errors)
+    assert any("retains TMATMUL_FIXP" in error for error in errors)
+    assert any("illegal Local CUBE" in error for error in errors)
 
 
 def test_generated_microbenchmark_corpus_is_current():
@@ -82,3 +97,15 @@ def test_cube_accumulator_and_bias_types_are_architectural():
     assert "gmC_t<AccD, 1, N>" in header
     assert "float bias[1*N];" in fp16_bias
     assert "bench_matmul_bias<__half,M,N,K>(c,a,b,bias);" in fp16_bias
+
+
+def test_active_one_level_cube_inventory_is_closed():
+    active_root = Path.cwd() / "benchmarks" / "supernpu"
+    inventory = [
+        path.relative_to(active_root).as_posix()
+        for path in CHECKER.active_cube_inventory(active_root)
+    ]
+    assert inventory == [
+        "benchmark/one-level-arch/test/kernel/matmul/src/matmul_gmma.cpp",
+        "benchmark/one-level-arch/test/kernel/multi_thread/matmul/src/matmul.cpp",
+    ]

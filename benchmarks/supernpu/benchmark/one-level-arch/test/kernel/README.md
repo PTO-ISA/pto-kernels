@@ -9,7 +9,7 @@ Per-operator test code and build scripts. Each operator directory has a
 ```
 test/kernel/
 ├── broadcast/        element_wise/    matmul/
-├── concat/           fa/              reduction/{reducemax_col,row,...}
+├── concat/           reduction/{reducemax_col,row,...}
 ├── control/          gather/          sort/
 └── transpose/
 ```
@@ -18,8 +18,7 @@ test/kernel/
 
 | Operator | Configs | Status | Notes |
 |----------|---------|--------|-------|
-| matmul | 13 | ✓ | FP4/BF16/FP32/FP16/FP8; quantization, mixed precision, reuse |
-| fa | 9 | ✓ | 2D unroll, HIF4; `Ydim=1` crashes compiler (Issue #6) |
+| matmul | 1 | △ | PTO ISA 0.58.3 Local CELL compile smoke; runtime evidence pending |
 | transpose | 8 | ✓ | 3D~6D; __half, int32_t |
 | reduction | 8 | ✓ | row/col max/sum; int32_t, __half |
 | gelu | 8 | ✓ | exact (erf) and tanh; __bf16, __half |
@@ -38,14 +37,9 @@ test/kernel/
 ```bash
 cd test/kernel/matmul
 
-# FP4 × FP4
-make TESTCASE=matmul TYPE=HIF4_HIF4 M=256 N=2048 K=2048 tM=128 tN=128 tK=128
-
-# BF16 × FP4 mixed precision
-make TESTCASE=matmul TYPE=A16W4 M=256 N=2048 K=2048 tM=128 tN=128 tK=128
-
-# FP32 mask matmul
-make TESTCASE=matmul TYPE=MASK MODE=MASK_FP32 M=256 N=256 K=256 tM=64 tN=64 tK=64
+# FP16 Local CELL matmul with FP32 accumulator/output
+make TESTCASE=matmul TYPE=GMMA MODE=MASK_FP16 \
+    M=256 N=256 K=256 tM=16 tN=16 tK=64
 ```
 
 ### Batch / full
@@ -59,11 +53,11 @@ cd test/kernel/matmul && bash compile.all        # per-operator
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
-| `TESTCASE` | Test case name | `matmul`, `fa_2d_unroll` |
-| `TYPE` | Operator type (matmul) | `HIF4_HIF4`, `A16W4`, `MASK` |
-| `MODE` | Operator mode | `MASK_FP32`, `BF16x2_NOGATHER` |
+| `TESTCASE` | Test case name | `matmul` |
+| `TYPE` | Operator type (matmul) | `GMMA` (CELL implementation) |
+| `MODE` | Input mode | `MASK_FP16`, `MASK_FP32` |
 | `M/N/K` | Matrix dimensions | `M=256 N=2048 K=2048` |
-| `tM/tN/tK` | Tile sizes | `tM=128 tN=128 tK=128` |
+| `tM/tN/tK` | Tile sizes | `tM=16 tN=16 tK=64` (`tM <= 32`) |
 | `COMPILER_DIR` | Compiler path | `/path/to/linx/bin` |
 | `PLAT` | Platform | `linx` (default), `cpu` |
 
@@ -80,15 +74,15 @@ make clean_all                # clean all
 
 ## Operator Details
 
-### Matmul (13 configs)
-- `src/HiF4_HiF4.cpp` — FP4×FP4 quantized; `TYPE=HIF4_HIF4`, `VER=MX_NOGATHER|MX_NOGATHER_REUSEA`.
-- `src/A16W4.cpp` — BF16×FP4 mixed precision; `TYPE=A16W4`.
-- `src/matmul.cpp` — general; `TYPE=MASK`, `MODE=MASK_FP32|MASK_FP16|MASK_FP8`(+ REUSEA/REUSEB/DYNAMIC).
+### Matmul
+- `src/matmul_gmma.cpp` — active Local CUBE_M16/M32 × CUBE_N8 smoke with
+  explicit FP32 accumulator/output and CUBE GM conversion boundaries.
+- Pre-CELL MASK/HIF4/A16W4 drivers are archived under
+  `status/legacy/one-level-cube-v058-incomplete/`.
 
-### Flash Attention (9 configs)
-- `src/fa_2d_unroll.cpp` (8) — X=1/2, Y=2/4; seq 256/512.
-- `src/fa_hif4.cpp` (1) — HIF4 quantized.
-- Avoid `Ydim=1` (compiler crash).
+### Flash Attention
+- The old one-level FA programs are archived until rebuilt with exact CELL,
+  Shared publication, postprocess, and independent runtime-oracle coverage.
 
 ### Transpose (8 configs) — see [`transpose/README.md`](transpose/README.md)
 2D / 4D(A,B) / 6D(≡5D); __half, int32_t.
@@ -110,7 +104,7 @@ make clean_all                # clean all
 ### Sort — `sort/topk`.
 
 ## Known Issues
-- `fa_2d_unroll` `X=1,Y=1` / `X=2,Y=1` → `LinxV5 CallingConv Fail!` (Issue #6).
+- Archived one-level CUBE/FA programs are not active PTO ISA 0.58.3 evidence.
 - `control` needs `-s core.singleTierMode=true` on gfsim; `.data` from `gen_data.py`.
 
 ## Adding a Test

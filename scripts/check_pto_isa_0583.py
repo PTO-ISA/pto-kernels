@@ -91,6 +91,24 @@ def _active_files(active_root: Path):
         yield path
 
 
+def active_cube_inventory(active_root: Path) -> list[Path]:
+    one_level = active_root / "benchmark" / "one-level-arch"
+    trigger = re.compile(r"\b(?:TMATMUL|TGEMV)|CubeTile|CubeAccumulator")
+    inventory: list[Path] = []
+    for path in sorted(one_level.rglob("*")):
+        if not path.is_file() or path.suffix.lower() not in {
+            ".c",
+            ".cc",
+            ".cpp",
+            ".h",
+            ".hpp",
+        }:
+            continue
+        if trigger.search(path.read_text(encoding="utf-8")):
+            inventory.append(path)
+    return inventory
+
+
 def check_repository(repo_root: Path) -> list[str]:
     errors: list[str] = []
     lock_path = repo_root / "PTO_ISA.lock.json"
@@ -145,17 +163,27 @@ def check_repository(repo_root: Path) -> list[str]:
         if required not in cube_header:
             errors.append(f"cube_bench.hpp is missing accumulator trait {required}")
 
-    active_cube_sources = (
-        active_root / "benchmark" / "one-level-arch" / "test" / "kernel"
-    )
-    required_cell_sources = (
-        active_cube_sources / "matmul" / "src" / "matmul_gmma.cpp",
-        active_cube_sources / "multi_thread" / "matmul" / "src" / "matmul.cpp",
-    )
-    for source in required_cell_sources:
-        if not source.is_file():
-            errors.append(f"missing active CUBE source {source.relative_to(repo_root)}")
-            continue
+    cube_inventory = active_cube_inventory(active_root)
+    if not cube_inventory:
+        errors.append("active one-level CUBE inventory is empty")
+    inventory_path = active_root / "CUBE_ACTIVE.json"
+    if not inventory_path.is_file():
+        errors.append("missing CUBE_ACTIVE.json")
+    else:
+        inventory_data = json.loads(inventory_path.read_text(encoding="utf-8"))
+        recorded_sources = inventory_data.get("active_sources", [])
+        discovered_sources = [
+            path.relative_to(active_root).as_posix() for path in cube_inventory
+        ]
+        if inventory_data.get("schema") != "pto-kernels.supernpu-cube-active.v1":
+            errors.append("CUBE_ACTIVE.json schema mismatch")
+        if inventory_data.get("release") != "0.58.3":
+            errors.append("CUBE_ACTIVE.json release mismatch")
+        if recorded_sources != discovered_sources:
+            errors.append(
+                "CUBE_ACTIVE.json active_sources do not match discovered reachability"
+            )
+    for source in cube_inventory:
         text = source.read_text(encoding="utf-8")
         for required in (
             "CubeTileM16",
@@ -165,13 +193,30 @@ def check_repository(repo_root: Path) -> list[str]:
             "CubeAccumulatorM32",
             "TLOAD_CUBE",
             "TSTORE_CUBE",
-            "TMATMUL_ACC(tNext, tC, tA, tB)",
         ):
             if required not in text:
                 errors.append(f"{source.relative_to(repo_root)} is missing {required}")
-        for forbidden in ("TileLeft", "TileRight", "TMATMUL_FIXP"):
-            if forbidden in text:
-                errors.append(f"{source.relative_to(repo_root)} retains {forbidden}")
+        for label, pattern in (
+            ("TileLeft", r"\bTileLeft\s*<"),
+            ("TileRight", r"\bTileRight\s*<"),
+            ("TMATMUL_FIXP", r"\bTMATMUL_FIXP\s*\("),
+            ("ordinary CUBE TLOAD", r"\bTLOAD\s*\("),
+            ("ordinary CUBE TSTORE", r"\bTSTORE\s*\("),
+            ("Vec accumulator/output", r"Tile\s*<\s*Location::Vec"),
+        ):
+            if re.search(pattern, text):
+                errors.append(f"{source.relative_to(repo_root)} retains {label}")
+        for call in re.findall(r"TMATMUL_ACC\s*\(([^)]*)\)", text):
+            operands = [operand.strip() for operand in call.split(",")]
+            if len(operands) < 4 or operands[0] == operands[1]:
+                errors.append(
+                    f"{source.relative_to(repo_root)} lacks distinct explicit ACC D/C"
+                )
+        for name, value in re.findall(r"#define\s+(tilM|kTm|tM)\s+(\d+)", text):
+            if int(value) > 32:
+                errors.append(
+                    f"{source.relative_to(repo_root)} has illegal Local CUBE {name}={value}"
+                )
 
     retired_fa = (
         active_root
@@ -180,10 +225,7 @@ def check_repository(repo_root: Path) -> list[str]:
         / "one-level-cube-v058-incomplete"
         / "fa_2d_unroll_gmma.cpp"
     )
-    active_fa = (
-        active_cube_sources / "multi_thread" / "fa" / "src" / "fa_2d_unroll_gmma.cpp"
-    )
-    if active_fa.exists() or not retired_fa.is_file():
+    if not retired_fa.is_file():
         errors.append("incomplete FA GMMA sketch is not isolated under status/legacy")
 
     cube_sources = sorted(

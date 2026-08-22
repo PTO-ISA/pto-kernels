@@ -9,6 +9,8 @@ This subtree is the maintained SuperNPUBench workload collection inside
 - PTO ISA 0.58.3: exact released authority recorded in
   [`PTO_ISA.lock.json`](../../PTO_ISA.lock.json), including source commit/tree,
   encoding ABI, projection/content hashes, and instruction counts.
+- Active one-level CUBE reachability is recorded in
+  [`CUBE_ACTIVE.json`](CUBE_ACTIVE.json) and must exactly match checker discovery.
 - Semantic engines: **VEC**, **TLSU**, **CUBE**, and **SFU**.
 - VEC contains elementwise operations only; complex operations use SFU.
 - Local `B.IOT` SizeCode 1..10 encodes 128 B..64 KiB per participating PE;

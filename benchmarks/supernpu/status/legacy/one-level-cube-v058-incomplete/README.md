@@ -11,3 +11,9 @@ SPMD programming-model sketch, not a validated PTO ISA 0.58 workload:
 The active Makefile and compile list were removed. Reintroduction requires a
 fresh implementation using CUBE_M16/M32, CUBE_N8, explicit accumulator/output
 types, reviewed Shared publication, and an end-to-end oracle.
+
+This archive also contains the former one-level `kernels/fa/`,
+`kernels/matmul/`, their test drivers, and the DeepSeek multilayer-recompute
+GEMM. They were build-reachable but did not satisfy the released CELL,
+accumulator, Bias, scale, or postprocess contracts; their active Makefile and
+compile-list entries were removed.
