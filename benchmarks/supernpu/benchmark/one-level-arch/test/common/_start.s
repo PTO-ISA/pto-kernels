@@ -6,6 +6,7 @@ _start:
   C.BSTOP
 _end:
   BSTART.STD
-  addi zero, 0x5e, ->x1
+  # Linx Linux syscall ABI: a0 keeps main's status; a7 carries exit_group=94.
+  addi zero, 0x5e, ->a7
   acrc 1
   C.BSTOP
