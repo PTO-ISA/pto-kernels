@@ -92,7 +92,10 @@ void bench_matmul_bias(D *c, D *a, D *b,
     using AccD = cube_accumulator_element_t<D>;
     using itBias = global_iterator<gmC_t<AccD, 1, N>, tBias_t<D, N>>;
     itA gA(a); itB gB(b); itC gC(c); itBias gBias(bias);
-    auto gA0 = gA(0, 0), gB0 = gB(0, 0), gC0 = gC(0, 0), gBias0 = gBias(0, 0);
+    auto gA0 = gA(0, 0);
+    auto gB0 = gB(0, 0);
+    auto gC0 = gC(0, 0);
+    auto gBias0 = gBias(0, 0);
     tL_t<D, M, K> tA; tR_t<D, K, N> tB; tBias_t<D, N> tBias;
     tAcc_t<D, M, N> tAcc; tOut_t<D, M, N> tOut;
     TLOAD_CUBE(tA, gA0);
